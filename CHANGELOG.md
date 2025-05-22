@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2025-05-22)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Chores
+
+* **docs:** grammar improvements ([f555d84](https://github.com/gumnut-ai/photos-sdk-python/commit/f555d8424ca9b0def31857d80df57ed73aeb4f0d))
+
 ## 0.1.0-alpha.8 (2025-05-20)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
