@@ -18,3 +18,4 @@ from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
 from .person_update_params import PersonUpdateParams as PersonUpdateParams
 from .search_search_params import SearchSearchParams as SearchSearchParams
+from .asset_download_thumbnail_params import AssetDownloadThumbnailParams as AssetDownloadThumbnailParams
