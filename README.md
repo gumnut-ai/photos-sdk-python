@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [photos-api-a5uw.onrender.com](https://photos-api-a5uw.onrender.com/redoc). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [api.gumnut.ai](https://api.gumnut.ai/redoc). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 

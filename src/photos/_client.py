@@ -81,7 +81,7 @@ class Photos(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("PHOTOS_BASE_URL")
         if base_url is None:
-            base_url = f"https://photos-api-a5uw.onrender.com"
+            base_url = f"https://api.gumnut.ai"
 
         super().__init__(
             version=__version__,
@@ -266,7 +266,7 @@ class AsyncPhotos(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("PHOTOS_BASE_URL")
         if base_url is None:
-            base_url = f"https://photos-api-a5uw.onrender.com"
+            base_url = f"https://api.gumnut.ai"
 
         super().__init__(
             version=__version__,

@@ -12,10 +12,18 @@ from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
@@ -203,6 +211,40 @@ class FacesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def download_thumbnail(
+        self,
+        face_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """
+        Retrieves a thumbnail for a specific face.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not face_id:
+            raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
+        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
+        return self._get(
+            f"/api/faces/{face_id}/thumbnail",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
 
 class AsyncFacesResource(AsyncAPIResource):
     @cached_property
@@ -383,6 +425,40 @@ class AsyncFacesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def download_thumbnail(
+        self,
+        face_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Retrieves a thumbnail for a specific face.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not face_id:
+            raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
+        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
+        return await self._get(
+            f"/api/faces/{face_id}/thumbnail",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
 
 class FacesResourceWithRawResponse:
     def __init__(self, faces: FacesResource) -> None:
@@ -399,6 +475,10 @@ class FacesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             faces.delete,
+        )
+        self.download_thumbnail = to_custom_raw_response_wrapper(
+            faces.download_thumbnail,
+            BinaryAPIResponse,
         )
 
 
@@ -418,6 +498,10 @@ class AsyncFacesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             faces.delete,
         )
+        self.download_thumbnail = async_to_custom_raw_response_wrapper(
+            faces.download_thumbnail,
+            AsyncBinaryAPIResponse,
+        )
 
 
 class FacesResourceWithStreamingResponse:
@@ -436,6 +520,10 @@ class FacesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             faces.delete,
         )
+        self.download_thumbnail = to_custom_streamed_response_wrapper(
+            faces.download_thumbnail,
+            StreamedBinaryAPIResponse,
+        )
 
 
 class AsyncFacesResourceWithStreamingResponse:
@@ -453,4 +541,8 @@ class AsyncFacesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             faces.delete,
+        )
+        self.download_thumbnail = async_to_custom_streamed_response_wrapper(
+            faces.download_thumbnail,
+            AsyncStreamedBinaryAPIResponse,
         )
