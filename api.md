@@ -3,7 +3,7 @@
 Types:
 
 ```python
-from photos.types import APIKeyResponse, APIKeyCreateResponse, APIKeyListResponse
+from photos.types import APIKeyCreateResponse, APIKeyListResponse
 ```
 
 Methods:
