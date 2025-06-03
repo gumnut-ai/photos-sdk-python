@@ -16,7 +16,7 @@ The REST API documentation can be found on [api.gumnut.ai](https://api.gumnut.ai
 
 ```sh
 # install from PyPI
-pip install --pre gumnut-sdk
+pip install gumnut-sdk
 ```
 
 ## Usage
