@@ -28,4 +28,4 @@ jobs:
         run: |
           bash ./bin/publish-pypi
         env:
-          PYPI_TOKEN: ${{ secrets.PHOTOS_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.GUMNUT_PYPI_TOKEN || secrets.PYPI_TOKEN }}

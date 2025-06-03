@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from photos._types import NOT_GIVEN, Base64FileInput
-from photos._utils import (
+from gumnut._types import NOT_GIVEN, Base64FileInput
+from gumnut._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from photos._compat import PYDANTIC_V2
-from photos._models import BaseModel
+from gumnut._compat import PYDANTIC_V2
+from gumnut._models import BaseModel
 
 _T = TypeVar("_T")
 

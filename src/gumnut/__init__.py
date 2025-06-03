@@ -5,14 +5,14 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes
 from ._utils import file_from_path
-from ._client import Client, Photos, Stream, Timeout, Transport, AsyncClient, AsyncPhotos, AsyncStream, RequestOptions
+from ._client import Client, Gumnut, Stream, Timeout, Transport, AsyncClient, AsyncGumnut, AsyncStream, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
-    PhotosError,
+    GumnutError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -39,7 +39,7 @@ __all__ = [
     "NotGiven",
     "NOT_GIVEN",
     "Omit",
-    "PhotosError",
+    "GumnutError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -59,8 +59,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "Photos",
-    "AsyncPhotos",
+    "Gumnut",
+    "AsyncGumnut",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -78,12 +78,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# photos._exceptions.NotFoundError -> photos.NotFoundError
+# gumnut._exceptions.NotFoundError -> gumnut.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "photos"
+            __locals[__name].__module__ = "gumnut"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
