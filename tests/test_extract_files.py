@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from photos._types import FileTypes
-from photos._utils import extract_files
+from gumnut._types import FileTypes
+from gumnut._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

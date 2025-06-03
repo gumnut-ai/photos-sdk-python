@@ -1,8 +1,8 @@
-# Photos Python API library
+# Gumnut Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/gumnut-sdk.svg)](https://pypi.org/project/gumnut-sdk/)
 
-The Photos Python library provides convenient access to the Photos REST API from any Python 3.8+
+The Gumnut Python library provides convenient access to the Gumnut REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -25,10 +25,10 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from photos import Photos
+from gumnut import Gumnut
 
-client = Photos(
-    api_key=os.environ.get("PHOTOS_API_KEY"),  # This is the default and can be omitted
+client = Gumnut(
+    api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
 )
 
 album_response = client.albums.create(
@@ -39,20 +39,20 @@ print(album_response.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `PHOTOS_API_KEY="My API Key"` to your `.env` file
+to add `GUMNUT_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncPhotos` instead of `Photos` and use `await` with each API call:
+Simply import `AsyncGumnut` instead of `Gumnut` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from photos import AsyncPhotos
+from gumnut import AsyncGumnut
 
-client = AsyncPhotos(
-    api_key=os.environ.get("PHOTOS_API_KEY"),  # This is the default and can be omitted
+client = AsyncGumnut(
+    api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -79,14 +79,14 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Pagination
 
-List methods in the Photos API are paginated.
+List methods in the Gumnut API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from photos import Photos
+from gumnut import Gumnut
 
-client = Photos()
+client = Gumnut()
 
 all_assets = []
 # Automatically fetches more pages as needed.
@@ -102,9 +102,9 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from photos import AsyncPhotos
+from gumnut import AsyncGumnut
 
-client = AsyncPhotos()
+client = AsyncGumnut()
 
 
 async def main() -> None:
@@ -156,9 +156,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from photos import Photos
+from gumnut import Gumnut
 
-client = Photos()
+client = Gumnut()
 
 client.assets.create(
     asset_data=Path("/path/to/file"),
@@ -173,29 +173,29 @@ The async client uses the exact same interface. If you pass a [`PathLike`](https
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `photos.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `gumnut.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `photos.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `gumnut.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `photos.APIError`.
+All errors inherit from `gumnut.APIError`.
 
 ```python
-import photos
-from photos import Photos
+import gumnut
+from gumnut import Gumnut
 
-client = Photos()
+client = Gumnut()
 
 try:
     client.albums.create(
         name="name",
     )
-except photos.APIConnectionError as e:
+except gumnut.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except photos.RateLimitError as e:
+except gumnut.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except photos.APIStatusError as e:
+except gumnut.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -223,10 +223,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from photos import Photos
+from gumnut import Gumnut
 
 # Configure the default for all requests:
-client = Photos(
+client = Gumnut(
     # default is 2
     max_retries=0,
 )
@@ -243,16 +243,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from photos import Photos
+from gumnut import Gumnut
 
 # Configure the default for all requests:
-client = Photos(
+client = Gumnut(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Photos(
+client = Gumnut(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -272,10 +272,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `PHOTOS_LOG` to `info`.
+You can enable logging by setting the environment variable `GUMNUT_LOG` to `info`.
 
 ```shell
-$ export PHOTOS_LOG=info
+$ export GUMNUT_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -297,9 +297,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from photos import Photos
+from gumnut import Gumnut
 
-client = Photos()
+client = Gumnut()
 response = client.albums.with_raw_response.create(
     name="name",
 )
@@ -309,9 +309,9 @@ album = response.parse()  # get the object that `albums.create()` would have ret
 print(album.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/gumnut-ai/photos-sdk-python/tree/main/src/photos/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/gumnut-ai/photos-sdk-python/tree/main/src/gumnut/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/gumnut-ai/photos-sdk-python/tree/main/src/photos/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/gumnut-ai/photos-sdk-python/tree/main/src/gumnut/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -375,10 +375,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from photos import Photos, DefaultHttpxClient
+from gumnut import Gumnut, DefaultHttpxClient
 
-client = Photos(
-    # Or use the `PHOTOS_BASE_URL` env var
+client = Gumnut(
+    # Or use the `GUMNUT_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -398,9 +398,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from photos import Photos
+from gumnut import Gumnut
 
-with Photos() as client:
+with Gumnut() as client:
   # make requests here
   ...
 
@@ -426,8 +426,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import photos
-print(photos.__version__)
+import gumnut
+print(gumnut.__version__)
 ```
 
 ## Requirements

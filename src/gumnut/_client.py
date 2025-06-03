@@ -32,18 +32,18 @@ from ._base_client import (
 )
 from .resources.albums import albums
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Photos", "AsyncPhotos", "Client", "AsyncClient"]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
 
 
-class Photos(SyncAPIClient):
+class Gumnut(SyncAPIClient):
     api_keys: api_keys.APIKeysResource
     assets: assets.AssetsResource
     albums: albums.AlbumsResource
     faces: faces.FacesResource
     people: people.PeopleResource
     search: search.SearchResource
-    with_raw_response: PhotosWithRawResponse
-    with_streaming_response: PhotosWithStreamedResponse
+    with_raw_response: GumnutWithRawResponse
+    with_streaming_response: GumnutWithStreamedResponse
 
     # client options
     api_key: str | None
@@ -71,16 +71,16 @@ class Photos(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Photos client instance.
+        """Construct a new synchronous Gumnut client instance.
 
-        This automatically infers the `api_key` argument from the `PHOTOS_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `GUMNUT_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("PHOTOS_API_KEY")
+            api_key = os.environ.get("GUMNUT_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("PHOTOS_BASE_URL")
+            base_url = os.environ.get("GUMNUT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.gumnut.ai"
 
@@ -101,8 +101,8 @@ class Photos(SyncAPIClient):
         self.faces = faces.FacesResource(self)
         self.people = people.PeopleResource(self)
         self.search = search.SearchResource(self)
-        self.with_raw_response = PhotosWithRawResponse(self)
-        self.with_streaming_response = PhotosWithStreamedResponse(self)
+        self.with_raw_response = GumnutWithRawResponse(self)
+        self.with_streaming_response = GumnutWithStreamedResponse(self)
 
     @property
     @override
@@ -222,15 +222,15 @@ class Photos(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncPhotos(AsyncAPIClient):
+class AsyncGumnut(AsyncAPIClient):
     api_keys: api_keys.AsyncAPIKeysResource
     assets: assets.AsyncAssetsResource
     albums: albums.AsyncAlbumsResource
     faces: faces.AsyncFacesResource
     people: people.AsyncPeopleResource
     search: search.AsyncSearchResource
-    with_raw_response: AsyncPhotosWithRawResponse
-    with_streaming_response: AsyncPhotosWithStreamedResponse
+    with_raw_response: AsyncGumnutWithRawResponse
+    with_streaming_response: AsyncGumnutWithStreamedResponse
 
     # client options
     api_key: str | None
@@ -258,16 +258,16 @@ class AsyncPhotos(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncPhotos client instance.
+        """Construct a new async AsyncGumnut client instance.
 
-        This automatically infers the `api_key` argument from the `PHOTOS_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `GUMNUT_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("PHOTOS_API_KEY")
+            api_key = os.environ.get("GUMNUT_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("PHOTOS_BASE_URL")
+            base_url = os.environ.get("GUMNUT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.gumnut.ai"
 
@@ -288,8 +288,8 @@ class AsyncPhotos(AsyncAPIClient):
         self.faces = faces.AsyncFacesResource(self)
         self.people = people.AsyncPeopleResource(self)
         self.search = search.AsyncSearchResource(self)
-        self.with_raw_response = AsyncPhotosWithRawResponse(self)
-        self.with_streaming_response = AsyncPhotosWithStreamedResponse(self)
+        self.with_raw_response = AsyncGumnutWithRawResponse(self)
+        self.with_streaming_response = AsyncGumnutWithStreamedResponse(self)
 
     @property
     @override
@@ -409,8 +409,8 @@ class AsyncPhotos(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class PhotosWithRawResponse:
-    def __init__(self, client: Photos) -> None:
+class GumnutWithRawResponse:
+    def __init__(self, client: Gumnut) -> None:
         self.api_keys = api_keys.APIKeysResourceWithRawResponse(client.api_keys)
         self.assets = assets.AssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AlbumsResourceWithRawResponse(client.albums)
@@ -419,8 +419,8 @@ class PhotosWithRawResponse:
         self.search = search.SearchResourceWithRawResponse(client.search)
 
 
-class AsyncPhotosWithRawResponse:
-    def __init__(self, client: AsyncPhotos) -> None:
+class AsyncGumnutWithRawResponse:
+    def __init__(self, client: AsyncGumnut) -> None:
         self.api_keys = api_keys.AsyncAPIKeysResourceWithRawResponse(client.api_keys)
         self.assets = assets.AsyncAssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithRawResponse(client.albums)
@@ -429,8 +429,8 @@ class AsyncPhotosWithRawResponse:
         self.search = search.AsyncSearchResourceWithRawResponse(client.search)
 
 
-class PhotosWithStreamedResponse:
-    def __init__(self, client: Photos) -> None:
+class GumnutWithStreamedResponse:
+    def __init__(self, client: Gumnut) -> None:
         self.api_keys = api_keys.APIKeysResourceWithStreamingResponse(client.api_keys)
         self.assets = assets.AssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AlbumsResourceWithStreamingResponse(client.albums)
@@ -439,8 +439,8 @@ class PhotosWithStreamedResponse:
         self.search = search.SearchResourceWithStreamingResponse(client.search)
 
 
-class AsyncPhotosWithStreamedResponse:
-    def __init__(self, client: AsyncPhotos) -> None:
+class AsyncGumnutWithStreamedResponse:
+    def __init__(self, client: AsyncGumnut) -> None:
         self.api_keys = api_keys.AsyncAPIKeysResourceWithStreamingResponse(client.api_keys)
         self.assets = assets.AsyncAssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithStreamingResponse(client.albums)
@@ -449,6 +449,6 @@ class AsyncPhotosWithStreamedResponse:
         self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
 
 
-Client = Photos
+Client = Gumnut
 
-AsyncClient = AsyncPhotos
+AsyncClient = AsyncGumnut

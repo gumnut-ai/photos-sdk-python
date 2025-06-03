@@ -9,16 +9,16 @@ import httpx
 import pytest
 from respx import MockRouter
 
-from photos import Photos, AsyncPhotos
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from photos.types import FaceResponse
-from photos._response import (
+from gumnut.types import FaceResponse
+from gumnut._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
     AsyncStreamedBinaryAPIResponse,
 )
-from photos.pagination import SyncCursorPage, AsyncCursorPage
+from gumnut.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -28,7 +28,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_retrieve(self, client: Photos) -> None:
+    def test_method_retrieve(self, client: Gumnut) -> None:
         face = client.faces.retrieve(
             "face_id",
         )
@@ -36,7 +36,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_retrieve(self, client: Photos) -> None:
+    def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.faces.with_raw_response.retrieve(
             "face_id",
         )
@@ -48,7 +48,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_retrieve(self, client: Photos) -> None:
+    def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.faces.with_streaming_response.retrieve(
             "face_id",
         ) as response:
@@ -62,7 +62,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_retrieve(self, client: Photos) -> None:
+    def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             client.faces.with_raw_response.retrieve(
                 "",
@@ -70,7 +70,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_update(self, client: Photos) -> None:
+    def test_method_update(self, client: Gumnut) -> None:
         face = client.faces.update(
             face_id="face_id",
         )
@@ -78,7 +78,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_update_with_all_params(self, client: Photos) -> None:
+    def test_method_update_with_all_params(self, client: Gumnut) -> None:
         face = client.faces.update(
             face_id="face_id",
             person_id="person_id",
@@ -87,7 +87,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_update(self, client: Photos) -> None:
+    def test_raw_response_update(self, client: Gumnut) -> None:
         response = client.faces.with_raw_response.update(
             face_id="face_id",
         )
@@ -99,7 +99,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_update(self, client: Photos) -> None:
+    def test_streaming_response_update(self, client: Gumnut) -> None:
         with client.faces.with_streaming_response.update(
             face_id="face_id",
         ) as response:
@@ -113,7 +113,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_update(self, client: Photos) -> None:
+    def test_path_params_update(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             client.faces.with_raw_response.update(
                 face_id="",
@@ -121,13 +121,13 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list(self, client: Photos) -> None:
+    def test_method_list(self, client: Gumnut) -> None:
         face = client.faces.list()
         assert_matches_type(SyncCursorPage[FaceResponse], face, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list_with_all_params(self, client: Photos) -> None:
+    def test_method_list_with_all_params(self, client: Gumnut) -> None:
         face = client.faces.list(
             asset_id="asset_id",
             limit=1,
@@ -138,7 +138,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_list(self, client: Photos) -> None:
+    def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.faces.with_raw_response.list()
 
         assert response.is_closed is True
@@ -148,7 +148,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_list(self, client: Photos) -> None:
+    def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.faces.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -160,7 +160,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_delete(self, client: Photos) -> None:
+    def test_method_delete(self, client: Gumnut) -> None:
         face = client.faces.delete(
             "face_id",
         )
@@ -168,7 +168,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_delete(self, client: Photos) -> None:
+    def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.faces.with_raw_response.delete(
             "face_id",
         )
@@ -180,7 +180,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_delete(self, client: Photos) -> None:
+    def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.faces.with_streaming_response.delete(
             "face_id",
         ) as response:
@@ -194,7 +194,7 @@ class TestFaces:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_delete(self, client: Photos) -> None:
+    def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             client.faces.with_raw_response.delete(
                 "",
@@ -203,7 +203,7 @@ class TestFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_download_thumbnail(self, client: Photos, respx_mock: MockRouter) -> None:
+    def test_method_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         face = client.faces.download_thumbnail(
             "face_id",
@@ -216,7 +216,7 @@ class TestFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_download_thumbnail(self, client: Photos, respx_mock: MockRouter) -> None:
+    def test_raw_response_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         face = client.faces.with_raw_response.download_thumbnail(
@@ -231,7 +231,7 @@ class TestFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_download_thumbnail(self, client: Photos, respx_mock: MockRouter) -> None:
+    def test_streaming_response_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.faces.with_streaming_response.download_thumbnail(
             "face_id",
@@ -248,7 +248,7 @@ class TestFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_download_thumbnail(self, client: Photos) -> None:
+    def test_path_params_download_thumbnail(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             client.faces.with_raw_response.download_thumbnail(
                 "",
@@ -260,7 +260,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncPhotos) -> None:
+    async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.retrieve(
             "face_id",
         )
@@ -268,7 +268,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.faces.with_raw_response.retrieve(
             "face_id",
         )
@@ -280,7 +280,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.faces.with_streaming_response.retrieve(
             "face_id",
         ) as response:
@@ -294,7 +294,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncPhotos) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             await async_client.faces.with_raw_response.retrieve(
                 "",
@@ -302,7 +302,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_update(self, async_client: AsyncPhotos) -> None:
+    async def test_method_update(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.update(
             face_id="face_id",
         )
@@ -310,7 +310,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncPhotos) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.update(
             face_id="face_id",
             person_id="person_id",
@@ -319,7 +319,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
         response = await async_client.faces.with_raw_response.update(
             face_id="face_id",
         )
@@ -331,7 +331,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
         async with async_client.faces.with_streaming_response.update(
             face_id="face_id",
         ) as response:
@@ -345,7 +345,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncPhotos) -> None:
+    async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             await async_client.faces.with_raw_response.update(
                 face_id="",
@@ -353,13 +353,13 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list(self, async_client: AsyncPhotos) -> None:
+    async def test_method_list(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.list()
         assert_matches_type(AsyncCursorPage[FaceResponse], face, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncPhotos) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.list(
             asset_id="asset_id",
             limit=1,
@@ -370,7 +370,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.faces.with_raw_response.list()
 
         assert response.is_closed is True
@@ -380,7 +380,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.faces.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -392,7 +392,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.delete(
             "face_id",
         )
@@ -400,7 +400,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.faces.with_raw_response.delete(
             "face_id",
         )
@@ -412,7 +412,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.faces.with_streaming_response.delete(
             "face_id",
         ) as response:
@@ -426,7 +426,7 @@ class TestAsyncFaces:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             await async_client.faces.with_raw_response.delete(
                 "",
@@ -435,7 +435,7 @@ class TestAsyncFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_download_thumbnail(self, async_client: AsyncPhotos, respx_mock: MockRouter) -> None:
+    async def test_method_download_thumbnail(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         face = await async_client.faces.download_thumbnail(
             "face_id",
@@ -448,7 +448,7 @@ class TestAsyncFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_download_thumbnail(self, async_client: AsyncPhotos, respx_mock: MockRouter) -> None:
+    async def test_raw_response_download_thumbnail(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         face = await async_client.faces.with_raw_response.download_thumbnail(
@@ -464,7 +464,7 @@ class TestAsyncFaces:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_download_thumbnail(
-        self, async_client: AsyncPhotos, respx_mock: MockRouter
+        self, async_client: AsyncGumnut, respx_mock: MockRouter
     ) -> None:
         respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.faces.with_streaming_response.download_thumbnail(
@@ -482,7 +482,7 @@ class TestAsyncFaces:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_download_thumbnail(self, async_client: AsyncPhotos) -> None:
+    async def test_path_params_download_thumbnail(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             await async_client.faces.with_raw_response.download_thumbnail(
                 "",
