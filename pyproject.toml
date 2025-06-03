@@ -1,5 +1,5 @@
 [project]
-name = "photos-sdk"
+name = "gumnut-sdk"
 version = "0.1.0-alpha.11"
 description = "The official Python library for the photos API"
 dynamic = ["readme"]
