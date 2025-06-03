@@ -1,3 +1,17 @@
+# APIKeys
+
+Types:
+
+```python
+from photos.types import APIKeyResponse, APIKeyCreateResponse, APIKeyListResponse
+```
+
+Methods:
+
+- <code title="post /api-keys/">client.api_keys.<a href="./src/photos/resources/api_keys.py">create</a>() -> <a href="./src/photos/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
+- <code title="get /api-keys/">client.api_keys.<a href="./src/photos/resources/api_keys.py">list</a>() -> <a href="./src/photos/types/api_key_list_response.py">APIKeyListResponse</a></code>
+- <code title="delete /api-keys/{key_id}">client.api_keys.<a href="./src/photos/resources/api_keys.py">delete</a>(key_id) -> None</code>
+
 # Assets
 
 Types:

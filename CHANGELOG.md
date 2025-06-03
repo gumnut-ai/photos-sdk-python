@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2025-06-03)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Features
+
+* **api:** update via SDK Studio ([8a22719](https://github.com/gumnut-ai/photos-sdk-python/commit/8a22719cc1acb6419c698e4390f6e6f2faa0b50b))
+* **client:** add follow_redirects request option ([263365e](https://github.com/gumnut-ai/photos-sdk-python/commit/263365efcca0d2e15cfb53e7dd2a1ce910bb3002))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([f339c41](https://github.com/gumnut-ai/photos-sdk-python/commit/f339c4153747f3abc8fdac58546ebd4b979b8b26))
+
 ## 0.1.0-alpha.10 (2025-06-02)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
