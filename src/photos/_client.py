@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import faces, assets, people, search
+from .resources import faces, assets, people, search, api_keys
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -36,6 +36,7 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Photos", "
 
 
 class Photos(SyncAPIClient):
+    api_keys: api_keys.APIKeysResource
     assets: assets.AssetsResource
     albums: albums.AlbumsResource
     faces: faces.FacesResource
@@ -94,6 +95,7 @@ class Photos(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.api_keys = api_keys.APIKeysResource(self)
         self.assets = assets.AssetsResource(self)
         self.albums = albums.AlbumsResource(self)
         self.faces = faces.FacesResource(self)
@@ -221,6 +223,7 @@ class Photos(SyncAPIClient):
 
 
 class AsyncPhotos(AsyncAPIClient):
+    api_keys: api_keys.AsyncAPIKeysResource
     assets: assets.AsyncAssetsResource
     albums: albums.AsyncAlbumsResource
     faces: faces.AsyncFacesResource
@@ -279,6 +282,7 @@ class AsyncPhotos(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.api_keys = api_keys.AsyncAPIKeysResource(self)
         self.assets = assets.AsyncAssetsResource(self)
         self.albums = albums.AsyncAlbumsResource(self)
         self.faces = faces.AsyncFacesResource(self)
@@ -407,6 +411,7 @@ class AsyncPhotos(AsyncAPIClient):
 
 class PhotosWithRawResponse:
     def __init__(self, client: Photos) -> None:
+        self.api_keys = api_keys.APIKeysResourceWithRawResponse(client.api_keys)
         self.assets = assets.AssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.FacesResourceWithRawResponse(client.faces)
@@ -416,6 +421,7 @@ class PhotosWithRawResponse:
 
 class AsyncPhotosWithRawResponse:
     def __init__(self, client: AsyncPhotos) -> None:
+        self.api_keys = api_keys.AsyncAPIKeysResourceWithRawResponse(client.api_keys)
         self.assets = assets.AsyncAssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithRawResponse(client.faces)
@@ -425,6 +431,7 @@ class AsyncPhotosWithRawResponse:
 
 class PhotosWithStreamedResponse:
     def __init__(self, client: Photos) -> None:
+        self.api_keys = api_keys.APIKeysResourceWithStreamingResponse(client.api_keys)
         self.assets = assets.AssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.FacesResourceWithStreamingResponse(client.faces)
@@ -434,6 +441,7 @@ class PhotosWithStreamedResponse:
 
 class AsyncPhotosWithStreamedResponse:
     def __init__(self, client: AsyncPhotos) -> None:
+        self.api_keys = api_keys.AsyncAPIKeysResourceWithStreamingResponse(client.api_keys)
         self.assets = assets.AsyncAssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithStreamingResponse(client.faces)
