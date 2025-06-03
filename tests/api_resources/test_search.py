@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from photos import Photos, AsyncPhotos
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from photos.types import SearchResponse
+from gumnut.types import SearchResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,7 +19,7 @@ class TestSearch:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_search(self, client: Photos) -> None:
+    def test_method_search(self, client: Gumnut) -> None:
         search = client.search.search(
             query="query",
         )
@@ -27,7 +27,7 @@ class TestSearch:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_search_with_all_params(self, client: Photos) -> None:
+    def test_method_search_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search(
             query="query",
             limit=1,
@@ -38,7 +38,7 @@ class TestSearch:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_search(self, client: Photos) -> None:
+    def test_raw_response_search(self, client: Gumnut) -> None:
         response = client.search.with_raw_response.search(
             query="query",
         )
@@ -50,7 +50,7 @@ class TestSearch:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_search(self, client: Photos) -> None:
+    def test_streaming_response_search(self, client: Gumnut) -> None:
         with client.search.with_streaming_response.search(
             query="query",
         ) as response:
@@ -68,7 +68,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_search(self, async_client: AsyncPhotos) -> None:
+    async def test_method_search(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
             query="query",
         )
@@ -76,7 +76,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_search_with_all_params(self, async_client: AsyncPhotos) -> None:
+    async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
             query="query",
             limit=1,
@@ -87,7 +87,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_search(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_search(self, async_client: AsyncGumnut) -> None:
         response = await async_client.search.with_raw_response.search(
             query="query",
         )
@@ -99,7 +99,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_search(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_search(self, async_client: AsyncGumnut) -> None:
         async with async_client.search.with_streaming_response.search(
             query="query",
         ) as response:

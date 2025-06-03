@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from photos import Photos, AsyncPhotos
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from photos.types import APIKeyListResponse, APIKeyCreateResponse
+from gumnut.types import APIKeyListResponse, APIKeyCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,13 +19,13 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create(self, client: Photos) -> None:
+    def test_method_create(self, client: Gumnut) -> None:
         api_key = client.api_keys.create()
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_create(self, client: Photos) -> None:
+    def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.create()
 
         assert response.is_closed is True
@@ -35,7 +35,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_create(self, client: Photos) -> None:
+    def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -47,13 +47,13 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list(self, client: Photos) -> None:
+    def test_method_list(self, client: Gumnut) -> None:
         api_key = client.api_keys.list()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_list(self, client: Photos) -> None:
+    def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -63,7 +63,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_list(self, client: Photos) -> None:
+    def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -75,7 +75,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_delete(self, client: Photos) -> None:
+    def test_method_delete(self, client: Gumnut) -> None:
         api_key = client.api_keys.delete(
             "key_id",
         )
@@ -83,7 +83,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_delete(self, client: Photos) -> None:
+    def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.delete(
             "key_id",
         )
@@ -95,7 +95,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_delete(self, client: Photos) -> None:
+    def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.delete(
             "key_id",
         ) as response:
@@ -109,7 +109,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_delete(self, client: Photos) -> None:
+    def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             client.api_keys.with_raw_response.delete(
                 "",
@@ -121,13 +121,13 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create(self, async_client: AsyncPhotos) -> None:
+    async def test_method_create(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.create()
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.create()
 
         assert response.is_closed is True
@@ -137,7 +137,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -149,13 +149,13 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list(self, async_client: AsyncPhotos) -> None:
+    async def test_method_list(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.list()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -165,7 +165,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -177,7 +177,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.delete(
             "key_id",
         )
@@ -185,7 +185,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.delete(
             "key_id",
         )
@@ -197,7 +197,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.delete(
             "key_id",
         ) as response:
@@ -211,7 +211,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncPhotos) -> None:
+    async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             await async_client.api_keys.with_raw_response.delete(
                 "",

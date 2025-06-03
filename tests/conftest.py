@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from photos import Photos, AsyncPhotos
+from gumnut import Gumnut, AsyncGumnut
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("photos").setLevel(logging.DEBUG)
+logging.getLogger("gumnut").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -32,20 +32,20 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[Photos]:
+def client(request: FixtureRequest) -> Iterator[Gumnut]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Photos(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncPhotos]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncGumnut]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncPhotos(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    async with AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client

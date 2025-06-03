@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class PhotosError(Exception):
+class GumnutError(Exception):
     pass
 
 
-class APIError(PhotosError):
+class APIError(GumnutError):
     message: str
     request: httpx.Request
 
