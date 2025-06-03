@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0 (2025-06-03)
+
+Full Changelog: [v0.1.0-alpha.11...v0.1.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.11...v0.1.0)
+
+### Features
+
+* **api:** api update ([48437c1](https://github.com/gumnut-ai/photos-sdk-python/commit/48437c165a48470553384842ccfa8b2661c25bc7))
+* **api:** api update ([3f04eda](https://github.com/gumnut-ai/photos-sdk-python/commit/3f04edaeae3eee9076f94c704c457932d18f1e2c))
+
+
+### Chores
+
+* update SDK settings ([694f0d6](https://github.com/gumnut-ai/photos-sdk-python/commit/694f0d657f6700a7e76e0b9d87e206fb1fa4d0fc))
+
 ## 0.1.0-alpha.11 (2025-06-03)
 
 Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
