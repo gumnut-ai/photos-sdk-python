@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 (2025-06-03)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** rename photos to gumnut ([669a287](https://github.com/gumnut-ai/photos-sdk-python/commit/669a28766d765b4d80ea02f7b73b6b7d67b05f35))
+
+
+### Chores
+
+* **internal:** version bump ([94dbbce](https://github.com/gumnut-ai/photos-sdk-python/commit/94dbbcee870de7c878a19672ca1b32c2312c407a))
+
 ## 0.1.0 (2025-06-03)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.1.0-alpha.11...v0.1.0)
