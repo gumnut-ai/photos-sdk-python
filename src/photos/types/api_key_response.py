@@ -5,13 +5,11 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["APIKeyCreateResponse"]
+__all__ = ["APIKeyResponse"]
 
 
-class APIKeyCreateResponse(BaseModel):
+class APIKeyResponse(BaseModel):
     id: str
-
-    api_key: str
 
     created_at: datetime
 
