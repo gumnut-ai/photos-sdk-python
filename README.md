@@ -1,6 +1,6 @@
 # Photos Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/photos-sdk.svg)](https://pypi.org/project/photos-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/gumnut-sdk.svg)](https://pypi.org/project/gumnut-sdk/)
 
 The Photos Python library provides convenient access to the Photos REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,7 +16,7 @@ The REST API documentation can be found on [api.gumnut.ai](https://api.gumnut.ai
 
 ```sh
 # install from PyPI
-pip install --pre photos-sdk
+pip install --pre gumnut-sdk
 ```
 
 ## Usage
