@@ -20,13 +20,17 @@ class TestAPIKeys:
     @pytest.mark.skip()
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
-        api_key = client.api_keys.create()
+        api_key = client.api_keys.create(
+            name="name",
+        )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
-        response = client.api_keys.with_raw_response.create()
+        response = client.api_keys.with_raw_response.create(
+            name="name",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -36,7 +40,9 @@ class TestAPIKeys:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
-        with client.api_keys.with_streaming_response.create() as response:
+        with client.api_keys.with_streaming_response.create(
+            name="name",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -122,13 +128,17 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip()
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
-        api_key = await async_client.api_keys.create()
+        api_key = await async_client.api_keys.create(
+            name="name",
+        )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
-        response = await async_client.api_keys.with_raw_response.create()
+        response = await async_client.api_keys.with_raw_response.create(
+            name="name",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -138,7 +148,9 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
-        async with async_client.api_keys.with_streaming_response.create() as response:
+        async with async_client.api_keys.with_streaming_response.create(
+            name="name",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
