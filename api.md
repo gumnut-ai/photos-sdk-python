@@ -8,7 +8,7 @@ from gumnut.types import APIKeyResponse, APIKeyCreateResponse, APIKeyListRespons
 
 Methods:
 
-- <code title="post /api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">create</a>() -> <a href="./src/gumnut/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
+- <code title="post /api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">create</a>(\*\*<a href="src/gumnut/types/api_key_create_params.py">params</a>) -> <a href="./src/gumnut/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
 - <code title="get /api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">list</a>() -> <a href="./src/gumnut/types/api_key_list_response.py">APIKeyListResponse</a></code>
 - <code title="delete /api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">delete</a>(key_id) -> None</code>
 
