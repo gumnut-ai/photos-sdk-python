@@ -237,8 +237,8 @@ class PeopleResource(SyncAPIResource):
     ) -> None:
         """Deletes a specific person.
 
-        Associated faces will have their person_id set to
-        NULL.
+        Associated faces will have their person_id set to the
+        closest matching person, or null if no one matches.
 
         Args:
           extra_headers: Send extra headers
@@ -473,8 +473,8 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> None:
         """Deletes a specific person.
 
-        Associated faces will have their person_id set to
-        NULL.
+        Associated faces will have their person_id set to the
+        closest matching person, or null if no one matches.
 
         Args:
           extra_headers: Send extra headers
