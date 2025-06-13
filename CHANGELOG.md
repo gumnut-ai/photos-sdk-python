@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.1 (2025-06-13)
+
+Full Changelog: [v0.5.0...v0.5.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.5.0...v0.5.1)
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([8b9eec2](https://github.com/gumnut-ai/photos-sdk-python/commit/8b9eec2eb0329c4ffea7e8cc3dd1301f14d0cadd))
+
+
+### Chores
+
+* **tests:** run tests in parallel ([34b8834](https://github.com/gumnut-ai/photos-sdk-python/commit/34b88342b2ad40f044576c4ac767dc078b4372a6))
+
 ## 0.5.0 (2025-06-12)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.4.0...v0.5.0)
