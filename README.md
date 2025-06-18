@@ -1,6 +1,6 @@
 # Gumnut Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/gumnut-sdk.svg)](https://pypi.org/project/gumnut-sdk/)
+[![PyPI version](<https://img.shields.io/pypi/v/gumnut-sdk.svg?label=pypi%20(stable)>)](https://pypi.org/project/gumnut-sdk/)
 
 The Gumnut Python library provides convenient access to the Gumnut REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
