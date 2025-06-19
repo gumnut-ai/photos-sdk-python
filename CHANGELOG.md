@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.5.2 (2025-06-19)
+
+Full Changelog: [v0.5.1...v0.5.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.5.1...v0.5.2)
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([df7fc1e](https://github.com/gumnut-ai/photos-sdk-python/commit/df7fc1ef90c5cab99095ce827ece0bf1ff53a174))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([46b3767](https://github.com/gumnut-ai/photos-sdk-python/commit/46b37675813ffe25e79a0322049d84ed109dd2f1))
+* **internal:** update conftest.py ([64ce7ce](https://github.com/gumnut-ai/photos-sdk-python/commit/64ce7ce471bbb461c79275a77b58231fa8f36883))
+* **readme:** update badges ([f541b7b](https://github.com/gumnut-ai/photos-sdk-python/commit/f541b7ba8f030bfa19fad00c02d23b3ac0d39fd5))
+* **tests:** add tests for httpx client instantiation & proxies ([585f435](https://github.com/gumnut-ai/photos-sdk-python/commit/585f4359186e17b8eb003f5114635d66ff7c4495))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([5dcfcf4](https://github.com/gumnut-ai/photos-sdk-python/commit/5dcfcf417cab51e7e1df872ac9025558e9ec8243))
+
 ## 0.5.1 (2025-06-13)
 
 Full Changelog: [v0.5.0...v0.5.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.5.0...v0.5.1)
