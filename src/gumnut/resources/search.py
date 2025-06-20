@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+from datetime import datetime
+
 import httpx
 
 from ..types import search_search_params
@@ -44,9 +47,12 @@ class SearchResource(SyncAPIResource):
     def search(
         self,
         *,
-        query: str,
+        captured_after: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        captured_before: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
+        person_ids: List[str] | NotGiven = NOT_GIVEN,
+        query: Optional[str] | NotGiven = NOT_GIVEN,
         threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -55,15 +61,23 @@ class SearchResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchResponse:
-        """
-        Searches for assets based on a text query using semantic similarity.
+        """Searches for assets using semantic similarity and/or metadata filters.
+
+        At least
+        one search criterion must be provided.
 
         Args:
-          query: The text query to search for
+          captured_after: Filter to only include assets captured after this date (ISO format).
+
+          captured_before: Filter to only include assets captured before this date (ISO format).
 
           limit: Number of results per page
 
           page: Page number
+
+          person_ids: Filter to only include assets containing ALL of these person IDs
+
+          query: The text query to search for
 
           threshold: Similarity threshold (lower means more similar)
 
@@ -84,9 +98,12 @@ class SearchResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "query": query,
+                        "captured_after": captured_after,
+                        "captured_before": captured_before,
                         "limit": limit,
                         "page": page,
+                        "person_ids": person_ids,
+                        "query": query,
                         "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
@@ -119,9 +136,12 @@ class AsyncSearchResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        query: str,
+        captured_after: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        captured_before: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
+        person_ids: List[str] | NotGiven = NOT_GIVEN,
+        query: Optional[str] | NotGiven = NOT_GIVEN,
         threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -130,15 +150,23 @@ class AsyncSearchResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchResponse:
-        """
-        Searches for assets based on a text query using semantic similarity.
+        """Searches for assets using semantic similarity and/or metadata filters.
+
+        At least
+        one search criterion must be provided.
 
         Args:
-          query: The text query to search for
+          captured_after: Filter to only include assets captured after this date (ISO format).
+
+          captured_before: Filter to only include assets captured before this date (ISO format).
 
           limit: Number of results per page
 
           page: Page number
+
+          person_ids: Filter to only include assets containing ALL of these person IDs
+
+          query: The text query to search for
 
           threshold: Similarity threshold (lower means more similar)
 
@@ -159,9 +187,12 @@ class AsyncSearchResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "query": query,
+                        "captured_after": captured_after,
+                        "captured_before": captured_before,
                         "limit": limit,
                         "page": page,
+                        "person_ids": person_ids,
+                        "query": query,
                         "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
