@@ -2,20 +2,33 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["SearchSearchParams"]
 
 
 class SearchSearchParams(TypedDict, total=False):
-    query: Required[str]
-    """The text query to search for"""
+    captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Filter to only include assets captured after this date (ISO format)."""
+
+    captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Filter to only include assets captured before this date (ISO format)."""
 
     limit: int
     """Number of results per page"""
 
     page: int
     """Page number"""
+
+    person_ids: List[str]
+    """Filter to only include assets containing ALL of these person IDs"""
+
+    query: Optional[str]
+    """The text query to search for"""
 
     threshold: float
     """Similarity threshold (lower means more similar)"""
