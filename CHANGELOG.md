@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 (2025-06-21)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **client:** add support for aiohttp ([e0636cf](https://github.com/gumnut-ai/photos-sdk-python/commit/e0636cff5339f64f80fbde5d7842c4686b470a28))
+
 ## 0.6.0 (2025-06-20)
 
 Full Changelog: [v0.5.2...v0.6.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.5.2...v0.6.0)
