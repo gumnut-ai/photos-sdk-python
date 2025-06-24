@@ -9,7 +9,7 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types.albums import AssetListResponse
+from gumnut.types.albums import AssetAddResponse, AssetListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -66,7 +66,7 @@ class TestAssets:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert asset is None
+        assert_matches_type(AssetAddResponse, asset, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -79,7 +79,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert asset is None
+        assert_matches_type(AssetAddResponse, asset, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -92,7 +92,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert asset is None
+            assert_matches_type(AssetAddResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -206,7 +206,7 @@ class TestAsyncAssets:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert asset is None
+        assert_matches_type(AssetAddResponse, asset, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -219,7 +219,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert asset is None
+        assert_matches_type(AssetAddResponse, asset, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -232,7 +232,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert asset is None
+            assert_matches_type(AssetAddResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
