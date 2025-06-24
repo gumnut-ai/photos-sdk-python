@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.1 (2025-06-24)
+
+Full Changelog: [v0.7.0...v0.7.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.7.0...v0.7.1)
+
+### Chores
+
+* **tests:** skip some failing tests on the latest python versions ([60ec013](https://github.com/gumnut-ai/photos-sdk-python/commit/60ec01346fe4755edea5adacaf6e8c81db32fdb9))
+
 ## 0.7.0 (2025-06-24)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.6.0...v0.7.0)
