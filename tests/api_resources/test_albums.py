@@ -21,26 +21,22 @@ class TestAlbums:
     @pytest.mark.skip()
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
-        album = client.albums.create(
-            name="name",
-        )
+        album = client.albums.create()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.create(
-            name="name",
             description="description",
+            name="name",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
-        response = client.albums.with_raw_response.create(
-            name="name",
-        )
+        response = client.albums.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -50,9 +46,7 @@ class TestAlbums:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
-        with client.albums.with_streaming_response.create(
-            name="name",
-        ) as response:
+        with client.albums.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -243,26 +237,22 @@ class TestAsyncAlbums:
     @pytest.mark.skip()
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
-        album = await async_client.albums.create(
-            name="name",
-        )
+        album = await async_client.albums.create()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.create(
-            name="name",
             description="description",
+            name="name",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
-        response = await async_client.albums.with_raw_response.create(
-            name="name",
-        )
+        response = await async_client.albums.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -272,9 +262,7 @@ class TestAsyncAlbums:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
-        async with async_client.albums.with_streaming_response.create(
-            name="name",
-        ) as response:
+        async with async_client.albums.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
