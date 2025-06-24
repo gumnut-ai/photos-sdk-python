@@ -51,13 +51,13 @@ Methods:
 Types:
 
 ```python
-from gumnut.types.albums import AlbumAssetAssociation, AssetListResponse
+from gumnut.types.albums import AlbumAssetAssociation, AssetListResponse, AssetAddResponse
 ```
 
 Methods:
 
 - <code title="get /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">list</a>(album_id) -> <a href="./src/gumnut/types/albums/asset_list_response.py">AssetListResponse</a></code>
-- <code title="post /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_add_params.py">params</a>) -> None</code>
+- <code title="post /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/asset_add_response.py">AssetAddResponse</a></code>
 - <code title="delete /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_remove_params.py">params</a>) -> None</code>
 
 # Faces
