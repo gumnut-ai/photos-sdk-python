@@ -59,8 +59,8 @@ class AlbumsResource(SyncAPIResource):
     def create(
         self,
         *,
-        name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,8 +68,10 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AlbumResponse:
-        """
-        Creates a new, empty album with a given name and optional description.
+        """Creates a new, empty album with a optional name and description.
+
+        If no name is
+        provided, the album will be given a default name.
 
         Args:
           extra_headers: Send extra headers
@@ -84,8 +86,8 @@ class AlbumsResource(SyncAPIResource):
             "/api/albums",
             body=maybe_transform(
                 {
-                    "name": name,
                     "description": description,
+                    "name": name,
                 },
                 album_create_params.AlbumCreateParams,
             ),
@@ -279,8 +281,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,8 +290,10 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AlbumResponse:
-        """
-        Creates a new, empty album with a given name and optional description.
+        """Creates a new, empty album with a optional name and description.
+
+        If no name is
+        provided, the album will be given a default name.
 
         Args:
           extra_headers: Send extra headers
@@ -304,8 +308,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
             "/api/albums",
             body=await async_maybe_transform(
                 {
-                    "name": name,
                     "description": description,
+                    "name": name,
                 },
                 album_create_params.AlbumCreateParams,
             ),

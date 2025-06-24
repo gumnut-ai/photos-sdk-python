@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["AlbumCreateParams"]
 
 
 class AlbumCreateParams(TypedDict, total=False):
-    name: Required[str]
-
     description: Optional[str]
+
+    name: Optional[str]
