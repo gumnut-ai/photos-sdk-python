@@ -75,7 +75,9 @@ class SearchResource(SyncAPIResource):
 
           page: Page number
 
-          person_ids: Filter to only include assets containing ALL of these person IDs
+          person_ids: Filter to only include assets containing ALL of these person IDs. Can be
+              comma-delimited string (e.g., 'person_123,person_abc') or multiple query
+              parameters.
 
           query: The text query to search for
 
@@ -164,7 +166,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: Page number
 
-          person_ids: Filter to only include assets containing ALL of these person IDs
+          person_ids: Filter to only include assets containing ALL of these person IDs. Can be
+              comma-delimited string (e.g., 'person_123,person_abc') or multiple query
+              parameters.
 
           query: The text query to search for
 

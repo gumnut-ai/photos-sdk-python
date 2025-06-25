@@ -25,7 +25,11 @@ class SearchSearchParams(TypedDict, total=False):
     """Page number"""
 
     person_ids: List[str]
-    """Filter to only include assets containing ALL of these person IDs"""
+    """Filter to only include assets containing ALL of these person IDs.
+
+    Can be comma-delimited string (e.g., 'person_123,person_abc') or multiple query
+    parameters.
+    """
 
     query: Optional[str]
     """The text query to search for"""
