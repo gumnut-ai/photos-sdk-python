@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1 (2025-06-27)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.0...v0.9.1)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([11fa039](https://github.com/gumnut-ai/photos-sdk-python/commit/11fa039fb387c2faeccf5508af8b25730e8c109e))
+
 ## 0.9.0 (2025-06-25)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.8.0...v0.9.0)
