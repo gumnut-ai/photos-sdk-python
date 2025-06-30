@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.2 (2025-06-30)
+
+Full Changelog: [v0.9.1...v0.9.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.1...v0.9.2)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([945a232](https://github.com/gumnut-ai/photos-sdk-python/commit/945a232a49eb81d9db483484f7ecdd54ffb81b4a))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([6b4eb63](https://github.com/gumnut-ai/photos-sdk-python/commit/6b4eb630121e386ff323c4f48a62a7bc0969a69b))
+
 ## 0.9.1 (2025-06-27)
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.0...v0.9.1)
