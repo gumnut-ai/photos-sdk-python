@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3 (2025-07-02)
+
+Full Changelog: [v0.9.2...v0.9.3](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.2...v0.9.3)
+
+### Chores
+
+* **ci:** change upload type ([ca31e68](https://github.com/gumnut-ai/photos-sdk-python/commit/ca31e6827ee228a391f5904fa2b2f056d154e576))
+
 ## 0.9.2 (2025-06-30)
 
 Full Changelog: [v0.9.1...v0.9.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.1...v0.9.2)
