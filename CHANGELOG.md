@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.4 (2025-07-12)
+
+Full Changelog: [v0.9.3...v0.9.4](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.3...v0.9.4)
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([f3def6e](https://github.com/gumnut-ai/photos-sdk-python/commit/f3def6e712004c46419e864b6ed69b0a4af3ae5b))
+
+
+### Chores
+
+* **readme:** fix version rendering on pypi ([30cbb2b](https://github.com/gumnut-ai/photos-sdk-python/commit/30cbb2bdd28e666a7f1d4e615461f6a951b8bbcd))
+
 ## 0.9.3 (2025-07-10)
 
 Full Changelog: [v0.9.2...v0.9.3](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.2...v0.9.3)
