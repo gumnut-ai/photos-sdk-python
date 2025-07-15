@@ -79,7 +79,6 @@ pip install gumnut-sdk[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from gumnut import DefaultAioHttpClient
 from gumnut import AsyncGumnut
@@ -87,7 +86,7 @@ from gumnut import AsyncGumnut
 
 async def main() -> None:
     async with AsyncGumnut(
-        api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         album_response = await client.albums.create()
