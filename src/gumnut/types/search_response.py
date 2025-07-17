@@ -10,6 +10,7 @@ __all__ = ["SearchResponse", "Data"]
 
 class Data(BaseModel):
     asset: AssetResponse
+    """Represents a photo or video asset with metadata and access URLs."""
 
     distance: Optional[float] = None
 
