@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.12.0 (2025-07-22)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** add library create endpoint ([6d22606](https://github.com/gumnut-ai/photos-sdk-python/commit/6d226061e035edd49a07afd3c18063f380d08eb4))
+* **api:** api update ([d5df4be](https://github.com/gumnut-ai/photos-sdk-python/commit/d5df4bed7cdc4fdb6a22c62d25158b7bfd270cc2))
+
 ## 0.11.0 (2025-07-22)
 
 Full Changelog: [v0.10.1...v0.11.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.10.1...v0.11.0)
