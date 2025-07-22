@@ -32,6 +32,7 @@ class TestPeople:
             birth_date=parse_date("2019-12-27"),
             is_favorite=True,
             is_hidden=True,
+            library_id="library_id",
             name="name",
             thumbnail_face_id="thumbnail_face_id",
         )
@@ -168,6 +169,7 @@ class TestPeople:
         person = client.people.list(
             album_id="album_id",
             asset_id="asset_id",
+            library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
         )
@@ -256,6 +258,7 @@ class TestAsyncPeople:
             birth_date=parse_date("2019-12-27"),
             is_favorite=True,
             is_hidden=True,
+            library_id="library_id",
             name="name",
             thumbnail_face_id="thumbnail_face_id",
         )
@@ -392,6 +395,7 @@ class TestAsyncPeople:
         person = await async_client.people.list(
             album_id="album_id",
             asset_id="asset_id",
+            library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
         )

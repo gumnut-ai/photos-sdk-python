@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -22,3 +22,6 @@ class AssetCreateParams(TypedDict, total=False):
     file_created_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     file_modified_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
+    library_id: Optional[str]
+    """Library to upload asset to (optional)"""

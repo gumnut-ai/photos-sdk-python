@@ -5,12 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["AlbumCreateParams"]
+__all__ = ["LibraryUpdateParams"]
 
 
-class AlbumCreateParams(TypedDict, total=False):
+class LibraryUpdateParams(TypedDict, total=False):
     description: Optional[str]
-
-    library_id: Optional[str]
 
     name: Optional[str]

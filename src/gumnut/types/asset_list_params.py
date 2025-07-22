@@ -12,6 +12,9 @@ class AssetListParams(TypedDict, total=False):
     album_id: Optional[str]
     """Filter by assets in a specific album"""
 
+    library_id: Optional[str]
+    """Library to list assets from (optional)"""
+
     limit: int
 
     person_id: Optional[str]

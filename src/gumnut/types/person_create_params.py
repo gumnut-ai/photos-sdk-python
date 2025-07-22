@@ -18,6 +18,8 @@ class PersonCreateParams(TypedDict, total=False):
 
     is_hidden: Optional[bool]
 
+    library_id: Optional[str]
+
     name: Optional[str]
 
     thumbnail_face_id: Optional[str]

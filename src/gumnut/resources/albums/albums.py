@@ -60,6 +60,7 @@ class AlbumsResource(SyncAPIResource):
         self,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -68,10 +69,9 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AlbumResponse:
-        """Creates a new, empty album with a optional name and description.
-
-        If no name is
-        provided, the album will be given a default name.
+        """
+        Creates a new, empty album with optional name and description in the specified
+        library.
 
         Args:
           extra_headers: Send extra headers
@@ -87,6 +87,7 @@ class AlbumsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "description": description,
+                    "library_id": library_id,
                     "name": name,
                 },
                 album_create_params.AlbumCreateParams,
@@ -175,6 +176,7 @@ class AlbumsResource(SyncAPIResource):
     def list(
         self,
         *,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -185,9 +187,12 @@ class AlbumsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[AlbumResponse]:
         """
-        Retrieves a paginated list of albums, ordered by creation time, descending.
+        Retrieves a paginated list of albums from the specified library, ordered by
+        creation time, descending.
 
         Args:
+          library_id: Library to list albums from (optional)
+
           starting_after_id: Album ID to start listing albums after
 
           extra_headers: Send extra headers
@@ -208,6 +213,7 @@ class AlbumsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
                     },
@@ -282,6 +288,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         self,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -290,10 +297,9 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AlbumResponse:
-        """Creates a new, empty album with a optional name and description.
-
-        If no name is
-        provided, the album will be given a default name.
+        """
+        Creates a new, empty album with optional name and description in the specified
+        library.
 
         Args:
           extra_headers: Send extra headers
@@ -309,6 +315,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "description": description,
+                    "library_id": library_id,
                     "name": name,
                 },
                 album_create_params.AlbumCreateParams,
@@ -397,6 +404,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -407,9 +415,12 @@ class AsyncAlbumsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
         """
-        Retrieves a paginated list of albums, ordered by creation time, descending.
+        Retrieves a paginated list of albums from the specified library, ordered by
+        creation time, descending.
 
         Args:
+          library_id: Library to list albums from (optional)
+
           starting_after_id: Album ID to start listing albums after
 
           extra_headers: Send extra headers
@@ -430,6 +441,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
                     },

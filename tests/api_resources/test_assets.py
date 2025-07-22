@@ -41,6 +41,19 @@ class TestAssets:
 
     @pytest.mark.skip()
     @parametrize
+    def test_method_create_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.create(
+            asset_data=b"raw file contents",
+            device_asset_id="device_asset_id",
+            device_id="device_id",
+            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            library_id="library_id",
+        )
+        assert_matches_type(AssetResponse, asset, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.create(
             asset_data=b"raw file contents",
@@ -126,6 +139,7 @@ class TestAssets:
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.list(
             album_id="album_id",
+            library_id="library_id",
             limit=1,
             person_id="person_id",
             starting_after_id="starting_after_id",
@@ -338,6 +352,19 @@ class TestAsyncAssets:
 
     @pytest.mark.skip()
     @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.create(
+            asset_data=b"raw file contents",
+            device_asset_id="device_asset_id",
+            device_id="device_id",
+            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            library_id="library_id",
+        )
+        assert_matches_type(AssetResponse, asset, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.create(
             asset_data=b"raw file contents",
@@ -423,6 +450,7 @@ class TestAsyncAssets:
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list(
             album_id="album_id",
+            library_id="library_id",
             limit=1,
             person_id="person_id",
             starting_after_id="starting_after_id",
