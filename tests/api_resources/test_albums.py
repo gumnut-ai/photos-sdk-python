@@ -29,6 +29,7 @@ class TestAlbums:
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.create(
             description="description",
+            library_id="library_id",
             name="name",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
@@ -159,6 +160,7 @@ class TestAlbums:
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.list(
+            library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
         )
@@ -245,6 +247,7 @@ class TestAsyncAlbums:
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.create(
             description="description",
+            library_id="library_id",
             name="name",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
@@ -375,6 +378,7 @@ class TestAsyncAlbums:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.list(
+            library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
         )

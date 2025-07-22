@@ -51,6 +51,7 @@ class PeopleResource(SyncAPIResource):
         birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
         is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
         is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -79,6 +80,7 @@ class PeopleResource(SyncAPIResource):
                     "birth_date": birth_date,
                     "is_favorite": is_favorite,
                     "is_hidden": is_hidden,
+                    "library_id": library_id,
                     "name": name,
                     "thumbnail_face_id": thumbnail_face_id,
                 },
@@ -176,6 +178,7 @@ class PeopleResource(SyncAPIResource):
         *,
         album_id: Optional[str] | NotGiven = NOT_GIVEN,
         asset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -192,6 +195,8 @@ class PeopleResource(SyncAPIResource):
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
+
+          library_id: Library ID (required if user has multiple libraries)
 
           starting_after_id: Person ID to start listing people after
 
@@ -215,6 +220,7 @@ class PeopleResource(SyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
+                        "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
                     },
@@ -287,6 +293,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
         is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
         is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -315,6 +322,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                     "birth_date": birth_date,
                     "is_favorite": is_favorite,
                     "is_hidden": is_hidden,
+                    "library_id": library_id,
                     "name": name,
                     "thumbnail_face_id": thumbnail_face_id,
                 },
@@ -412,6 +420,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         *,
         album_id: Optional[str] | NotGiven = NOT_GIVEN,
         asset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -428,6 +437,8 @@ class AsyncPeopleResource(AsyncAPIResource):
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
+
+          library_id: Library ID (required if user has multiple libraries)
 
           starting_after_id: Person ID to start listing people after
 
@@ -451,6 +462,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
+                        "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
                     },

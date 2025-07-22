@@ -12,6 +12,9 @@ class FaceListParams(TypedDict, total=False):
     asset_id: Optional[str]
     """Filter by faces in a specific asset"""
 
+    library_id: Optional[str]
+    """Library ID (required if user has multiple libraries)"""
+
     limit: int
 
     person_id: Optional[str]

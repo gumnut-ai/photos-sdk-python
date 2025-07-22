@@ -5,11 +5,9 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["FaceUpdateParams"]
+__all__ = ["FaceDownloadThumbnailParams"]
 
 
-class FaceUpdateParams(TypedDict, total=False):
+class FaceDownloadThumbnailParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library ID (required if user has multiple libraries)"""
-
-    person_id: Optional[str]
