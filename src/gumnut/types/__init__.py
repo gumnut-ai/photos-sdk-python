@@ -25,6 +25,7 @@ from .search_search_params import SearchSearchParams as SearchSearchParams
 from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .api_key_list_response import APIKeyListResponse as APIKeyListResponse
 from .api_key_update_params import APIKeyUpdateParams as APIKeyUpdateParams
+from .library_create_params import LibraryCreateParams as LibraryCreateParams
 from .library_list_response import LibraryListResponse as LibraryListResponse
 from .library_update_params import LibraryUpdateParams as LibraryUpdateParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse

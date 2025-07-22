@@ -19,6 +19,49 @@ class TestLibraries:
 
     @pytest.mark.skip()
     @parametrize
+    def test_method_create(self, client: Gumnut) -> None:
+        library = client.libraries.create(
+            name="name",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_with_all_params(self, client: Gumnut) -> None:
+        library = client.libraries.create(
+            name="name",
+            description="description",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_create(self, client: Gumnut) -> None:
+        response = client.libraries.with_raw_response.create(
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = response.parse()
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_create(self, client: Gumnut) -> None:
+        with client.libraries.with_streaming_response.create(
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = response.parse()
+            assert_matches_type(LibraryResponse, library, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         library = client.libraries.retrieve(
             "library_id",
@@ -186,6 +229,49 @@ class TestAsyncLibraries:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create(self, async_client: AsyncGumnut) -> None:
+        library = await async_client.libraries.create(
+            name="name",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
+        library = await async_client.libraries.create(
+            name="name",
+            description="description",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.libraries.with_raw_response.create(
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = await response.parse()
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
+        async with async_client.libraries.with_streaming_response.create(
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = await response.parse()
+            assert_matches_type(LibraryResponse, library, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
