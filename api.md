@@ -70,11 +70,26 @@ from gumnut.types import FaceResponse
 
 Methods:
 
-- <code title="get /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">retrieve</a>(face_id) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
+- <code title="get /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">retrieve</a>(face_id, \*\*<a href="src/gumnut/types/face_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
-- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id) -> None</code>
-- <code title="get /api/faces/{face_id}/thumbnail">client.faces.<a href="./src/gumnut/resources/faces.py">download_thumbnail</a>(face_id) -> BinaryAPIResponse</code>
+- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/faces/{face_id}/thumbnail">client.faces.<a href="./src/gumnut/resources/faces.py">download_thumbnail</a>(face_id, \*\*<a href="src/gumnut/types/face_download_thumbnail_params.py">params</a>) -> BinaryAPIResponse</code>
+
+# Libraries
+
+Types:
+
+```python
+from gumnut.types import LibraryResponse, LibraryListResponse
+```
+
+Methods:
+
+- <code title="get /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">retrieve</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">list</a>() -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
+- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> None</code>
 
 # People
 

@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import faces, assets, people, search, api_keys
+from .resources import faces, assets, people, search, api_keys, libraries
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -40,6 +40,7 @@ class Gumnut(SyncAPIClient):
     assets: assets.AssetsResource
     albums: albums.AlbumsResource
     faces: faces.FacesResource
+    libraries: libraries.LibrariesResource
     people: people.PeopleResource
     search: search.SearchResource
     with_raw_response: GumnutWithRawResponse
@@ -99,6 +100,7 @@ class Gumnut(SyncAPIClient):
         self.assets = assets.AssetsResource(self)
         self.albums = albums.AlbumsResource(self)
         self.faces = faces.FacesResource(self)
+        self.libraries = libraries.LibrariesResource(self)
         self.people = people.PeopleResource(self)
         self.search = search.SearchResource(self)
         self.with_raw_response = GumnutWithRawResponse(self)
@@ -227,6 +229,7 @@ class AsyncGumnut(AsyncAPIClient):
     assets: assets.AsyncAssetsResource
     albums: albums.AsyncAlbumsResource
     faces: faces.AsyncFacesResource
+    libraries: libraries.AsyncLibrariesResource
     people: people.AsyncPeopleResource
     search: search.AsyncSearchResource
     with_raw_response: AsyncGumnutWithRawResponse
@@ -286,6 +289,7 @@ class AsyncGumnut(AsyncAPIClient):
         self.assets = assets.AsyncAssetsResource(self)
         self.albums = albums.AsyncAlbumsResource(self)
         self.faces = faces.AsyncFacesResource(self)
+        self.libraries = libraries.AsyncLibrariesResource(self)
         self.people = people.AsyncPeopleResource(self)
         self.search = search.AsyncSearchResource(self)
         self.with_raw_response = AsyncGumnutWithRawResponse(self)
@@ -415,6 +419,7 @@ class GumnutWithRawResponse:
         self.assets = assets.AssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.FacesResourceWithRawResponse(client.faces)
+        self.libraries = libraries.LibrariesResourceWithRawResponse(client.libraries)
         self.people = people.PeopleResourceWithRawResponse(client.people)
         self.search = search.SearchResourceWithRawResponse(client.search)
 
@@ -425,6 +430,7 @@ class AsyncGumnutWithRawResponse:
         self.assets = assets.AsyncAssetsResourceWithRawResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithRawResponse(client.faces)
+        self.libraries = libraries.AsyncLibrariesResourceWithRawResponse(client.libraries)
         self.people = people.AsyncPeopleResourceWithRawResponse(client.people)
         self.search = search.AsyncSearchResourceWithRawResponse(client.search)
 
@@ -435,6 +441,7 @@ class GumnutWithStreamedResponse:
         self.assets = assets.AssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.FacesResourceWithStreamingResponse(client.faces)
+        self.libraries = libraries.LibrariesResourceWithStreamingResponse(client.libraries)
         self.people = people.PeopleResourceWithStreamingResponse(client.people)
         self.search = search.SearchResourceWithStreamingResponse(client.search)
 
@@ -445,6 +452,7 @@ class AsyncGumnutWithStreamedResponse:
         self.assets = assets.AsyncAssetsResourceWithStreamingResponse(client.assets)
         self.albums = albums.AsyncAlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithStreamingResponse(client.faces)
+        self.libraries = libraries.AsyncLibrariesResourceWithStreamingResponse(client.libraries)
         self.people = people.AsyncPeopleResourceWithStreamingResponse(client.people)
         self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
 

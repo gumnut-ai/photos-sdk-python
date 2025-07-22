@@ -15,6 +15,9 @@ class PersonListParams(TypedDict, total=False):
     asset_id: Optional[str]
     """Include only people associated with this asset ID"""
 
+    library_id: Optional[str]
+    """Library ID (required if user has multiple libraries)"""
+
     limit: int
 
     starting_after_id: Optional[str]

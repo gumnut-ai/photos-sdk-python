@@ -48,6 +48,14 @@ from .api_keys import (
     APIKeysResourceWithStreamingResponse,
     AsyncAPIKeysResourceWithStreamingResponse,
 )
+from .libraries import (
+    LibrariesResource,
+    AsyncLibrariesResource,
+    LibrariesResourceWithRawResponse,
+    AsyncLibrariesResourceWithRawResponse,
+    LibrariesResourceWithStreamingResponse,
+    AsyncLibrariesResourceWithStreamingResponse,
+)
 
 __all__ = [
     "APIKeysResource",
@@ -74,6 +82,12 @@ __all__ = [
     "AsyncFacesResourceWithRawResponse",
     "FacesResourceWithStreamingResponse",
     "AsyncFacesResourceWithStreamingResponse",
+    "LibrariesResource",
+    "AsyncLibrariesResource",
+    "LibrariesResourceWithRawResponse",
+    "AsyncLibrariesResourceWithRawResponse",
+    "LibrariesResourceWithStreamingResponse",
+    "AsyncLibrariesResourceWithStreamingResponse",
     "PeopleResource",
     "AsyncPeopleResource",
     "PeopleResourceWithRawResponse",

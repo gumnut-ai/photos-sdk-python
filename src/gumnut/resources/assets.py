@@ -61,6 +61,7 @@ class AssetsResource(SyncAPIResource):
         device_id: str,
         file_created_at: Union[str, datetime],
         file_modified_at: Union[str, datetime],
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,12 +69,15 @@ class AssetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetResponse:
-        """Uploads a new asset file (image or video) along with its metadata.
-
-        If an asset
-        with the same checksum already exists, returns the existing asset's metadata.
+        """
+        Uploads a new asset file (image or video) along with its metadata to the
+        specified library. If no library_id is provided and the user only has one
+        library, uses that library. If the user has multiple libraries, library_id is
+        required.
 
         Args:
+          library_id: Library to upload asset to (optional)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -89,6 +93,7 @@ class AssetsResource(SyncAPIResource):
                 "device_id": device_id,
                 "file_created_at": file_created_at,
                 "file_modified_at": file_modified_at,
+                "library_id": library_id,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["asset_data"]])
@@ -144,6 +149,7 @@ class AssetsResource(SyncAPIResource):
         self,
         *,
         album_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         person_id: Optional[str] | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -154,13 +160,15 @@ class AssetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[AssetResponse]:
-        """Retrieves a paginated list of assets, optionally filtered by album.
-
-        Assets are
-        ordered by local creation time, descending.
+        """
+        Retrieves a paginated list of assets from the specified library, optionally
+        filtered by album or person. Assets are ordered by local creation time,
+        descending.
 
         Args:
           album_id: Filter by assets in a specific album
+
+          library_id: Library to list assets from (optional)
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -185,6 +193,7 @@ class AssetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,
@@ -336,6 +345,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         device_id: str,
         file_created_at: Union[str, datetime],
         file_modified_at: Union[str, datetime],
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -343,12 +353,15 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetResponse:
-        """Uploads a new asset file (image or video) along with its metadata.
-
-        If an asset
-        with the same checksum already exists, returns the existing asset's metadata.
+        """
+        Uploads a new asset file (image or video) along with its metadata to the
+        specified library. If no library_id is provided and the user only has one
+        library, uses that library. If the user has multiple libraries, library_id is
+        required.
 
         Args:
+          library_id: Library to upload asset to (optional)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -364,6 +377,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 "device_id": device_id,
                 "file_created_at": file_created_at,
                 "file_modified_at": file_modified_at,
+                "library_id": library_id,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["asset_data"]])
@@ -419,6 +433,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         *,
         album_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         person_id: Optional[str] | NotGiven = NOT_GIVEN,
         starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -429,13 +444,15 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
-        """Retrieves a paginated list of assets, optionally filtered by album.
-
-        Assets are
-        ordered by local creation time, descending.
+        """
+        Retrieves a paginated list of assets from the specified library, optionally
+        filtered by album or person. Assets are ordered by local creation time,
+        descending.
 
         Args:
           album_id: Filter by assets in a specific album
+
+          library_id: Library to list assets from (optional)
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -460,6 +477,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,

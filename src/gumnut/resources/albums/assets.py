@@ -91,9 +91,8 @@ class AssetsResource(SyncAPIResource):
     ) -> AssetAddResponse:
         """Adds one or more existing assets to a specific album.
 
-        Duplicate assets are
-        ignored. Returns the IDs of the assets that were added and the IDs of the assets
-        that were already in the album.
+        Assets must be in the same
+        library as the album. Duplicate assets are ignored.
 
         Args:
           extra_headers: Send extra headers
@@ -221,9 +220,8 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AssetAddResponse:
         """Adds one or more existing assets to a specific album.
 
-        Duplicate assets are
-        ignored. Returns the IDs of the assets that were added and the IDs of the assets
-        that were already in the album.
+        Assets must be in the same
+        library as the album. Duplicate assets are ignored.
 
         Args:
           extra_headers: Send extra headers
