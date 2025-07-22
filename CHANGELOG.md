@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.1 (2025-07-22)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.10.0...v0.10.1)
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([056f96f](https://github.com/gumnut-ai/photos-sdk-python/commit/056f96fd573397cf3f45a1fa766f2bcb1a1f3e7e))
+
 ## 0.10.0 (2025-07-17)
 
 Full Changelog: [v0.9.4...v0.10.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.9.4...v0.10.0)
