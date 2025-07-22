@@ -6,13 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import (
-    face_list_params,
-    face_delete_params,
-    face_update_params,
-    face_retrieve_params,
-    face_download_thumbnail_params,
-)
+from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -246,7 +240,6 @@ class FacesResource(SyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -258,8 +251,6 @@ class FacesResource(SyncAPIResource):
         Retrieves a thumbnail for a specific face.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -274,13 +265,7 @@ class FacesResource(SyncAPIResource):
         return self._get(
             f"/api/faces/{face_id}/thumbnail",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"library_id": library_id}, face_download_thumbnail_params.FaceDownloadThumbnailParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=BinaryAPIResponse,
         )
@@ -494,7 +479,6 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -506,8 +490,6 @@ class AsyncFacesResource(AsyncAPIResource):
         Retrieves a thumbnail for a specific face.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -522,13 +504,7 @@ class AsyncFacesResource(AsyncAPIResource):
         return await self._get(
             f"/api/faces/{face_id}/thumbnail",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"library_id": library_id}, face_download_thumbnail_params.FaceDownloadThumbnailParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AsyncBinaryAPIResponse,
         )
