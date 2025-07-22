@@ -74,7 +74,7 @@ Methods:
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
 - <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> None</code>
-- <code title="get /api/faces/{face_id}/thumbnail">client.faces.<a href="./src/gumnut/resources/faces.py">download_thumbnail</a>(face_id, \*\*<a href="src/gumnut/types/face_download_thumbnail_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="get /api/faces/{face_id}/thumbnail">client.faces.<a href="./src/gumnut/resources/faces.py">download_thumbnail</a>(face_id) -> BinaryAPIResponse</code>
 
 # Libraries
 
