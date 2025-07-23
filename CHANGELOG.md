@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.1 (2025-07-23)
+
+Full Changelog: [v0.12.0...v0.12.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.0...v0.12.1)
+
+### Bug Fixes
+
+* **parsing:** parse extra field types ([822837e](https://github.com/gumnut-ai/photos-sdk-python/commit/822837e1c24e5fb517211f3e994dfe1e39b5702b))
+
 ## 0.12.0 (2025-07-22)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.11.0...v0.12.0)
