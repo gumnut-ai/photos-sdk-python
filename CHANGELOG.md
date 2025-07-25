@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.2 (2025-07-25)
+
+Full Changelog: [v0.12.1...v0.12.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.1...v0.12.2)
+
+### Chores
+
+* **project:** add settings file for vscode ([5e8cb9d](https://github.com/gumnut-ai/photos-sdk-python/commit/5e8cb9def6f21061501cd5d4fe34cbf8fba5a849))
+
 ## 0.12.1 (2025-07-23)
 
 Full Changelog: [v0.12.0...v0.12.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.0...v0.12.1)
