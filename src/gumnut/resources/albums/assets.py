@@ -56,7 +56,8 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetListResponse:
         """
-        Retrieves a list of all assets contained within a specific album.
+        Retrieves a list of all assets contained within a specific album, along with
+        their associated metrics, EXIF data, faces, and people.
 
         Args:
           extra_headers: Send extra headers
@@ -185,7 +186,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetListResponse:
         """
-        Retrieves a list of all assets contained within a specific album.
+        Retrieves a list of all assets contained within a specific album, along with
+        their associated metrics, EXIF data, faces, and people.
 
         Args:
           extra_headers: Send extra headers

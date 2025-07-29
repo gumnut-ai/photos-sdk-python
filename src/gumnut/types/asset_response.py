@@ -1,9 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .face_response import FaceResponse
+from .person_response import PersonResponse
 
 __all__ = ["AssetResponse", "Exif"]
 
@@ -132,8 +134,14 @@ class AssetResponse(BaseModel):
     exif: Optional[Exif] = None
     """EXIF metadata extracted from image and video files."""
 
+    faces: Optional[List[FaceResponse]] = None
+    """All faces detected in this asset"""
+
     metrics: Optional[Dict[str, Optional[float]]] = None
     """ML-generated quality scores and other metrics"""
+
+    people: Optional[List[PersonResponse]] = None
+    """All unique people identified in this asset (deduplicated from faces)"""
 
     thumbnail_url: Optional[str] = None
     """Use this URL to display the asset.
