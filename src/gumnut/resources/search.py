@@ -63,8 +63,9 @@ class SearchResource(SyncAPIResource):
     ) -> SearchResponse:
         """Searches for assets using semantic similarity and/or metadata filters.
 
-        At least
-        one search criterion must be provided.
+        Results
+        include asset metadata, faces, and people. At least one search criterion must be
+        provided.
 
         Args:
           captured_after: Filter to only include assets captured after this date (ISO format).
@@ -154,8 +155,9 @@ class AsyncSearchResource(AsyncAPIResource):
     ) -> SearchResponse:
         """Searches for assets using semantic similarity and/or metadata filters.
 
-        At least
-        one search criterion must be provided.
+        Results
+        include asset metadata, faces, and people. At least one search criterion must be
+        provided.
 
         Args:
           captured_after: Filter to only include assets captured after this date (ISO format).

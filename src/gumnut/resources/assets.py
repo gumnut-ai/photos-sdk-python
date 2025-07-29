@@ -123,8 +123,8 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetResponse:
         """
-        Retrieves detailed metadata for a specific asset, including EXIF information and
-        asset metrics.
+        Retrieves detailed metadata for a specific asset, including EXIF information,
+        asset metrics, faces, and people.
 
         Args:
           extra_headers: Send extra headers
@@ -162,8 +162,8 @@ class AssetsResource(SyncAPIResource):
     ) -> SyncCursorPage[AssetResponse]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album or person. Assets are ordered by local creation time,
-        descending.
+        filtered by album or person. Asset data includes metrics, EXIF data, faces, and
+        people. Assets are ordered by local creation time, descending.
 
         Args:
           album_id: Filter by assets in a specific album
@@ -407,8 +407,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AssetResponse:
         """
-        Retrieves detailed metadata for a specific asset, including EXIF information and
-        asset metrics.
+        Retrieves detailed metadata for a specific asset, including EXIF information,
+        asset metrics, faces, and people.
 
         Args:
           extra_headers: Send extra headers
@@ -446,8 +446,8 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album or person. Assets are ordered by local creation time,
-        descending.
+        filtered by album or person. Asset data includes metrics, EXIF data, faces, and
+        people. Assets are ordered by local creation time, descending.
 
         Args:
           album_id: Filter by assets in a specific album
