@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.13.0 (2025-07-31)
+
+Full Changelog: [v0.12.1...v0.13.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.1...v0.13.0)
+
+### Features
+
+* **api:** api update ([6e5c690](https://github.com/gumnut-ai/photos-sdk-python/commit/6e5c690b1076fcdb2f26e197634832b6a998570c))
+* **client:** support file upload requests ([bddc90b](https://github.com/gumnut-ai/photos-sdk-python/commit/bddc90b9b61df156384d517260f727e083abf0e4))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([5e8cb9d](https://github.com/gumnut-ai/photos-sdk-python/commit/5e8cb9def6f21061501cd5d4fe34cbf8fba5a849))
+
 ## 0.12.1 (2025-07-23)
 
 Full Changelog: [v0.12.0...v0.12.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.0...v0.12.1)
