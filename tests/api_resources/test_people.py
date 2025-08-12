@@ -19,13 +19,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPeople:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         person = client.people.create()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         person = client.people.create(
@@ -38,7 +38,7 @@ class TestPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.create()
@@ -48,7 +48,7 @@ class TestPeople:
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.create() as response:
@@ -60,7 +60,7 @@ class TestPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         person = client.people.retrieve(
@@ -68,7 +68,7 @@ class TestPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.retrieve(
@@ -80,7 +80,7 @@ class TestPeople:
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.retrieve(
@@ -94,7 +94,7 @@ class TestPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
@@ -102,7 +102,7 @@ class TestPeople:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update(self, client: Gumnut) -> None:
         person = client.people.update(
@@ -110,7 +110,7 @@ class TestPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Gumnut) -> None:
         person = client.people.update(
@@ -123,7 +123,7 @@ class TestPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.update(
@@ -135,7 +135,7 @@ class TestPeople:
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.update(
@@ -149,7 +149,7 @@ class TestPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
@@ -157,13 +157,13 @@ class TestPeople:
                 person_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         person = client.people.list()
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         person = client.people.list(
@@ -175,7 +175,7 @@ class TestPeople:
         )
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.list()
@@ -185,7 +185,7 @@ class TestPeople:
         person = response.parse()
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.list() as response:
@@ -197,7 +197,7 @@ class TestPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: Gumnut) -> None:
         person = client.people.delete(
@@ -205,7 +205,7 @@ class TestPeople:
         )
         assert person is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.delete(
@@ -217,7 +217,7 @@ class TestPeople:
         person = response.parse()
         assert person is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.delete(
@@ -231,7 +231,7 @@ class TestPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
@@ -245,13 +245,13 @@ class TestAsyncPeople:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.create()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.create(
@@ -264,7 +264,7 @@ class TestAsyncPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.create()
@@ -274,7 +274,7 @@ class TestAsyncPeople:
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.create() as response:
@@ -286,7 +286,7 @@ class TestAsyncPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.retrieve(
@@ -294,7 +294,7 @@ class TestAsyncPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.retrieve(
@@ -306,7 +306,7 @@ class TestAsyncPeople:
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.retrieve(
@@ -320,7 +320,7 @@ class TestAsyncPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
@@ -328,7 +328,7 @@ class TestAsyncPeople:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.update(
@@ -336,7 +336,7 @@ class TestAsyncPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.update(
@@ -349,7 +349,7 @@ class TestAsyncPeople:
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.update(
@@ -361,7 +361,7 @@ class TestAsyncPeople:
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.update(
@@ -375,7 +375,7 @@ class TestAsyncPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
@@ -383,13 +383,13 @@ class TestAsyncPeople:
                 person_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.list()
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.list(
@@ -401,7 +401,7 @@ class TestAsyncPeople:
         )
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.list()
@@ -411,7 +411,7 @@ class TestAsyncPeople:
         person = await response.parse()
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.list() as response:
@@ -423,7 +423,7 @@ class TestAsyncPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.delete(
@@ -431,7 +431,7 @@ class TestAsyncPeople:
         )
         assert person is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.delete(
@@ -443,7 +443,7 @@ class TestAsyncPeople:
         person = await response.parse()
         assert person is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.delete(
@@ -457,7 +457,7 @@ class TestAsyncPeople:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
