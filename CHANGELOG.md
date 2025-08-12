@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.13.1 (2025-08-12)
+
+Full Changelog: [v0.13.0...v0.13.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.13.0...v0.13.1)
+
+### Chores
+
+* **internal:** codegen related update ([d19c185](https://github.com/gumnut-ai/photos-sdk-python/commit/d19c185695ae243e38614a224e69b2bd89bc8568))
+* **internal:** fix ruff target version ([d384290](https://github.com/gumnut-ai/photos-sdk-python/commit/d3842908f13beb8eeef49aa0e06afd68f0eb2215))
+* **internal:** update comment in script ([c9ba910](https://github.com/gumnut-ai/photos-sdk-python/commit/c9ba910fb13143eb0a0b6870273e004b2d5bd369))
+* update @stainless-api/prism-cli to v5.15.0 ([a9e63a2](https://github.com/gumnut-ai/photos-sdk-python/commit/a9e63a2a2d00d66f69449da804ef7916c50f3363))
+
 ## 0.13.0 (2025-07-31)
 
 Full Changelog: [v0.12.1...v0.13.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.12.1...v0.13.0)
