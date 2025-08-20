@@ -27,12 +27,17 @@ class SearchSearchParams(TypedDict, total=False):
     person_ids: List[str]
     """Filter to only include assets containing ALL of these person IDs.
 
-    Can be comma-delimited string (e.g., 'person_123,person_abc') or multiple query
+    Can be comma-delimited string (e.g. 'person_123,person_abc') or multiple query
     parameters.
     """
 
     query: Optional[str]
-    """The text query to search for"""
+    """The text query to search for.
+
+    If you want to search for a specific person or set of people, use the person_ids
+    parameter instead.If you want to search for a photos taken during a specific
+    date range, use the captured_before and captured_after parameters instead.
+    """
 
     threshold: float
     """Similarity threshold (lower means more similar)"""
