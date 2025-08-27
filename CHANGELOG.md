@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.14.1 (2025-08-27)
+
+Full Changelog: [v0.14.0...v0.14.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.0...v0.14.1)
+
+### Bug Fixes
+
+* avoid newer type syntax ([34b1737](https://github.com/gumnut-ai/photos-sdk-python/commit/34b173762059d93dfe910977308d316164199755))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([9c4239f](https://github.com/gumnut-ai/photos-sdk-python/commit/9c4239f58a9072d326ac2596413672c300d039c0))
+* **internal:** update pyright exclude list ([27cbff1](https://github.com/gumnut-ai/photos-sdk-python/commit/27cbff13fe231371a5a69af364fcab9241e23448))
+* update github action ([ab7a3a8](https://github.com/gumnut-ai/photos-sdk-python/commit/ab7a3a8c375efeecc2975463574d5cd71e8fbb54))
+
 ## 0.14.0 (2025-08-20)
 
 Full Changelog: [v0.13.1...v0.14.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.13.1...v0.14.0)
