@@ -18,6 +18,9 @@ class SearchSearchParams(TypedDict, total=False):
     captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter to only include assets captured before this date (ISO format)."""
 
+    library_id: Optional[str]
+    """Library to search assets from (optional)"""
+
     limit: int
     """Number of results per page"""
 
