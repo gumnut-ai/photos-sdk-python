@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.2 (2025-09-03)
+
+Full Changelog: [v0.14.1...v0.14.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.1...v0.14.2)
+
+### Chores
+
+* **internal:** add Sequence related utils ([db0db9e](https://github.com/gumnut-ai/photos-sdk-python/commit/db0db9ec63d048b4172cf2fb38ea842ae2404db0))
+
 ## 0.14.1 (2025-08-27)
 
 Full Changelog: [v0.14.0...v0.14.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.0...v0.14.1)
