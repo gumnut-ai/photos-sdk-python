@@ -49,6 +49,7 @@ class SearchResource(SyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         captured_before: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         person_ids: List[str] | NotGiven = NOT_GIVEN,
@@ -71,6 +72,8 @@ class SearchResource(SyncAPIResource):
           captured_after: Filter to only include assets captured after this date (ISO format).
 
           captured_before: Filter to only include assets captured before this date (ISO format).
+
+          library_id: Library to search assets from (optional)
 
           limit: Number of results per page
 
@@ -106,6 +109,7 @@ class SearchResource(SyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "library_id": library_id,
                         "limit": limit,
                         "page": page,
                         "person_ids": person_ids,
@@ -144,6 +148,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         captured_before: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         person_ids: List[str] | NotGiven = NOT_GIVEN,
@@ -166,6 +171,8 @@ class AsyncSearchResource(AsyncAPIResource):
           captured_after: Filter to only include assets captured after this date (ISO format).
 
           captured_before: Filter to only include assets captured before this date (ISO format).
+
+          library_id: Library to search assets from (optional)
 
           limit: Number of results per page
 
@@ -201,6 +208,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "library_id": library_id,
                         "limit": limit,
                         "page": page,
                         "person_ids": person_ids,
