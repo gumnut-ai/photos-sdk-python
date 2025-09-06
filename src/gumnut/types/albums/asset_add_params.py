@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["AssetAddParams"]
 
 
 class AssetAddParams(TypedDict, total=False):
-    asset_ids: Required[List[str]]
+    asset_ids: Required[SequenceNotStr[str]]

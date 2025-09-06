@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["SearchSearchParams"]
@@ -27,7 +28,7 @@ class SearchSearchParams(TypedDict, total=False):
     page: int
     """Page number"""
 
-    person_ids: List[str]
+    person_ids: SequenceNotStr[str]
     """Filter to only include assets containing ALL of these person IDs.
 
     Can be comma-delimited string (e.g. 'person_123,person_abc') or multiple query

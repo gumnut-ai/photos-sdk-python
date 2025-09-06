@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 
 import httpx
 
 from ..types import search_search_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -52,7 +52,7 @@ class SearchResource(SyncAPIResource):
         library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
-        person_ids: List[str] | NotGiven = NOT_GIVEN,
+        person_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         query: Optional[str] | NotGiven = NOT_GIVEN,
         threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -151,7 +151,7 @@ class AsyncSearchResource(AsyncAPIResource):
         library_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
-        person_ids: List[str] | NotGiven = NOT_GIVEN,
+        person_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         query: Optional[str] | NotGiven = NOT_GIVEN,
         threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
