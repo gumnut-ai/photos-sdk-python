@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.15.0 (2025-09-17)
+
+Full Changelog: [v0.14.2...v0.15.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.2...v0.15.0)
+
+### Features
+
+* improve future compat with pydantic v3 ([b9f30da](https://github.com/gumnut-ai/photos-sdk-python/commit/b9f30da7fea6249bc77233095c781e09d7068b97))
+* **types:** replace List[str] with SequenceNotStr in params ([d20801f](https://github.com/gumnut-ai/photos-sdk-python/commit/d20801f185a7ba0c5f8910ef15c7dbe79d411cb8))
+
+
+### Chores
+
+* **internal:** move mypy configurations to `pyproject.toml` file ([ca80dd1](https://github.com/gumnut-ai/photos-sdk-python/commit/ca80dd1a9df18e9d68a6bea417da573339b9fc37))
+* **internal:** update pydantic dependency ([0f04184](https://github.com/gumnut-ai/photos-sdk-python/commit/0f04184bdf485dcd77ada29da19e39e1e504549a))
+* **tests:** simplify `get_platform` test ([5e13b95](https://github.com/gumnut-ai/photos-sdk-python/commit/5e13b9506f7ce493ec4b4d0b89919c7f35bbf0e4))
+
 ## 0.14.2 (2025-09-03)
 
 Full Changelog: [v0.14.1...v0.14.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.1...v0.14.2)
