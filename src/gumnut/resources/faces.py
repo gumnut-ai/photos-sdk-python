@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -56,13 +56,13 @@ class FacesResource(SyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
         Retrieves details for a specific face.
@@ -96,14 +96,14 @@ class FacesResource(SyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
         Updates the details of a specific face, currently only supporting
@@ -138,17 +138,17 @@ class FacesResource(SyncAPIResource):
     def list(
         self,
         *,
-        asset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        asset_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[FaceResponse]:
         """
         Retrieves a paginated list of faces, optionally filtered by asset or person,
@@ -197,13 +197,13 @@ class FacesResource(SyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific face entry.
 
@@ -245,7 +245,7 @@ class FacesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Retrieves a thumbnail for a specific face.
@@ -295,13 +295,13 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
         Retrieves details for a specific face.
@@ -335,14 +335,14 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
         Updates the details of a specific face, currently only supporting
@@ -377,17 +377,17 @@ class AsyncFacesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        asset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        asset_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[FaceResponse, AsyncCursorPage[FaceResponse]]:
         """
         Retrieves a paginated list of faces, optionally filtered by asset or person,
@@ -436,13 +436,13 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         face_id: str,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific face entry.
 
@@ -484,7 +484,7 @@ class AsyncFacesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Retrieves a thumbnail for a specific face.
