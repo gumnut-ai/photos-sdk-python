@@ -29,4 +29,5 @@ from .library_create_params import LibraryCreateParams as LibraryCreateParams
 from .library_list_response import LibraryListResponse as LibraryListResponse
 from .library_update_params import LibraryUpdateParams as LibraryUpdateParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
+from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_download_thumbnail_params import AssetDownloadThumbnailParams as AssetDownloadThumbnailParams
