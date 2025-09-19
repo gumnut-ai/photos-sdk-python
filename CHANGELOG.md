@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.16.0 (2025-09-19)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** api update ([0d76ce6](https://github.com/gumnut-ai/photos-sdk-python/commit/0d76ce6b4b6b31a93065a2199e02a6921355729c))
+
+
+### Chores
+
+* **types:** change optional parameter type from NotGiven to Omit ([cca4380](https://github.com/gumnut-ai/photos-sdk-python/commit/cca438059abcccb4e6fa4615dcfb38019b935367))
+
 ## 0.15.0 (2025-09-17)
 
 Full Changelog: [v0.14.2...v0.15.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.14.2...v0.15.0)
