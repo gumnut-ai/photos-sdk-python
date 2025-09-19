@@ -28,7 +28,7 @@ class SearchSearchParams(TypedDict, total=False):
     page: int
     """Page number"""
 
-    person_ids: SequenceNotStr[str]
+    person_ids: Optional[SequenceNotStr[str]]
     """Filter to only include assets containing ALL of these person IDs.
 
     Can be comma-delimited string (e.g. 'person_123,person_abc') or multiple query
