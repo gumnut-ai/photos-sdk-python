@@ -69,6 +69,50 @@ class TestSearch:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_search_assets(self, client: Gumnut) -> None:
+        search = client.search.search_assets()
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
+        search = client.search.search_assets(
+            captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            image=b"raw file contents",
+            library_id="library_id",
+            limit=1,
+            page=1,
+            person_ids=["string"],
+            query="query",
+            threshold=0,
+        )
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_search_assets(self, client: Gumnut) -> None:
+        response = client.search.with_raw_response.search_assets()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        search = response.parse()
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_search_assets(self, client: Gumnut) -> None:
+        with client.search.with_streaming_response.search_assets() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            search = response.parse()
+            assert_matches_type(SearchResponse, search, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncSearch:
     parametrize = pytest.mark.parametrize(
@@ -121,5 +165,49 @@ class TestAsyncSearch:
 
                 search = await response.parse()
                 assert_matches_type(SearchResponse, search, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_search_assets(self, async_client: AsyncGumnut) -> None:
+        search = await async_client.search.search_assets()
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
+        search = await async_client.search.search_assets(
+            captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            image=b"raw file contents",
+            library_id="library_id",
+            limit=1,
+            page=1,
+            person_ids=["string"],
+            query="query",
+            threshold=0,
+        )
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_search_assets(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.search.with_raw_response.search_assets()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        search = await response.parse()
+        assert_matches_type(SearchResponse, search, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_search_assets(self, async_client: AsyncGumnut) -> None:
+        async with async_client.search.with_streaming_response.search_assets() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            search = await response.parse()
+            assert_matches_type(SearchResponse, search, path=["response"])
 
         assert cast(Any, response.is_closed) is True
