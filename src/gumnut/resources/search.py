@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Union, Optional
 from datetime import datetime
 
@@ -44,6 +45,7 @@ class SearchResource(SyncAPIResource):
         """
         return SearchResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def search(
         self,
         *,
@@ -52,7 +54,7 @@ class SearchResource(SyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
-        person_ids: SequenceNotStr[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -143,6 +145,7 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         return AsyncSearchResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def search(
         self,
         *,
@@ -151,7 +154,7 @@ class AsyncSearchResource(AsyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
-        person_ids: SequenceNotStr[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -226,8 +229,10 @@ class SearchResourceWithRawResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.search = to_raw_response_wrapper(
-            search.search,
+        self.search = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                search.search,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -235,8 +240,10 @@ class AsyncSearchResourceWithRawResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.search = async_to_raw_response_wrapper(
-            search.search,
+        self.search = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                search.search,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -244,8 +251,10 @@ class SearchResourceWithStreamingResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.search = to_streamed_response_wrapper(
-            search.search,
+        self.search = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                search.search,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -253,6 +262,8 @@ class AsyncSearchResourceWithStreamingResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.search = async_to_streamed_response_wrapper(
-            search.search,
+        self.search = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                search.search,  # pyright: ignore[reportDeprecated],
+            )
         )
