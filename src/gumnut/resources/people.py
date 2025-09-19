@@ -8,7 +8,7 @@ from datetime import date
 import httpx
 
 from ..types import person_list_params, person_create_params, person_update_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -48,18 +48,18 @@ class PeopleResource(SyncAPIResource):
     def create(
         self,
         *,
-        birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
+        birth_date: Union[str, date, None] | Omit = omit,
+        is_favorite: Optional[bool] | Omit = omit,
+        is_hidden: Optional[bool] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Creates a new person entry.
@@ -101,7 +101,7 @@ class PeopleResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Retrieves details for a specific person.
@@ -129,17 +129,17 @@ class PeopleResource(SyncAPIResource):
         self,
         person_id: str,
         *,
-        birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
+        birth_date: Union[str, date, None] | Omit = omit,
+        is_favorite: Optional[bool] | Omit = omit,
+        is_hidden: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Updates the details of a specific person.
@@ -176,17 +176,17 @@ class PeopleResource(SyncAPIResource):
     def list(
         self,
         *,
-        album_id: Optional[str] | NotGiven = NOT_GIVEN,
-        asset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PersonResponse]:
         """
         Retrieves a paginated list of people, ordered by creation time, descending.
@@ -239,7 +239,7 @@ class PeopleResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific person.
 
@@ -290,18 +290,18 @@ class AsyncPeopleResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
+        birth_date: Union[str, date, None] | Omit = omit,
+        is_favorite: Optional[bool] | Omit = omit,
+        is_hidden: Optional[bool] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Creates a new person entry.
@@ -343,7 +343,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Retrieves details for a specific person.
@@ -371,17 +371,17 @@ class AsyncPeopleResource(AsyncAPIResource):
         self,
         person_id: str,
         *,
-        birth_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_hidden: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        thumbnail_face_id: Optional[str] | NotGiven = NOT_GIVEN,
+        birth_date: Union[str, date, None] | Omit = omit,
+        is_favorite: Optional[bool] | Omit = omit,
+        is_hidden: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
         Updates the details of a specific person.
@@ -418,17 +418,17 @@ class AsyncPeopleResource(AsyncAPIResource):
     def list(
         self,
         *,
-        album_id: Optional[str] | NotGiven = NOT_GIVEN,
-        asset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PersonResponse, AsyncCursorPage[PersonResponse]]:
         """
         Retrieves a paginated list of people, ordered by creation time, descending.
@@ -481,7 +481,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific person.
 
