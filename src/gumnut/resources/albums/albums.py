@@ -15,7 +15,7 @@ from .assets import (
     AsyncAssetsResourceWithStreamingResponse,
 )
 from ...types import album_list_params, album_create_params, album_update_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -59,15 +59,15 @@ class AlbumsResource(SyncAPIResource):
     def create(
         self,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Creates a new, empty album with optional name and description in the specified
@@ -107,7 +107,7 @@ class AlbumsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Retrieves details for a specific album.
@@ -135,14 +135,14 @@ class AlbumsResource(SyncAPIResource):
         self,
         album_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Updates the name and/or description of a specific album.
@@ -176,15 +176,15 @@ class AlbumsResource(SyncAPIResource):
     def list(
         self,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AlbumResponse]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
@@ -232,7 +232,7 @@ class AlbumsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific album.
 
@@ -287,15 +287,15 @@ class AsyncAlbumsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Creates a new, empty album with optional name and description in the specified
@@ -335,7 +335,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Retrieves details for a specific album.
@@ -363,14 +363,14 @@ class AsyncAlbumsResource(AsyncAPIResource):
         self,
         album_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
         """
         Updates the name and/or description of a specific album.
@@ -404,15 +404,15 @@ class AsyncAlbumsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
@@ -460,7 +460,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Deletes a specific album.
 

@@ -8,7 +8,7 @@ from datetime import datetime
 import httpx
 
 from ..types import asset_list_params, asset_create_params, asset_download_thumbnail_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -61,13 +61,13 @@ class AssetsResource(SyncAPIResource):
         device_id: str,
         file_created_at: Union[str, datetime],
         file_modified_at: Union[str, datetime],
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
         Uploads a new asset file (image or video) along with its metadata to the
@@ -120,7 +120,7 @@ class AssetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
         Retrieves detailed metadata for a specific asset, including EXIF information,
@@ -148,17 +148,17 @@ class AssetsResource(SyncAPIResource):
     def list(
         self,
         *,
-        album_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        album_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AssetResponse]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
@@ -213,7 +213,7 @@ class AssetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Deletes a specific asset and its associated data (including the file from
@@ -248,7 +248,7 @@ class AssetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Downloads the original file for a specific asset.
@@ -277,13 +277,13 @@ class AssetsResource(SyncAPIResource):
         self,
         asset_id: str,
         *,
-        size: Optional[str] | NotGiven = NOT_GIVEN,
+        size: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """Downloads a thumbnail for a specific asset.
 
@@ -345,13 +345,13 @@ class AsyncAssetsResource(AsyncAPIResource):
         device_id: str,
         file_created_at: Union[str, datetime],
         file_modified_at: Union[str, datetime],
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
+        library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
         Uploads a new asset file (image or video) along with its metadata to the
@@ -404,7 +404,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
         Retrieves detailed metadata for a specific asset, including EXIF information,
@@ -432,17 +432,17 @@ class AsyncAssetsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        album_id: Optional[str] | NotGiven = NOT_GIVEN,
-        library_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        person_id: Optional[str] | NotGiven = NOT_GIVEN,
-        starting_after_id: Optional[str] | NotGiven = NOT_GIVEN,
+        album_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
@@ -497,7 +497,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Deletes a specific asset and its associated data (including the file from
@@ -532,7 +532,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Downloads the original file for a specific asset.
@@ -561,13 +561,13 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         asset_id: str,
         *,
-        size: Optional[str] | NotGiven = NOT_GIVEN,
+        size: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """Downloads a thumbnail for a specific asset.
 
