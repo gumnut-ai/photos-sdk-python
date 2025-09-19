@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.0 (2025-09-19)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** add POST endpoint for /api/search ([c388820](https://github.com/gumnut-ai/photos-sdk-python/commit/c3888205fba76e71294290cf41be278f3c5f7cfa))
+
 ## 0.16.0 (2025-09-19)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.15.0...v0.16.0)
