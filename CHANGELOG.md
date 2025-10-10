@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0 (2025-10-10)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** api update ([046ca31](https://github.com/gumnut-ai/photos-sdk-python/commit/046ca31c1bd7a7686a87ac8a2aec9750c180bb84))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([1275e54](https://github.com/gumnut-ai/photos-sdk-python/commit/1275e541fb2449be30ccc6709921415b52579298))
+
 ## 0.17.0 (2025-09-19)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.16.0...v0.17.0)
