@@ -137,6 +137,12 @@ class AssetResponse(BaseModel):
     faces: Optional[List[FaceResponse]] = None
     """All faces detected in this asset"""
 
+    file_size_bytes: Optional[int] = None
+    """File size of the asset in bytes"""
+
+    height: Optional[int] = None
+    """Height of the asset in pixels"""
+
     metrics: Optional[Dict[str, Optional[float]]] = None
     """ML-generated quality scores and other metrics"""
 
@@ -149,3 +155,6 @@ class AssetResponse(BaseModel):
     Never download the full asset unless you absolutely have to; prefer the
     thumbnail instead.
     """
+
+    width: Optional[int] = None
+    """Width of the asset in pixels"""
