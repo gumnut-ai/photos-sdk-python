@@ -12,6 +12,9 @@ class AlbumResponse(BaseModel):
     id: str
     """Unique album identifier with 'album\\__' prefix"""
 
+    asset_count: int
+    """Total number of assets in this album"""
+
     created_at: datetime
     """When this album was created"""
 
