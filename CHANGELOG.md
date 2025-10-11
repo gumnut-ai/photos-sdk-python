@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1 (2025-10-11)
+
+Full Changelog: [v0.19.0...v0.19.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.19.0...v0.19.1)
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([1ebadca](https://github.com/gumnut-ai/photos-sdk-python/commit/1ebadca5f423c66b20deebdcb2ef29374ae94b7b))
+
 ## 0.19.0 (2025-10-11)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.18.0...v0.19.0)
