@@ -176,6 +176,7 @@ class AlbumsResource(SyncAPIResource):
     def list(
         self,
         *,
+        asset_id: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -188,10 +189,14 @@ class AlbumsResource(SyncAPIResource):
     ) -> SyncCursorPage[AlbumResponse]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending.
+        creation time, descending. Can be filtered by asset_id.
 
         Args:
+          asset_id: Filter albums containing this asset ID (optional)
+
           library_id: Library to list albums from (optional)
+
+          limit: Max number of albums to return
 
           starting_after_id: Album ID to start listing albums after
 
@@ -213,6 +218,7 @@ class AlbumsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "asset_id": asset_id,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
@@ -404,6 +410,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        asset_id: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -416,10 +423,14 @@ class AsyncAlbumsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending.
+        creation time, descending. Can be filtered by asset_id.
 
         Args:
+          asset_id: Filter albums containing this asset ID (optional)
+
           library_id: Library to list albums from (optional)
+
+          limit: Max number of albums to return
 
           starting_after_id: Album ID to start listing albums after
 
@@ -441,6 +452,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "asset_id": asset_id,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
