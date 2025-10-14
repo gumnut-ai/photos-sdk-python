@@ -24,5 +24,8 @@ class AlbumResponse(BaseModel):
     updated_at: datetime
     """When this album was last updated"""
 
+    album_cover_asset_id: Optional[str] = None
+    """ID of the asset used as the album cover"""
+
     description: Optional[str] = None
     """Optional description text for the album"""
