@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.21.1 (2025-10-18)
+
+Full Changelog: [v0.21.0...v0.21.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.21.0...v0.21.1)
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([4df76b7](https://github.com/gumnut-ai/photos-sdk-python/commit/4df76b7baaa1338ecb51bdb891d86877a816c399))
+
 ## 0.21.0 (2025-10-14)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.20.0...v0.21.0)
