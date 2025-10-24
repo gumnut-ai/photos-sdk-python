@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import faces, assets, people, search, api_keys, libraries
+from .resources import faces, oauth, assets, people, search, api_keys, libraries
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -41,6 +41,7 @@ class Gumnut(SyncAPIClient):
     albums: albums.AlbumsResource
     faces: faces.FacesResource
     libraries: libraries.LibrariesResource
+    oauth: oauth.OAuthResource
     people: people.PeopleResource
     search: search.SearchResource
     with_raw_response: GumnutWithRawResponse
@@ -101,6 +102,7 @@ class Gumnut(SyncAPIClient):
         self.albums = albums.AlbumsResource(self)
         self.faces = faces.FacesResource(self)
         self.libraries = libraries.LibrariesResource(self)
+        self.oauth = oauth.OAuthResource(self)
         self.people = people.PeopleResource(self)
         self.search = search.SearchResource(self)
         self.with_raw_response = GumnutWithRawResponse(self)
@@ -230,6 +232,7 @@ class AsyncGumnut(AsyncAPIClient):
     albums: albums.AsyncAlbumsResource
     faces: faces.AsyncFacesResource
     libraries: libraries.AsyncLibrariesResource
+    oauth: oauth.AsyncOAuthResource
     people: people.AsyncPeopleResource
     search: search.AsyncSearchResource
     with_raw_response: AsyncGumnutWithRawResponse
@@ -290,6 +293,7 @@ class AsyncGumnut(AsyncAPIClient):
         self.albums = albums.AsyncAlbumsResource(self)
         self.faces = faces.AsyncFacesResource(self)
         self.libraries = libraries.AsyncLibrariesResource(self)
+        self.oauth = oauth.AsyncOAuthResource(self)
         self.people = people.AsyncPeopleResource(self)
         self.search = search.AsyncSearchResource(self)
         self.with_raw_response = AsyncGumnutWithRawResponse(self)
@@ -420,6 +424,7 @@ class GumnutWithRawResponse:
         self.albums = albums.AlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.FacesResourceWithRawResponse(client.faces)
         self.libraries = libraries.LibrariesResourceWithRawResponse(client.libraries)
+        self.oauth = oauth.OAuthResourceWithRawResponse(client.oauth)
         self.people = people.PeopleResourceWithRawResponse(client.people)
         self.search = search.SearchResourceWithRawResponse(client.search)
 
@@ -431,6 +436,7 @@ class AsyncGumnutWithRawResponse:
         self.albums = albums.AsyncAlbumsResourceWithRawResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithRawResponse(client.faces)
         self.libraries = libraries.AsyncLibrariesResourceWithRawResponse(client.libraries)
+        self.oauth = oauth.AsyncOAuthResourceWithRawResponse(client.oauth)
         self.people = people.AsyncPeopleResourceWithRawResponse(client.people)
         self.search = search.AsyncSearchResourceWithRawResponse(client.search)
 
@@ -442,6 +448,7 @@ class GumnutWithStreamedResponse:
         self.albums = albums.AlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.FacesResourceWithStreamingResponse(client.faces)
         self.libraries = libraries.LibrariesResourceWithStreamingResponse(client.libraries)
+        self.oauth = oauth.OAuthResourceWithStreamingResponse(client.oauth)
         self.people = people.PeopleResourceWithStreamingResponse(client.people)
         self.search = search.SearchResourceWithStreamingResponse(client.search)
 
@@ -453,6 +460,7 @@ class AsyncGumnutWithStreamedResponse:
         self.albums = albums.AsyncAlbumsResourceWithStreamingResponse(client.albums)
         self.faces = faces.AsyncFacesResourceWithStreamingResponse(client.faces)
         self.libraries = libraries.AsyncLibrariesResourceWithStreamingResponse(client.libraries)
+        self.oauth = oauth.AsyncOAuthResourceWithStreamingResponse(client.oauth)
         self.people = people.AsyncPeopleResourceWithStreamingResponse(client.people)
         self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
 
