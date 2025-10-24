@@ -8,6 +8,14 @@ from .faces import (
     FacesResourceWithStreamingResponse,
     AsyncFacesResourceWithStreamingResponse,
 )
+from .oauth import (
+    OAuthResource,
+    AsyncOAuthResource,
+    OAuthResourceWithRawResponse,
+    AsyncOAuthResourceWithRawResponse,
+    OAuthResourceWithStreamingResponse,
+    AsyncOAuthResourceWithStreamingResponse,
+)
 from .albums import (
     AlbumsResource,
     AsyncAlbumsResource,
@@ -88,6 +96,12 @@ __all__ = [
     "AsyncLibrariesResourceWithRawResponse",
     "LibrariesResourceWithStreamingResponse",
     "AsyncLibrariesResourceWithStreamingResponse",
+    "OAuthResource",
+    "AsyncOAuthResource",
+    "OAuthResourceWithRawResponse",
+    "AsyncOAuthResourceWithRawResponse",
+    "OAuthResourceWithStreamingResponse",
+    "AsyncOAuthResourceWithStreamingResponse",
     "PeopleResource",
     "AsyncPeopleResource",
     "PeopleResourceWithRawResponse",

@@ -92,6 +92,19 @@ Methods:
 - <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">list</a>() -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
 - <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> None</code>
 
+# OAuth
+
+Types:
+
+```python
+from gumnut.types import AuthURLResponse, ExhchangeResponse
+```
+
+Methods:
+
+- <code title="get /api/oauth/auth-url">client.oauth.<a href="./src/gumnut/resources/oauth.py">auth_url</a>(\*\*<a href="src/gumnut/types/oauth_auth_url_params.py">params</a>) -> <a href="./src/gumnut/types/auth_url_response.py">AuthURLResponse</a></code>
+- <code title="post /api/oauth/exchange">client.oauth.<a href="./src/gumnut/resources/oauth.py">exhange</a>(\*\*<a href="src/gumnut/types/oauth_exhange_params.py">params</a>) -> <a href="./src/gumnut/types/exhchange_response.py">ExhchangeResponse</a></code>
+
 # People
 
 Types:
