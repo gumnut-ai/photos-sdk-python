@@ -63,14 +63,14 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_exhange(self, client: Gumnut) -> None:
-        oauth = client.oauth.exhange()
+    def test_method_exchange(self, client: Gumnut) -> None:
+        oauth = client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_exhange_with_all_params(self, client: Gumnut) -> None:
-        oauth = client.oauth.exhange(
+    def test_method_exchange_with_all_params(self, client: Gumnut) -> None:
+        oauth = client.oauth.exchange(
             code="code",
             code_verifier="code_verifier",
             error="error",
@@ -80,8 +80,8 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_exhange(self, client: Gumnut) -> None:
-        response = client.oauth.with_raw_response.exhange()
+    def test_raw_response_exchange(self, client: Gumnut) -> None:
+        response = client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -90,8 +90,8 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_exhange(self, client: Gumnut) -> None:
-        with client.oauth.with_streaming_response.exhange() as response:
+    def test_streaming_response_exchange(self, client: Gumnut) -> None:
+        with client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -152,14 +152,14 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_exhange(self, async_client: AsyncGumnut) -> None:
-        oauth = await async_client.oauth.exhange()
+    async def test_method_exchange(self, async_client: AsyncGumnut) -> None:
+        oauth = await async_client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_exhange_with_all_params(self, async_client: AsyncGumnut) -> None:
-        oauth = await async_client.oauth.exhange(
+    async def test_method_exchange_with_all_params(self, async_client: AsyncGumnut) -> None:
+        oauth = await async_client.oauth.exchange(
             code="code",
             code_verifier="code_verifier",
             error="error",
@@ -169,8 +169,8 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_exhange(self, async_client: AsyncGumnut) -> None:
-        response = await async_client.oauth.with_raw_response.exhange()
+    async def test_raw_response_exchange(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,8 +179,8 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_exhange(self, async_client: AsyncGumnut) -> None:
-        async with async_client.oauth.with_streaming_response.exhange() as response:
+    async def test_streaming_response_exchange(self, async_client: AsyncGumnut) -> None:
+        async with async_client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
