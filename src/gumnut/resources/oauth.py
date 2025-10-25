@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import oauth_exhange_params, oauth_auth_url_params
+from ..types import oauth_auth_url_params, oauth_exchange_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -98,7 +98,7 @@ class OAuthResource(SyncAPIResource):
             cast_to=AuthURLResponse,
         )
 
-    def exhange(
+    def exchange(
         self,
         *,
         code: Optional[str] | Omit = omit,
@@ -144,7 +144,7 @@ class OAuthResource(SyncAPIResource):
                     "error": error,
                     "state": state,
                 },
-                oauth_exhange_params.OAuthExhangeParams,
+                oauth_exchange_params.OAuthExchangeParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -227,7 +227,7 @@ class AsyncOAuthResource(AsyncAPIResource):
             cast_to=AuthURLResponse,
         )
 
-    async def exhange(
+    async def exchange(
         self,
         *,
         code: Optional[str] | Omit = omit,
@@ -273,7 +273,7 @@ class AsyncOAuthResource(AsyncAPIResource):
                     "error": error,
                     "state": state,
                 },
-                oauth_exhange_params.OAuthExhangeParams,
+                oauth_exchange_params.OAuthExchangeParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -289,8 +289,8 @@ class OAuthResourceWithRawResponse:
         self.auth_url = to_raw_response_wrapper(
             oauth.auth_url,
         )
-        self.exhange = to_raw_response_wrapper(
-            oauth.exhange,
+        self.exchange = to_raw_response_wrapper(
+            oauth.exchange,
         )
 
 
@@ -301,8 +301,8 @@ class AsyncOAuthResourceWithRawResponse:
         self.auth_url = async_to_raw_response_wrapper(
             oauth.auth_url,
         )
-        self.exhange = async_to_raw_response_wrapper(
-            oauth.exhange,
+        self.exchange = async_to_raw_response_wrapper(
+            oauth.exchange,
         )
 
 
@@ -313,8 +313,8 @@ class OAuthResourceWithStreamingResponse:
         self.auth_url = to_streamed_response_wrapper(
             oauth.auth_url,
         )
-        self.exhange = to_streamed_response_wrapper(
-            oauth.exhange,
+        self.exchange = to_streamed_response_wrapper(
+            oauth.exchange,
         )
 
 
@@ -325,6 +325,6 @@ class AsyncOAuthResourceWithStreamingResponse:
         self.auth_url = async_to_streamed_response_wrapper(
             oauth.auth_url,
         )
-        self.exhange = async_to_streamed_response_wrapper(
-            oauth.exhange,
+        self.exchange = async_to_streamed_response_wrapper(
+            oauth.exchange,
         )

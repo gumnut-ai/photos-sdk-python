@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["OAuthExhangeParams"]
+__all__ = ["OAuthExchangeParams"]
 
 
-class OAuthExhangeParams(TypedDict, total=False):
+class OAuthExchangeParams(TypedDict, total=False):
     code: Optional[str]
     """Authorization code returned by the OAuth provider after user consent"""
 

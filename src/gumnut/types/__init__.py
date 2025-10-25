@@ -21,7 +21,6 @@ from .album_create_params import AlbumCreateParams as AlbumCreateParams
 from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
-from .oauth_exhange_params import OAuthExhangeParams as OAuthExhangeParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
 from .person_update_params import PersonUpdateParams as PersonUpdateParams
 from .search_search_params import SearchSearchParams as SearchSearchParams
@@ -32,6 +31,7 @@ from .library_create_params import LibraryCreateParams as LibraryCreateParams
 from .library_list_response import LibraryListResponse as LibraryListResponse
 from .library_update_params import LibraryUpdateParams as LibraryUpdateParams
 from .oauth_auth_url_params import OAuthAuthURLParams as OAuthAuthURLParams
+from .oauth_exchange_params import OAuthExchangeParams as OAuthExchangeParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_download_thumbnail_params import AssetDownloadThumbnailParams as AssetDownloadThumbnailParams
