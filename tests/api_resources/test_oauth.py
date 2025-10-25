@@ -9,7 +9,7 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import AuthURLResponse, ExhchangeResponse
+from gumnut.types import AuthURLResponse, ExchangeResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -65,7 +65,7 @@ class TestOAuth:
     @parametrize
     def test_method_exhange(self, client: Gumnut) -> None:
         oauth = client.oauth.exhange()
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -76,7 +76,7 @@ class TestOAuth:
             error="error",
             state="state",
         )
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -86,7 +86,7 @@ class TestOAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         oauth = response.parse()
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -96,7 +96,7 @@ class TestOAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             oauth = response.parse()
-            assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+            assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -154,7 +154,7 @@ class TestAsyncOAuth:
     @parametrize
     async def test_method_exhange(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.exhange()
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -165,7 +165,7 @@ class TestAsyncOAuth:
             error="error",
             state="state",
         )
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -175,7 +175,7 @@ class TestAsyncOAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         oauth = await response.parse()
-        assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+        assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -185,6 +185,6 @@ class TestAsyncOAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             oauth = await response.parse()
-            assert_matches_type(ExhchangeResponse, oauth, path=["response"])
+            assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
