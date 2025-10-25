@@ -97,13 +97,13 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import AuthURLResponse, ExhchangeResponse
+from gumnut.types import AuthURLResponse, ExchangeResponse
 ```
 
 Methods:
 
 - <code title="get /api/oauth/auth-url">client.oauth.<a href="./src/gumnut/resources/oauth.py">auth_url</a>(\*\*<a href="src/gumnut/types/oauth_auth_url_params.py">params</a>) -> <a href="./src/gumnut/types/auth_url_response.py">AuthURLResponse</a></code>
-- <code title="post /api/oauth/exchange">client.oauth.<a href="./src/gumnut/resources/oauth.py">exhange</a>(\*\*<a href="src/gumnut/types/oauth_exhange_params.py">params</a>) -> <a href="./src/gumnut/types/exhchange_response.py">ExhchangeResponse</a></code>
+- <code title="post /api/oauth/exchange">client.oauth.<a href="./src/gumnut/resources/oauth.py">exhange</a>(\*\*<a href="src/gumnut/types/oauth_exhange_params.py">params</a>) -> <a href="./src/gumnut/types/exchange_response.py">ExchangeResponse</a></code>
 
 # People
 

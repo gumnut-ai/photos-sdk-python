@@ -19,7 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.auth_url_response import AuthURLResponse
-from ..types.exhchange_response import ExhchangeResponse
+from ..types.exchange_response import ExchangeResponse
 
 __all__ = ["OAuthResource", "AsyncOAuthResource"]
 
@@ -111,7 +111,7 @@ class OAuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExhchangeResponse:
+    ) -> ExchangeResponse:
         """
         Exchange OAuth authorization code for application JWT after validating state,
         nonce, and ID token signature. User is retrieved from or created in the database
@@ -149,7 +149,7 @@ class OAuthResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExhchangeResponse,
+            cast_to=ExchangeResponse,
         )
 
 
@@ -240,7 +240,7 @@ class AsyncOAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExhchangeResponse:
+    ) -> ExchangeResponse:
         """
         Exchange OAuth authorization code for application JWT after validating state,
         nonce, and ID token signature. User is retrieved from or created in the database
@@ -278,7 +278,7 @@ class AsyncOAuthResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExhchangeResponse,
+            cast_to=ExchangeResponse,
         )
 
 

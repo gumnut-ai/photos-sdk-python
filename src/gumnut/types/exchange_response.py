@@ -4,7 +4,7 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["ExhchangeResponse", "User"]
+__all__ = ["ExchangeResponse", "User"]
 
 
 class User(BaseModel):
@@ -23,7 +23,7 @@ class User(BaseModel):
     last_name: Optional[str] = None
 
 
-class ExhchangeResponse(BaseModel):
+class ExchangeResponse(BaseModel):
     access_token: str
 
     user: User

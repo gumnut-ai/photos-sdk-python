@@ -13,7 +13,7 @@ from .library_response import LibraryResponse as LibraryResponse
 from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
-from .exhchange_response import ExhchangeResponse as ExhchangeResponse
+from .exchange_response import ExchangeResponse as ExchangeResponse
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .person_list_params import PersonListParams as PersonListParams
