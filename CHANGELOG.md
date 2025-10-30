@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.1 (2025-10-30)
+
+Full Changelog: [v0.24.0...v0.24.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.24.0...v0.24.1)
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([f7c5cec](https://github.com/gumnut-ai/photos-sdk-python/commit/f7c5cecefaef0afd39e6707a2e45d455cae2dd7f))
+
 ## 0.24.0 (2025-10-25)
 
 Full Changelog: [v0.23.0...v0.24.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.23.0...v0.24.0)
