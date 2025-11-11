@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.24.2 (2025-11-11)
+
+Full Changelog: [v0.24.1...v0.24.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.24.1...v0.24.2)
+
+### Bug Fixes
+
+* compat with Python 3.14 ([4e82ad5](https://github.com/gumnut-ai/photos-sdk-python/commit/4e82ad5b318f0e4709ea818e2395fea804635155))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([f9b56b0](https://github.com/gumnut-ai/photos-sdk-python/commit/f9b56b0981d0bb9faa19bd4276b351edb47781af))
+* **internal:** grammar fix (it's -&gt; its) ([448bed0](https://github.com/gumnut-ai/photos-sdk-python/commit/448bed012f9dccfae7b16e8e0e53d0daa0216a0c))
+* **package:** drop Python 3.8 support ([b050f3b](https://github.com/gumnut-ai/photos-sdk-python/commit/b050f3b24f714ee8f0604787af0d4994dfc619df))
+
 ## 0.24.1 (2025-10-30)
 
 Full Changelog: [v0.24.0...v0.24.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.24.0...v0.24.1)
