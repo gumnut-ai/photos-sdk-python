@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.3 (2025-11-12)
+
+Full Changelog: [v0.24.2...v0.24.3](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.24.2...v0.24.3)
+
+### Bug Fixes
+
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([ace4bf1](https://github.com/gumnut-ai/photos-sdk-python/commit/ace4bf110674eb22aa0035a26cf74cd7a1b6ccfb))
+
 ## 0.24.2 (2025-11-11)
 
 Full Changelog: [v0.24.1...v0.24.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.24.1...v0.24.2)
