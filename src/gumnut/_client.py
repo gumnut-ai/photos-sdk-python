@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import faces, oauth, assets, people, search, api_keys, libraries
+from .resources import faces, oauth, users, assets, people, search, api_keys, libraries
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -44,6 +44,7 @@ class Gumnut(SyncAPIClient):
     oauth: oauth.OAuthResource
     people: people.PeopleResource
     search: search.SearchResource
+    users: users.UsersResource
     with_raw_response: GumnutWithRawResponse
     with_streaming_response: GumnutWithStreamedResponse
 
@@ -105,6 +106,7 @@ class Gumnut(SyncAPIClient):
         self.oauth = oauth.OAuthResource(self)
         self.people = people.PeopleResource(self)
         self.search = search.SearchResource(self)
+        self.users = users.UsersResource(self)
         self.with_raw_response = GumnutWithRawResponse(self)
         self.with_streaming_response = GumnutWithStreamedResponse(self)
 
@@ -235,6 +237,7 @@ class AsyncGumnut(AsyncAPIClient):
     oauth: oauth.AsyncOAuthResource
     people: people.AsyncPeopleResource
     search: search.AsyncSearchResource
+    users: users.AsyncUsersResource
     with_raw_response: AsyncGumnutWithRawResponse
     with_streaming_response: AsyncGumnutWithStreamedResponse
 
@@ -296,6 +299,7 @@ class AsyncGumnut(AsyncAPIClient):
         self.oauth = oauth.AsyncOAuthResource(self)
         self.people = people.AsyncPeopleResource(self)
         self.search = search.AsyncSearchResource(self)
+        self.users = users.AsyncUsersResource(self)
         self.with_raw_response = AsyncGumnutWithRawResponse(self)
         self.with_streaming_response = AsyncGumnutWithStreamedResponse(self)
 
@@ -427,6 +431,7 @@ class GumnutWithRawResponse:
         self.oauth = oauth.OAuthResourceWithRawResponse(client.oauth)
         self.people = people.PeopleResourceWithRawResponse(client.people)
         self.search = search.SearchResourceWithRawResponse(client.search)
+        self.users = users.UsersResourceWithRawResponse(client.users)
 
 
 class AsyncGumnutWithRawResponse:
@@ -439,6 +444,7 @@ class AsyncGumnutWithRawResponse:
         self.oauth = oauth.AsyncOAuthResourceWithRawResponse(client.oauth)
         self.people = people.AsyncPeopleResourceWithRawResponse(client.people)
         self.search = search.AsyncSearchResourceWithRawResponse(client.search)
+        self.users = users.AsyncUsersResourceWithRawResponse(client.users)
 
 
 class GumnutWithStreamedResponse:
@@ -451,6 +457,7 @@ class GumnutWithStreamedResponse:
         self.oauth = oauth.OAuthResourceWithStreamingResponse(client.oauth)
         self.people = people.PeopleResourceWithStreamingResponse(client.people)
         self.search = search.SearchResourceWithStreamingResponse(client.search)
+        self.users = users.UsersResourceWithStreamingResponse(client.users)
 
 
 class AsyncGumnutWithStreamedResponse:
@@ -463,6 +470,7 @@ class AsyncGumnutWithStreamedResponse:
         self.oauth = oauth.AsyncOAuthResourceWithStreamingResponse(client.oauth)
         self.people = people.AsyncPeopleResourceWithStreamingResponse(client.people)
         self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
+        self.users = users.AsyncUsersResourceWithStreamingResponse(client.users)
 
 
 Client = Gumnut

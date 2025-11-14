@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .face_response import FaceResponse as FaceResponse
+from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
 from .asset_response import AssetResponse as AssetResponse
 from .person_response import PersonResponse as PersonResponse

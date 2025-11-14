@@ -133,3 +133,15 @@ Methods:
 
 - <code title="get /api/search">client.search.<a href="./src/gumnut/resources/search.py">search</a>(\*\*<a href="src/gumnut/types/search_search_params.py">params</a>) -> <a href="./src/gumnut/types/search_response.py">SearchResponse</a></code>
 - <code title="post /api/search">client.search.<a href="./src/gumnut/resources/search.py">search_assets</a>(\*\*<a href="src/gumnut/types/search_search_assets_params.py">params</a>) -> <a href="./src/gumnut/types/search_response.py">SearchResponse</a></code>
+
+# Users
+
+Types:
+
+```python
+from gumnut.types import UserResponse
+```
+
+Methods:
+
+- <code title="get /api/users/me">client.users.<a href="./src/gumnut/resources/users.py">me</a>() -> <a href="./src/gumnut/types/user_response.py">UserResponse</a></code>
