@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.auth_url_response import AuthURLResponse
 from ..types.exchange_response import ExchangeResponse
+from ..types.logout_endpoint_response import LogoutEndpointResponse
 
 __all__ = ["OAuthResource", "AsyncOAuthResource"]
 
@@ -152,6 +153,30 @@ class OAuthResource(SyncAPIResource):
             cast_to=ExchangeResponse,
         )
 
+    def logout_endpoint(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LogoutEndpointResponse:
+        """Returns the OAuth provider's logout endpoint URL from OIDC discovery.
+
+        This can
+        be used to redirect users to logout from the OAuth provider after logging out
+        locally.
+        """
+        return self._get(
+            "/api/oauth/logout-endpoint",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LogoutEndpointResponse,
+        )
+
 
 class AsyncOAuthResource(AsyncAPIResource):
     @cached_property
@@ -281,6 +306,30 @@ class AsyncOAuthResource(AsyncAPIResource):
             cast_to=ExchangeResponse,
         )
 
+    async def logout_endpoint(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LogoutEndpointResponse:
+        """Returns the OAuth provider's logout endpoint URL from OIDC discovery.
+
+        This can
+        be used to redirect users to logout from the OAuth provider after logging out
+        locally.
+        """
+        return await self._get(
+            "/api/oauth/logout-endpoint",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LogoutEndpointResponse,
+        )
+
 
 class OAuthResourceWithRawResponse:
     def __init__(self, oauth: OAuthResource) -> None:
@@ -291,6 +340,9 @@ class OAuthResourceWithRawResponse:
         )
         self.exchange = to_raw_response_wrapper(
             oauth.exchange,
+        )
+        self.logout_endpoint = to_raw_response_wrapper(
+            oauth.logout_endpoint,
         )
 
 
@@ -304,6 +356,9 @@ class AsyncOAuthResourceWithRawResponse:
         self.exchange = async_to_raw_response_wrapper(
             oauth.exchange,
         )
+        self.logout_endpoint = async_to_raw_response_wrapper(
+            oauth.logout_endpoint,
+        )
 
 
 class OAuthResourceWithStreamingResponse:
@@ -316,6 +371,9 @@ class OAuthResourceWithStreamingResponse:
         self.exchange = to_streamed_response_wrapper(
             oauth.exchange,
         )
+        self.logout_endpoint = to_streamed_response_wrapper(
+            oauth.logout_endpoint,
+        )
 
 
 class AsyncOAuthResourceWithStreamingResponse:
@@ -327,4 +385,7 @@ class AsyncOAuthResourceWithStreamingResponse:
         )
         self.exchange = async_to_streamed_response_wrapper(
             oauth.exchange,
+        )
+        self.logout_endpoint = async_to_streamed_response_wrapper(
+            oauth.logout_endpoint,
         )
