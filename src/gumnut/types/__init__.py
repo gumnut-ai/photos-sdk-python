@@ -34,5 +34,6 @@ from .library_update_params import LibraryUpdateParams as LibraryUpdateParams
 from .oauth_auth_url_params import OAuthAuthURLParams as OAuthAuthURLParams
 from .oauth_exchange_params import OAuthExchangeParams as OAuthExchangeParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
+from .logout_endpoint_response import LogoutEndpointResponse as LogoutEndpointResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_download_thumbnail_params import AssetDownloadThumbnailParams as AssetDownloadThumbnailParams
