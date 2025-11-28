@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.26.1 (2025-11-28)
+
+Full Changelog: [v0.26.0...v0.26.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.26.0...v0.26.1)
+
+### Bug Fixes
+
+* ensure streams are always closed ([2e7eb40](https://github.com/gumnut-ai/photos-sdk-python/commit/2e7eb40b93ab7b71f98744ad02aecfb68d014d8b))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([0255e7f](https://github.com/gumnut-ai/photos-sdk-python/commit/0255e7f0f5a20de4a48990f0e1959d9d7f6499f6))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([79d5192](https://github.com/gumnut-ai/photos-sdk-python/commit/79d5192ea4e8e9124d6e373cacfdc4c05aeeb777))
+
 ## 0.26.0 (2025-11-20)
 
 Full Changelog: [v0.25.0...v0.26.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.25.0...v0.26.0)
