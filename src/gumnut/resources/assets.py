@@ -7,8 +7,13 @@ from datetime import datetime
 
 import httpx
 
-from ..types import asset_list_params, asset_create_params, asset_download_thumbnail_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
+from ..types import (
+    asset_list_params,
+    asset_create_params,
+    asset_check_existence_params,
+    asset_download_thumbnail_params,
+)
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -29,6 +34,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.asset_response import AssetResponse
+from ..types.asset_existence_response import AssetExistenceResponse
 
 __all__ = ["AssetsResource", "AsyncAssetsResource"]
 
@@ -237,6 +243,69 @@ class AssetsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def check_existence(
+        self,
+        *,
+        library_id: Optional[str] | Omit = omit,
+        checksum_sha1s: Optional[SequenceNotStr[str]] | Omit = omit,
+        checksums: Optional[SequenceNotStr[str]] | Omit = omit,
+        device_asset_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        device_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetExistenceResponse:
+        """
+        Checks which assets exist in the user's library based on checksums or device
+        identifiers. Provide exactly one of: checksums, checksum_sha1s, or (deviceId AND
+        deviceAssetIds). List parameters are limited to 5000 items.
+
+        Args:
+          library_id: Library to check assets in (optional)
+
+          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence (for Immich
+              compatibility)
+
+          checksums: List of base64-encoded SHA-256 checksums to check for existence
+
+          device_asset_ids: List of device asset IDs to check for existence (requires deviceId)
+
+          device_id: Device ID to filter assets by (required with deviceAssetIds)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/assets/exist",
+            body=maybe_transform(
+                {
+                    "checksum_sha1s": checksum_sha1s,
+                    "checksums": checksums,
+                    "device_asset_ids": device_asset_ids,
+                    "device_id": device_id,
+                },
+                asset_check_existence_params.AssetCheckExistenceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"library_id": library_id}, asset_check_existence_params.AssetCheckExistenceParams
+                ),
+            ),
+            cast_to=AssetExistenceResponse,
         )
 
     def download(
@@ -523,6 +592,69 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def check_existence(
+        self,
+        *,
+        library_id: Optional[str] | Omit = omit,
+        checksum_sha1s: Optional[SequenceNotStr[str]] | Omit = omit,
+        checksums: Optional[SequenceNotStr[str]] | Omit = omit,
+        device_asset_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        device_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetExistenceResponse:
+        """
+        Checks which assets exist in the user's library based on checksums or device
+        identifiers. Provide exactly one of: checksums, checksum_sha1s, or (deviceId AND
+        deviceAssetIds). List parameters are limited to 5000 items.
+
+        Args:
+          library_id: Library to check assets in (optional)
+
+          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence (for Immich
+              compatibility)
+
+          checksums: List of base64-encoded SHA-256 checksums to check for existence
+
+          device_asset_ids: List of device asset IDs to check for existence (requires deviceId)
+
+          device_id: Device ID to filter assets by (required with deviceAssetIds)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/assets/exist",
+            body=await async_maybe_transform(
+                {
+                    "checksum_sha1s": checksum_sha1s,
+                    "checksums": checksums,
+                    "device_asset_ids": device_asset_ids,
+                    "device_id": device_id,
+                },
+                asset_check_existence_params.AssetCheckExistenceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"library_id": library_id}, asset_check_existence_params.AssetCheckExistenceParams
+                ),
+            ),
+            cast_to=AssetExistenceResponse,
+        )
+
     async def download(
         self,
         asset_id: str,
@@ -619,6 +751,9 @@ class AssetsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             assets.delete,
         )
+        self.check_existence = to_raw_response_wrapper(
+            assets.check_existence,
+        )
         self.download = to_custom_raw_response_wrapper(
             assets.download,
             BinaryAPIResponse,
@@ -644,6 +779,9 @@ class AsyncAssetsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             assets.delete,
+        )
+        self.check_existence = async_to_raw_response_wrapper(
+            assets.check_existence,
         )
         self.download = async_to_custom_raw_response_wrapper(
             assets.download,
@@ -671,6 +809,9 @@ class AssetsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             assets.delete,
         )
+        self.check_existence = to_streamed_response_wrapper(
+            assets.check_existence,
+        )
         self.download = to_custom_streamed_response_wrapper(
             assets.download,
             StreamedBinaryAPIResponse,
@@ -696,6 +837,9 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             assets.delete,
+        )
+        self.check_existence = async_to_streamed_response_wrapper(
+            assets.check_existence,
         )
         self.download = async_to_custom_streamed_response_wrapper(
             assets.download,
