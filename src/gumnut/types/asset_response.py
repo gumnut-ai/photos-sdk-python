@@ -96,7 +96,10 @@ class AssetResponse(BaseModel):
     """Unique asset identifier with 'asset\\__' prefix"""
 
     checksum: str
-    """Base64-encoded hash of the asset contents for duplicate detection and integrity"""
+    """
+    Base64-encoded SHA-256 hash of the asset contents for duplicate detection and
+    integrity
+    """
 
     created_at: datetime
     """When this asset record was created in the database"""
@@ -124,6 +127,12 @@ class AssetResponse(BaseModel):
 
     updated_at: datetime
     """When this asset record was last updated"""
+
+    checksum_sha1: Optional[str] = None
+    """Base64-encoded SHA-1 hash for Immich client compatibility.
+
+    May be null for older assets.
+    """
 
     download_url: Optional[str] = None
     """If you need to download the full asset, use this URL.
