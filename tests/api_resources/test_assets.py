@@ -11,7 +11,10 @@ from respx import MockRouter
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import AssetResponse
+from gumnut.types import (
+    AssetResponse,
+    AssetExistenceResponse,
+)
 from gumnut._utils import parse_datetime
 from gumnut._response import (
     BinaryAPIResponse,
@@ -209,6 +212,46 @@ class TestAssets:
             client.assets.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_check_existence(self, client: Gumnut) -> None:
+        asset = client.assets.check_existence()
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_check_existence_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.check_existence(
+            library_id="library_id",
+            checksum_sha1s=["string"],
+            checksums=["string"],
+            device_asset_ids=["string"],
+            device_id="deviceId",
+        )
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_check_existence(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.check_existence()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_check_existence(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.check_existence() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
@@ -511,6 +554,46 @@ class TestAsyncAssets:
             await async_client.assets.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_check_existence(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.check_existence()
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_check_existence_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.check_existence(
+            library_id="library_id",
+            checksum_sha1s=["string"],
+            checksums=["string"],
+            device_asset_ids=["string"],
+            device_id="deviceId",
+        )
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_check_existence(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.check_existence()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_check_existence(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.check_existence() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
