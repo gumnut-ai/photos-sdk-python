@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.27.0 (2025-12-04)
+
+Full Changelog: [v0.26.1...v0.27.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.26.1...v0.27.0)
+
+### Features
+
+* **api:** api update ([35111cc](https://github.com/gumnut-ai/photos-sdk-python/commit/35111ccbddbe29ca33547771686964453a14f689))
+
+
+### Chores
+
+* **docs:** use environment variables for authentication in code snippets ([1fd78ff](https://github.com/gumnut-ai/photos-sdk-python/commit/1fd78ff65344662ba1dd01e0bf8b8d73518f76b6))
+* update lockfile ([061d965](https://github.com/gumnut-ai/photos-sdk-python/commit/061d96572b6ee9c07b0d4327788d4b47bdf811b2))
+
 ## 0.26.1 (2025-11-28)
 
 Full Changelog: [v0.26.0...v0.26.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.26.0...v0.26.1)
