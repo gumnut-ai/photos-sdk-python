@@ -18,7 +18,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import AssetExistenceResponse, AssetResponse
+from gumnut.types import AssetExistenceResponse, AssetLiteResponse, AssetResponse
 ```
 
 Methods:
