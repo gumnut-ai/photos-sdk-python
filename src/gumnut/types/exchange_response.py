@@ -8,6 +8,8 @@ __all__ = ["ExchangeResponse", "User"]
 
 
 class User(BaseModel):
+    """User information in token exchange response"""
+
     id: str
 
     clerk_user_id: Optional[str] = None
@@ -24,6 +26,8 @@ class User(BaseModel):
 
 
 class ExchangeResponse(BaseModel):
+    """Response containing JWT and user info"""
+
     access_token: str
 
     user: User

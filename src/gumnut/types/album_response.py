@@ -9,6 +9,8 @@ __all__ = ["AlbumResponse"]
 
 
 class AlbumResponse(BaseModel):
+    """Represents a collection of assets organized by the user."""
+
     id: str
     """Unique album identifier with 'album\\__' prefix"""
 

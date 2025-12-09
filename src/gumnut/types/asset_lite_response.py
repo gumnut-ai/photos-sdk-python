@@ -8,6 +8,8 @@ __all__ = ["AssetLiteResponse"]
 
 
 class AssetLiteResponse(BaseModel):
+    """Lightweight asset response for existence checks."""
+
     id: str
     """Unique asset identifier with 'asset\\__' prefix"""
 

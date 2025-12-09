@@ -11,6 +11,8 @@ __all__ = ["AssetResponse", "Exif"]
 
 
 class Exif(BaseModel):
+    """EXIF metadata extracted from image and video files."""
+
     altitude: Optional[float] = None
     """GPS altitude in meters"""
 
@@ -92,6 +94,8 @@ class Exif(BaseModel):
 
 
 class AssetResponse(BaseModel):
+    """Represents a photo or video asset with metadata and access URLs."""
+
     id: str
     """Unique asset identifier with 'asset\\__' prefix"""
 

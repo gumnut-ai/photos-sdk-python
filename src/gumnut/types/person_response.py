@@ -9,6 +9,8 @@ __all__ = ["PersonResponse"]
 
 
 class PersonResponse(BaseModel):
+    """Represents a person identified through face clustering and recognition."""
+
     id: str
     """Unique person identifier with 'person\\__' prefix"""
 
