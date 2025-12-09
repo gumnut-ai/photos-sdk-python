@@ -9,6 +9,8 @@ __all__ = ["UserResponse"]
 
 
 class UserResponse(BaseModel):
+    """Represents a user account with profile information."""
+
     id: str
     """Unique user identifier with 'intuser\\__' prefix"""
 

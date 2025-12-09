@@ -9,6 +9,8 @@ __all__ = ["APIKeyResponse"]
 
 
 class APIKeyResponse(BaseModel):
+    """Represents an API key for authentication (without exposing the actual key)."""
+
     id: str
     """Unique API key identifier with 'apikey\\__' prefix"""
 

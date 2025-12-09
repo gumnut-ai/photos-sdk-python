@@ -6,4 +6,6 @@ __all__ = ["LogoutEndpointResponse"]
 
 
 class LogoutEndpointResponse(BaseModel):
+    """Response containing OAuth provider logout endpoint"""
+
     logout_endpoint: str

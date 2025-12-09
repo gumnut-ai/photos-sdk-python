@@ -9,6 +9,12 @@ __all__ = ["APIKeyCreateResponse"]
 
 
 class APIKeyCreateResponse(BaseModel):
+    """Response when creating a new API key - includes the actual key value.
+
+    This is the only time the raw API key is exposed. After creation,
+    only the hashed version is stored and the raw key cannot be retrieved.
+    """
+
     id: str
     """Unique API key identifier with 'apikey\\__' prefix"""
 

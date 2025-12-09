@@ -9,6 +9,8 @@ __all__ = ["FaceResponse"]
 
 
 class FaceResponse(BaseModel):
+    """Represents a detected face in an asset with facial recognition data."""
+
     id: str
     """Unique face identifier with 'face\\__' prefix"""
 
