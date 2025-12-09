@@ -9,5 +9,7 @@ __all__ = ["AssetExistenceResponse"]
 
 
 class AssetExistenceResponse(BaseModel):
+    """Response for asset existence check endpoint."""
+
     assets: List[AssetLiteResponse]
     """List of assets matching the query criteria"""

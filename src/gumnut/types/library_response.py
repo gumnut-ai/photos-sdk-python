@@ -9,6 +9,8 @@ __all__ = ["LibraryResponse"]
 
 
 class LibraryResponse(BaseModel):
+    """Represents a user's photo library."""
+
     id: str
     """Unique library identifier with 'lib\\__' prefix"""
 

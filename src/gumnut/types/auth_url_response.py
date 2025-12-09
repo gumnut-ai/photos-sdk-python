@@ -6,4 +6,6 @@ __all__ = ["AuthURLResponse"]
 
 
 class AuthURLResponse(BaseModel):
+    """Response containing OAuth authorization URL"""
+
     url: str
