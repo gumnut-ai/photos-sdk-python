@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.29.1 (2025-12-09)
+
+Full Changelog: [v0.29.0...v0.29.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.29.0...v0.29.1)
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([fb13e66](https://github.com/gumnut-ai/photos-sdk-python/commit/fb13e66ada31ee6cfd3c17d34d02a627aee295f2))
+
+
+### Chores
+
+* add missing docstrings ([4731a0e](https://github.com/gumnut-ai/photos-sdk-python/commit/4731a0e5e40342003b86392e7ad4bcdeaf1f32a4))
+
 ## 0.29.0 (2025-12-05)
 
 Full Changelog: [v0.28.0...v0.29.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.28.0...v0.29.0)
