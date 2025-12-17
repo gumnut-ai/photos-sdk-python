@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -21,8 +21,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import faces, oauth, users, assets, people, search, api_keys, libraries
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -30,24 +30,23 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.albums import albums
+
+if TYPE_CHECKING:
+    from .resources import faces, oauth, users, albums, assets, people, search, api_keys, libraries
+    from .resources.faces import FacesResource, AsyncFacesResource
+    from .resources.oauth import OAuthResource, AsyncOAuthResource
+    from .resources.users import UsersResource, AsyncUsersResource
+    from .resources.assets import AssetsResource, AsyncAssetsResource
+    from .resources.people import PeopleResource, AsyncPeopleResource
+    from .resources.search import SearchResource, AsyncSearchResource
+    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
+    from .resources.libraries import LibrariesResource, AsyncLibrariesResource
+    from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
 
 
 class Gumnut(SyncAPIClient):
-    api_keys: api_keys.APIKeysResource
-    assets: assets.AssetsResource
-    albums: albums.AlbumsResource
-    faces: faces.FacesResource
-    libraries: libraries.LibrariesResource
-    oauth: oauth.OAuthResource
-    people: people.PeopleResource
-    search: search.SearchResource
-    users: users.UsersResource
-    with_raw_response: GumnutWithRawResponse
-    with_streaming_response: GumnutWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -98,17 +97,67 @@ class Gumnut(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.api_keys = api_keys.APIKeysResource(self)
-        self.assets = assets.AssetsResource(self)
-        self.albums = albums.AlbumsResource(self)
-        self.faces = faces.FacesResource(self)
-        self.libraries = libraries.LibrariesResource(self)
-        self.oauth = oauth.OAuthResource(self)
-        self.people = people.PeopleResource(self)
-        self.search = search.SearchResource(self)
-        self.users = users.UsersResource(self)
-        self.with_raw_response = GumnutWithRawResponse(self)
-        self.with_streaming_response = GumnutWithStreamedResponse(self)
+    @cached_property
+    def api_keys(self) -> APIKeysResource:
+        from .resources.api_keys import APIKeysResource
+
+        return APIKeysResource(self)
+
+    @cached_property
+    def assets(self) -> AssetsResource:
+        from .resources.assets import AssetsResource
+
+        return AssetsResource(self)
+
+    @cached_property
+    def albums(self) -> AlbumsResource:
+        from .resources.albums import AlbumsResource
+
+        return AlbumsResource(self)
+
+    @cached_property
+    def faces(self) -> FacesResource:
+        from .resources.faces import FacesResource
+
+        return FacesResource(self)
+
+    @cached_property
+    def libraries(self) -> LibrariesResource:
+        from .resources.libraries import LibrariesResource
+
+        return LibrariesResource(self)
+
+    @cached_property
+    def oauth(self) -> OAuthResource:
+        from .resources.oauth import OAuthResource
+
+        return OAuthResource(self)
+
+    @cached_property
+    def people(self) -> PeopleResource:
+        from .resources.people import PeopleResource
+
+        return PeopleResource(self)
+
+    @cached_property
+    def search(self) -> SearchResource:
+        from .resources.search import SearchResource
+
+        return SearchResource(self)
+
+    @cached_property
+    def users(self) -> UsersResource:
+        from .resources.users import UsersResource
+
+        return UsersResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> GumnutWithRawResponse:
+        return GumnutWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> GumnutWithStreamedResponse:
+        return GumnutWithStreamedResponse(self)
 
     @property
     @override
@@ -229,18 +278,6 @@ class Gumnut(SyncAPIClient):
 
 
 class AsyncGumnut(AsyncAPIClient):
-    api_keys: api_keys.AsyncAPIKeysResource
-    assets: assets.AsyncAssetsResource
-    albums: albums.AsyncAlbumsResource
-    faces: faces.AsyncFacesResource
-    libraries: libraries.AsyncLibrariesResource
-    oauth: oauth.AsyncOAuthResource
-    people: people.AsyncPeopleResource
-    search: search.AsyncSearchResource
-    users: users.AsyncUsersResource
-    with_raw_response: AsyncGumnutWithRawResponse
-    with_streaming_response: AsyncGumnutWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -291,17 +328,67 @@ class AsyncGumnut(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.api_keys = api_keys.AsyncAPIKeysResource(self)
-        self.assets = assets.AsyncAssetsResource(self)
-        self.albums = albums.AsyncAlbumsResource(self)
-        self.faces = faces.AsyncFacesResource(self)
-        self.libraries = libraries.AsyncLibrariesResource(self)
-        self.oauth = oauth.AsyncOAuthResource(self)
-        self.people = people.AsyncPeopleResource(self)
-        self.search = search.AsyncSearchResource(self)
-        self.users = users.AsyncUsersResource(self)
-        self.with_raw_response = AsyncGumnutWithRawResponse(self)
-        self.with_streaming_response = AsyncGumnutWithStreamedResponse(self)
+    @cached_property
+    def api_keys(self) -> AsyncAPIKeysResource:
+        from .resources.api_keys import AsyncAPIKeysResource
+
+        return AsyncAPIKeysResource(self)
+
+    @cached_property
+    def assets(self) -> AsyncAssetsResource:
+        from .resources.assets import AsyncAssetsResource
+
+        return AsyncAssetsResource(self)
+
+    @cached_property
+    def albums(self) -> AsyncAlbumsResource:
+        from .resources.albums import AsyncAlbumsResource
+
+        return AsyncAlbumsResource(self)
+
+    @cached_property
+    def faces(self) -> AsyncFacesResource:
+        from .resources.faces import AsyncFacesResource
+
+        return AsyncFacesResource(self)
+
+    @cached_property
+    def libraries(self) -> AsyncLibrariesResource:
+        from .resources.libraries import AsyncLibrariesResource
+
+        return AsyncLibrariesResource(self)
+
+    @cached_property
+    def oauth(self) -> AsyncOAuthResource:
+        from .resources.oauth import AsyncOAuthResource
+
+        return AsyncOAuthResource(self)
+
+    @cached_property
+    def people(self) -> AsyncPeopleResource:
+        from .resources.people import AsyncPeopleResource
+
+        return AsyncPeopleResource(self)
+
+    @cached_property
+    def search(self) -> AsyncSearchResource:
+        from .resources.search import AsyncSearchResource
+
+        return AsyncSearchResource(self)
+
+    @cached_property
+    def users(self) -> AsyncUsersResource:
+        from .resources.users import AsyncUsersResource
+
+        return AsyncUsersResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncGumnutWithRawResponse:
+        return AsyncGumnutWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncGumnutWithStreamedResponse:
+        return AsyncGumnutWithStreamedResponse(self)
 
     @property
     @override
@@ -422,55 +509,247 @@ class AsyncGumnut(AsyncAPIClient):
 
 
 class GumnutWithRawResponse:
+    _client: Gumnut
+
     def __init__(self, client: Gumnut) -> None:
-        self.api_keys = api_keys.APIKeysResourceWithRawResponse(client.api_keys)
-        self.assets = assets.AssetsResourceWithRawResponse(client.assets)
-        self.albums = albums.AlbumsResourceWithRawResponse(client.albums)
-        self.faces = faces.FacesResourceWithRawResponse(client.faces)
-        self.libraries = libraries.LibrariesResourceWithRawResponse(client.libraries)
-        self.oauth = oauth.OAuthResourceWithRawResponse(client.oauth)
-        self.people = people.PeopleResourceWithRawResponse(client.people)
-        self.search = search.SearchResourceWithRawResponse(client.search)
-        self.users = users.UsersResourceWithRawResponse(client.users)
+        self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+        from .resources.api_keys import APIKeysResourceWithRawResponse
+
+        return APIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
+    def assets(self) -> assets.AssetsResourceWithRawResponse:
+        from .resources.assets import AssetsResourceWithRawResponse
+
+        return AssetsResourceWithRawResponse(self._client.assets)
+
+    @cached_property
+    def albums(self) -> albums.AlbumsResourceWithRawResponse:
+        from .resources.albums import AlbumsResourceWithRawResponse
+
+        return AlbumsResourceWithRawResponse(self._client.albums)
+
+    @cached_property
+    def faces(self) -> faces.FacesResourceWithRawResponse:
+        from .resources.faces import FacesResourceWithRawResponse
+
+        return FacesResourceWithRawResponse(self._client.faces)
+
+    @cached_property
+    def libraries(self) -> libraries.LibrariesResourceWithRawResponse:
+        from .resources.libraries import LibrariesResourceWithRawResponse
+
+        return LibrariesResourceWithRawResponse(self._client.libraries)
+
+    @cached_property
+    def oauth(self) -> oauth.OAuthResourceWithRawResponse:
+        from .resources.oauth import OAuthResourceWithRawResponse
+
+        return OAuthResourceWithRawResponse(self._client.oauth)
+
+    @cached_property
+    def people(self) -> people.PeopleResourceWithRawResponse:
+        from .resources.people import PeopleResourceWithRawResponse
+
+        return PeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def search(self) -> search.SearchResourceWithRawResponse:
+        from .resources.search import SearchResourceWithRawResponse
+
+        return SearchResourceWithRawResponse(self._client.search)
+
+    @cached_property
+    def users(self) -> users.UsersResourceWithRawResponse:
+        from .resources.users import UsersResourceWithRawResponse
+
+        return UsersResourceWithRawResponse(self._client.users)
 
 
 class AsyncGumnutWithRawResponse:
+    _client: AsyncGumnut
+
     def __init__(self, client: AsyncGumnut) -> None:
-        self.api_keys = api_keys.AsyncAPIKeysResourceWithRawResponse(client.api_keys)
-        self.assets = assets.AsyncAssetsResourceWithRawResponse(client.assets)
-        self.albums = albums.AsyncAlbumsResourceWithRawResponse(client.albums)
-        self.faces = faces.AsyncFacesResourceWithRawResponse(client.faces)
-        self.libraries = libraries.AsyncLibrariesResourceWithRawResponse(client.libraries)
-        self.oauth = oauth.AsyncOAuthResourceWithRawResponse(client.oauth)
-        self.people = people.AsyncPeopleResourceWithRawResponse(client.people)
-        self.search = search.AsyncSearchResourceWithRawResponse(client.search)
-        self.users = users.AsyncUsersResourceWithRawResponse(client.users)
+        self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
+
+        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
+    def assets(self) -> assets.AsyncAssetsResourceWithRawResponse:
+        from .resources.assets import AsyncAssetsResourceWithRawResponse
+
+        return AsyncAssetsResourceWithRawResponse(self._client.assets)
+
+    @cached_property
+    def albums(self) -> albums.AsyncAlbumsResourceWithRawResponse:
+        from .resources.albums import AsyncAlbumsResourceWithRawResponse
+
+        return AsyncAlbumsResourceWithRawResponse(self._client.albums)
+
+    @cached_property
+    def faces(self) -> faces.AsyncFacesResourceWithRawResponse:
+        from .resources.faces import AsyncFacesResourceWithRawResponse
+
+        return AsyncFacesResourceWithRawResponse(self._client.faces)
+
+    @cached_property
+    def libraries(self) -> libraries.AsyncLibrariesResourceWithRawResponse:
+        from .resources.libraries import AsyncLibrariesResourceWithRawResponse
+
+        return AsyncLibrariesResourceWithRawResponse(self._client.libraries)
+
+    @cached_property
+    def oauth(self) -> oauth.AsyncOAuthResourceWithRawResponse:
+        from .resources.oauth import AsyncOAuthResourceWithRawResponse
+
+        return AsyncOAuthResourceWithRawResponse(self._client.oauth)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithRawResponse:
+        from .resources.people import AsyncPeopleResourceWithRawResponse
+
+        return AsyncPeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def search(self) -> search.AsyncSearchResourceWithRawResponse:
+        from .resources.search import AsyncSearchResourceWithRawResponse
+
+        return AsyncSearchResourceWithRawResponse(self._client.search)
+
+    @cached_property
+    def users(self) -> users.AsyncUsersResourceWithRawResponse:
+        from .resources.users import AsyncUsersResourceWithRawResponse
+
+        return AsyncUsersResourceWithRawResponse(self._client.users)
 
 
 class GumnutWithStreamedResponse:
+    _client: Gumnut
+
     def __init__(self, client: Gumnut) -> None:
-        self.api_keys = api_keys.APIKeysResourceWithStreamingResponse(client.api_keys)
-        self.assets = assets.AssetsResourceWithStreamingResponse(client.assets)
-        self.albums = albums.AlbumsResourceWithStreamingResponse(client.albums)
-        self.faces = faces.FacesResourceWithStreamingResponse(client.faces)
-        self.libraries = libraries.LibrariesResourceWithStreamingResponse(client.libraries)
-        self.oauth = oauth.OAuthResourceWithStreamingResponse(client.oauth)
-        self.people = people.PeopleResourceWithStreamingResponse(client.people)
-        self.search = search.SearchResourceWithStreamingResponse(client.search)
-        self.users = users.UsersResourceWithStreamingResponse(client.users)
+        self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import APIKeysResourceWithStreamingResponse
+
+        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
+    def assets(self) -> assets.AssetsResourceWithStreamingResponse:
+        from .resources.assets import AssetsResourceWithStreamingResponse
+
+        return AssetsResourceWithStreamingResponse(self._client.assets)
+
+    @cached_property
+    def albums(self) -> albums.AlbumsResourceWithStreamingResponse:
+        from .resources.albums import AlbumsResourceWithStreamingResponse
+
+        return AlbumsResourceWithStreamingResponse(self._client.albums)
+
+    @cached_property
+    def faces(self) -> faces.FacesResourceWithStreamingResponse:
+        from .resources.faces import FacesResourceWithStreamingResponse
+
+        return FacesResourceWithStreamingResponse(self._client.faces)
+
+    @cached_property
+    def libraries(self) -> libraries.LibrariesResourceWithStreamingResponse:
+        from .resources.libraries import LibrariesResourceWithStreamingResponse
+
+        return LibrariesResourceWithStreamingResponse(self._client.libraries)
+
+    @cached_property
+    def oauth(self) -> oauth.OAuthResourceWithStreamingResponse:
+        from .resources.oauth import OAuthResourceWithStreamingResponse
+
+        return OAuthResourceWithStreamingResponse(self._client.oauth)
+
+    @cached_property
+    def people(self) -> people.PeopleResourceWithStreamingResponse:
+        from .resources.people import PeopleResourceWithStreamingResponse
+
+        return PeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def search(self) -> search.SearchResourceWithStreamingResponse:
+        from .resources.search import SearchResourceWithStreamingResponse
+
+        return SearchResourceWithStreamingResponse(self._client.search)
+
+    @cached_property
+    def users(self) -> users.UsersResourceWithStreamingResponse:
+        from .resources.users import UsersResourceWithStreamingResponse
+
+        return UsersResourceWithStreamingResponse(self._client.users)
 
 
 class AsyncGumnutWithStreamedResponse:
+    _client: AsyncGumnut
+
     def __init__(self, client: AsyncGumnut) -> None:
-        self.api_keys = api_keys.AsyncAPIKeysResourceWithStreamingResponse(client.api_keys)
-        self.assets = assets.AsyncAssetsResourceWithStreamingResponse(client.assets)
-        self.albums = albums.AsyncAlbumsResourceWithStreamingResponse(client.albums)
-        self.faces = faces.AsyncFacesResourceWithStreamingResponse(client.faces)
-        self.libraries = libraries.AsyncLibrariesResourceWithStreamingResponse(client.libraries)
-        self.oauth = oauth.AsyncOAuthResourceWithStreamingResponse(client.oauth)
-        self.people = people.AsyncPeopleResourceWithStreamingResponse(client.people)
-        self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
-        self.users = users.AsyncUsersResourceWithStreamingResponse(client.users)
+        self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
+
+        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
+    def assets(self) -> assets.AsyncAssetsResourceWithStreamingResponse:
+        from .resources.assets import AsyncAssetsResourceWithStreamingResponse
+
+        return AsyncAssetsResourceWithStreamingResponse(self._client.assets)
+
+    @cached_property
+    def albums(self) -> albums.AsyncAlbumsResourceWithStreamingResponse:
+        from .resources.albums import AsyncAlbumsResourceWithStreamingResponse
+
+        return AsyncAlbumsResourceWithStreamingResponse(self._client.albums)
+
+    @cached_property
+    def faces(self) -> faces.AsyncFacesResourceWithStreamingResponse:
+        from .resources.faces import AsyncFacesResourceWithStreamingResponse
+
+        return AsyncFacesResourceWithStreamingResponse(self._client.faces)
+
+    @cached_property
+    def libraries(self) -> libraries.AsyncLibrariesResourceWithStreamingResponse:
+        from .resources.libraries import AsyncLibrariesResourceWithStreamingResponse
+
+        return AsyncLibrariesResourceWithStreamingResponse(self._client.libraries)
+
+    @cached_property
+    def oauth(self) -> oauth.AsyncOAuthResourceWithStreamingResponse:
+        from .resources.oauth import AsyncOAuthResourceWithStreamingResponse
+
+        return AsyncOAuthResourceWithStreamingResponse(self._client.oauth)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
+        from .resources.people import AsyncPeopleResourceWithStreamingResponse
+
+        return AsyncPeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def search(self) -> search.AsyncSearchResourceWithStreamingResponse:
+        from .resources.search import AsyncSearchResourceWithStreamingResponse
+
+        return AsyncSearchResourceWithStreamingResponse(self._client.search)
+
+    @cached_property
+    def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
+        from .resources.users import AsyncUsersResourceWithStreamingResponse
+
+        return AsyncUsersResourceWithStreamingResponse(self._client.users)
 
 
 Client = Gumnut
