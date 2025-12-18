@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.29.2 (2025-12-18)
+
+Full Changelog: [v0.29.1...v0.29.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.29.1...v0.29.2)
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([ebaccde](https://github.com/gumnut-ai/photos-sdk-python/commit/ebaccde6749ddd584fdfc847986281c85a357700))
+
+
+### Chores
+
+* **internal:** add missing files argument to base client ([33192f7](https://github.com/gumnut-ai/photos-sdk-python/commit/33192f72ded57e9f4861f61695ea4e82c5640876))
+* speedup initial import ([22dc3b8](https://github.com/gumnut-ai/photos-sdk-python/commit/22dc3b80076669169b10e2983e6e3f0ebee1a1b9))
+
 ## 0.29.1 (2025-12-09)
 
 Full Changelog: [v0.29.0...v0.29.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.29.0...v0.29.1)
