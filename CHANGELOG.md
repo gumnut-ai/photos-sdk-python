@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.30.0 (2025-12-19)
+
+Full Changelog: [v0.29.2...v0.30.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.29.2...v0.30.0)
+
+### Features
+
+* **api:** api update ([04da2a1](https://github.com/gumnut-ai/photos-sdk-python/commit/04da2a1b0a907a685c368f5748327ffac1af6ebb))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([df8c6f9](https://github.com/gumnut-ai/photos-sdk-python/commit/df8c6f9596fa96a1481f77b94517e961620211cb))
+
 ## 0.29.2 (2025-12-18)
 
 Full Changelog: [v0.29.1...v0.29.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.29.1...v0.29.2)
