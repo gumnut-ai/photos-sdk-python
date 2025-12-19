@@ -31,3 +31,9 @@ class AlbumResponse(BaseModel):
 
     description: Optional[str] = None
     """Optional description text for the album"""
+
+    end_date: Optional[datetime] = None
+    """The newest asset date (local_datetime) in the album, or null if empty"""
+
+    start_date: Optional[datetime] = None
+    """The oldest asset date (local_datetime) in the album, or null if empty"""
