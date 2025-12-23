@@ -32,11 +32,12 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import faces, oauth, users, albums, assets, people, search, api_keys, libraries
+    from .resources import faces, oauth, users, albums, assets, events, people, search, api_keys, libraries
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.assets import AssetsResource, AsyncAssetsResource
+    from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
@@ -114,6 +115,12 @@ class Gumnut(SyncAPIClient):
         from .resources.albums import AlbumsResource
 
         return AlbumsResource(self)
+
+    @cached_property
+    def events(self) -> EventsResource:
+        from .resources.events import EventsResource
+
+        return EventsResource(self)
 
     @cached_property
     def faces(self) -> FacesResource:
@@ -347,6 +354,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncAlbumsResource(self)
 
     @cached_property
+    def events(self) -> AsyncEventsResource:
+        from .resources.events import AsyncEventsResource
+
+        return AsyncEventsResource(self)
+
+    @cached_property
     def faces(self) -> AsyncFacesResource:
         from .resources.faces import AsyncFacesResource
 
@@ -533,6 +546,12 @@ class GumnutWithRawResponse:
         return AlbumsResourceWithRawResponse(self._client.albums)
 
     @cached_property
+    def events(self) -> events.EventsResourceWithRawResponse:
+        from .resources.events import EventsResourceWithRawResponse
+
+        return EventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
     def faces(self) -> faces.FacesResourceWithRawResponse:
         from .resources.faces import FacesResourceWithRawResponse
 
@@ -592,6 +611,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.albums import AsyncAlbumsResourceWithRawResponse
 
         return AsyncAlbumsResourceWithRawResponse(self._client.albums)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        from .resources.events import AsyncEventsResourceWithRawResponse
+
+        return AsyncEventsResourceWithRawResponse(self._client.events)
 
     @cached_property
     def faces(self) -> faces.AsyncFacesResourceWithRawResponse:
@@ -655,6 +680,12 @@ class GumnutWithStreamedResponse:
         return AlbumsResourceWithStreamingResponse(self._client.albums)
 
     @cached_property
+    def events(self) -> events.EventsResourceWithStreamingResponse:
+        from .resources.events import EventsResourceWithStreamingResponse
+
+        return EventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
     def faces(self) -> faces.FacesResourceWithStreamingResponse:
         from .resources.faces import FacesResourceWithStreamingResponse
 
@@ -714,6 +745,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.albums import AsyncAlbumsResourceWithStreamingResponse
 
         return AsyncAlbumsResourceWithStreamingResponse(self._client.albums)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        from .resources.events import AsyncEventsResourceWithStreamingResponse
+
+        return AsyncEventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
     def faces(self) -> faces.AsyncFacesResourceWithStreamingResponse:

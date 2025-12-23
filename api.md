@@ -61,6 +61,18 @@ Methods:
 - <code title="post /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/asset_add_response.py">AssetAddResponse</a></code>
 - <code title="delete /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_remove_params.py">params</a>) -> None</code>
 
+# Events
+
+Types:
+
+```python
+from gumnut.types import EventsResponse
+```
+
+Methods:
+
+- <code title="get /api/events">client.events.<a href="./src/gumnut/resources/events.py">get</a>(\*\*<a href="src/gumnut/types/event_get_params.py">params</a>) -> <a href="./src/gumnut/types/events_response.py">EventsResponse</a></code>
+
 # Faces
 
 Types:
