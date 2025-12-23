@@ -6,9 +6,11 @@ from .face_response import FaceResponse as FaceResponse
 from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
 from .asset_response import AssetResponse as AssetResponse
+from .events_response import EventsResponse as EventsResponse
 from .person_response import PersonResponse as PersonResponse
 from .search_response import SearchResponse as SearchResponse
 from .api_key_response import APIKeyResponse as APIKeyResponse
+from .event_get_params import EventGetParams as EventGetParams
 from .face_list_params import FaceListParams as FaceListParams
 from .library_response import LibraryResponse as LibraryResponse
 from .album_list_params import AlbumListParams as AlbumListParams

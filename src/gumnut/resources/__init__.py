@@ -40,6 +40,14 @@ from .assets import (
     AssetsResourceWithStreamingResponse,
     AsyncAssetsResourceWithStreamingResponse,
 )
+from .events import (
+    EventsResource,
+    AsyncEventsResource,
+    EventsResourceWithRawResponse,
+    AsyncEventsResourceWithRawResponse,
+    EventsResourceWithStreamingResponse,
+    AsyncEventsResourceWithStreamingResponse,
+)
 from .people import (
     PeopleResource,
     AsyncPeopleResource,
@@ -92,6 +100,12 @@ __all__ = [
     "AsyncAlbumsResourceWithRawResponse",
     "AlbumsResourceWithStreamingResponse",
     "AsyncAlbumsResourceWithStreamingResponse",
+    "EventsResource",
+    "AsyncEventsResource",
+    "EventsResourceWithRawResponse",
+    "AsyncEventsResourceWithRawResponse",
+    "EventsResourceWithStreamingResponse",
+    "AsyncEventsResourceWithStreamingResponse",
     "FacesResource",
     "AsyncFacesResource",
     "FacesResourceWithRawResponse",
