@@ -13,6 +13,15 @@ __all__ = ["AssetResponse", "Exif"]
 class Exif(BaseModel):
     """EXIF metadata extracted from image and video files."""
 
+    asset_id: str
+    """ID of the asset this EXIF data belongs to"""
+
+    created_at: datetime
+    """When this EXIF record was created"""
+
+    updated_at: datetime
+    """When this EXIF record was last updated"""
+
     altitude: Optional[float] = None
     """GPS altitude in meters"""
 
