@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.32.0 (2025-12-23)
+
+Full Changelog: [v0.31.0...v0.32.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.31.0...v0.32.0)
+
+### Features
+
+* **api:** add events endpoint ([cb347df](https://github.com/gumnut-ai/photos-sdk-python/commit/cb347df5f14899bedb96debdb0e705a0a9cc3d1e))
+
 ## 0.31.0 (2025-12-23)
 
 Full Changelog: [v0.30.0...v0.31.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.30.0...v0.31.0)
