@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
@@ -11,6 +10,7 @@ from .face_response import FaceResponse
 from .album_response import AlbumResponse
 from .asset_response import AssetResponse
 from .person_response import PersonResponse
+from .album_asset_response import AlbumAssetResponse
 
 __all__ = [
     "EventsResponse",
@@ -20,7 +20,6 @@ __all__ = [
     "DataPersonEventPayload",
     "DataFaceEventPayload",
     "DataAlbumAssetEventPayload",
-    "DataAlbumAssetEventPayloadData",
     "DataExifEventPayload",
 ]
 
@@ -61,29 +60,10 @@ class DataFaceEventPayload(BaseModel):
     entity_type: Optional[Literal["face"]] = None
 
 
-class DataAlbumAssetEventPayloadData(BaseModel):
-    """Full album_asset data"""
-
-    id: str
-    """Unique album*asset identifier with 'album_asset*' prefix"""
-
-    album_id: str
-    """ID of the album"""
-
-    asset_id: str
-    """ID of the asset"""
-
-    created_at: datetime
-    """When this link was created"""
-
-    updated_at: datetime
-    """When this link was last updated"""
-
-
 class DataAlbumAssetEventPayload(BaseModel):
     """Event payload for album_asset entities."""
 
-    data: DataAlbumAssetEventPayloadData
+    data: AlbumAssetResponse
     """Full album_asset data"""
 
     entity_type: Optional[Literal["album_asset"]] = None
