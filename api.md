@@ -66,7 +66,17 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import AlbumAssetResponse, EventsResponse, ExifResponse
+from gumnut.types import (
+    AlbumAssetEventPayload,
+    AlbumAssetResponse,
+    AlbumEventPayload,
+    AssetEventPayload,
+    EventsResponse,
+    ExifEventPayload,
+    ExifResponse,
+    FaceEventPayload,
+    PersonEventPayload,
+)
 ```
 
 Methods:
