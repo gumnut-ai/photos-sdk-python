@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.35.1 (2025-12-29)
+
+Full Changelog: [v0.35.0...v0.35.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.35.0...v0.35.1)
+
 ## 0.35.0 (2025-12-24)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.34.0...v0.35.0)
