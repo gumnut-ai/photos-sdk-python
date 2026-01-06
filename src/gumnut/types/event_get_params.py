@@ -24,6 +24,13 @@ class EventGetParams(TypedDict, total=False):
     limit: int
     """Maximum number of events to return (1-500)"""
 
+    starting_after_id: Optional[str]
+    """Entity ID to start after for tie-breaking when paginating.
+
+    Used with updated_at_gte for composite keyset pagination. Requires exactly one
+    entity_types value. For exif entities, use asset_id.
+    """
+
     updated_at_gte: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return events with updated_at >= this timestamp (ISO 8601 format)"""
 

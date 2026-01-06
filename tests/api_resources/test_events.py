@@ -31,6 +31,7 @@ class TestEvents:
             entity_types="entity_types",
             library_id="library_id",
             limit=1,
+            starting_after_id="starting_after_id",
             updated_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
             updated_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -77,6 +78,7 @@ class TestAsyncEvents:
             entity_types="entity_types",
             library_id="library_id",
             limit=1,
+            starting_after_id="starting_after_id",
             updated_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
             updated_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
