@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.36.0 (2026-01-06)
+
+Full Changelog: [v0.35.0...v0.36.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.35.0...v0.36.0)
+
+### Features
+
+* **api:** api update ([303c50d](https://github.com/gumnut-ai/photos-sdk-python/commit/303c50d3277e16a2fa6873172fc3d196187cd167))
+
+
+### Chores
+
+* **internal:** codegen related update ([781be79](https://github.com/gumnut-ai/photos-sdk-python/commit/781be79e0fd586c182f9b094bc996f057c681f13))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([6ad6801](https://github.com/gumnut-ai/photos-sdk-python/commit/6ad68015d172f55235dd80d1b1e1be285bbaf036))
+
 ## 0.35.0 (2025-12-24)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.34.0...v0.35.0)
