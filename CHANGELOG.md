@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.36.1 (2026-01-08)
+
+Full Changelog: [v0.36.0...v0.36.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.36.0...v0.36.1)
+
+### Bug Fixes
+
+* **client:** loosen auth header validation ([c2ed653](https://github.com/gumnut-ai/photos-sdk-python/commit/c2ed653a5a58d6ea3370c23a67dc7281e8955ce5))
+
 ## 0.36.0 (2026-01-06)
 
 Full Changelog: [v0.35.0...v0.36.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.35.0...v0.36.0)
