@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.37.0 (2026-01-14)
+
+Full Changelog: [v0.36.1...v0.37.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.36.1...v0.37.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([c345786](https://github.com/gumnut-ai/photos-sdk-python/commit/c345786971efb2fd7a6a62f2f4d64d0ec08b86e5))
+
 ## 0.36.1 (2026-01-08)
 
 Full Changelog: [v0.36.0...v0.36.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.36.0...v0.36.1)
