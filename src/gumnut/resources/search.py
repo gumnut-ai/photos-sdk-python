@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import typing_extensions
 from typing import Union, Mapping, Optional, cast
 from datetime import datetime
 
@@ -45,7 +44,6 @@ class SearchResource(SyncAPIResource):
         """
         return SearchResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("deprecated")
     def search(
         self,
         *,
@@ -230,7 +228,6 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         return AsyncSearchResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("deprecated")
     async def search(
         self,
         *,
@@ -399,10 +396,8 @@ class SearchResourceWithRawResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.search = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                search.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = to_raw_response_wrapper(
+            search.search,
         )
         self.search_assets = to_raw_response_wrapper(
             search.search_assets,
@@ -413,10 +408,8 @@ class AsyncSearchResourceWithRawResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.search = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                search.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = async_to_raw_response_wrapper(
+            search.search,
         )
         self.search_assets = async_to_raw_response_wrapper(
             search.search_assets,
@@ -427,10 +420,8 @@ class SearchResourceWithStreamingResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.search = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                search.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = to_streamed_response_wrapper(
+            search.search,
         )
         self.search_assets = to_streamed_response_wrapper(
             search.search_assets,
@@ -441,10 +432,8 @@ class AsyncSearchResourceWithStreamingResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.search = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                search.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = async_to_streamed_response_wrapper(
+            search.search,
         )
         self.search_assets = async_to_streamed_response_wrapper(
             search.search_assets,
