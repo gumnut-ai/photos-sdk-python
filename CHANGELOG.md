@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.38.1 (2026-01-29)
+
+Full Changelog: [v0.38.0...v0.38.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.38.0...v0.38.1)
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([12ce98d](https://github.com/gumnut-ai/photos-sdk-python/commit/12ce98d499e2214b942a0eafba7c091d57bcdbc9))
+
 ## 0.38.0 (2026-01-28)
 
 Full Changelog: [v0.37.0...v0.38.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.37.0...v0.38.0)
