@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.39.0 (2026-01-30)
+
+Full Changelog: [v0.38.1...v0.39.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.38.1...v0.39.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([2a73479](https://github.com/gumnut-ai/photos-sdk-python/commit/2a734796523f0dfc19cd2cca3202fd420404bf2b))
+
 ## 0.38.1 (2026-01-29)
 
 Full Changelog: [v0.38.0...v0.38.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.38.0...v0.38.1)
