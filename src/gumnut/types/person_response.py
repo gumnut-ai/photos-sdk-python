@@ -26,6 +26,9 @@ class PersonResponse(BaseModel):
     updated_at: datetime
     """When this person record was last updated"""
 
+    asset_count: Optional[int] = None
+    """Number of unique photos this person appears in, or null if not computed"""
+
     birth_date: Optional[date] = None
     """Optional birth date of this person"""
 
