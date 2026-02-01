@@ -29,6 +29,9 @@ class AlbumResponse(BaseModel):
     album_cover_asset_id: Optional[str] = None
     """ID of the asset used as the album cover"""
 
+    album_cover_thumbnail_url: Optional[str] = None
+    """URL to get the album cover thumbnail image"""
+
     description: Optional[str] = None
     """Optional description text for the album"""
 
