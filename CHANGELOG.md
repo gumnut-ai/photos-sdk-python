@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.40.0 (2026-02-01)
+
+Full Changelog: [v0.39.0...v0.40.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.39.0...v0.40.0)
+
+### Features
+
+* **api:** remove mcp server ([d6bb57d](https://github.com/gumnut-ai/photos-sdk-python/commit/d6bb57decbd07b380315f61de5b938c4dc609072))
+
 ## 0.39.0 (2026-01-30)
 
 Full Changelog: [v0.38.1...v0.39.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.38.1...v0.39.0)
