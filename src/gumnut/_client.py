@@ -32,7 +32,20 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import ping, faces, oauth, users, albums, assets, events, people, search, api_keys, libraries
+    from .resources import (
+        ping,
+        faces,
+        oauth,
+        users,
+        albums,
+        assets,
+        events,
+        people,
+        search,
+        api_keys,
+        events_v2,
+        libraries,
+    )
     from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
@@ -42,6 +55,7 @@ if TYPE_CHECKING:
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
+    from .resources.events_v2 import EventsV2Resource, AsyncEventsV2Resource
     from .resources.libraries import LibrariesResource, AsyncLibrariesResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
 
@@ -122,6 +136,12 @@ class Gumnut(SyncAPIClient):
         from .resources.events import EventsResource
 
         return EventsResource(self)
+
+    @cached_property
+    def events_v2(self) -> EventsV2Resource:
+        from .resources.events_v2 import EventsV2Resource
+
+        return EventsV2Resource(self)
 
     @cached_property
     def faces(self) -> FacesResource:
@@ -365,6 +385,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncEventsResource(self)
 
     @cached_property
+    def events_v2(self) -> AsyncEventsV2Resource:
+        from .resources.events_v2 import AsyncEventsV2Resource
+
+        return AsyncEventsV2Resource(self)
+
+    @cached_property
     def faces(self) -> AsyncFacesResource:
         from .resources.faces import AsyncFacesResource
 
@@ -561,6 +587,12 @@ class GumnutWithRawResponse:
         return EventsResourceWithRawResponse(self._client.events)
 
     @cached_property
+    def events_v2(self) -> events_v2.EventsV2ResourceWithRawResponse:
+        from .resources.events_v2 import EventsV2ResourceWithRawResponse
+
+        return EventsV2ResourceWithRawResponse(self._client.events_v2)
+
+    @cached_property
     def faces(self) -> faces.FacesResourceWithRawResponse:
         from .resources.faces import FacesResourceWithRawResponse
 
@@ -632,6 +664,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.events import AsyncEventsResourceWithRawResponse
 
         return AsyncEventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def events_v2(self) -> events_v2.AsyncEventsV2ResourceWithRawResponse:
+        from .resources.events_v2 import AsyncEventsV2ResourceWithRawResponse
+
+        return AsyncEventsV2ResourceWithRawResponse(self._client.events_v2)
 
     @cached_property
     def faces(self) -> faces.AsyncFacesResourceWithRawResponse:
@@ -707,6 +745,12 @@ class GumnutWithStreamedResponse:
         return EventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
+    def events_v2(self) -> events_v2.EventsV2ResourceWithStreamingResponse:
+        from .resources.events_v2 import EventsV2ResourceWithStreamingResponse
+
+        return EventsV2ResourceWithStreamingResponse(self._client.events_v2)
+
+    @cached_property
     def faces(self) -> faces.FacesResourceWithStreamingResponse:
         from .resources.faces import FacesResourceWithStreamingResponse
 
@@ -778,6 +822,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.events import AsyncEventsResourceWithStreamingResponse
 
         return AsyncEventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def events_v2(self) -> events_v2.AsyncEventsV2ResourceWithStreamingResponse:
+        from .resources.events_v2 import AsyncEventsV2ResourceWithStreamingResponse
+
+        return AsyncEventsV2ResourceWithStreamingResponse(self._client.events_v2)
 
     @cached_property
     def faces(self) -> faces.AsyncFacesResourceWithStreamingResponse:
