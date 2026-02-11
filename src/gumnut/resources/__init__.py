@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .ping import (
+    PingResource,
+    AsyncPingResource,
+    PingResourceWithRawResponse,
+    AsyncPingResourceWithRawResponse,
+    PingResourceWithStreamingResponse,
+    AsyncPingResourceWithStreamingResponse,
+)
 from .faces import (
     FacesResource,
     AsyncFacesResource,
@@ -130,6 +138,12 @@ __all__ = [
     "AsyncPeopleResourceWithRawResponse",
     "PeopleResourceWithStreamingResponse",
     "AsyncPeopleResourceWithStreamingResponse",
+    "PingResource",
+    "AsyncPingResource",
+    "PingResourceWithRawResponse",
+    "AsyncPingResourceWithRawResponse",
+    "PingResourceWithStreamingResponse",
+    "AsyncPingResourceWithStreamingResponse",
     "SearchResource",
     "AsyncSearchResource",
     "SearchResourceWithRawResponse",

@@ -32,7 +32,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import faces, oauth, users, albums, assets, events, people, search, api_keys, libraries
+    from .resources import ping, faces, oauth, users, albums, assets, events, people, search, api_keys, libraries
+    from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
     from .resources.users import UsersResource, AsyncUsersResource
@@ -145,6 +146,12 @@ class Gumnut(SyncAPIClient):
         from .resources.people import PeopleResource
 
         return PeopleResource(self)
+
+    @cached_property
+    def ping(self) -> PingResource:
+        from .resources.ping import PingResource
+
+        return PingResource(self)
 
     @cached_property
     def search(self) -> SearchResource:
@@ -382,6 +389,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncPeopleResource(self)
 
     @cached_property
+    def ping(self) -> AsyncPingResource:
+        from .resources.ping import AsyncPingResource
+
+        return AsyncPingResource(self)
+
+    @cached_property
     def search(self) -> AsyncSearchResource:
         from .resources.search import AsyncSearchResource
 
@@ -572,6 +585,12 @@ class GumnutWithRawResponse:
         return PeopleResourceWithRawResponse(self._client.people)
 
     @cached_property
+    def ping(self) -> ping.PingResourceWithRawResponse:
+        from .resources.ping import PingResourceWithRawResponse
+
+        return PingResourceWithRawResponse(self._client.ping)
+
+    @cached_property
     def search(self) -> search.SearchResourceWithRawResponse:
         from .resources.search import SearchResourceWithRawResponse
 
@@ -637,6 +656,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.people import AsyncPeopleResourceWithRawResponse
 
         return AsyncPeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def ping(self) -> ping.AsyncPingResourceWithRawResponse:
+        from .resources.ping import AsyncPingResourceWithRawResponse
+
+        return AsyncPingResourceWithRawResponse(self._client.ping)
 
     @cached_property
     def search(self) -> search.AsyncSearchResourceWithRawResponse:
@@ -706,6 +731,12 @@ class GumnutWithStreamedResponse:
         return PeopleResourceWithStreamingResponse(self._client.people)
 
     @cached_property
+    def ping(self) -> ping.PingResourceWithStreamingResponse:
+        from .resources.ping import PingResourceWithStreamingResponse
+
+        return PingResourceWithStreamingResponse(self._client.ping)
+
+    @cached_property
     def search(self) -> search.SearchResourceWithStreamingResponse:
         from .resources.search import SearchResourceWithStreamingResponse
 
@@ -771,6 +802,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.people import AsyncPeopleResourceWithStreamingResponse
 
         return AsyncPeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def ping(self) -> ping.AsyncPingResourceWithStreamingResponse:
+        from .resources.ping import AsyncPingResourceWithStreamingResponse
+
+        return AsyncPingResourceWithStreamingResponse(self._client.ping)
 
     @cached_property
     def search(self) -> search.AsyncSearchResourceWithStreamingResponse:

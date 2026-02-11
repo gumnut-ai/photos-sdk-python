@@ -18,6 +18,7 @@ from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
+from .ping_get_response import PingGetResponse as PingGetResponse
 from .exif_event_payload import ExifEventPayload as ExifEventPayload
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_event_payload import FaceEventPayload as FaceEventPayload
