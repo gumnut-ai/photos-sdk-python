@@ -80,6 +80,14 @@ from .api_keys import (
     APIKeysResourceWithStreamingResponse,
     AsyncAPIKeysResourceWithStreamingResponse,
 )
+from .events_v2 import (
+    EventsV2Resource,
+    AsyncEventsV2Resource,
+    EventsV2ResourceWithRawResponse,
+    AsyncEventsV2ResourceWithRawResponse,
+    EventsV2ResourceWithStreamingResponse,
+    AsyncEventsV2ResourceWithStreamingResponse,
+)
 from .libraries import (
     LibrariesResource,
     AsyncLibrariesResource,
@@ -114,6 +122,12 @@ __all__ = [
     "AsyncEventsResourceWithRawResponse",
     "EventsResourceWithStreamingResponse",
     "AsyncEventsResourceWithStreamingResponse",
+    "EventsV2Resource",
+    "AsyncEventsV2Resource",
+    "EventsV2ResourceWithRawResponse",
+    "AsyncEventsV2ResourceWithRawResponse",
+    "EventsV2ResourceWithStreamingResponse",
+    "AsyncEventsV2ResourceWithStreamingResponse",
     "FacesResource",
     "AsyncFacesResource",
     "FacesResourceWithRawResponse",
