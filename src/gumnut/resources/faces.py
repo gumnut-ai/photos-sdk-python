@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -139,6 +139,7 @@ class FacesResource(SyncAPIResource):
         self,
         *,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -151,11 +152,13 @@ class FacesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[FaceResponse]:
         """
-        Retrieves a paginated list of faces, optionally filtered by asset or person,
-        ordered by creation time, descending.
+        Retrieves a paginated list of faces, optionally filtered by asset, person, or
+        specific face IDs, ordered by creation time, descending.
 
         Args:
           asset_id: Filter by faces in a specific asset
+
+          ids: Filter by specific face IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
 
@@ -182,6 +185,7 @@ class FacesResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,
@@ -378,6 +382,7 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         *,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -390,11 +395,13 @@ class AsyncFacesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[FaceResponse, AsyncCursorPage[FaceResponse]]:
         """
-        Retrieves a paginated list of faces, optionally filtered by asset or person,
-        ordered by creation time, descending.
+        Retrieves a paginated list of faces, optionally filtered by asset, person, or
+        specific face IDs, ordered by creation time, descending.
 
         Args:
           asset_id: Filter by faces in a specific asset
+
+          ids: Filter by specific face IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
 
@@ -421,6 +428,7 @@ class AsyncFacesResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,

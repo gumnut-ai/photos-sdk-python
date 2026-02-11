@@ -8,7 +8,7 @@ from datetime import date
 import httpx
 
 from ..types import person_list_params, person_create_params, person_update_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -178,6 +178,7 @@ class PeopleResource(SyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -188,13 +189,17 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PersonResponse]:
-        """
-        Retrieves a paginated list of people, ordered by creation time, descending.
+        """Retrieves a paginated list of people, ordered by creation time, descending.
+
+        Can
+        be filtered by specific person IDs.
 
         Args:
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
+
+          ids: Filter by specific person IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
 
@@ -220,6 +225,7 @@ class PeopleResource(SyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
@@ -420,6 +426,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -430,13 +437,17 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PersonResponse, AsyncCursorPage[PersonResponse]]:
-        """
-        Retrieves a paginated list of people, ordered by creation time, descending.
+        """Retrieves a paginated list of people, ordered by creation time, descending.
+
+        Can
+        be filtered by specific person IDs.
 
         Args:
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
+
+          ids: Filter by specific person IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
 
@@ -462,6 +473,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,

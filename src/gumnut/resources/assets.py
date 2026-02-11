@@ -155,6 +155,7 @@ class AssetsResource(SyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -168,11 +169,14 @@ class AssetsResource(SyncAPIResource):
     ) -> SyncCursorPage[AssetResponse]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album or person. Asset data includes metrics, EXIF data, faces, and
-        people. Assets are ordered by local creation time, descending.
+        filtered by album, person, or specific asset IDs. Asset data includes metrics,
+        EXIF data, faces, and people. Assets are ordered by local creation time,
+        descending.
 
         Args:
           album_id: Filter by assets in a specific album
+
+          ids: Filter by specific asset IDs (max 100)
 
           library_id: Library to list assets from (optional)
 
@@ -199,6 +203,7 @@ class AssetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,
@@ -502,6 +507,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -515,11 +521,14 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
         Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album or person. Asset data includes metrics, EXIF data, faces, and
-        people. Assets are ordered by local creation time, descending.
+        filtered by album, person, or specific asset IDs. Asset data includes metrics,
+        EXIF data, faces, and people. Assets are ordered by local creation time,
+        descending.
 
         Args:
           album_id: Filter by assets in a specific album
+
+          ids: Filter by specific asset IDs (max 100)
 
           library_id: Library to list assets from (optional)
 
@@ -546,6 +555,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "person_id": person_id,

@@ -140,6 +140,7 @@ class TestFaces:
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         face = client.faces.list(
             asset_id="asset_id",
+            ids=["string"],
             library_id="library_id",
             limit=1,
             person_id="person_id",
@@ -390,6 +391,7 @@ class TestAsyncFaces:
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.list(
             asset_id="asset_id",
+            ids=["string"],
             library_id="library_id",
             limit=1,
             person_id="person_id",
