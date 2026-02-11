@@ -145,6 +145,18 @@ Methods:
 - <code title="get /api/people">client.people.<a href="./src/gumnut/resources/people.py">list</a>(\*\*<a href="src/gumnut/types/person_list_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">SyncCursorPage[PersonResponse]</a></code>
 - <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> None</code>
 
+# Ping
+
+Types:
+
+```python
+from gumnut.types import PingGetResponse
+```
+
+Methods:
+
+- <code title="get /api/server/ping">client.ping.<a href="./src/gumnut/resources/ping.py">get</a>() -> str</code>
+
 # Search
 
 Types:
