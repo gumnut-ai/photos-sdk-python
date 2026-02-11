@@ -15,7 +15,7 @@ from .assets import (
     AsyncAssetsResourceWithStreamingResponse,
 )
 from ...types import album_list_params, album_create_params, album_update_params
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -177,6 +177,7 @@ class AlbumsResource(SyncAPIResource):
         self,
         *,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -189,10 +190,12 @@ class AlbumsResource(SyncAPIResource):
     ) -> SyncCursorPage[AlbumResponse]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending. Can be filtered by asset_id.
+        creation time, descending. Can be filtered by asset_id or specific album IDs.
 
         Args:
           asset_id: Filter albums containing this asset ID (optional)
+
+          ids: Filter by specific album IDs (max 100)
 
           library_id: Library to list albums from (optional)
 
@@ -219,6 +222,7 @@ class AlbumsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,
@@ -411,6 +415,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         self,
         *,
         asset_id: Optional[str] | Omit = omit,
+        ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -423,10 +428,12 @@ class AsyncAlbumsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
         """
         Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending. Can be filtered by asset_id.
+        creation time, descending. Can be filtered by asset_id or specific album IDs.
 
         Args:
           asset_id: Filter albums containing this asset ID (optional)
+
+          ids: Filter by specific album IDs (max 100)
 
           library_id: Library to list albums from (optional)
 
@@ -453,6 +460,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "asset_id": asset_id,
+                        "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "starting_after_id": starting_after_id,

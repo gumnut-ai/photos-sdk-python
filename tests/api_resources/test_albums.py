@@ -161,6 +161,7 @@ class TestAlbums:
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.list(
             asset_id="asset_id",
+            ids=["string"],
             library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
@@ -380,6 +381,7 @@ class TestAsyncAlbums:
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.list(
             asset_id="asset_id",
+            ids=["string"],
             library_id="library_id",
             limit=1,
             starting_after_id="starting_after_id",
