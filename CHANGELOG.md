@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.46.0 (2026-02-12)
+
+Full Changelog: [v0.45.0...v0.46.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.45.0...v0.46.0)
+
+### Features
+
+* **api:** manual updates ([6f76f41](https://github.com/gumnut-ai/photos-sdk-python/commit/6f76f41c62c8baade0e9775439173cdf588de851))
+
+
+### Chores
+
+* **internal:** fix lint error on Python 3.14 ([4bdf8ad](https://github.com/gumnut-ai/photos-sdk-python/commit/4bdf8ad1d1aaaabe128c1d9b83e7606253def87c))
+
 ## 0.45.0 (2026-02-11)
 
 Full Changelog: [v0.44.0...v0.45.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.44.0...v0.45.0)
