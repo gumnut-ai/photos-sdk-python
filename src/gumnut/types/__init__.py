@@ -46,6 +46,7 @@ from .library_list_response import LibraryListResponse as LibraryListResponse
 from .library_update_params import LibraryUpdateParams as LibraryUpdateParams
 from .oauth_auth_url_params import OAuthAuthURLParams as OAuthAuthURLParams
 from .oauth_exchange_params import OAuthExchangeParams as OAuthExchangeParams
+from .album_asset_list_params import AlbumAssetListParams as AlbumAssetListParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
 from .asset_existence_response import AssetExistenceResponse as AssetExistenceResponse
 from .logout_endpoint_response import LogoutEndpointResponse as LogoutEndpointResponse

@@ -45,6 +45,7 @@ if TYPE_CHECKING:
         api_keys,
         events_v2,
         libraries,
+        album_assets,
     )
     from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
@@ -57,6 +58,7 @@ if TYPE_CHECKING:
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.events_v2 import EventsV2Resource, AsyncEventsV2Resource
     from .resources.libraries import LibrariesResource, AsyncLibrariesResource
+    from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
@@ -130,6 +132,12 @@ class Gumnut(SyncAPIClient):
         from .resources.albums import AlbumsResource
 
         return AlbumsResource(self)
+
+    @cached_property
+    def album_assets(self) -> AlbumAssetsResource:
+        from .resources.album_assets import AlbumAssetsResource
+
+        return AlbumAssetsResource(self)
 
     @cached_property
     def events(self) -> EventsResource:
@@ -379,6 +387,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncAlbumsResource(self)
 
     @cached_property
+    def album_assets(self) -> AsyncAlbumAssetsResource:
+        from .resources.album_assets import AsyncAlbumAssetsResource
+
+        return AsyncAlbumAssetsResource(self)
+
+    @cached_property
     def events(self) -> AsyncEventsResource:
         from .resources.events import AsyncEventsResource
 
@@ -581,6 +595,12 @@ class GumnutWithRawResponse:
         return AlbumsResourceWithRawResponse(self._client.albums)
 
     @cached_property
+    def album_assets(self) -> album_assets.AlbumAssetsResourceWithRawResponse:
+        from .resources.album_assets import AlbumAssetsResourceWithRawResponse
+
+        return AlbumAssetsResourceWithRawResponse(self._client.album_assets)
+
+    @cached_property
     def events(self) -> events.EventsResourceWithRawResponse:
         from .resources.events import EventsResourceWithRawResponse
 
@@ -658,6 +678,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.albums import AsyncAlbumsResourceWithRawResponse
 
         return AsyncAlbumsResourceWithRawResponse(self._client.albums)
+
+    @cached_property
+    def album_assets(self) -> album_assets.AsyncAlbumAssetsResourceWithRawResponse:
+        from .resources.album_assets import AsyncAlbumAssetsResourceWithRawResponse
+
+        return AsyncAlbumAssetsResourceWithRawResponse(self._client.album_assets)
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithRawResponse:
@@ -739,6 +765,12 @@ class GumnutWithStreamedResponse:
         return AlbumsResourceWithStreamingResponse(self._client.albums)
 
     @cached_property
+    def album_assets(self) -> album_assets.AlbumAssetsResourceWithStreamingResponse:
+        from .resources.album_assets import AlbumAssetsResourceWithStreamingResponse
+
+        return AlbumAssetsResourceWithStreamingResponse(self._client.album_assets)
+
+    @cached_property
     def events(self) -> events.EventsResourceWithStreamingResponse:
         from .resources.events import EventsResourceWithStreamingResponse
 
@@ -816,6 +848,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.albums import AsyncAlbumsResourceWithStreamingResponse
 
         return AsyncAlbumsResourceWithStreamingResponse(self._client.albums)
+
+    @cached_property
+    def album_assets(self) -> album_assets.AsyncAlbumAssetsResourceWithStreamingResponse:
+        from .resources.album_assets import AsyncAlbumAssetsResourceWithStreamingResponse
+
+        return AsyncAlbumAssetsResourceWithStreamingResponse(self._client.album_assets)
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithStreamingResponse:

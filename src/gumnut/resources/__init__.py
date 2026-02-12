@@ -96,6 +96,14 @@ from .libraries import (
     LibrariesResourceWithStreamingResponse,
     AsyncLibrariesResourceWithStreamingResponse,
 )
+from .album_assets import (
+    AlbumAssetsResource,
+    AsyncAlbumAssetsResource,
+    AlbumAssetsResourceWithRawResponse,
+    AsyncAlbumAssetsResourceWithRawResponse,
+    AlbumAssetsResourceWithStreamingResponse,
+    AsyncAlbumAssetsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "APIKeysResource",
@@ -116,6 +124,12 @@ __all__ = [
     "AsyncAlbumsResourceWithRawResponse",
     "AlbumsResourceWithStreamingResponse",
     "AsyncAlbumsResourceWithStreamingResponse",
+    "AlbumAssetsResource",
+    "AsyncAlbumAssetsResource",
+    "AlbumAssetsResourceWithRawResponse",
+    "AsyncAlbumAssetsResourceWithRawResponse",
+    "AlbumAssetsResourceWithStreamingResponse",
+    "AsyncAlbumAssetsResourceWithStreamingResponse",
     "EventsResource",
     "AsyncEventsResource",
     "EventsResourceWithRawResponse",

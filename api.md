@@ -61,6 +61,19 @@ Methods:
 - <code title="post /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/asset_add_response.py">AssetAddResponse</a></code>
 - <code title="delete /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_remove_params.py">params</a>) -> None</code>
 
+# AlbumAssets
+
+Types:
+
+```python
+from gumnut.types import AlbumAssetResponse
+```
+
+Methods:
+
+- <code title="get /api/album-assets">client.album_assets.<a href="./src/gumnut/resources/album_assets.py">list</a>(\*\*<a href="src/gumnut/types/album_asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/album_asset_response.py">SyncCursorPage[AlbumAssetResponse]</a></code>
+- <code title="get /api/album-assets/{album_asset_id}">client.album_assets.<a href="./src/gumnut/resources/album_assets.py">get</a>(album_asset_id) -> <a href="./src/gumnut/types/album_asset_response.py">AlbumAssetResponse</a></code>
+
 # Events
 
 Types:
@@ -68,7 +81,6 @@ Types:
 ```python
 from gumnut.types import (
     AlbumAssetEventPayload,
-    AlbumAssetResponse,
     AlbumEventPayload,
     AssetEventPayload,
     EventsResponse,
