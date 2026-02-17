@@ -5,6 +5,6 @@ from typing_extensions import TypeAlias
 
 from ..asset_response import AssetResponse
 
-__all__ = ["AssetListResponse"]
+__all__ = ["AssetsAssociationListResponse"]
 
-AssetListResponse: TypeAlias = List[AssetResponse]
+AssetsAssociationListResponse: TypeAlias = List[AssetResponse]

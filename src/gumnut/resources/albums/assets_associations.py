@@ -15,32 +15,32 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.albums import asset_add_params, asset_remove_params
-from ...types.albums.asset_add_response import AssetAddResponse
-from ...types.albums.asset_list_response import AssetListResponse
+from ...types.albums import assets_association_add_params, assets_association_remove_params
+from ...types.albums.assets_association_add_response import AssetsAssociationAddResponse
+from ...types.albums.assets_association_list_response import AssetsAssociationListResponse
 
-__all__ = ["AssetsResource", "AsyncAssetsResource"]
+__all__ = ["AssetsAssociationsResource", "AsyncAssetsAssociationsResource"]
 
 
-class AssetsResource(SyncAPIResource):
+class AssetsAssociationsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AssetsResourceWithRawResponse:
+    def with_raw_response(self) -> AssetsAssociationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/gumnut-ai/photos-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return AssetsResourceWithRawResponse(self)
+        return AssetsAssociationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AssetsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AssetsAssociationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/gumnut-ai/photos-sdk-python#with_streaming_response
         """
-        return AssetsResourceWithStreamingResponse(self)
+        return AssetsAssociationsResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -52,7 +52,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetListResponse:
+    ) -> AssetsAssociationListResponse:
         """
         Retrieves a list of all assets contained within a specific album, along with
         their associated metrics, EXIF data, faces, and people.
@@ -73,7 +73,7 @@ class AssetsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetListResponse,
+            cast_to=AssetsAssociationListResponse,
         )
 
     def add(
@@ -87,7 +87,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetAddResponse:
+    ) -> AssetsAssociationAddResponse:
         """Adds one or more existing assets to a specific album.
 
         Assets must be in the same
@@ -106,11 +106,11 @@ class AssetsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return self._post(
             f"/api/albums/{album_id}/assets",
-            body=maybe_transform({"asset_ids": asset_ids}, asset_add_params.AssetAddParams),
+            body=maybe_transform({"asset_ids": asset_ids}, assets_association_add_params.AssetsAssociationAddParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetAddResponse,
+            cast_to=AssetsAssociationAddResponse,
         )
 
     def remove(
@@ -144,7 +144,9 @@ class AssetsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             f"/api/albums/{album_id}/assets",
-            body=maybe_transform({"asset_ids": asset_ids}, asset_remove_params.AssetRemoveParams),
+            body=maybe_transform(
+                {"asset_ids": asset_ids}, assets_association_remove_params.AssetsAssociationRemoveParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -152,25 +154,25 @@ class AssetsResource(SyncAPIResource):
         )
 
 
-class AsyncAssetsResource(AsyncAPIResource):
+class AsyncAssetsAssociationsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncAssetsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncAssetsAssociationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/gumnut-ai/photos-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncAssetsResourceWithRawResponse(self)
+        return AsyncAssetsAssociationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncAssetsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncAssetsAssociationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/gumnut-ai/photos-sdk-python#with_streaming_response
         """
-        return AsyncAssetsResourceWithStreamingResponse(self)
+        return AsyncAssetsAssociationsResourceWithStreamingResponse(self)
 
     async def list(
         self,
@@ -182,7 +184,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetListResponse:
+    ) -> AssetsAssociationListResponse:
         """
         Retrieves a list of all assets contained within a specific album, along with
         their associated metrics, EXIF data, faces, and people.
@@ -203,7 +205,7 @@ class AsyncAssetsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetListResponse,
+            cast_to=AssetsAssociationListResponse,
         )
 
     async def add(
@@ -217,7 +219,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetAddResponse:
+    ) -> AssetsAssociationAddResponse:
         """Adds one or more existing assets to a specific album.
 
         Assets must be in the same
@@ -236,11 +238,13 @@ class AsyncAssetsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return await self._post(
             f"/api/albums/{album_id}/assets",
-            body=await async_maybe_transform({"asset_ids": asset_ids}, asset_add_params.AssetAddParams),
+            body=await async_maybe_transform(
+                {"asset_ids": asset_ids}, assets_association_add_params.AssetsAssociationAddParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetAddResponse,
+            cast_to=AssetsAssociationAddResponse,
         )
 
     async def remove(
@@ -274,7 +278,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             f"/api/albums/{album_id}/assets",
-            body=await async_maybe_transform({"asset_ids": asset_ids}, asset_remove_params.AssetRemoveParams),
+            body=await async_maybe_transform(
+                {"asset_ids": asset_ids}, assets_association_remove_params.AssetsAssociationRemoveParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -282,61 +288,61 @@ class AsyncAssetsResource(AsyncAPIResource):
         )
 
 
-class AssetsResourceWithRawResponse:
-    def __init__(self, assets: AssetsResource) -> None:
-        self._assets = assets
+class AssetsAssociationsResourceWithRawResponse:
+    def __init__(self, assets_associations: AssetsAssociationsResource) -> None:
+        self._assets_associations = assets_associations
 
         self.list = to_raw_response_wrapper(
-            assets.list,
+            assets_associations.list,
         )
         self.add = to_raw_response_wrapper(
-            assets.add,
+            assets_associations.add,
         )
         self.remove = to_raw_response_wrapper(
-            assets.remove,
+            assets_associations.remove,
         )
 
 
-class AsyncAssetsResourceWithRawResponse:
-    def __init__(self, assets: AsyncAssetsResource) -> None:
-        self._assets = assets
+class AsyncAssetsAssociationsResourceWithRawResponse:
+    def __init__(self, assets_associations: AsyncAssetsAssociationsResource) -> None:
+        self._assets_associations = assets_associations
 
         self.list = async_to_raw_response_wrapper(
-            assets.list,
+            assets_associations.list,
         )
         self.add = async_to_raw_response_wrapper(
-            assets.add,
+            assets_associations.add,
         )
         self.remove = async_to_raw_response_wrapper(
-            assets.remove,
+            assets_associations.remove,
         )
 
 
-class AssetsResourceWithStreamingResponse:
-    def __init__(self, assets: AssetsResource) -> None:
-        self._assets = assets
+class AssetsAssociationsResourceWithStreamingResponse:
+    def __init__(self, assets_associations: AssetsAssociationsResource) -> None:
+        self._assets_associations = assets_associations
 
         self.list = to_streamed_response_wrapper(
-            assets.list,
+            assets_associations.list,
         )
         self.add = to_streamed_response_wrapper(
-            assets.add,
+            assets_associations.add,
         )
         self.remove = to_streamed_response_wrapper(
-            assets.remove,
+            assets_associations.remove,
         )
 
 
-class AsyncAssetsResourceWithStreamingResponse:
-    def __init__(self, assets: AsyncAssetsResource) -> None:
-        self._assets = assets
+class AsyncAssetsAssociationsResourceWithStreamingResponse:
+    def __init__(self, assets_associations: AsyncAssetsAssociationsResource) -> None:
+        self._assets_associations = assets_associations
 
         self.list = async_to_streamed_response_wrapper(
-            assets.list,
+            assets_associations.list,
         )
         self.add = async_to_streamed_response_wrapper(
-            assets.add,
+            assets_associations.add,
         )
         self.remove = async_to_streamed_response_wrapper(
-            assets.remove,
+            assets_associations.remove,
         )

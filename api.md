@@ -47,19 +47,23 @@ Methods:
 - <code title="get /api/albums">client.albums.<a href="./src/gumnut/resources/albums/albums.py">list</a>(\*\*<a href="src/gumnut/types/album_list_params.py">params</a>) -> <a href="./src/gumnut/types/album_response.py">SyncCursorPage[AlbumResponse]</a></code>
 - <code title="delete /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">delete</a>(album_id) -> None</code>
 
-## Assets
+## AssetsAssociations
 
 Types:
 
 ```python
-from gumnut.types.albums import AlbumAssetAssociation, AssetListResponse, AssetAddResponse
+from gumnut.types.albums import (
+    AlbumAssetAssociation,
+    AssetsAssociationListResponse,
+    AssetsAssociationAddResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">list</a>(album_id) -> <a href="./src/gumnut/types/albums/asset_list_response.py">AssetListResponse</a></code>
-- <code title="post /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/asset_add_response.py">AssetAddResponse</a></code>
-- <code title="delete /api/albums/{album_id}/assets">client.albums.assets.<a href="./src/gumnut/resources/albums/assets.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/asset_remove_params.py">params</a>) -> None</code>
+- <code title="get /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">list</a>(album_id) -> <a href="./src/gumnut/types/albums/assets_association_list_response.py">AssetsAssociationListResponse</a></code>
+- <code title="post /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/assets_association_add_response.py">AssetsAssociationAddResponse</a></code>
+- <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> None</code>
 
 # AlbumAssets
 
