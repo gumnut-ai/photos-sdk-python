@@ -142,7 +142,7 @@ class TestAssets:
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.list(
             album_id="album_id",
-            ids=["string"],
+            ids=["string", "string"],
             library_id="library_id",
             limit=1,
             person_id="person_id",
@@ -485,7 +485,7 @@ class TestAsyncAssets:
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list(
             album_id="album_id",
-            ids=["string"],
+            ids=["string", "string"],
             library_id="library_id",
             limit=1,
             person_id="person_id",
