@@ -33,7 +33,7 @@ class TestSearch:
             library_id="library_id",
             limit=1,
             page=1,
-            person_ids=["string"],
+            person_ids=["string", "string"],
             query="query",
             threshold=0,
         )
@@ -126,7 +126,7 @@ class TestAsyncSearch:
             library_id="library_id",
             limit=1,
             page=1,
-            person_ids=["string"],
+            person_ids=["string", "string"],
             query="query",
             threshold=0,
         )
