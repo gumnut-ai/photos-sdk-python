@@ -6,8 +6,8 @@ from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AssetRemoveParams"]
+__all__ = ["AssetsAssociationRemoveParams"]
 
 
-class AssetRemoveParams(TypedDict, total=False):
+class AssetsAssociationRemoveParams(TypedDict, total=False):
     asset_ids: Required[SequenceNotStr[str]]

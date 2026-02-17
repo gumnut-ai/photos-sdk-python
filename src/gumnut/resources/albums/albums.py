@@ -6,14 +6,6 @@ from typing import Optional
 
 import httpx
 
-from .assets import (
-    AssetsResource,
-    AsyncAssetsResource,
-    AssetsResourceWithRawResponse,
-    AsyncAssetsResourceWithRawResponse,
-    AssetsResourceWithStreamingResponse,
-    AsyncAssetsResourceWithStreamingResponse,
-)
 from ...types import album_list_params, album_create_params, album_update_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
@@ -27,6 +19,14 @@ from ..._response import (
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
+from .assets_associations import (
+    AssetsAssociationsResource,
+    AsyncAssetsAssociationsResource,
+    AssetsAssociationsResourceWithRawResponse,
+    AsyncAssetsAssociationsResourceWithRawResponse,
+    AssetsAssociationsResourceWithStreamingResponse,
+    AsyncAssetsAssociationsResourceWithStreamingResponse,
+)
 from ...types.album_response import AlbumResponse
 
 __all__ = ["AlbumsResource", "AsyncAlbumsResource"]
@@ -34,8 +34,8 @@ __all__ = ["AlbumsResource", "AsyncAlbumsResource"]
 
 class AlbumsResource(SyncAPIResource):
     @cached_property
-    def assets(self) -> AssetsResource:
-        return AssetsResource(self._client)
+    def assets_associations(self) -> AssetsAssociationsResource:
+        return AssetsAssociationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AlbumsResourceWithRawResponse:
@@ -272,8 +272,8 @@ class AlbumsResource(SyncAPIResource):
 
 class AsyncAlbumsResource(AsyncAPIResource):
     @cached_property
-    def assets(self) -> AsyncAssetsResource:
-        return AsyncAssetsResource(self._client)
+    def assets_associations(self) -> AsyncAssetsAssociationsResource:
+        return AsyncAssetsAssociationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAlbumsResourceWithRawResponse:
@@ -529,8 +529,8 @@ class AlbumsResourceWithRawResponse:
         )
 
     @cached_property
-    def assets(self) -> AssetsResourceWithRawResponse:
-        return AssetsResourceWithRawResponse(self._albums.assets)
+    def assets_associations(self) -> AssetsAssociationsResourceWithRawResponse:
+        return AssetsAssociationsResourceWithRawResponse(self._albums.assets_associations)
 
 
 class AsyncAlbumsResourceWithRawResponse:
@@ -554,8 +554,8 @@ class AsyncAlbumsResourceWithRawResponse:
         )
 
     @cached_property
-    def assets(self) -> AsyncAssetsResourceWithRawResponse:
-        return AsyncAssetsResourceWithRawResponse(self._albums.assets)
+    def assets_associations(self) -> AsyncAssetsAssociationsResourceWithRawResponse:
+        return AsyncAssetsAssociationsResourceWithRawResponse(self._albums.assets_associations)
 
 
 class AlbumsResourceWithStreamingResponse:
@@ -579,8 +579,8 @@ class AlbumsResourceWithStreamingResponse:
         )
 
     @cached_property
-    def assets(self) -> AssetsResourceWithStreamingResponse:
-        return AssetsResourceWithStreamingResponse(self._albums.assets)
+    def assets_associations(self) -> AssetsAssociationsResourceWithStreamingResponse:
+        return AssetsAssociationsResourceWithStreamingResponse(self._albums.assets_associations)
 
 
 class AsyncAlbumsResourceWithStreamingResponse:
@@ -604,5 +604,5 @@ class AsyncAlbumsResourceWithStreamingResponse:
         )
 
     @cached_property
-    def assets(self) -> AsyncAssetsResourceWithStreamingResponse:
-        return AsyncAssetsResourceWithStreamingResponse(self._albums.assets)
+    def assets_associations(self) -> AsyncAssetsAssociationsResourceWithStreamingResponse:
+        return AsyncAssetsAssociationsResourceWithStreamingResponse(self._albums.assets_associations)

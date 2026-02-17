@@ -8,22 +8,22 @@ from .albums import (
     AlbumsResourceWithStreamingResponse,
     AsyncAlbumsResourceWithStreamingResponse,
 )
-from .assets import (
-    AssetsResource,
-    AsyncAssetsResource,
-    AssetsResourceWithRawResponse,
-    AsyncAssetsResourceWithRawResponse,
-    AssetsResourceWithStreamingResponse,
-    AsyncAssetsResourceWithStreamingResponse,
+from .assets_associations import (
+    AssetsAssociationsResource,
+    AsyncAssetsAssociationsResource,
+    AssetsAssociationsResourceWithRawResponse,
+    AsyncAssetsAssociationsResourceWithRawResponse,
+    AssetsAssociationsResourceWithStreamingResponse,
+    AsyncAssetsAssociationsResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "AssetsResource",
-    "AsyncAssetsResource",
-    "AssetsResourceWithRawResponse",
-    "AsyncAssetsResourceWithRawResponse",
-    "AssetsResourceWithStreamingResponse",
-    "AsyncAssetsResourceWithStreamingResponse",
+    "AssetsAssociationsResource",
+    "AsyncAssetsAssociationsResource",
+    "AssetsAssociationsResourceWithRawResponse",
+    "AsyncAssetsAssociationsResourceWithRawResponse",
+    "AssetsAssociationsResourceWithStreamingResponse",
+    "AsyncAssetsAssociationsResourceWithStreamingResponse",
     "AlbumsResource",
     "AsyncAlbumsResource",
     "AlbumsResourceWithRawResponse",
