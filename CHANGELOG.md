@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.47.0 (2026-02-17)
+
+Full Changelog: [v0.46.0...v0.47.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.46.0...v0.47.0)
+
+### Features
+
+* **api:** dedicated album_assets endpoint with pagination ([860cafb](https://github.com/gumnut-ai/photos-sdk-python/commit/860cafb96764b5a2e8863120c8a2c4add34e764e))
+* **api:** manual updates ([0837d06](https://github.com/gumnut-ai/photos-sdk-python/commit/0837d062b81ef4ad34fe644f66e7ed1c0ea8649a))
+
+
+### Chores
+
+* format all `api.md` files ([ad3a6f0](https://github.com/gumnut-ai/photos-sdk-python/commit/ad3a6f0cacb12c0dd6ded960ff25f9893819c8a4))
+
 ## 0.46.0 (2026-02-12)
 
 Full Changelog: [v0.45.0...v0.46.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.45.0...v0.46.0)
