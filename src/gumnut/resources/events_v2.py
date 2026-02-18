@@ -81,8 +81,11 @@ class EventsV2Resource(SyncAPIResource):
         5. For each event, fetch the entity data from the appropriate endpoint if needed
         6. Store `sync_end` as checkpoint for next sync
 
-        **Handling deletions:** When `event_type` ends with "\\__deleted", the entity no
-        longer exists. Remove it from your local cache/database.
+        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
+        the entity no longer exists. Remove it from your local cache/database. Some
+        deletion events include a `payload` field with additional context (e.g.,
+        `album_asset_removed` includes `album_id` and `asset_id` since the junction
+        record is deleted).
 
         **Event types:**
 
@@ -197,8 +200,11 @@ class AsyncEventsV2Resource(AsyncAPIResource):
         5. For each event, fetch the entity data from the appropriate endpoint if needed
         6. Store `sync_end` as checkpoint for next sync
 
-        **Handling deletions:** When `event_type` ends with "\\__deleted", the entity no
-        longer exists. Remove it from your local cache/database.
+        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
+        the entity no longer exists. Remove it from your local cache/database. Some
+        deletion events include a `payload` field with additional context (e.g.,
+        `album_asset_removed` includes `album_id` and `asset_id` since the junction
+        record is deleted).
 
         **Event types:**
 
