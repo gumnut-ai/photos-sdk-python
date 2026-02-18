@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -25,6 +25,12 @@ class Data(BaseModel):
 
     event_type: str
     """Semantic event type (e.g., 'asset_created', 'album_deleted')"""
+
+    payload: Optional[Dict[str, object]] = None
+    """
+    Optional extra context for the event (e.g., foreign keys for junction table
+    deletions)
+    """
 
 
 class EventsV2Response(BaseModel):
