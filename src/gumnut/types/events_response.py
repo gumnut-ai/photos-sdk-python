@@ -1,36 +1,46 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
-from typing_extensions import Annotated, TypeAlias
+from typing import Dict, List, Optional
+from datetime import datetime
 
-from .._utils import PropertyInfo
 from .._models import BaseModel
-from .exif_event_payload import ExifEventPayload
-from .face_event_payload import FaceEventPayload
-from .album_event_payload import AlbumEventPayload
-from .asset_event_payload import AssetEventPayload
-from .person_event_payload import PersonEventPayload
-from .album_asset_event_payload import AlbumAssetEventPayload
 
 __all__ = ["EventsResponse", "Data"]
 
-Data: TypeAlias = Annotated[
-    Union[
-        AssetEventPayload,
-        AlbumEventPayload,
-        PersonEventPayload,
-        FaceEventPayload,
-        AlbumAssetEventPayload,
-        ExifEventPayload,
-    ],
-    PropertyInfo(discriminator="entity_type"),
-]
+
+class Data(BaseModel):
+    """Lightweight event record for sync endpoint."""
+
+    created_at: datetime
+    """When the event was recorded"""
+
+    cursor: str
+    """Opaque cursor for pagination. Pass as after_cursor to get the next page."""
+
+    entity_id: str
+    """ID of the entity that changed"""
+
+    entity_type: str
+    """Type of entity that changed (e.g., 'asset', 'album', 'person')"""
+
+    event_type: str
+    """Semantic event type (e.g., 'asset_created', 'album_deleted')"""
+
+    payload: Optional[Dict[str, object]] = None
+    """
+    Optional extra context for the event (e.g., foreign keys for junction table
+    deletions)
+    """
 
 
 class EventsResponse(BaseModel):
-    """Response containing events."""
+    """Response containing a page of events."""
 
     data: List[Data]
-    """
-    List of events, ordered by entity type priority, then updated_at, then entity_id
+    """List of events, ordered by event ID (monotonically increasing)"""
+
+    has_more: bool
+    """True if there are more events after this page.
+
+    Use the last event's cursor to fetch the next page.
     """
