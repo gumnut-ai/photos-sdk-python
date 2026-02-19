@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.52.0 (2026-02-19)
+
+Full Changelog: [v0.51.0...v0.52.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.51.0...v0.52.0)
+
+### Features
+
+* **api:** add ExifResponse ([084a1ad](https://github.com/gumnut-ai/photos-sdk-python/commit/084a1adde1e8bba68f93b09ef9d00c01f41a2ef5))
+
 ## 0.51.0 (2026-02-19)
 
 Full Changelog: [v0.50.0...v0.51.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.50.0...v0.51.0)
