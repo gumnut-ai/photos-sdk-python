@@ -19,7 +19,6 @@ from .asset_list_params import AssetListParams as AssetListParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
-from .events_v2_response import EventsV2Response as EventsV2Response
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .person_list_params import PersonListParams as PersonListParams
@@ -28,7 +27,6 @@ from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
-from .events_v2_get_params import EventsV2GetParams as EventsV2GetParams
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
 from .person_update_params import PersonUpdateParams as PersonUpdateParams
