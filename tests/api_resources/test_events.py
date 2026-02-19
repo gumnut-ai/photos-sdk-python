@@ -28,12 +28,12 @@ class TestEvents:
     @parametrize
     def test_method_get_with_all_params(self, client: Gumnut) -> None:
         event = client.events.get(
+            after_cursor="after_cursor",
+            created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
             entity_types="entity_types",
             library_id="library_id",
             limit=1,
-            starting_after_id="starting_after_id",
-            updated_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
-            updated_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(EventsResponse, event, path=["response"])
 
@@ -75,12 +75,12 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_get_with_all_params(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get(
+            after_cursor="after_cursor",
+            created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
             entity_types="entity_types",
             library_id="library_id",
             limit=1,
-            starting_after_id="starting_after_id",
-            updated_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
-            updated_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(EventsResponse, event, path=["response"])
 
