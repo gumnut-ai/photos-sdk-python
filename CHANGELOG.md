@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.53.0 (2026-02-19)
+
+Full Changelog: [v0.52.0...v0.53.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.52.0...v0.53.0)
+
+### Features
+
+* **api:** remove events v2 ([e016115](https://github.com/gumnut-ai/photos-sdk-python/commit/e0161151e813a4b885881bd981e1d4ff00098e1e))
+
 ## 0.52.0 (2026-02-19)
 
 Full Changelog: [v0.51.0...v0.52.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.51.0...v0.52.0)
