@@ -90,18 +90,6 @@ Methods:
 
 - <code title="get /api/events">client.events.<a href="./src/gumnut/resources/events.py">get</a>(\*\*<a href="src/gumnut/types/event_get_params.py">params</a>) -> <a href="./src/gumnut/types/events_response.py">EventsResponse</a></code>
 
-# EventsV2
-
-Types:
-
-```python
-from gumnut.types import EventsV2Response
-```
-
-Methods:
-
-- <code title="get /api/v2/events">client.events_v2.<a href="./src/gumnut/resources/events_v2.py">get</a>(\*\*<a href="src/gumnut/types/events_v2_get_params.py">params</a>) -> <a href="./src/gumnut/types/events_v2_response.py">EventsV2Response</a></code>
-
 # Faces
 
 Types:
