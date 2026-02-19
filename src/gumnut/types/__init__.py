@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .exif_response import ExifResponse as ExifResponse
 from .face_response import FaceResponse as FaceResponse
 from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
