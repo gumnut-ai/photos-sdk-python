@@ -83,16 +83,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import (
-    AlbumAssetEventPayload,
-    AlbumEventPayload,
-    AssetEventPayload,
-    EventsResponse,
-    ExifEventPayload,
-    ExifResponse,
-    FaceEventPayload,
-    PersonEventPayload,
-)
+from gumnut.types import EventsResponse, ExifResponse
 ```
 
 Methods:

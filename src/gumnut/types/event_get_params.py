@@ -12,6 +12,21 @@ __all__ = ["EventGetParams"]
 
 
 class EventGetParams(TypedDict, total=False):
+    after_cursor: Optional[str]
+    """Cursor from the last event to paginate from.
+
+    Pass the `cursor` field from the last event to get the next page.
+    """
+
+    created_at_gte: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only return events created at or after this timestamp (ISO 8601 format)"""
+
+    created_at_lt: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only return events created before this timestamp (ISO 8601 format).
+
+    Recommended for bounding sync operations.
+    """
+
     entity_types: Optional[str]
     """Comma-separated list of entity types to include (e.g., 'asset,album').
 
@@ -23,19 +38,3 @@ class EventGetParams(TypedDict, total=False):
 
     limit: int
     """Maximum number of events to return (1-500)"""
-
-    starting_after_id: Optional[str]
-    """Entity ID to start after for tie-breaking when paginating.
-
-    Used with updated_at_gte for composite keyset pagination. Requires exactly one
-    entity_types value. For exif entities, use asset_id.
-    """
-
-    updated_at_gte: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return events with updated_at >= this timestamp (ISO 8601 format)"""
-
-    updated_at_lt: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return events with updated_at < this timestamp (ISO 8601 format).
-
-    Recommended for bounding sync operations.
-    """

@@ -47,12 +47,12 @@ class EventsResource(SyncAPIResource):
     def get(
         self,
         *,
+        after_cursor: Optional[str] | Omit = omit,
+        created_at_gte: Union[str, datetime, None] | Omit = omit,
+        created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
-        starting_after_id: Optional[str] | Omit = omit,
-        updated_at_gte: Union[str, datetime, None] | Omit = omit,
-        updated_at_lt: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -63,51 +63,54 @@ class EventsResource(SyncAPIResource):
         """
         Retrieves a list of entity change events for syncing.
 
-        Events are returned in order of entity type priority (assets first, then exif,
-        albums, etc.), then by `updated_at` timestamp (oldest first), then by entity ID
-        for tie-breaking.
+        Events are lightweight records indicating that entities have changed. Each event
+        contains the entity type, entity ID, and event type (e.g., "asset_created",
+        "album_deleted"). Clients should fetch full entity data from the appropriate
+        endpoints if needed.
 
-        **Pagination:** Use `updated_at_gte` with the timestamp of the last received
-        event to fetch the next page. When multiple entities share the same timestamp,
-        also provide `starting_after_id` with the last entity's ID to avoid duplicates.
-        Use `updated_at_lt` to bound the sync window and prevent infinite loops when new
-        events are created during sync.
+        **Pagination:** Use the `after_cursor` parameter with the `cursor` value from
+        the last event to fetch the next page. The `has_more` field indicates if more
+        events exist.
 
-        **Important:** When using `starting_after_id`, you must specify exactly one
-        `entity_types` value. This ensures the cursor ID is unambiguous. To sync all
-        entity types with cursor support, query each entity type separately.
+        **Recommended sync pattern:**
 
-        **Recommended sync pattern (per entity type):**
+        1. Capture current time as `sync_end`
+        2. Fetch events with `created_at_lt=sync_end`
+        3. For subsequent pages, use `after_cursor={last.cursor}&created_at_lt=sync_end`
+        4. Continue until `has_more=false`
+        5. For each event, fetch the entity data from the appropriate endpoint if needed
+        6. Store `sync_end` as checkpoint for next sync
 
-        1. Capture current time as `sync_started_at`
-        2. For each entity type, fetch events with
-           `entity_types={type}&updated_at_lt=sync_started_at`
-        3. For subsequent pages, use
-           `entity_types={type}&updated_at_gte={last.updated_at}&starting_after_id={last.id}&updated_at_lt=sync_started_at`
-        4. Continue until an empty result set is returned
-        5. Store `sync_started_at` as checkpoint for next sync
+        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
+        the entity no longer exists. Remove it from your local cache/database. Some
+        deletion events include a `payload` field with additional context (e.g.,
+        `album_asset_removed` includes `album_id` and `asset_id` since the junction
+        record is deleted).
 
-        **Entity ID field by type:**
+        **Event types:**
 
-        - Most entities: use the `id` field from the response
-        - Exif: use the `asset_id` field (exif has no separate id)
+        - `asset_created`, `asset_updated`, `asset_deleted`
+        - `album_created`, `album_updated`, `album_deleted`
+        - `person_created`, `person_updated`, `person_deleted`
+        - `face_created`, `face_updated`, `face_deleted`
+        - `album_asset_added`, `album_asset_removed`
+        - `exif_created`, `exif_updated`
 
         Args:
+          after_cursor: Cursor from the last event to paginate from. Pass the `cursor` field from the
+              last event to get the next page.
+
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601 format)
+
+          created_at_lt: Only return events created before this timestamp (ISO 8601 format). Recommended
+              for bounding sync operations.
+
           entity_types: Comma-separated list of entity types to include (e.g., 'asset,album'). Valid
               types: asset, album, person, face, album_asset, exif. Default: all types.
 
           library_id: Library to list events from. If not provided, uses the user's default library.
 
           limit: Maximum number of events to return (1-500)
-
-          starting_after_id: Entity ID to start after for tie-breaking when paginating. Used with
-              updated_at_gte for composite keyset pagination. Requires exactly one
-              entity_types value. For exif entities, use asset_id.
-
-          updated_at_gte: Only return events with updated_at >= this timestamp (ISO 8601 format)
-
-          updated_at_lt: Only return events with updated_at < this timestamp (ISO 8601 format).
-              Recommended for bounding sync operations.
 
           extra_headers: Send extra headers
 
@@ -126,12 +129,12 @@ class EventsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "after_cursor": after_cursor,
+                        "created_at_gte": created_at_gte,
+                        "created_at_lt": created_at_lt,
                         "entity_types": entity_types,
                         "library_id": library_id,
                         "limit": limit,
-                        "starting_after_id": starting_after_id,
-                        "updated_at_gte": updated_at_gte,
-                        "updated_at_lt": updated_at_lt,
                     },
                     event_get_params.EventGetParams,
                 ),
@@ -163,12 +166,12 @@ class AsyncEventsResource(AsyncAPIResource):
     async def get(
         self,
         *,
+        after_cursor: Optional[str] | Omit = omit,
+        created_at_gte: Union[str, datetime, None] | Omit = omit,
+        created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
-        starting_after_id: Optional[str] | Omit = omit,
-        updated_at_gte: Union[str, datetime, None] | Omit = omit,
-        updated_at_lt: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -179,51 +182,54 @@ class AsyncEventsResource(AsyncAPIResource):
         """
         Retrieves a list of entity change events for syncing.
 
-        Events are returned in order of entity type priority (assets first, then exif,
-        albums, etc.), then by `updated_at` timestamp (oldest first), then by entity ID
-        for tie-breaking.
+        Events are lightweight records indicating that entities have changed. Each event
+        contains the entity type, entity ID, and event type (e.g., "asset_created",
+        "album_deleted"). Clients should fetch full entity data from the appropriate
+        endpoints if needed.
 
-        **Pagination:** Use `updated_at_gte` with the timestamp of the last received
-        event to fetch the next page. When multiple entities share the same timestamp,
-        also provide `starting_after_id` with the last entity's ID to avoid duplicates.
-        Use `updated_at_lt` to bound the sync window and prevent infinite loops when new
-        events are created during sync.
+        **Pagination:** Use the `after_cursor` parameter with the `cursor` value from
+        the last event to fetch the next page. The `has_more` field indicates if more
+        events exist.
 
-        **Important:** When using `starting_after_id`, you must specify exactly one
-        `entity_types` value. This ensures the cursor ID is unambiguous. To sync all
-        entity types with cursor support, query each entity type separately.
+        **Recommended sync pattern:**
 
-        **Recommended sync pattern (per entity type):**
+        1. Capture current time as `sync_end`
+        2. Fetch events with `created_at_lt=sync_end`
+        3. For subsequent pages, use `after_cursor={last.cursor}&created_at_lt=sync_end`
+        4. Continue until `has_more=false`
+        5. For each event, fetch the entity data from the appropriate endpoint if needed
+        6. Store `sync_end` as checkpoint for next sync
 
-        1. Capture current time as `sync_started_at`
-        2. For each entity type, fetch events with
-           `entity_types={type}&updated_at_lt=sync_started_at`
-        3. For subsequent pages, use
-           `entity_types={type}&updated_at_gte={last.updated_at}&starting_after_id={last.id}&updated_at_lt=sync_started_at`
-        4. Continue until an empty result set is returned
-        5. Store `sync_started_at` as checkpoint for next sync
+        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
+        the entity no longer exists. Remove it from your local cache/database. Some
+        deletion events include a `payload` field with additional context (e.g.,
+        `album_asset_removed` includes `album_id` and `asset_id` since the junction
+        record is deleted).
 
-        **Entity ID field by type:**
+        **Event types:**
 
-        - Most entities: use the `id` field from the response
-        - Exif: use the `asset_id` field (exif has no separate id)
+        - `asset_created`, `asset_updated`, `asset_deleted`
+        - `album_created`, `album_updated`, `album_deleted`
+        - `person_created`, `person_updated`, `person_deleted`
+        - `face_created`, `face_updated`, `face_deleted`
+        - `album_asset_added`, `album_asset_removed`
+        - `exif_created`, `exif_updated`
 
         Args:
+          after_cursor: Cursor from the last event to paginate from. Pass the `cursor` field from the
+              last event to get the next page.
+
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601 format)
+
+          created_at_lt: Only return events created before this timestamp (ISO 8601 format). Recommended
+              for bounding sync operations.
+
           entity_types: Comma-separated list of entity types to include (e.g., 'asset,album'). Valid
               types: asset, album, person, face, album_asset, exif. Default: all types.
 
           library_id: Library to list events from. If not provided, uses the user's default library.
 
           limit: Maximum number of events to return (1-500)
-
-          starting_after_id: Entity ID to start after for tie-breaking when paginating. Used with
-              updated_at_gte for composite keyset pagination. Requires exactly one
-              entity_types value. For exif entities, use asset_id.
-
-          updated_at_gte: Only return events with updated_at >= this timestamp (ISO 8601 format)
-
-          updated_at_lt: Only return events with updated_at < this timestamp (ISO 8601 format).
-              Recommended for bounding sync operations.
 
           extra_headers: Send extra headers
 
@@ -242,12 +248,12 @@ class AsyncEventsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "after_cursor": after_cursor,
+                        "created_at_gte": created_at_gte,
+                        "created_at_lt": created_at_lt,
                         "entity_types": entity_types,
                         "library_id": library_id,
                         "limit": limit,
-                        "starting_after_id": starting_after_id,
-                        "updated_at_gte": updated_at_gte,
-                        "updated_at_lt": updated_at_lt,
                     },
                     event_get_params.EventGetParams,
                 ),
