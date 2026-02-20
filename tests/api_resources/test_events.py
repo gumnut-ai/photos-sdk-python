@@ -18,13 +18,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestEvents:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get(self, client: Gumnut) -> None:
         event = client.events.get()
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_with_all_params(self, client: Gumnut) -> None:
         event = client.events.get(
@@ -37,7 +37,7 @@ class TestEvents:
         )
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: Gumnut) -> None:
         response = client.events.with_raw_response.get()
@@ -47,7 +47,7 @@ class TestEvents:
         event = response.parse()
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get(self, client: Gumnut) -> None:
         with client.events.with_streaming_response.get() as response:
@@ -65,13 +65,13 @@ class TestAsyncEvents:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get()
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_with_all_params(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get(
@@ -84,7 +84,7 @@ class TestAsyncEvents:
         )
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncGumnut) -> None:
         response = await async_client.events.with_raw_response.get()
@@ -94,7 +94,7 @@ class TestAsyncEvents:
         event = await response.parse()
         assert_matches_type(EventsResponse, event, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncGumnut) -> None:
         async with async_client.events.with_streaming_response.get() as response:

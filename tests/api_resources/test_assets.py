@@ -30,7 +30,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAssets:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         asset = client.assets.create(
@@ -42,7 +42,7 @@ class TestAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.create(
@@ -55,7 +55,7 @@ class TestAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.create(
@@ -71,7 +71,7 @@ class TestAssets:
         asset = response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.create(
@@ -89,7 +89,7 @@ class TestAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         asset = client.assets.retrieve(
@@ -97,7 +97,7 @@ class TestAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.retrieve(
@@ -109,7 +109,7 @@ class TestAssets:
         asset = response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.retrieve(
@@ -123,7 +123,7 @@ class TestAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -131,13 +131,13 @@ class TestAssets:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         asset = client.assets.list()
         assert_matches_type(SyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.list(
@@ -150,7 +150,7 @@ class TestAssets:
         )
         assert_matches_type(SyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.list()
@@ -160,7 +160,7 @@ class TestAssets:
         asset = response.parse()
         assert_matches_type(SyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.list() as response:
@@ -172,7 +172,7 @@ class TestAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Gumnut) -> None:
         asset = client.assets.delete(
@@ -180,7 +180,7 @@ class TestAssets:
         )
         assert asset is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.delete(
@@ -192,7 +192,7 @@ class TestAssets:
         asset = response.parse()
         assert asset is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.delete(
@@ -206,7 +206,7 @@ class TestAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -214,13 +214,13 @@ class TestAssets:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_check_existence(self, client: Gumnut) -> None:
         asset = client.assets.check_existence()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_check_existence_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.check_existence(
@@ -232,7 +232,7 @@ class TestAssets:
         )
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_check_existence(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.check_existence()
@@ -242,7 +242,7 @@ class TestAssets:
         asset = response.parse()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_check_existence(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.check_existence() as response:
@@ -373,7 +373,7 @@ class TestAsyncAssets:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
@@ -385,7 +385,7 @@ class TestAsyncAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
@@ -398,7 +398,7 @@ class TestAsyncAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.create(
@@ -414,7 +414,7 @@ class TestAsyncAssets:
         asset = await response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.create(
@@ -432,7 +432,7 @@ class TestAsyncAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.retrieve(
@@ -440,7 +440,7 @@ class TestAsyncAssets:
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.retrieve(
@@ -452,7 +452,7 @@ class TestAsyncAssets:
         asset = await response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.retrieve(
@@ -466,7 +466,7 @@ class TestAsyncAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -474,13 +474,13 @@ class TestAsyncAssets:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list()
         assert_matches_type(AsyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list(
@@ -493,7 +493,7 @@ class TestAsyncAssets:
         )
         assert_matches_type(AsyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.list()
@@ -503,7 +503,7 @@ class TestAsyncAssets:
         asset = await response.parse()
         assert_matches_type(AsyncCursorPage[AssetResponse], asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.list() as response:
@@ -515,7 +515,7 @@ class TestAsyncAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.delete(
@@ -523,7 +523,7 @@ class TestAsyncAssets:
         )
         assert asset is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.delete(
@@ -535,7 +535,7 @@ class TestAsyncAssets:
         asset = await response.parse()
         assert asset is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.delete(
@@ -549,7 +549,7 @@ class TestAsyncAssets:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -557,13 +557,13 @@ class TestAsyncAssets:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_check_existence(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.check_existence()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_check_existence_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.check_existence(
@@ -575,7 +575,7 @@ class TestAsyncAssets:
         )
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_check_existence(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.check_existence()
@@ -585,7 +585,7 @@ class TestAsyncAssets:
         asset = await response.parse()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_check_existence(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.check_existence() as response:
