@@ -18,13 +18,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestSearch:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search(self, client: Gumnut) -> None:
         search = client.search.search()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search(
@@ -39,7 +39,7 @@ class TestSearch:
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: Gumnut) -> None:
         response = client.search.with_raw_response.search()
@@ -49,7 +49,7 @@ class TestSearch:
         search = response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: Gumnut) -> None:
         with client.search.with_streaming_response.search() as response:
@@ -61,13 +61,13 @@ class TestSearch:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_assets(self, client: Gumnut) -> None:
         search = client.search.search_assets()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search_assets(
@@ -83,7 +83,7 @@ class TestSearch:
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search_assets(self, client: Gumnut) -> None:
         response = client.search.with_raw_response.search_assets()
@@ -93,7 +93,7 @@ class TestSearch:
         search = response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search_assets(self, client: Gumnut) -> None:
         with client.search.with_streaming_response.search_assets() as response:
@@ -111,13 +111,13 @@ class TestAsyncSearch:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
@@ -132,7 +132,7 @@ class TestAsyncSearch:
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncGumnut) -> None:
         response = await async_client.search.with_raw_response.search()
@@ -142,7 +142,7 @@ class TestAsyncSearch:
         search = await response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncGumnut) -> None:
         async with async_client.search.with_streaming_response.search() as response:
@@ -154,13 +154,13 @@ class TestAsyncSearch:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_assets(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search_assets()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search_assets(
@@ -176,7 +176,7 @@ class TestAsyncSearch:
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search_assets(self, async_client: AsyncGumnut) -> None:
         response = await async_client.search.with_raw_response.search_assets()
@@ -186,7 +186,7 @@ class TestAsyncSearch:
         search = await response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search_assets(self, async_client: AsyncGumnut) -> None:
         async with async_client.search.with_streaming_response.search_assets() as response:
