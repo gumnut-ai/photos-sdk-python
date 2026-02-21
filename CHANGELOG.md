@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.53.1 (2026-02-21)
+
+Full Changelog: [v0.53.0...v0.53.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.53.0...v0.53.1)
+
+### Chores
+
+* **internal:** remove mock server code ([d907cc5](https://github.com/gumnut-ai/photos-sdk-python/commit/d907cc577b3c79a0179d27521ec00f842e9a1db9))
+* update mock server docs ([6204184](https://github.com/gumnut-ai/photos-sdk-python/commit/62041848bbb370d50848ef7a43a34e637526b23f))
+
 ## 0.53.0 (2026-02-19)
 
 Full Changelog: [v0.52.0...v0.53.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.52.0...v0.53.0)
