@@ -158,6 +158,8 @@ class AssetsResource(SyncAPIResource):
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -179,6 +181,16 @@ class AssetsResource(SyncAPIResource):
           ids: Filter by specific asset IDs (max 100)
 
           library_id: Library to list assets from (optional)
+
+          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
+
+          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -206,6 +218,8 @@ class AssetsResource(SyncAPIResource):
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,
                     },
@@ -510,6 +524,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -531,6 +547,16 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Filter by specific asset IDs (max 100)
 
           library_id: Library to list assets from (optional)
+
+          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
+
+          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -558,6 +584,8 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,
                     },
