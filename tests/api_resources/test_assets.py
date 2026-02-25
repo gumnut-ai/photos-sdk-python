@@ -145,6 +145,8 @@ class TestAssets:
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
             starting_after_id="starting_after_id",
         )
@@ -488,6 +490,8 @@ class TestAsyncAssets:
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
             starting_after_id="starting_after_id",
         )
