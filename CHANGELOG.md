@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.54.0 (2026-02-25)
+
+Full Changelog: [v0.53.0...v0.54.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.53.0...v0.54.0)
+
+### Features
+
+* **api:** api update ([18fd341](https://github.com/gumnut-ai/photos-sdk-python/commit/18fd341290a98086e17764c72e026b3a33159d94))
+
+
+### Chores
+
+* **internal:** add request options to SSE classes ([4f4ce9f](https://github.com/gumnut-ai/photos-sdk-python/commit/4f4ce9f78ef6ef53a5f8d25cf6d5743a838e67ac))
+* **internal:** make `test_proxy_environment_variables` more resilient ([27ea105](https://github.com/gumnut-ai/photos-sdk-python/commit/27ea105f1351d38befc745c9da13bd46be3a2651))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([7921eb4](https://github.com/gumnut-ai/photos-sdk-python/commit/7921eb4cec93f1b57c31665018d12420f3c3df8d))
+* **internal:** remove mock server code ([d907cc5](https://github.com/gumnut-ai/photos-sdk-python/commit/d907cc577b3c79a0179d27521ec00f842e9a1db9))
+* update mock server docs ([6204184](https://github.com/gumnut-ai/photos-sdk-python/commit/62041848bbb370d50848ef7a43a34e637526b23f))
+
 ## 0.53.0 (2026-02-19)
 
 Full Changelog: [v0.52.0...v0.53.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.52.0...v0.53.0)
