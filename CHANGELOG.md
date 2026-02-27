@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.54.1 (2026-02-27)
+
+Full Changelog: [v0.54.0...v0.54.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.54.0...v0.54.1)
+
+### Chores
+
+* **ci:** bump uv version ([43d9af6](https://github.com/gumnut-ai/photos-sdk-python/commit/43d9af6f0f8634e0fe77eb7ea5c08649e5ad0ebb))
+
 ## 0.54.0 (2026-02-25)
 
 Full Changelog: [v0.53.0...v0.54.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.53.0...v0.54.0)
