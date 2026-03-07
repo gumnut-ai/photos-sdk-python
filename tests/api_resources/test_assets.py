@@ -34,7 +34,7 @@ class TestAssets:
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         asset = client.assets.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -46,7 +46,7 @@ class TestAssets:
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -59,7 +59,7 @@ class TestAssets:
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -75,7 +75,7 @@ class TestAssets:
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -379,7 +379,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -391,7 +391,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -404,7 +404,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -420,7 +420,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.create(
-            asset_data=b"raw file contents",
+            asset_data=b"Example data",
             device_asset_id="device_asset_id",
             device_id="device_id",
             file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
