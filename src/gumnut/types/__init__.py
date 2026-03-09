@@ -24,9 +24,11 @@ from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .person_list_params import PersonListParams as PersonListParams
 from .album_create_params import AlbumCreateParams as AlbumCreateParams
 from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
+from .asset_counts_params import AssetCountsParams as AssetCountsParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
+from .asset_count_response import AssetCountResponse as AssetCountResponse
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
 from .person_update_params import PersonUpdateParams as PersonUpdateParams
