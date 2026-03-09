@@ -18,7 +18,12 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import AssetExistenceResponse, AssetLiteResponse, AssetResponse
+from gumnut.types import (
+    AssetCountResponse,
+    AssetExistenceResponse,
+    AssetLiteResponse,
+    AssetResponse,
+)
 ```
 
 Methods:
@@ -28,6 +33,7 @@ Methods:
 - <code title="get /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">list</a>(\*\*<a href="src/gumnut/types/asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">SyncCursorPage[AssetResponse]</a></code>
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> None</code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
+- <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
 - <code title="get /api/assets/{asset_id}/download">client.assets.<a href="./src/gumnut/resources/assets.py">download</a>(asset_id) -> BinaryAPIResponse</code>
 - <code title="get /api/assets/{asset_id}/thumbnail">client.assets.<a href="./src/gumnut/resources/assets.py">download_thumbnail</a>(asset_id, \*\*<a href="src/gumnut/types/asset_download_thumbnail_params.py">params</a>) -> BinaryAPIResponse</code>
 

@@ -9,6 +9,7 @@ import httpx
 
 from ..types import (
     asset_list_params,
+    asset_counts_params,
     asset_create_params,
     asset_check_existence_params,
     asset_download_thumbnail_params,
@@ -34,6 +35,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.asset_response import AssetResponse
+from ..types.asset_count_response import AssetCountResponse
 from ..types.asset_existence_response import AssetExistenceResponse
 
 __all__ = ["AssetsResource", "AsyncAssetsResource"]
@@ -325,6 +327,80 @@ class AssetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=AssetExistenceResponse,
+        )
+
+    def counts(
+        self,
+        *,
+        album_id: Optional[str] | Omit = omit,
+        group_by: str | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetCountResponse:
+        """Returns asset counts grouped by time period.
+
+        Supports optional filtering by
+        album, person, or date range. Results are ordered by time bucket descending.
+
+        Args:
+          album_id: Filter by assets in a specific album
+
+          group_by: Time period to group counts by. Currently only 'month' is supported.
+
+          library_id: Library to count assets in (optional)
+
+          limit: Maximum number of time buckets to return
+
+          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
+
+          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset. Use the last time_bucket from a previous response to paginate.
+
+          person_id: Filter by assets associated with a specific person ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/api/assets/counts",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "album_id": album_id,
+                        "group_by": group_by,
+                        "library_id": library_id,
+                        "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
+                        "person_id": person_id,
+                    },
+                    asset_counts_params.AssetCountsParams,
+                ),
+            ),
+            cast_to=AssetCountResponse,
         )
 
     def download(
@@ -693,6 +769,80 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=AssetExistenceResponse,
         )
 
+    async def counts(
+        self,
+        *,
+        album_id: Optional[str] | Omit = omit,
+        group_by: str | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetCountResponse:
+        """Returns asset counts grouped by time period.
+
+        Supports optional filtering by
+        album, person, or date range. Results are ordered by time bucket descending.
+
+        Args:
+          album_id: Filter by assets in a specific album
+
+          group_by: Time period to group counts by. Currently only 'month' is supported.
+
+          library_id: Library to count assets in (optional)
+
+          limit: Maximum number of time buckets to return
+
+          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset.
+
+          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
+              values compare directly against local_datetime; timezone-aware values are
+              converted to UTC and compared against local_datetime adjusted by its stored
+              offset. Use the last time_bucket from a previous response to paginate.
+
+          person_id: Filter by assets associated with a specific person ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/api/assets/counts",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "album_id": album_id,
+                        "group_by": group_by,
+                        "library_id": library_id,
+                        "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
+                        "person_id": person_id,
+                    },
+                    asset_counts_params.AssetCountsParams,
+                ),
+            ),
+            cast_to=AssetCountResponse,
+        )
+
     async def download(
         self,
         asset_id: str,
@@ -792,6 +942,9 @@ class AssetsResourceWithRawResponse:
         self.check_existence = to_raw_response_wrapper(
             assets.check_existence,
         )
+        self.counts = to_raw_response_wrapper(
+            assets.counts,
+        )
         self.download = to_custom_raw_response_wrapper(
             assets.download,
             BinaryAPIResponse,
@@ -820,6 +973,9 @@ class AsyncAssetsResourceWithRawResponse:
         )
         self.check_existence = async_to_raw_response_wrapper(
             assets.check_existence,
+        )
+        self.counts = async_to_raw_response_wrapper(
+            assets.counts,
         )
         self.download = async_to_custom_raw_response_wrapper(
             assets.download,
@@ -850,6 +1006,9 @@ class AssetsResourceWithStreamingResponse:
         self.check_existence = to_streamed_response_wrapper(
             assets.check_existence,
         )
+        self.counts = to_streamed_response_wrapper(
+            assets.counts,
+        )
         self.download = to_custom_streamed_response_wrapper(
             assets.download,
             StreamedBinaryAPIResponse,
@@ -878,6 +1037,9 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.check_existence = async_to_streamed_response_wrapper(
             assets.check_existence,
+        )
+        self.counts = async_to_streamed_response_wrapper(
+            assets.counts,
         )
         self.download = async_to_custom_streamed_response_wrapper(
             assets.download,
