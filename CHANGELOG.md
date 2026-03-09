@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.55.0 (2026-03-09)
+
+Full Changelog: [v0.54.0...v0.55.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.54.0...v0.55.0)
+
+### Features
+
+* **api:** added /api/assets/counts ([2c7888c](https://github.com/gumnut-ai/photos-sdk-python/commit/2c7888c34f6e2e856bc0c5989d788ba1eb016845))
+
+
+### Chores
+
+* **ci:** bump uv version ([43d9af6](https://github.com/gumnut-ai/photos-sdk-python/commit/43d9af6f0f8634e0fe77eb7ea5c08649e5ad0ebb))
+* **ci:** skip uploading artifacts on stainless-internal branches ([5491850](https://github.com/gumnut-ai/photos-sdk-python/commit/54918500afe7fd4b6fb7077591d47421f5f90b82))
+* update placeholder string ([594664b](https://github.com/gumnut-ai/photos-sdk-python/commit/594664bda17ebd9de1b70bd420070b7a3928b781))
+
 ## 0.54.0 (2026-02-25)
 
 Full Changelog: [v0.53.0...v0.54.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.53.0...v0.54.0)
