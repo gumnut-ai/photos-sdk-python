@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.56.0 (2026-03-13)
+
+Full Changelog: [v0.55.0...v0.56.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.55.0...v0.56.0)
+
+### Features
+
+* **api:** suggested addition to models ([e3fdb20](https://github.com/gumnut-ai/photos-sdk-python/commit/e3fdb20b5df0c6791b617a6edb5c67e8294d530c))
+
 ## 0.55.0 (2026-03-09)
 
 Full Changelog: [v0.54.0...v0.55.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.54.0...v0.55.0)
