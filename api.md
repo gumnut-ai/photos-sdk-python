@@ -175,7 +175,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import SearchResponse
+from gumnut.types import SearchResponse, SearchResultItem
 ```
 
 Methods:

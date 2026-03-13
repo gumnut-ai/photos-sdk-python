@@ -22,6 +22,7 @@ from .ping_get_response import PingGetResponse as PingGetResponse
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .person_list_params import PersonListParams as PersonListParams
+from .search_result_item import SearchResultItem as SearchResultItem
 from .album_create_params import AlbumCreateParams as AlbumCreateParams
 from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
