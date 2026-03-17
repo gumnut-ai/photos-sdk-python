@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.56.2 (2026-03-17)
+
+Full Changelog: [v0.56.1...v0.56.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.56.1...v0.56.2)
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([d8a7025](https://github.com/gumnut-ai/photos-sdk-python/commit/d8a7025599c27fadbc414d4febf7a77b751aea5e))
+
 ## 0.56.1 (2026-03-17)
 
 Full Changelog: [v0.56.0...v0.56.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.56.0...v0.56.1)
