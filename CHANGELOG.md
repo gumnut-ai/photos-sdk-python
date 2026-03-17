@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.56.1 (2026-03-17)
+
+Full Changelog: [v0.56.0...v0.56.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.56.0...v0.56.1)
+
+### Bug Fixes
+
+* **pydantic:** do not pass `by_alias` unless set ([7b51c13](https://github.com/gumnut-ai/photos-sdk-python/commit/7b51c134510611d72b9dcb487c48a809e714dfe1))
+
 ## 0.56.0 (2026-03-13)
 
 Full Changelog: [v0.55.0...v0.56.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.55.0...v0.56.0)
