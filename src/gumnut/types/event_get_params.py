@@ -37,4 +37,4 @@ class EventGetParams(TypedDict, total=False):
     """Library to list events from. If not provided, uses the user's default library."""
 
     limit: int
-    """Maximum number of events to return (1-500)"""
+    """Maximum number of events to return (1-200)"""

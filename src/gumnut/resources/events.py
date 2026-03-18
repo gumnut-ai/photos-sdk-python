@@ -110,7 +110,7 @@ class EventsResource(SyncAPIResource):
 
           library_id: Library to list events from. If not provided, uses the user's default library.
 
-          limit: Maximum number of events to return (1-500)
+          limit: Maximum number of events to return (1-200)
 
           extra_headers: Send extra headers
 
@@ -229,7 +229,7 @@ class AsyncEventsResource(AsyncAPIResource):
 
           library_id: Library to list events from. If not provided, uses the user's default library.
 
-          limit: Maximum number of events to return (1-500)
+          limit: Maximum number of events to return (1-200)
 
           extra_headers: Send extra headers
 

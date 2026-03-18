@@ -203,6 +203,8 @@ class PeopleResource(SyncAPIResource):
 
           library_id: Library ID (required if user has multiple libraries)
 
+          limit: Max number of people to return (1-200)
+
           starting_after_id: Person ID to start listing people after
 
           extra_headers: Send extra headers
@@ -450,6 +452,8 @@ class AsyncPeopleResource(AsyncAPIResource):
           ids: Filter by specific person IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
+
+          limit: Max number of people to return (1-200)
 
           starting_after_id: Person ID to start listing people after
 

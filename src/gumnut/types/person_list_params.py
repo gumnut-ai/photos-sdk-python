@@ -24,6 +24,7 @@ class PersonListParams(TypedDict, total=False):
     """Library ID (required if user has multiple libraries)"""
 
     limit: int
+    """Max number of people to return (1-200)"""
 
     starting_after_id: Optional[str]
     """Person ID to start listing people after"""

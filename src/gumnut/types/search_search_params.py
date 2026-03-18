@@ -23,7 +23,7 @@ class SearchSearchParams(TypedDict, total=False):
     """Library to search assets from (optional)"""
 
     limit: int
-    """Number of results per page"""
+    """Number of results per page (1-200)"""
 
     page: int
     """Page number"""

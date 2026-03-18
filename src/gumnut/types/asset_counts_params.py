@@ -22,7 +22,7 @@ class AssetCountsParams(TypedDict, total=False):
     """Library to count assets in (optional)"""
 
     limit: int
-    """Maximum number of time buckets to return"""
+    """Maximum number of time buckets to return (1-200)"""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets with local_datetime after this value (ISO 8601).

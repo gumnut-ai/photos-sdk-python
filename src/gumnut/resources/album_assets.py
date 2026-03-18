@@ -73,7 +73,7 @@ class AlbumAssetsResource(SyncAPIResource):
 
           library_id: Library ID (required if user has multiple libraries)
 
-          limit: Max number of results to return
+          limit: Max number of results to return (1-200)
 
           starting_after_id: Album-asset ID to start listing after
 
@@ -191,7 +191,7 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
 
           library_id: Library ID (required if user has multiple libraries)
 
-          limit: Max number of results to return
+          limit: Max number of results to return (1-200)
 
           starting_after_id: Album-asset ID to start listing after
 

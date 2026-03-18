@@ -21,7 +21,7 @@ class AlbumListParams(TypedDict, total=False):
     """Library to list albums from (optional)"""
 
     limit: int
-    """Max number of albums to return"""
+    """Max number of albums to return (1-200)"""
 
     starting_after_id: Optional[str]
     """Album ID to start listing albums after"""
