@@ -36,7 +36,9 @@ class ExifResponse(BaseModel):
     """Image description or caption"""
 
     digitized_datetime: Optional[datetime] = None
-    """When the photo was digitized, with timezone info"""
+    """
+    When the photo was digitized, with timezone offset if available in EXIF metadata
+    """
 
     exposure_bias: Optional[float] = None
     """Exposure compensation in EV (e.g., -1.0, +0.5)"""
@@ -75,7 +77,10 @@ class ExifResponse(BaseModel):
     """Camera model (e.g., 'EOS 5D Mark IV')"""
 
     modified_datetime: Optional[datetime] = None
-    """When the file was last modified, with timezone info"""
+    """
+    When the file was last modified, with timezone offset if available in EXIF
+    metadata
+    """
 
     orientation: Optional[int] = None
     """
@@ -85,7 +90,10 @@ class ExifResponse(BaseModel):
     """
 
     original_datetime: Optional[datetime] = None
-    """When the photo was originally taken, with timezone info"""
+    """
+    When the photo was originally taken, with timezone offset if available in EXIF
+    metadata
+    """
 
     profile_description: Optional[str] = None
     """Color profile description"""
