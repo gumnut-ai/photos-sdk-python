@@ -21,6 +21,7 @@ class FaceListParams(TypedDict, total=False):
     """Library ID (required if user has multiple libraries)"""
 
     limit: int
+    """Max number of faces to return (1-200)"""
 
     person_id: Optional[str]
     """Filter by faces associated with a specific person"""
