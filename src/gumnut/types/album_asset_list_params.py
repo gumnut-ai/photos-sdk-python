@@ -24,7 +24,7 @@ class AlbumAssetListParams(TypedDict, total=False):
     """Library ID (required if user has multiple libraries)"""
 
     limit: int
-    """Max number of results to return"""
+    """Max number of results to return (1-200)"""
 
     starting_after_id: Optional[str]
     """Album-asset ID to start listing after"""

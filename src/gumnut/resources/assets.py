@@ -184,6 +184,8 @@ class AssetsResource(SyncAPIResource):
 
           library_id: Library to list assets from (optional)
 
+          limit: Max number of assets to return (1-200)
+
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
               values compare directly against local_datetime; timezone-aware values are
               converted to UTC and compared against local_datetime adjusted by its stored
@@ -358,7 +360,7 @@ class AssetsResource(SyncAPIResource):
 
           library_id: Library to count assets in (optional)
 
-          limit: Maximum number of time buckets to return
+          limit: Maximum number of time buckets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
               values compare directly against local_datetime; timezone-aware values are
@@ -624,6 +626,8 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           library_id: Library to list assets from (optional)
 
+          limit: Max number of assets to return (1-200)
+
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
               values compare directly against local_datetime; timezone-aware values are
               converted to UTC and compared against local_datetime adjusted by its stored
@@ -798,7 +802,7 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           library_id: Library to count assets in (optional)
 
-          limit: Maximum number of time buckets to return
+          limit: Maximum number of time buckets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
               values compare directly against local_datetime; timezone-aware values are

@@ -75,7 +75,7 @@ class SearchResource(SyncAPIResource):
 
           library_id: Library to search assets from (optional)
 
-          limit: Number of results per page
+          limit: Number of results per page (1-200)
 
           page: Page number
 
@@ -156,7 +156,7 @@ class SearchResource(SyncAPIResource):
 
           library_id: Library to search assets from (optional)
 
-          limit: Number of results per page
+          limit: Number of results per page (1-200)
 
           page: Page number
 
@@ -259,7 +259,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           library_id: Library to search assets from (optional)
 
-          limit: Number of results per page
+          limit: Number of results per page (1-200)
 
           page: Page number
 
@@ -340,7 +340,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           library_id: Library to search assets from (optional)
 
-          limit: Number of results per page
+          limit: Number of results per page (1-200)
 
           page: Page number
 

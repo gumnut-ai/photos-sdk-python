@@ -23,6 +23,7 @@ class AssetListParams(TypedDict, total=False):
     """Library to list assets from (optional)"""
 
     limit: int
+    """Max number of assets to return (1-200)"""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets with local_datetime after this value (ISO 8601).

@@ -199,7 +199,7 @@ class AlbumsResource(SyncAPIResource):
 
           library_id: Library to list albums from (optional)
 
-          limit: Max number of albums to return
+          limit: Max number of albums to return (1-200)
 
           starting_after_id: Album ID to start listing albums after
 
@@ -437,7 +437,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
 
           library_id: Library to list albums from (optional)
 
-          limit: Max number of albums to return
+          limit: Max number of albums to return (1-200)
 
           starting_after_id: Album ID to start listing albums after
 

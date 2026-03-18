@@ -162,6 +162,8 @@ class FacesResource(SyncAPIResource):
 
           library_id: Library ID (required if user has multiple libraries)
 
+          limit: Max number of faces to return (1-200)
+
           person_id: Filter by faces associated with a specific person
 
           starting_after_id: Face ID to start listing faces after
@@ -404,6 +406,8 @@ class AsyncFacesResource(AsyncAPIResource):
           ids: Filter by specific face IDs (max 100)
 
           library_id: Library ID (required if user has multiple libraries)
+
+          limit: Max number of faces to return (1-200)
 
           person_id: Filter by faces associated with a specific person
 
