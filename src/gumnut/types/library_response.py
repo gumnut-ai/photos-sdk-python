@@ -14,6 +14,9 @@ class LibraryResponse(BaseModel):
     id: str
     """Unique library identifier with 'lib\\__' prefix"""
 
+    asset_count: int
+    """Total number of assets in this library"""
+
     created_at: datetime
     """When this library was created"""
 
