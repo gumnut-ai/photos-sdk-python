@@ -8,7 +8,7 @@ import httpx
 
 from ...types import album_list_params, album_create_params, album_update_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -124,7 +124,7 @@ class AlbumsResource(SyncAPIResource):
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return self._get(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -159,7 +159,7 @@ class AlbumsResource(SyncAPIResource):
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return self._patch(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             body=maybe_transform(
                 {
                     "description": description,
@@ -262,7 +262,7 @@ class AlbumsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -362,7 +362,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return await self._get(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -397,7 +397,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         return await self._patch(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             body=await async_maybe_transform(
                 {
                     "description": description,
@@ -500,7 +500,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/api/albums/{album_id}",
+            path_template("/api/albums/{album_id}", album_id=album_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

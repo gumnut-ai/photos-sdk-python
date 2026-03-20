@@ -8,7 +8,7 @@ import httpx
 
 from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -81,7 +81,7 @@ class FacesResource(SyncAPIResource):
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         return self._get(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -123,7 +123,7 @@ class FacesResource(SyncAPIResource):
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         return self._patch(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             body=maybe_transform({"person_id": person_id}, face_update_params.FaceUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -231,7 +231,7 @@ class FacesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -269,7 +269,7 @@ class FacesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         extra_headers = {"Accept": "image/*", **(extra_headers or {})}
         return self._get(
-            f"/api/faces/{face_id}/thumbnail",
+            path_template("/api/faces/{face_id}/thumbnail", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -326,7 +326,7 @@ class AsyncFacesResource(AsyncAPIResource):
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         return await self._get(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -368,7 +368,7 @@ class AsyncFacesResource(AsyncAPIResource):
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         return await self._patch(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             body=await async_maybe_transform({"person_id": person_id}, face_update_params.FaceUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -476,7 +476,7 @@ class AsyncFacesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/api/faces/{face_id}",
+            path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -514,7 +514,7 @@ class AsyncFacesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
         extra_headers = {"Accept": "image/*", **(extra_headers or {})}
         return await self._get(
-            f"/api/faces/{face_id}/thumbnail",
+            path_template("/api/faces/{face_id}/thumbnail", face_id=face_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
