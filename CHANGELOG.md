@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.58.1 (2026-03-20)
+
+Full Changelog: [v0.58.0...v0.58.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.58.0...v0.58.1)
+
+### Bug Fixes
+
+* sanitize endpoint path params ([75fc602](https://github.com/gumnut-ai/photos-sdk-python/commit/75fc6027c8ce0b1ba72d87f37a9774958a26513e))
+
 ## 0.58.0 (2026-03-18)
 
 Full Changelog: [v0.57.0...v0.58.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.57.0...v0.58.0)
