@@ -17,6 +17,12 @@ class PersonListParams(TypedDict, total=False):
     asset_id: Optional[str]
     """Include only people associated with this asset ID"""
 
+    has_name: Optional[bool]
+    """
+    Filter by whether the person has a name assigned (true = named only, false =
+    unnamed only)
+    """
+
     ids: Optional[SequenceNotStr[str]]
     """Filter by specific person IDs (max 100)"""
 
@@ -25,6 +31,9 @@ class PersonListParams(TypedDict, total=False):
 
     limit: int
     """Max number of people to return (1-200)"""
+
+    name: Optional[str]
+    """Filter by name using case-insensitive substring matching"""
 
     starting_after_id: Optional[str]
     """Person ID to start listing people after"""
