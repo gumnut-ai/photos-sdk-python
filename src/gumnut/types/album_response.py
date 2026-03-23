@@ -1,11 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["AlbumResponse"]
+__all__ = ["AlbumResponse", "AssetURLs"]
+
+
+class AssetURLs(BaseModel):
+    """A single image variant with its URL, MIME type, and target width."""
+
+    mimetype: str
+    """MIME type of the served image"""
+
+    url: str
+    """URL to fetch this image variant"""
+
+    width: Optional[int] = None
+    """Target width in pixels (null if unknown)"""
 
 
 class AlbumResponse(BaseModel):
@@ -31,6 +44,9 @@ class AlbumResponse(BaseModel):
 
     album_cover_thumbnail_url: Optional[str] = None
     """URL to get the album cover thumbnail image"""
+
+    asset_urls: Optional[Dict[str, AssetURLs]] = None
+    """Asset variants for the album cover: 'thumbnail'"""
 
     description: Optional[str] = None
     """Optional description text for the album"""
