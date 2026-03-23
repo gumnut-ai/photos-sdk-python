@@ -8,7 +8,20 @@ from .exif_response import ExifResponse
 from .face_response import FaceResponse
 from .person_response import PersonResponse
 
-__all__ = ["AssetResponse"]
+__all__ = ["AssetResponse", "AssetURLs"]
+
+
+class AssetURLs(BaseModel):
+    """A single image variant with its URL, MIME type, and target width."""
+
+    mimetype: str
+    """MIME type of the served image"""
+
+    url: str
+    """URL to fetch this image variant"""
+
+    width: Optional[int] = None
+    """Target width in pixels (null if unknown)"""
 
 
 class AssetResponse(BaseModel):
@@ -49,6 +62,12 @@ class AssetResponse(BaseModel):
 
     updated_at: datetime
     """When this asset record was last updated"""
+
+    asset_urls: Optional[Dict[str, AssetURLs]] = None
+    """
+    Named asset variants: 'original', 'thumbnail', 'preview', 'fullsize' for images;
+    'original' only for videos
+    """
 
     checksum_sha1: Optional[str] = None
     """Base64-encoded SHA-1 hash for Immich client compatibility.
