@@ -5,7 +5,20 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["FaceResponse"]
+__all__ = ["FaceResponse", "AssetURLs"]
+
+
+class AssetURLs(BaseModel):
+    """A single image variant with its URL, MIME type, and target width."""
+
+    mimetype: str
+    """MIME type of the served image"""
+
+    url: str
+    """URL to fetch this image variant"""
+
+    width: Optional[int] = None
+    """Target width in pixels (null if unknown)"""
 
 
 class FaceResponse(BaseModel):
@@ -25,6 +38,9 @@ class FaceResponse(BaseModel):
 
     updated_at: datetime
     """When this face record was last updated"""
+
+    asset_urls: Optional[Dict[str, AssetURLs]] = None
+    """Asset variants for this face: 'thumbnail' with face crop"""
 
     person_id: Optional[str] = None
     """ID of the person this face belongs to (if identified)"""
