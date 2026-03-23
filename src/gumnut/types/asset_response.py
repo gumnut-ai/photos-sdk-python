@@ -75,6 +75,14 @@ class AssetResponse(BaseModel):
     May be null for older assets.
     """
 
+    description: Optional[str] = None
+    """AI-generated description of the asset's content, quality, and composition.
+
+    null means description generation has not yet run; empty string means the model
+    refused to describe the asset. Distinct from exif.description (camera-embedded
+    EXIF metadata).
+    """
+
     download_url: Optional[str] = None
     """If you need to download the full asset, use this URL.
 
