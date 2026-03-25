@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Mapping, Optional, cast
+from typing import Union, Optional
 from datetime import datetime
 
 import httpx
 
 from ..types import search_search_params, search_search_assets_params
-from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -127,7 +127,7 @@ class SearchResource(SyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
-        image: Optional[FileTypes] | Omit = omit,
+        image: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -179,28 +179,26 @@ class SearchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
-            {
-                "captured_after": captured_after,
-                "captured_before": captured_before,
-                "image": image,
-                "library_id": library_id,
-                "limit": limit,
-                "page": page,
-                "person_ids": person_ids,
-                "query": query,
-                "threshold": threshold,
-            }
-        )
-        files = extract_files(cast(Mapping[str, object], body), paths=[["image"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/api/search",
-            body=maybe_transform(body, search_search_assets_params.SearchSearchAssetsParams),
-            files=files,
+            body=maybe_transform(
+                {
+                    "captured_after": captured_after,
+                    "captured_before": captured_before,
+                    "image": image,
+                    "library_id": library_id,
+                    "limit": limit,
+                    "page": page,
+                    "person_ids": person_ids,
+                    "query": query,
+                    "threshold": threshold,
+                },
+                search_search_assets_params.SearchSearchAssetsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -311,7 +309,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
-        image: Optional[FileTypes] | Omit = omit,
+        image: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -363,28 +361,26 @@ class AsyncSearchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
-            {
-                "captured_after": captured_after,
-                "captured_before": captured_before,
-                "image": image,
-                "library_id": library_id,
-                "limit": limit,
-                "page": page,
-                "person_ids": person_ids,
-                "query": query,
-                "threshold": threshold,
-            }
-        )
-        files = extract_files(cast(Mapping[str, object], body), paths=[["image"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/api/search",
-            body=await async_maybe_transform(body, search_search_assets_params.SearchSearchAssetsParams),
-            files=files,
+            body=await async_maybe_transform(
+                {
+                    "captured_after": captured_after,
+                    "captured_before": captured_before,
+                    "image": image,
+                    "library_id": library_id,
+                    "limit": limit,
+                    "page": page,
+                    "person_ids": person_ids,
+                    "query": query,
+                    "threshold": threshold,
+                },
+                search_search_assets_params.SearchSearchAssetsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
