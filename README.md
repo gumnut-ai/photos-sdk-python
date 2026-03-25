@@ -177,29 +177,6 @@ for asset in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
-from datetime import datetime
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
-
-```python
-from pathlib import Path
-from gumnut import Gumnut
-
-client = Gumnut()
-
-client.assets.create(
-    asset_data=Path("/path/to/file"),
-    device_asset_id="device_asset_id",
-    device_id="device_id",
-    file_created_at=datetime.fromisoformat("2019-12-27T18:11:19.117"),
-    file_modified_at=datetime.fromisoformat("2019-12-27T18:11:19.117"),
-)
-```
-
-The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
-
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `gumnut.APIConnectionError` is raised.
