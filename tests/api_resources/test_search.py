@@ -73,7 +73,7 @@ class TestSearch:
         search = client.search.search_assets(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            image=b"Example data",
+            image="image",
             library_id="library_id",
             limit=1,
             page=1,
@@ -166,7 +166,7 @@ class TestAsyncSearch:
         search = await async_client.search.search_assets(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            image=b"Example data",
+            image="image",
             library_id="library_id",
             limit=1,
             page=1,
