@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.61.1 (2026-03-25)
+
+Full Changelog: [v0.61.0...v0.61.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.61.0...v0.61.1)
+
+### Features
+
+* **api:** api update ([30bb6f9](https://github.com/gumnut-ai/photos-sdk-python/commit/30bb6f942a3767a43e87ade3d75d3bd3a1d9fe1a))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([6ea6ae5](https://github.com/gumnut-ai/photos-sdk-python/commit/6ea6ae510378cf5501e51a22798b90f56877c710))
+* **internal:** update gitignore ([2e9531c](https://github.com/gumnut-ai/photos-sdk-python/commit/2e9531c27d398fe7dadc11abb189b78fd0a297a1))
+
 ## 0.61.0 (2026-03-23)
 
 Full Changelog: [v0.60.0...v0.61.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.60.0...v0.61.0)
