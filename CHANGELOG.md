@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.62.0 (2026-03-27)
+
+Full Changelog: [v0.61.1...v0.62.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.61.1...v0.62.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([2275744](https://github.com/gumnut-ai/photos-sdk-python/commit/2275744f613270527b793de9aef3ce335bded486))
+
 ## 0.61.1 (2026-03-25)
 
 Full Changelog: [v0.61.0...v0.61.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.61.0...v0.61.1)
