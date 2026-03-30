@@ -6,7 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
-from .._types import SequenceNotStr
+from .._types import FileTypes, SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["SearchSearchAssetsParams"]
@@ -19,7 +19,7 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter to only include assets captured before this date (ISO format)."""
 
-    image: Optional[str]
+    image: Optional[FileTypes]
     """Image file to search for similar assets. Can be combined with text query."""
 
     library_id: Optional[str]
