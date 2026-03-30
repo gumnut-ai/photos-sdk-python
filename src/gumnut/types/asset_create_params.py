@@ -6,13 +6,14 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
+from .._types import FileTypes
 from .._utils import PropertyInfo
 
 __all__ = ["AssetCreateParams"]
 
 
 class AssetCreateParams(TypedDict, total=False):
-    asset_data: Required[str]
+    asset_data: Required[FileTypes]
 
     device_asset_id: Required[str]
 
