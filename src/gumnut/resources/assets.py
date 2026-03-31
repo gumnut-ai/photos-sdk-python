@@ -84,6 +84,8 @@ class AssetsResource(SyncAPIResource):
         required.
 
         Args:
+          asset_data: The asset file to upload
+
           library_id: Library to upload asset to (optional)
 
           extra_headers: Send extra headers
@@ -526,6 +528,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         required.
 
         Args:
+          asset_data: The asset file to upload
+
           library_id: Library to upload asset to (optional)
 
           extra_headers: Send extra headers

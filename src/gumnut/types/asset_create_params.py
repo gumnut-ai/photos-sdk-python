@@ -14,6 +14,7 @@ __all__ = ["AssetCreateParams"]
 
 class AssetCreateParams(TypedDict, total=False):
     asset_data: Required[FileTypes]
+    """The asset file to upload"""
 
     device_asset_id: Required[str]
 
