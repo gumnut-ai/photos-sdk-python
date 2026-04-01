@@ -260,8 +260,8 @@ class PeopleResource(SyncAPIResource):
     ) -> None:
         """Deletes a specific person.
 
-        Associated faces will have their person_id set to the
-        closest matching person, or null if no one matches.
+        Orphaned faces will be re-clustered in the next
+        clustering pass.
 
         Args:
           extra_headers: Send extra headers
@@ -519,8 +519,8 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> None:
         """Deletes a specific person.
 
-        Associated faces will have their person_id set to the
-        closest matching person, or null if no one matches.
+        Orphaned faces will be re-clustered in the next
+        clustering pass.
 
         Args:
           extra_headers: Send extra headers
