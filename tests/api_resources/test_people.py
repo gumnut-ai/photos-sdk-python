@@ -169,11 +169,11 @@ class TestPeople:
         person = client.people.list(
             album_id="album_id",
             asset_id="asset_id",
-            has_name=True,
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
             name="name",
+            name_filter="named",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
@@ -398,11 +398,11 @@ class TestAsyncPeople:
         person = await async_client.people.list(
             album_id="album_id",
             asset_id="asset_id",
-            has_name=True,
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
             name="name",
+            name_filter="named",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])

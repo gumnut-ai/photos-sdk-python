@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
 
@@ -17,12 +17,6 @@ class PersonListParams(TypedDict, total=False):
     asset_id: Optional[str]
     """Include only people associated with this asset ID"""
 
-    has_name: Optional[bool]
-    """
-    Filter by whether the person has a name assigned (true = named only, false =
-    unnamed only)
-    """
-
     ids: Optional[SequenceNotStr[str]]
     """Filter by specific person IDs (max 100)"""
 
@@ -34,6 +28,13 @@ class PersonListParams(TypedDict, total=False):
 
     name: Optional[str]
     """Filter by name using case-insensitive substring matching"""
+
+    name_filter: Optional[Literal["named", "unnamed", "all"]]
+    """
+    Filter by name status: 'named' returns only people with a name, 'unnamed'
+    returns only people without a name, 'all' returns everyone. Defaults to 'named',
+    or 'all' when ids are provided.
+    """
 
     starting_after_id: Optional[str]
     """Person ID to start listing people after"""
