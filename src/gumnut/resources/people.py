@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import date
+from typing_extensions import Literal
 
 import httpx
 
@@ -178,11 +179,11 @@ class PeopleResource(SyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
-        has_name: Optional[bool] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
+        name_filter: Optional[Literal["named", "unnamed", "all"]] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -191,18 +192,13 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PersonResponse]:
-        """Retrieves a paginated list of people, ordered by creation time, descending.
-
-        Can
-        be filtered by specific person IDs, name, or whether the person has been named.
+        """
+        Retrieves a paginated list of people, ordered by creation time, descending.
 
         Args:
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
-
-          has_name: Filter by whether the person has a name assigned (true = named only, false =
-              unnamed only)
 
           ids: Filter by specific person IDs (max 100)
 
@@ -211,6 +207,10 @@ class PeopleResource(SyncAPIResource):
           limit: Max number of people to return (1-200)
 
           name: Filter by name using case-insensitive substring matching
+
+          name_filter: Filter by name status: 'named' returns only people with a name, 'unnamed'
+              returns only people without a name, 'all' returns everyone. Defaults to 'named',
+              or 'all' when ids are provided.
 
           starting_after_id: Person ID to start listing people after
 
@@ -234,11 +234,11 @@ class PeopleResource(SyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
-                        "has_name": has_name,
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "name": name,
+                        "name_filter": name_filter,
                         "starting_after_id": starting_after_id,
                     },
                     person_list_params.PersonListParams,
@@ -437,11 +437,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
-        has_name: Optional[bool] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
+        name_filter: Optional[Literal["named", "unnamed", "all"]] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -450,18 +450,13 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PersonResponse, AsyncCursorPage[PersonResponse]]:
-        """Retrieves a paginated list of people, ordered by creation time, descending.
-
-        Can
-        be filtered by specific person IDs, name, or whether the person has been named.
+        """
+        Retrieves a paginated list of people, ordered by creation time, descending.
 
         Args:
           album_id: Include only people associated with this album ID
 
           asset_id: Include only people associated with this asset ID
-
-          has_name: Filter by whether the person has a name assigned (true = named only, false =
-              unnamed only)
 
           ids: Filter by specific person IDs (max 100)
 
@@ -470,6 +465,10 @@ class AsyncPeopleResource(AsyncAPIResource):
           limit: Max number of people to return (1-200)
 
           name: Filter by name using case-insensitive substring matching
+
+          name_filter: Filter by name status: 'named' returns only people with a name, 'unnamed'
+              returns only people without a name, 'all' returns everyone. Defaults to 'named',
+              or 'all' when ids are provided.
 
           starting_after_id: Person ID to start listing people after
 
@@ -493,11 +492,11 @@ class AsyncPeopleResource(AsyncAPIResource):
                     {
                         "album_id": album_id,
                         "asset_id": asset_id,
-                        "has_name": has_name,
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
                         "name": name,
+                        "name_filter": name_filter,
                         "starting_after_id": starting_after_id,
                     },
                     person_list_params.PersonListParams,
