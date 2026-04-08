@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.66.1 (2026-04-08)
+
+Full Changelog: [v0.66.0...v0.66.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.66.0...v0.66.1)
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([c7c136d](https://github.com/gumnut-ai/photos-sdk-python/commit/c7c136d42ac940894177c0dd464c678cbef15451))
+
 ## 0.66.0 (2026-04-02)
 
 Full Changelog: [v0.65.0...v0.66.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.65.0...v0.66.0)
