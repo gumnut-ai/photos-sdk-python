@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.66.2 (2026-04-11)
+
+Full Changelog: [v0.66.1...v0.66.2](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.66.1...v0.66.2)
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([6be7bef](https://github.com/gumnut-ai/photos-sdk-python/commit/6be7beff503ac4e88bf0e5c00a398f4897715e28))
+
 ## 0.66.1 (2026-04-08)
 
 Full Changelog: [v0.66.0...v0.66.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.66.0...v0.66.1)
