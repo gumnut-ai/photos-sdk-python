@@ -45,8 +45,5 @@ class FaceResponse(BaseModel):
     person_id: Optional[str] = None
     """ID of the person this face belongs to (if identified)"""
 
-    thumbnail_url: Optional[str] = None
-    """URL to get a cropped thumbnail of just this face"""
-
     timestamp_ms: Optional[int] = None
     """For video files, timestamp in milliseconds when face appears"""

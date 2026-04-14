@@ -48,4 +48,3 @@ from .asset_existence_response import AssetExistenceResponse as AssetExistenceRe
 from .logout_endpoint_response import LogoutEndpointResponse as LogoutEndpointResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_check_existence_params import AssetCheckExistenceParams as AssetCheckExistenceParams
-from .asset_download_thumbnail_params import AssetDownloadThumbnailParams as AssetDownloadThumbnailParams

@@ -34,8 +34,6 @@ Methods:
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> None</code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
-- <code title="get /api/assets/{asset_id}/download">client.assets.<a href="./src/gumnut/resources/assets.py">download</a>(asset_id) -> BinaryAPIResponse</code>
-- <code title="get /api/assets/{asset_id}/thumbnail">client.assets.<a href="./src/gumnut/resources/assets.py">download_thumbnail</a>(asset_id, \*\*<a href="src/gumnut/types/asset_download_thumbnail_params.py">params</a>) -> BinaryAPIResponse</code>
 
 # Albums
 
@@ -110,7 +108,6 @@ Methods:
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
 - <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> None</code>
-- <code title="get /api/faces/{face_id}/thumbnail">client.faces.<a href="./src/gumnut/resources/faces.py">download_thumbnail</a>(face_id) -> BinaryAPIResponse</code>
 
 # Libraries
 
