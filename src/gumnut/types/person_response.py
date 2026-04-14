@@ -57,6 +57,3 @@ class PersonResponse(BaseModel):
 
     thumbnail_face_id: Optional[str] = None
     """ID of the face resource used as this person's thumbnail"""
-
-    thumbnail_face_url: Optional[str] = None
-    """URL for this person's profile thumbnail image"""

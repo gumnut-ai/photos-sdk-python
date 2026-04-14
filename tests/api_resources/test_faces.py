@@ -5,19 +5,11 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
-import httpx
 import pytest
-from respx import MockRouter
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import FaceResponse
-from gumnut._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
-)
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -221,56 +213,6 @@ class TestFaces:
                 face_id="",
             )
 
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_method_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        face = client.faces.download_thumbnail(
-            "face_id",
-        )
-        assert face.is_closed
-        assert face.json() == {"foo": "bar"}
-        assert cast(Any, face.is_closed) is True
-        assert isinstance(face, BinaryAPIResponse)
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        face = client.faces.with_raw_response.download_thumbnail(
-            "face_id",
-        )
-
-        assert face.is_closed is True
-        assert face.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert face.json() == {"foo": "bar"}
-        assert isinstance(face, BinaryAPIResponse)
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_download_thumbnail(self, client: Gumnut, respx_mock: MockRouter) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        with client.faces.with_streaming_response.download_thumbnail(
-            "face_id",
-        ) as face:
-            assert not face.is_closed
-            assert face.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            assert face.json() == {"foo": "bar"}
-            assert cast(Any, face.is_closed) is True
-            assert isinstance(face, StreamedBinaryAPIResponse)
-
-        assert cast(Any, face.is_closed) is True
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_path_params_download_thumbnail(self, client: Gumnut) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
-            client.faces.with_raw_response.download_thumbnail(
-                "",
-            )
-
 
 class TestAsyncFaces:
     parametrize = pytest.mark.parametrize(
@@ -470,56 +412,4 @@ class TestAsyncFaces:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
             await async_client.faces.with_raw_response.delete(
                 face_id="",
-            )
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_method_download_thumbnail(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        face = await async_client.faces.download_thumbnail(
-            "face_id",
-        )
-        assert face.is_closed
-        assert await face.json() == {"foo": "bar"}
-        assert cast(Any, face.is_closed) is True
-        assert isinstance(face, AsyncBinaryAPIResponse)
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_download_thumbnail(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        face = await async_client.faces.with_raw_response.download_thumbnail(
-            "face_id",
-        )
-
-        assert face.is_closed is True
-        assert face.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert await face.json() == {"foo": "bar"}
-        assert isinstance(face, AsyncBinaryAPIResponse)
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_download_thumbnail(
-        self, async_client: AsyncGumnut, respx_mock: MockRouter
-    ) -> None:
-        respx_mock.get("/api/faces/face_id/thumbnail").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        async with async_client.faces.with_streaming_response.download_thumbnail(
-            "face_id",
-        ) as face:
-            assert not face.is_closed
-            assert face.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            assert await face.json() == {"foo": "bar"}
-            assert cast(Any, face.is_closed) is True
-            assert isinstance(face, AsyncStreamedBinaryAPIResponse)
-
-        assert cast(Any, face.is_closed) is True
-
-    @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_download_thumbnail(self, async_client: AsyncGumnut) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `face_id` but received ''"):
-            await async_client.faces.with_raw_response.download_thumbnail(
-                "",
             )

@@ -83,12 +83,6 @@ class AssetResponse(BaseModel):
     EXIF metadata).
     """
 
-    download_url: Optional[str] = None
-    """If you need to download the full asset, use this URL.
-
-    Otherwise, use the thumbnail_url.
-    """
-
     exif: Optional[ExifResponse] = None
     """EXIF metadata extracted from image and video files."""
 
@@ -106,13 +100,6 @@ class AssetResponse(BaseModel):
 
     people: Optional[List[PersonResponse]] = None
     """All unique people identified in this asset (deduplicated from faces)"""
-
-    thumbnail_url: Optional[str] = None
-    """Use this URL to display the asset.
-
-    Never download the full asset unless you absolutely have to; prefer the
-    thumbnail instead.
-    """
 
     width: Optional[int] = None
     """Width of the asset in pixels"""
