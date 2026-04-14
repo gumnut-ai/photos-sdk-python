@@ -7,30 +7,16 @@ from datetime import datetime
 
 import httpx
 
-from ..types import (
-    asset_list_params,
-    asset_counts_params,
-    asset_create_params,
-    asset_check_existence_params,
-    asset_download_thumbnail_params,
-)
+from ..types import asset_list_params, asset_counts_params, asset_create_params, asset_check_existence_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
-    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
-    to_custom_streamed_response_wrapper,
-    async_to_custom_raw_response_wrapper,
-    async_to_custom_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
@@ -407,83 +393,6 @@ class AssetsResource(SyncAPIResource):
             cast_to=AssetCountResponse,
         )
 
-    def download(
-        self,
-        asset_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BinaryAPIResponse:
-        """
-        Downloads the original file for a specific asset.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not asset_id:
-            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
-        return self._get(
-            path_template("/api/assets/{asset_id}/download", asset_id=asset_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=BinaryAPIResponse,
-        )
-
-    def download_thumbnail(
-        self,
-        asset_id: str,
-        *,
-        size: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BinaryAPIResponse:
-        """Downloads a thumbnail for a specific asset.
-
-        The exact thumbnail returned depends
-        on availability and the optional `size` parameter.
-
-        Args:
-          size: Desired thumbnail size (e.g., thumbnail, preview)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not asset_id:
-            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
-        return self._get(
-            path_template("/api/assets/{asset_id}/thumbnail", asset_id=asset_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"size": size}, asset_download_thumbnail_params.AssetDownloadThumbnailParams),
-            ),
-            cast_to=BinaryAPIResponse,
-        )
-
 
 class AsyncAssetsResource(AsyncAPIResource):
     @cached_property
@@ -851,85 +760,6 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=AssetCountResponse,
         )
 
-    async def download(
-        self,
-        asset_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncBinaryAPIResponse:
-        """
-        Downloads the original file for a specific asset.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not asset_id:
-            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
-        return await self._get(
-            path_template("/api/assets/{asset_id}/download", asset_id=asset_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AsyncBinaryAPIResponse,
-        )
-
-    async def download_thumbnail(
-        self,
-        asset_id: str,
-        *,
-        size: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncBinaryAPIResponse:
-        """Downloads a thumbnail for a specific asset.
-
-        The exact thumbnail returned depends
-        on availability and the optional `size` parameter.
-
-        Args:
-          size: Desired thumbnail size (e.g., thumbnail, preview)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not asset_id:
-            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "image/*", **(extra_headers or {})}
-        return await self._get(
-            path_template("/api/assets/{asset_id}/thumbnail", asset_id=asset_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"size": size}, asset_download_thumbnail_params.AssetDownloadThumbnailParams
-                ),
-            ),
-            cast_to=AsyncBinaryAPIResponse,
-        )
-
 
 class AssetsResourceWithRawResponse:
     def __init__(self, assets: AssetsResource) -> None:
@@ -952,14 +782,6 @@ class AssetsResourceWithRawResponse:
         )
         self.counts = to_raw_response_wrapper(
             assets.counts,
-        )
-        self.download = to_custom_raw_response_wrapper(
-            assets.download,
-            BinaryAPIResponse,
-        )
-        self.download_thumbnail = to_custom_raw_response_wrapper(
-            assets.download_thumbnail,
-            BinaryAPIResponse,
         )
 
 
@@ -985,14 +807,6 @@ class AsyncAssetsResourceWithRawResponse:
         self.counts = async_to_raw_response_wrapper(
             assets.counts,
         )
-        self.download = async_to_custom_raw_response_wrapper(
-            assets.download,
-            AsyncBinaryAPIResponse,
-        )
-        self.download_thumbnail = async_to_custom_raw_response_wrapper(
-            assets.download_thumbnail,
-            AsyncBinaryAPIResponse,
-        )
 
 
 class AssetsResourceWithStreamingResponse:
@@ -1017,14 +831,6 @@ class AssetsResourceWithStreamingResponse:
         self.counts = to_streamed_response_wrapper(
             assets.counts,
         )
-        self.download = to_custom_streamed_response_wrapper(
-            assets.download,
-            StreamedBinaryAPIResponse,
-        )
-        self.download_thumbnail = to_custom_streamed_response_wrapper(
-            assets.download_thumbnail,
-            StreamedBinaryAPIResponse,
-        )
 
 
 class AsyncAssetsResourceWithStreamingResponse:
@@ -1048,12 +854,4 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.counts = async_to_streamed_response_wrapper(
             assets.counts,
-        )
-        self.download = async_to_custom_streamed_response_wrapper(
-            assets.download,
-            AsyncStreamedBinaryAPIResponse,
-        )
-        self.download_thumbnail = async_to_custom_streamed_response_wrapper(
-            assets.download_thumbnail,
-            AsyncStreamedBinaryAPIResponse,
         )
