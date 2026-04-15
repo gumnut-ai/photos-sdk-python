@@ -24,4 +24,7 @@ class AlbumListParams(TypedDict, total=False):
     """Max number of albums to return (1-200)"""
 
     starting_after_id: Optional[str]
-    """Album ID to start listing albums after"""
+    """Cursor for pagination.
+
+    Pass the `id` of the last album from the previous page to get the next page.
+    """

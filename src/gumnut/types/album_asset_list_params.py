@@ -27,4 +27,8 @@ class AlbumAssetListParams(TypedDict, total=False):
     """Max number of results to return (1-200)"""
 
     starting_after_id: Optional[str]
-    """Album-asset ID to start listing after"""
+    """Cursor for pagination.
+
+    Pass the `id` of the last album-asset from the previous page to get the next
+    page.
+    """

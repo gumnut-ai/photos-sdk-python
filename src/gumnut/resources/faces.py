@@ -147,6 +147,9 @@ class FacesResource(SyncAPIResource):
         Retrieves a paginated list of faces, optionally filtered by asset, person, or
         specific face IDs, ordered by creation time, descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last face in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           asset_id: Filter by faces in a specific asset
 
@@ -158,7 +161,8 @@ class FacesResource(SyncAPIResource):
 
           person_id: Filter by faces associated with a specific person
 
-          starting_after_id: Face ID to start listing faces after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last face from the previous page to
+              get the next page.
 
           extra_headers: Send extra headers
 
@@ -358,6 +362,9 @@ class AsyncFacesResource(AsyncAPIResource):
         Retrieves a paginated list of faces, optionally filtered by asset, person, or
         specific face IDs, ordered by creation time, descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last face in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           asset_id: Filter by faces in a specific asset
 
@@ -369,7 +376,8 @@ class AsyncFacesResource(AsyncAPIResource):
 
           person_id: Filter by faces associated with a specific person
 
-          starting_after_id: Face ID to start listing faces after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last face from the previous page to
+              get the next page.
 
           extra_headers: Send extra headers
 
