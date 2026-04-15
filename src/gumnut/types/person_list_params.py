@@ -37,4 +37,7 @@ class PersonListParams(TypedDict, total=False):
     """
 
     starting_after_id: Optional[str]
-    """Person ID to start listing people after"""
+    """Cursor for pagination.
+
+    Pass the `id` of the last person from the previous page to get the next page.
+    """

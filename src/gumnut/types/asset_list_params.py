@@ -45,4 +45,7 @@ class AssetListParams(TypedDict, total=False):
     """Filter by assets associated with a specific person ID"""
 
     starting_after_id: Optional[str]
-    """Asset ID to start listing assets after"""
+    """Cursor for pagination.
+
+    Pass the `id` of the last asset from the previous page to get the next page.
+    """
