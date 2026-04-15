@@ -56,16 +56,11 @@ Methods:
 Types:
 
 ```python
-from gumnut.types.albums import (
-    AlbumAssetAssociation,
-    AssetsAssociationListResponse,
-    AssetsAssociationAddResponse,
-)
+from gumnut.types.albums import AlbumAssetAssociation, AssetsAssociationAddResponse
 ```
 
 Methods:
 
-- <code title="get /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">list</a>(album_id) -> <a href="./src/gumnut/types/albums/assets_association_list_response.py">AssetsAssociationListResponse</a></code>
 - <code title="post /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/assets_association_add_response.py">AssetsAssociationAddResponse</a></code>
 - <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> None</code>
 
