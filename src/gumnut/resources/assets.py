@@ -165,6 +165,9 @@ class AssetsResource(SyncAPIResource):
         EXIF data, faces, and people. Assets are ordered by local creation time,
         descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last asset in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Filter by assets in a specific album
 
@@ -186,7 +189,8 @@ class AssetsResource(SyncAPIResource):
 
           person_id: Filter by assets associated with a specific person ID
 
-          starting_after_id: Asset ID to start listing assets after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last asset from the previous page to
+              get the next page.
 
           extra_headers: Send extra headers
 
@@ -340,6 +344,9 @@ class AssetsResource(SyncAPIResource):
 
         Supports optional filtering by
         album, person, or date range. Results are ordered by time bucket descending.
+
+        **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
+        `data` as `local_datetime_before` to fetch the next page.
 
         Args:
           album_id: Filter by assets in a specific album
@@ -532,6 +539,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         EXIF data, faces, and people. Assets are ordered by local creation time,
         descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last asset in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Filter by assets in a specific album
 
@@ -553,7 +563,8 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           person_id: Filter by assets associated with a specific person ID
 
-          starting_after_id: Asset ID to start listing assets after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last asset from the previous page to
+              get the next page.
 
           extra_headers: Send extra headers
 
@@ -707,6 +718,9 @@ class AsyncAssetsResource(AsyncAPIResource):
 
         Supports optional filtering by
         album, person, or date range. Results are ordered by time bucket descending.
+
+        **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
+        `data` as `local_datetime_before` to fetch the next page.
 
         Args:
           album_id: Filter by assets in a specific album

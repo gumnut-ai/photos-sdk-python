@@ -195,6 +195,9 @@ class PeopleResource(SyncAPIResource):
         """
         Retrieves a paginated list of people, ordered by creation time, descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last person in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Include only people associated with this album ID
 
@@ -212,7 +215,8 @@ class PeopleResource(SyncAPIResource):
               returns only people without a name, 'all' returns everyone. Defaults to 'named',
               or 'all' when ids are provided.
 
-          starting_after_id: Person ID to start listing people after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last person from the previous page
+              to get the next page.
 
           extra_headers: Send extra headers
 
@@ -453,6 +457,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         """
         Retrieves a paginated list of people, ordered by creation time, descending.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last person in
+        `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Include only people associated with this album ID
 
@@ -470,7 +477,8 @@ class AsyncPeopleResource(AsyncAPIResource):
               returns only people without a name, 'all' returns everyone. Defaults to 'named',
               or 'all' when ids are provided.
 
-          starting_after_id: Person ID to start listing people after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last person from the previous page
+              to get the next page.
 
           extra_headers: Send extra headers
 

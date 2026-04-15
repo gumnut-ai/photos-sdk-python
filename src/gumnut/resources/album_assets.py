@@ -64,6 +64,9 @@ class AlbumAssetsResource(SyncAPIResource):
         Retrieves a paginated list of album-asset links, ordered by creation time,
         descending. Can be filtered by album_id, asset_id, or specific album-asset IDs.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last album-asset
+        in `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Filter by album ID
 
@@ -75,7 +78,8 @@ class AlbumAssetsResource(SyncAPIResource):
 
           limit: Max number of results to return (1-200)
 
-          starting_after_id: Album-asset ID to start listing after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last album-asset from the previous
+              page to get the next page.
 
           extra_headers: Send extra headers
 
@@ -182,6 +186,9 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
         Retrieves a paginated list of album-asset links, ordered by creation time,
         descending. Can be filtered by album_id, asset_id, or specific album-asset IDs.
 
+        **Pagination:** When `has_more` is true, pass the `id` of the last album-asset
+        in `data` as `starting_after_id` to fetch the next page.
+
         Args:
           album_id: Filter by album ID
 
@@ -193,7 +200,8 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
 
           limit: Max number of results to return (1-200)
 
-          starting_after_id: Album-asset ID to start listing after
+          starting_after_id: Cursor for pagination. Pass the `id` of the last album-asset from the previous
+              page to get the next page.
 
           extra_headers: Send extra headers
 

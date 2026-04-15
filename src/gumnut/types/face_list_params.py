@@ -27,4 +27,7 @@ class FaceListParams(TypedDict, total=False):
     """Filter by faces associated with a specific person"""
 
     starting_after_id: Optional[str]
-    """Face ID to start listing faces after"""
+    """Cursor for pagination.
+
+    Pass the `id` of the last face from the previous page to get the next page.
+    """
