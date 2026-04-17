@@ -178,14 +178,14 @@ class AssetsResource(SyncAPIResource):
           limit: Max number of assets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -358,14 +358,15 @@ class AssetsResource(SyncAPIResource):
           limit: Maximum number of time buckets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset. Use the last time_bucket from a previous response to paginate.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime. Use
+              the last time_bucket from a previous response to paginate.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -552,14 +553,14 @@ class AsyncAssetsResource(AsyncAPIResource):
           limit: Max number of assets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -732,14 +733,15 @@ class AsyncAssetsResource(AsyncAPIResource):
           limit: Maximum number of time buckets to return (1-200)
 
           local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime.
 
           local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime; timezone-aware values are
-              converted to UTC and compared against local_datetime adjusted by its stored
-              offset. Use the last time_bucket from a previous response to paginate.
+              values compare directly against local_datetime. Timezone-aware values: assets
+              with a known offset are compared in UTC (local_datetime - offset); assets
+              without an offset fall back to wall-clock comparison against local_datetime. Use
+              the last time_bucket from a previous response to paginate.
 
           person_id: Filter by assets associated with a specific person ID
 
