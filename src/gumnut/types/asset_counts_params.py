@@ -27,17 +27,18 @@ class AssetCountsParams(TypedDict, total=False):
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets with local_datetime after this value (ISO 8601).
 
-    Naive values compare directly against local_datetime; timezone-aware values are
-    converted to UTC and compared against local_datetime adjusted by its stored
-    offset.
+    Naive values compare directly against local_datetime. Timezone-aware values:
+    assets with a known offset are compared in UTC (local_datetime - offset); assets
+    without an offset fall back to wall-clock comparison against local_datetime.
     """
 
     local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets with local_datetime before this value (ISO 8601).
 
-    Naive values compare directly against local_datetime; timezone-aware values are
-    converted to UTC and compared against local_datetime adjusted by its stored
-    offset. Use the last time_bucket from a previous response to paginate.
+    Naive values compare directly against local_datetime. Timezone-aware values:
+    assets with a known offset are compared in UTC (local_datetime - offset); assets
+    without an offset fall back to wall-clock comparison against local_datetime. Use
+    the last time_bucket from a previous response to paginate.
     """
 
     person_id: Optional[str]
