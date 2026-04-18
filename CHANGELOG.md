@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.70.1 (2026-04-18)
+
+Full Changelog: [v0.70.0...v0.70.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.70.0...v0.70.1)
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([2b58f33](https://github.com/gumnut-ai/photos-sdk-python/commit/2b58f33d8654aaa19a25d997f2ab8db32216652e))
+
 ## 0.70.0 (2026-04-17)
 
 Full Changelog: [v0.69.0...v0.70.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.69.0...v0.70.0)

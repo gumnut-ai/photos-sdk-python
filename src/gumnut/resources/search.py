@@ -8,8 +8,9 @@ from datetime import datetime
 import httpx
 
 from ..types import search_search_params, search_search_assets_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -179,7 +180,7 @@ class SearchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "captured_after": captured_after,
                 "captured_before": captured_before,
@@ -190,7 +191,8 @@ class SearchResource(SyncAPIResource):
                 "person_ids": person_ids,
                 "query": query,
                 "threshold": threshold,
-            }
+            },
+            [["image"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["image"]])
         # It should be noted that the actual Content-Type header that will be
@@ -363,7 +365,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "captured_after": captured_after,
                 "captured_before": captured_before,
@@ -374,7 +376,8 @@ class AsyncSearchResource(AsyncAPIResource):
                 "person_ids": person_ids,
                 "query": query,
                 "threshold": threshold,
-            }
+            },
+            [["image"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["image"]])
         # It should be noted that the actual Content-Type header that will be
