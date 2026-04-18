@@ -8,8 +8,9 @@ from datetime import datetime
 import httpx
 
 from ..types import asset_list_params, asset_counts_params, asset_create_params, asset_check_existence_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -82,7 +83,7 @@ class AssetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "asset_data": asset_data,
                 "device_asset_id": device_asset_id,
@@ -90,7 +91,8 @@ class AssetsResource(SyncAPIResource):
                 "file_created_at": file_created_at,
                 "file_modified_at": file_modified_at,
                 "library_id": library_id,
-            }
+            },
+            [["asset_data"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["asset_data"]])
         # It should be noted that the actual Content-Type header that will be
@@ -457,7 +459,7 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "asset_data": asset_data,
                 "device_asset_id": device_asset_id,
@@ -465,7 +467,8 @@ class AsyncAssetsResource(AsyncAPIResource):
                 "file_created_at": file_created_at,
                 "file_modified_at": file_modified_at,
                 "library_id": library_id,
-            }
+            },
+            [["asset_data"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["asset_data"]])
         # It should be noted that the actual Content-Type header that will be
