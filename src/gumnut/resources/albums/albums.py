@@ -69,11 +69,21 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Creates a new, empty album with optional name and description in the specified
-        library.
+        """Creates an album (with optional name and description) and returns it.
+
+        The album
+        starts empty — follow up with `add_assets_to_album` to populate it. To rename an
+        existing album, use `update_album` instead of creating a new one.
 
         Args:
+          description: Optional free-form description shown alongside the album name.
+
+          library_id: Library to create the album in. Optional if the user has a single library;
+              required when they have multiple. Use `list_libraries` to enumerate.
+
+          name: Display name for the new album. Optional; callers that need to name an album can
+              set it here or via `update_album` after creation.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -109,10 +119,17 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Retrieves details for a specific album.
+        """Fetches one album's metadata (name, description, cover, counts).
+
+        Use when you
+        already have an album ID. Does not include the album's assets — use
+        `list_album_assets` or `list_assets` with `album_id` for that.
 
         Args:
+          album_id: Album ID (with `album_` prefix) to fetch. Obtain from `list_albums` (optionally
+              filtered by `asset_id` to find albums containing a specific asset),
+              `list_album_assets`, or any response containing an album reference.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -144,10 +161,20 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Updates the name and/or description of a specific album.
+        """Updates the `name` and/or `description` of an existing album.
+
+        Only the fields
+        included in the request body are changed. To modify the contents of an album,
+        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        changes album metadata.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
+
+          description: New free-form description for the album. Omit to leave unchanged.
+
+          name: New display name for the album. Omit to leave unchanged.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -188,24 +215,32 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AlbumResponse]:
-        """
-        Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending. Can be filtered by asset_id or specific album IDs.
+        """Returns a paginated list of albums ordered by creation time (newest first).
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last album in
-        `data` as `starting_after_id` to fetch the next page.
+        Use
+        this to enumerate a user's albums or to find which albums contain a specific
+        asset (via `asset_id`).
+
+        `list_albums` returns album metadata only — to list the assets inside a
+        particular album, use `list_album_assets` or `list_assets` with `album_id`.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last album in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          asset_id: Filter albums containing this asset ID (optional)
+          asset_id: Return only albums that contain this asset. Useful for answering 'which albums
+              is this photo in?' without calling `list_album_assets`.
 
-          ids: Filter by specific album IDs (max 100)
+          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix). Use
+              for bulk fetch when IDs are already known.
 
-          library_id: Library to list albums from (optional)
+          library_id: Library to list albums from. Optional if the user has a single library; required
+              when they have multiple. Use `list_libraries` to enumerate.
 
-          limit: Max number of albums to return (1-200)
+          limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last album from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last album in the previous
+              response's `data` to fetch the next page. Omit for the first page.
 
           extra_headers: Send extra headers
 
@@ -248,12 +283,16 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes a specific album.
+        """Deletes the album itself.
 
-        Note: This does not delete the assets within the
-        album.
+        Assets that were in the album remain in the library —
+        only the album and its asset-links are removed. Use `delete_asset` to delete the
+        underlying assets, or `remove_assets_from_album` to detach specific assets from
+        an album you want to keep.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -311,11 +350,21 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Creates a new, empty album with optional name and description in the specified
-        library.
+        """Creates an album (with optional name and description) and returns it.
+
+        The album
+        starts empty — follow up with `add_assets_to_album` to populate it. To rename an
+        existing album, use `update_album` instead of creating a new one.
 
         Args:
+          description: Optional free-form description shown alongside the album name.
+
+          library_id: Library to create the album in. Optional if the user has a single library;
+              required when they have multiple. Use `list_libraries` to enumerate.
+
+          name: Display name for the new album. Optional; callers that need to name an album can
+              set it here or via `update_album` after creation.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -351,10 +400,17 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Retrieves details for a specific album.
+        """Fetches one album's metadata (name, description, cover, counts).
+
+        Use when you
+        already have an album ID. Does not include the album's assets — use
+        `list_album_assets` or `list_assets` with `album_id` for that.
 
         Args:
+          album_id: Album ID (with `album_` prefix) to fetch. Obtain from `list_albums` (optionally
+              filtered by `asset_id` to find albums containing a specific asset),
+              `list_album_assets`, or any response containing an album reference.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -386,10 +442,20 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        Updates the name and/or description of a specific album.
+        """Updates the `name` and/or `description` of an existing album.
+
+        Only the fields
+        included in the request body are changed. To modify the contents of an album,
+        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        changes album metadata.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
+
+          description: New free-form description for the album. Omit to leave unchanged.
+
+          name: New display name for the album. Omit to leave unchanged.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -430,24 +496,32 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
-        """
-        Retrieves a paginated list of albums from the specified library, ordered by
-        creation time, descending. Can be filtered by asset_id or specific album IDs.
+        """Returns a paginated list of albums ordered by creation time (newest first).
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last album in
-        `data` as `starting_after_id` to fetch the next page.
+        Use
+        this to enumerate a user's albums or to find which albums contain a specific
+        asset (via `asset_id`).
+
+        `list_albums` returns album metadata only — to list the assets inside a
+        particular album, use `list_album_assets` or `list_assets` with `album_id`.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last album in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          asset_id: Filter albums containing this asset ID (optional)
+          asset_id: Return only albums that contain this asset. Useful for answering 'which albums
+              is this photo in?' without calling `list_album_assets`.
 
-          ids: Filter by specific album IDs (max 100)
+          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix). Use
+              for bulk fetch when IDs are already known.
 
-          library_id: Library to list albums from (optional)
+          library_id: Library to list albums from. Optional if the user has a single library; required
+              when they have multiple. Use `list_libraries` to enumerate.
 
-          limit: Max number of albums to return (1-200)
+          limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last album from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last album in the previous
+              response's `data` to fetch the next page. Omit for the first page.
 
           extra_headers: Send extra headers
 
@@ -490,12 +564,16 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes a specific album.
+        """Deletes the album itself.
 
-        Note: This does not delete the assets within the
-        album.
+        Assets that were in the album remain in the library —
+        only the album and its asset-links are removed. Use `delete_asset` to delete the
+        underlying assets, or `remove_assets_from_album` to detach specific assets from
+        an album you want to keep.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

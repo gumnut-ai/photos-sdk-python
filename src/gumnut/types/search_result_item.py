@@ -10,6 +10,11 @@ __all__ = ["SearchResultItem"]
 
 class SearchResultItem(BaseModel):
     asset: AssetResponse
-    """Represents a photo or video asset with metadata and access URLs."""
+    """The matching asset."""
 
     distance: Optional[float] = None
+    """
+    Semantic distance from `query` (0.0 = identical, 1.0 = unrelated); lower is more
+    similar — inverted from the usual 'similarity score' convention. Null when no
+    semantic `query` was provided (structured-filter-only search).
+    """

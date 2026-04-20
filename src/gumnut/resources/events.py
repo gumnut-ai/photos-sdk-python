@@ -61,31 +61,35 @@ class EventsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventsResponse:
         """
-        Retrieves a list of entity change events for syncing.
+        Returns a paginated stream of change events (create/update/delete) for entities
+        in the library. Each event is a lightweight record — `entity_type`, `entity_id`,
+        `event_type`, and timestamps — pointing at a concrete entity that has changed.
+        Follow up with `get_asset`, `get_album`, `get_person`, or `get_face` to fetch
+        full entity data when needed.
 
-        Events are lightweight records indicating that entities have changed. Each event
-        contains the entity type, entity ID, and event type (e.g., "asset_created",
-        "album_deleted"). Clients should fetch full entity data from the appropriate
-        endpoints if needed.
+        **Use this tool** when the user wants to synchronise a local copy of their
+        library, audit recent activity, or detect deletions. **Don't use it** for
+        content queries — use `search_assets` or `list_assets` instead. Events cannot be
+        filtered by content or asset metadata.
 
-        **Pagination:** Use the `after_cursor` parameter with the `cursor` value from
-        the last event to fetch the next page. The `has_more` field indicates if more
-        events exist.
+        **Pagination:** cursor-based via `after_cursor`. When `has_more` is true, pass
+        the last event's `cursor` value into `after_cursor` to fetch the next page.
 
         **Recommended sync pattern:**
 
-        1. Capture current time as `sync_end`
-        2. Fetch events with `created_at_lt=sync_end`
-        3. For subsequent pages, use `after_cursor={last.cursor}&created_at_lt=sync_end`
-        4. Continue until `has_more=false`
-        5. For each event, fetch the entity data from the appropriate endpoint if needed
-        6. Store `sync_end` as checkpoint for next sync
+        1. Capture current time as `sync_end`.
+        2. Fetch events with `created_at_lt=sync_end`.
+        3. For subsequent pages, use
+           `after_cursor={last.cursor}&created_at_lt=sync_end`.
+        4. Continue until `has_more=false`.
+        5. For each event, fetch the entity data from the appropriate endpoint if
+           needed.
+        6. Store `sync_end` as checkpoint for next sync.
 
-        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
-        the entity no longer exists. Remove it from your local cache/database. Some
-        deletion events include a `payload` field with additional context (e.g.,
-        `album_asset_removed` includes `album_id` and `asset_id` since the junction
-        record is deleted).
+        **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
+        the entity no longer exists — remove it from the local cache. Some deletion
+        events include a `payload` field with context (e.g., `album_asset_removed`
+        carries `album_id` and `asset_id` since the junction row is gone).
 
         **Event types:**
 
@@ -94,23 +98,28 @@ class EventsResource(SyncAPIResource):
         - `person_created`, `person_updated`, `person_deleted`
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
-        - `exif_created`, `exif_updated`
+        - `exif_created`, `exif_updated`, `exif_deleted`
 
         Args:
-          after_cursor: Cursor from the last event to paginate from. Pass the `cursor` field from the
-              last event to get the next page.
+          after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
+              from the last event to fetch the next page. Omit for the first page.
 
-          created_at_gte: Only return events created at or after this timestamp (ISO 8601 format)
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601). Set this to
+              the previous sync's checkpoint when doing incremental sync.
 
-          created_at_lt: Only return events created before this timestamp (ISO 8601 format). Recommended
-              for bounding sync operations.
+          created_at_lt: Only return events created strictly before this timestamp (ISO 8601).
+              Recommended for bounding a sync operation — capture `now` once and reuse it as
+              `created_at_lt` across all pages so newly arriving events don't shift the
+              window.
 
-          entity_types: Comma-separated list of entity types to include (e.g., 'asset,album'). Valid
-              types: asset, album, person, face, album_asset, exif. Default: all types.
+          entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
+              values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`. Omit to
+              receive events for all types.
 
-          library_id: Library to list events from. If not provided, uses the user's default library.
+          library_id: Library to stream events from. Optional if the user has a single library;
+              required when they have multiple. Use `list_libraries` to enumerate.
 
-          limit: Maximum number of events to return (1-200)
+          limit: Maximum number of events to return per page (1–200). Defaults to 20.
 
           extra_headers: Send extra headers
 
@@ -180,31 +189,35 @@ class AsyncEventsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventsResponse:
         """
-        Retrieves a list of entity change events for syncing.
+        Returns a paginated stream of change events (create/update/delete) for entities
+        in the library. Each event is a lightweight record — `entity_type`, `entity_id`,
+        `event_type`, and timestamps — pointing at a concrete entity that has changed.
+        Follow up with `get_asset`, `get_album`, `get_person`, or `get_face` to fetch
+        full entity data when needed.
 
-        Events are lightweight records indicating that entities have changed. Each event
-        contains the entity type, entity ID, and event type (e.g., "asset_created",
-        "album_deleted"). Clients should fetch full entity data from the appropriate
-        endpoints if needed.
+        **Use this tool** when the user wants to synchronise a local copy of their
+        library, audit recent activity, or detect deletions. **Don't use it** for
+        content queries — use `search_assets` or `list_assets` instead. Events cannot be
+        filtered by content or asset metadata.
 
-        **Pagination:** Use the `after_cursor` parameter with the `cursor` value from
-        the last event to fetch the next page. The `has_more` field indicates if more
-        events exist.
+        **Pagination:** cursor-based via `after_cursor`. When `has_more` is true, pass
+        the last event's `cursor` value into `after_cursor` to fetch the next page.
 
         **Recommended sync pattern:**
 
-        1. Capture current time as `sync_end`
-        2. Fetch events with `created_at_lt=sync_end`
-        3. For subsequent pages, use `after_cursor={last.cursor}&created_at_lt=sync_end`
-        4. Continue until `has_more=false`
-        5. For each event, fetch the entity data from the appropriate endpoint if needed
-        6. Store `sync_end` as checkpoint for next sync
+        1. Capture current time as `sync_end`.
+        2. Fetch events with `created_at_lt=sync_end`.
+        3. For subsequent pages, use
+           `after_cursor={last.cursor}&created_at_lt=sync_end`.
+        4. Continue until `has_more=false`.
+        5. For each event, fetch the entity data from the appropriate endpoint if
+           needed.
+        6. Store `sync_end` as checkpoint for next sync.
 
-        **Handling deletions:** When `event_type` ends with "\\__deleted" or "\\__removed",
-        the entity no longer exists. Remove it from your local cache/database. Some
-        deletion events include a `payload` field with additional context (e.g.,
-        `album_asset_removed` includes `album_id` and `asset_id` since the junction
-        record is deleted).
+        **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
+        the entity no longer exists — remove it from the local cache. Some deletion
+        events include a `payload` field with context (e.g., `album_asset_removed`
+        carries `album_id` and `asset_id` since the junction row is gone).
 
         **Event types:**
 
@@ -213,23 +226,28 @@ class AsyncEventsResource(AsyncAPIResource):
         - `person_created`, `person_updated`, `person_deleted`
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
-        - `exif_created`, `exif_updated`
+        - `exif_created`, `exif_updated`, `exif_deleted`
 
         Args:
-          after_cursor: Cursor from the last event to paginate from. Pass the `cursor` field from the
-              last event to get the next page.
+          after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
+              from the last event to fetch the next page. Omit for the first page.
 
-          created_at_gte: Only return events created at or after this timestamp (ISO 8601 format)
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601). Set this to
+              the previous sync's checkpoint when doing incremental sync.
 
-          created_at_lt: Only return events created before this timestamp (ISO 8601 format). Recommended
-              for bounding sync operations.
+          created_at_lt: Only return events created strictly before this timestamp (ISO 8601).
+              Recommended for bounding a sync operation — capture `now` once and reuse it as
+              `created_at_lt` across all pages so newly arriving events don't shift the
+              window.
 
-          entity_types: Comma-separated list of entity types to include (e.g., 'asset,album'). Valid
-              types: asset, album, person, face, album_asset, exif. Default: all types.
+          entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
+              values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`. Omit to
+              receive events for all types.
 
-          library_id: Library to list events from. If not provided, uses the user's default library.
+          library_id: Library to stream events from. Optional if the user has a single library;
+              required when they have multiple. Use `list_libraries` to enumerate.
 
-          limit: Maximum number of events to return (1-200)
+          limit: Maximum number of events to return per page (1–200). Defaults to 20.
 
           extra_headers: Send extra headers
 

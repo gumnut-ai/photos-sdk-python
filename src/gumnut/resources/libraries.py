@@ -56,10 +56,17 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Creates a new library for the authenticated user.
+        """Creates a new, empty library.
+
+        A library is the top-level container for assets,
+        albums, people, and faces — most users have exactly one. Only create a new
+        library when the user explicitly asks for a separate container.
 
         Args:
+          name: Display name for the new library. Required.
+
+          description: Optional free-form description shown alongside the library name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -94,10 +101,16 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Returns details of a specific library owned by the authenticated user.
+        """Fetches one library's metadata (name, description, asset count).
+
+        Use when you
+        already have a specific `library_id`; for enumerating a user's libraries prefer
+        `list_libraries`.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
+              response containing a library reference.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -129,11 +142,19 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Updates the name and/or description of a library owned by the authenticated
-        user.
+        """Updates the `name` and/or `description` of an existing library.
+
+        Only the fields
+        included in the request body are changed. Library contents (assets, albums,
+        people, faces) are not affected.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) of the library to update.
+
+          description: New free-form description for the library. Omit to leave unchanged.
+
+          name: New display name for the library. Omit to leave unchanged.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -169,7 +190,12 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
-        """Returns all libraries owned by the authenticated user."""
+        """
+        Returns every library the user owns (no pagination — users typically have one or
+        a handful). Call this when another tool's `library_id` parameter is required but
+        you don't yet know which libraries exist. A single-library user can usually omit
+        `library_id` on other tools entirely.
+        """
         return self._get(
             "/api/libraries",
             options=make_request_options(
@@ -190,10 +216,19 @@ class LibrariesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a library and all its associated data (assets, albums, people, faces).
-        Cannot delete the user's only library.
+        Deletes the library and all its associated database records — assets, albums,
+        people, and faces — via cascading foreign-key delete. This is irreversible and
+        should be used only when the user explicitly confirms they want to destroy an
+        entire library.
+
+        **Does not delete asset files from object storage.** The library's underlying
+        asset files will be orphaned in storage. To purge files as well, call
+        `delete_asset` on each asset first (that endpoint removes both the database
+        record and the stored file), then delete the library.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) of the library to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -246,10 +281,17 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Creates a new library for the authenticated user.
+        """Creates a new, empty library.
+
+        A library is the top-level container for assets,
+        albums, people, and faces — most users have exactly one. Only create a new
+        library when the user explicitly asks for a separate container.
 
         Args:
+          name: Display name for the new library. Required.
+
+          description: Optional free-form description shown alongside the library name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -284,10 +326,16 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Returns details of a specific library owned by the authenticated user.
+        """Fetches one library's metadata (name, description, asset count).
+
+        Use when you
+        already have a specific `library_id`; for enumerating a user's libraries prefer
+        `list_libraries`.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
+              response containing a library reference.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -319,11 +367,19 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """
-        Updates the name and/or description of a library owned by the authenticated
-        user.
+        """Updates the `name` and/or `description` of an existing library.
+
+        Only the fields
+        included in the request body are changed. Library contents (assets, albums,
+        people, faces) are not affected.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) of the library to update.
+
+          description: New free-form description for the library. Omit to leave unchanged.
+
+          name: New display name for the library. Omit to leave unchanged.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -359,7 +415,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
-        """Returns all libraries owned by the authenticated user."""
+        """
+        Returns every library the user owns (no pagination — users typically have one or
+        a handful). Call this when another tool's `library_id` parameter is required but
+        you don't yet know which libraries exist. A single-library user can usually omit
+        `library_id` on other tools entirely.
+        """
         return await self._get(
             "/api/libraries",
             options=make_request_options(
@@ -380,10 +441,19 @@ class AsyncLibrariesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a library and all its associated data (assets, albums, people, faces).
-        Cannot delete the user's only library.
+        Deletes the library and all its associated database records — assets, albums,
+        people, and faces — via cascading foreign-key delete. This is irreversible and
+        should be used only when the user explicitly confirms they want to destroy an
+        entire library.
+
+        **Does not delete asset files from object storage.** The library's underlying
+        asset files will be orphaned in storage. To purge files as well, call
+        `delete_asset` on each asset first (that endpoint removes both the database
+        record and the stored file), then delete the library.
 
         Args:
+          library_id: Library ID (with `lib_` prefix) of the library to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

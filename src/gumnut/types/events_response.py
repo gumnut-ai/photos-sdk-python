@@ -42,5 +42,5 @@ class EventsResponse(BaseModel):
     has_more: bool
     """True if there are more events after this page.
 
-    Use the last event's cursor to fetch the next page.
+    Pass the last event's `cursor` value as `after_cursor` to fetch the next page.
     """
