@@ -12,19 +12,31 @@ __all__ = ["AlbumListParams"]
 
 class AlbumListParams(TypedDict, total=False):
     asset_id: Optional[str]
-    """Filter albums containing this asset ID (optional)"""
+    """Return only albums that contain this asset.
+
+    Useful for answering 'which albums is this photo in?' without calling
+    `list_album_assets`.
+    """
 
     ids: Optional[SequenceNotStr[str]]
-    """Filter by specific album IDs (max 100)"""
+    """Look up specific albums by ID (max 100; each ID has the `album_` prefix).
+
+    Use for bulk fetch when IDs are already known.
+    """
 
     library_id: Optional[str]
-    """Library to list albums from (optional)"""
+    """Library to list albums from.
+
+    Optional if the user has a single library; required when they have multiple. Use
+    `list_libraries` to enumerate.
+    """
 
     limit: int
-    """Max number of albums to return (1-200)"""
+    """Maximum number of albums to return per page (1–200). Defaults to 20."""
 
     starting_after_id: Optional[str]
     """Cursor for pagination.
 
-    Pass the `id` of the last album from the previous page to get the next page.
+    Pass the `id` of the last album in the previous response's `data` to fetch the
+    next page. Omit for the first page.
     """

@@ -57,10 +57,15 @@ class FacesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
-        Retrieves details for a specific face.
+        Fetches one face's details (bounding box, assigned person, timestamps,
+        thumbnail). Use when you already have a `face_id`.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
+              `faces` array on `get_asset` / `list_assets` responses.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -98,11 +103,24 @@ class FacesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
-        Updates the details of a specific face, currently only supporting
-        associating/disassociating with a person.
+        Assigns a face to a specific person, or detaches it (set `person_id` to null).
+        This is the right tool for 'this face is Alice' or 'this face isn't Bob after
+        all'.
+
+        Currently only the `person_id` field is mutable. To create a brand-new identity
+        first, call `create_person`; to delete the face detection entirely, use
+        `delete_face`.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) of the face detection to update.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
+
+          person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
+              detach the face from its current person without deleting either. Get IDs from
+              `list_people`; use `create_person` first if the target identity doesn't exist
+              yet.
 
           extra_headers: Send extra headers
 
@@ -144,25 +162,34 @@ class FacesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[FaceResponse]:
         """
-        Retrieves a paginated list of faces, optionally filtered by asset, person, or
-        specific face IDs, ordered by creation time, descending.
+        Returns a paginated list of individual face detections (with bounding boxes),
+        ordered by creation time (newest first). Each row is a single face in a single
+        asset — a person with many photos will have many face rows.
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last face in
-        `data` as `starting_after_id` to fetch the next page.
+        **Use `list_people` instead** when the user wants the grouped identities ('list
+        everyone in my library') rather than individual face detections. This tool is
+        useful for curating clustering results, finding unassigned faces, or picking a
+        thumbnail face for a person via `update_person.thumbnail_face_id`.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last face in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          asset_id: Filter by faces in a specific asset
+          asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
+              this photo'.
 
-          ids: Filter by specific face IDs (max 100)
+          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix.
 
-          library_id: Library ID (required if user has multiple libraries)
+          library_id: Library to list from. Optional if the user has a single library; required when
+              they have multiple.
 
-          limit: Max number of faces to return (1-200)
+          limit: Maximum number of faces per page (1–200). Defaults to 20.
 
-          person_id: Filter by faces associated with a specific person
+          person_id: Return only faces currently assigned to this person. Useful for reviewing or
+              curating a person's face cluster.
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last face from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last face in the previous response's
+              `data` to fetch the next page. Omit for the first page.
 
           extra_headers: Send extra headers
 
@@ -207,13 +234,21 @@ class FacesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes a specific face entry.
+        """Removes one face detection row.
 
-        This does not delete the associated asset or
-        person.
+        The underlying asset and the person this face
+        was assigned to are both preserved.
+
+        **Use `update_face` with `person_id=null` instead** when the user wants to
+        disassociate the face from a person without discarding the detection (so
+        re-clustering can try again). Use `delete_person` to remove a person; use
+        `delete_asset` to remove the photo entirely.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) of the face detection to delete.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -272,10 +307,15 @@ class AsyncFacesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
-        Retrieves details for a specific face.
+        Fetches one face's details (bounding box, assigned person, timestamps,
+        thumbnail). Use when you already have a `face_id`.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
+              `faces` array on `get_asset` / `list_assets` responses.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -313,11 +353,24 @@ class AsyncFacesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FaceResponse:
         """
-        Updates the details of a specific face, currently only supporting
-        associating/disassociating with a person.
+        Assigns a face to a specific person, or detaches it (set `person_id` to null).
+        This is the right tool for 'this face is Alice' or 'this face isn't Bob after
+        all'.
+
+        Currently only the `person_id` field is mutable. To create a brand-new identity
+        first, call `create_person`; to delete the face detection entirely, use
+        `delete_face`.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) of the face detection to update.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
+
+          person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
+              detach the face from its current person without deleting either. Get IDs from
+              `list_people`; use `create_person` first if the target identity doesn't exist
+              yet.
 
           extra_headers: Send extra headers
 
@@ -359,25 +412,34 @@ class AsyncFacesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[FaceResponse, AsyncCursorPage[FaceResponse]]:
         """
-        Retrieves a paginated list of faces, optionally filtered by asset, person, or
-        specific face IDs, ordered by creation time, descending.
+        Returns a paginated list of individual face detections (with bounding boxes),
+        ordered by creation time (newest first). Each row is a single face in a single
+        asset — a person with many photos will have many face rows.
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last face in
-        `data` as `starting_after_id` to fetch the next page.
+        **Use `list_people` instead** when the user wants the grouped identities ('list
+        everyone in my library') rather than individual face detections. This tool is
+        useful for curating clustering results, finding unassigned faces, or picking a
+        thumbnail face for a person via `update_person.thumbnail_face_id`.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last face in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          asset_id: Filter by faces in a specific asset
+          asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
+              this photo'.
 
-          ids: Filter by specific face IDs (max 100)
+          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix.
 
-          library_id: Library ID (required if user has multiple libraries)
+          library_id: Library to list from. Optional if the user has a single library; required when
+              they have multiple.
 
-          limit: Max number of faces to return (1-200)
+          limit: Maximum number of faces per page (1–200). Defaults to 20.
 
-          person_id: Filter by faces associated with a specific person
+          person_id: Return only faces currently assigned to this person. Useful for reviewing or
+              curating a person's face cluster.
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last face from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last face in the previous response's
+              `data` to fetch the next page. Omit for the first page.
 
           extra_headers: Send extra headers
 
@@ -422,13 +484,21 @@ class AsyncFacesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes a specific face entry.
+        """Removes one face detection row.
 
-        This does not delete the associated asset or
-        person.
+        The underlying asset and the person this face
+        was assigned to are both preserved.
+
+        **Use `update_face` with `person_id=null` instead** when the user wants to
+        disassociate the face from a person without discarding the detection (so
+        re-clustering can try again). Use `delete_person` to remove a person; use
+        `delete_asset` to remove the photo entirely.
 
         Args:
-          library_id: Library ID (required if user has multiple libraries)
+          face_id: Face ID (with `face_` prefix) of the face detection to delete.
+
+          library_id: Library the face belongs to. Optional if the user has a single library; required
+              when they have multiple.
 
           extra_headers: Send extra headers
 

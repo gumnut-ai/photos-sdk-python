@@ -120,11 +120,17 @@ class AssetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
-        """
-        Retrieves detailed metadata for a specific asset, including EXIF information,
-        asset metrics, faces, and people.
+        """Fetches one asset and its associated metadata.
+
+        Use this when you already have a
+        specific asset ID (e.g., from `list_assets`, `search_assets`, or
+        `list_album_assets`) and need its full details. For bulk fetch of multiple known
+        IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
 
         Args:
+          asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
+              `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,37 +168,55 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AssetResponse]:
         """
-        Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album, person, or specific asset IDs. Asset data includes metrics,
-        EXIF data, faces, and people. Assets are ordered by local creation time,
-        descending.
+        Returns a paginated list of assets ordered by local capture time (newest first).
+        Use this tool for structured browsing and filtering — when the request can be
+        expressed as exact filters on album membership, people, date range, or specific
+        asset IDs.
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last asset in
-        `data` as `starting_after_id` to fetch the next page.
+        **Use `search_assets` instead** when the request involves natural-language image
+        content ('photos of sunsets', 'pictures with my dog'), location or place
+        ('photos from Japan'), or any concept requiring semantic understanding of what's
+        in the image. `list_assets` does not filter by image content, location, or
+        caption text.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Filter by assets in a specific album
+          album_id: Return only assets that are in the album with this ID. Equivalent to calling
+              `list_album_assets` with `album_id` and then fetching each asset — prefer this
+              param when you need the full asset metadata in one call.
 
-          ids: Filter by specific asset IDs (max 100)
+          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix). Use
+              this for bulk fetch when you already have asset IDs. Combines with other filters
+              (album_id, person_id, datetime range) using AND logic — the result is the
+              intersection.
 
-          library_id: Library to list assets from (optional)
+          library_id: Library to list assets from. Optional if the user has a single library; required
+              when they have multiple. Use `list_libraries` to enumerate available libraries.
 
-          limit: Max number of assets to return (1-200)
+          limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
-          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              `local_datetime` is the photo's wall-clock time in the device's own timezone.
+              Naive values compare directly against `local_datetime`. Timezone-aware values:
+              assets with a known offset are compared in UTC (`local_datetime - offset`);
+              assets without an offset fall back to wall-clock comparison against
+              `local_datetime`. Equivalent in purpose to `captured_after` on `search_assets`
+              (naming inconsistency is tracked as a follow-up).
 
-          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as `local_datetime_after`. Equivalent in purpose
+              to `captured_before` on `search_assets` (naming inconsistency is tracked as a
+              follow-up).
 
-          person_id: Filter by assets associated with a specific person ID
+          person_id: Return only assets containing a face belonging to this person. Singular on this
+              tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last asset from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
+              response's `data` to fetch the next page. Omit for the first page. `list_assets`
+              uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
+              numbers (naming inconsistency is tracked as a follow-up).
 
           extra_headers: Send extra headers
 
@@ -239,10 +263,16 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a specific asset and its associated data (including the file from
-        storage).
+        Deletes the asset entirely — the database record, the stored file, and all
+        associated data (faces, album links, etc.). This is irreversible.
+
+        **Use `remove_assets_from_album` instead** when the user only wants to remove an
+        asset from a specific album but keep the file in their library. Use
+        `delete_album` to remove an album without deleting its assets.
 
         Args:
+          asset_id: Asset ID (with `asset_` prefix) of the asset to permanently delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -496,11 +526,17 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
-        """
-        Retrieves detailed metadata for a specific asset, including EXIF information,
-        asset metrics, faces, and people.
+        """Fetches one asset and its associated metadata.
+
+        Use this when you already have a
+        specific asset ID (e.g., from `list_assets`, `search_assets`, or
+        `list_album_assets`) and need its full details. For bulk fetch of multiple known
+        IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
 
         Args:
+          asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
+              `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -538,37 +574,55 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
-        Retrieves a paginated list of assets from the specified library, optionally
-        filtered by album, person, or specific asset IDs. Asset data includes metrics,
-        EXIF data, faces, and people. Assets are ordered by local creation time,
-        descending.
+        Returns a paginated list of assets ordered by local capture time (newest first).
+        Use this tool for structured browsing and filtering — when the request can be
+        expressed as exact filters on album membership, people, date range, or specific
+        asset IDs.
 
-        **Pagination:** When `has_more` is true, pass the `id` of the last asset in
-        `data` as `starting_after_id` to fetch the next page.
+        **Use `search_assets` instead** when the request involves natural-language image
+        content ('photos of sunsets', 'pictures with my dog'), location or place
+        ('photos from Japan'), or any concept requiring semantic understanding of what's
+        in the image. `list_assets` does not filter by image content, location, or
+        caption text.
+
+        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
+        last asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Filter by assets in a specific album
+          album_id: Return only assets that are in the album with this ID. Equivalent to calling
+              `list_album_assets` with `album_id` and then fetching each asset — prefer this
+              param when you need the full asset metadata in one call.
 
-          ids: Filter by specific asset IDs (max 100)
+          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix). Use
+              this for bulk fetch when you already have asset IDs. Combines with other filters
+              (album_id, person_id, datetime range) using AND logic — the result is the
+              intersection.
 
-          library_id: Library to list assets from (optional)
+          library_id: Library to list assets from. Optional if the user has a single library; required
+              when they have multiple. Use `list_libraries` to enumerate available libraries.
 
-          limit: Max number of assets to return (1-200)
+          limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
-          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              `local_datetime` is the photo's wall-clock time in the device's own timezone.
+              Naive values compare directly against `local_datetime`. Timezone-aware values:
+              assets with a known offset are compared in UTC (`local_datetime - offset`);
+              assets without an offset fall back to wall-clock comparison against
+              `local_datetime`. Equivalent in purpose to `captured_after` on `search_assets`
+              (naming inconsistency is tracked as a follow-up).
 
-          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as `local_datetime_after`. Equivalent in purpose
+              to `captured_before` on `search_assets` (naming inconsistency is tracked as a
+              follow-up).
 
-          person_id: Filter by assets associated with a specific person ID
+          person_id: Return only assets containing a face belonging to this person. Singular on this
+              tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
 
-          starting_after_id: Cursor for pagination. Pass the `id` of the last asset from the previous page to
-              get the next page.
+          starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
+              response's `data` to fetch the next page. Omit for the first page. `list_assets`
+              uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
+              numbers (naming inconsistency is tracked as a follow-up).
 
           extra_headers: Send extra headers
 
@@ -615,10 +669,16 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a specific asset and its associated data (including the file from
-        storage).
+        Deletes the asset entirely — the database record, the stored file, and all
+        associated data (faces, album links, etc.). This is irreversible.
+
+        **Use `remove_assets_from_album` instead** when the user only wants to remove an
+        asset from a specific album but keep the file in their library. Use
+        `delete_album` to remove an album without deleting its assets.
 
         Args:
+          asset_id: Asset ID (with `asset_` prefix) of the asset to permanently delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

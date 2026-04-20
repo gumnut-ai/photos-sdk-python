@@ -10,3 +10,7 @@ __all__ = ["SearchResponse"]
 
 class SearchResponse(BaseModel):
     data: List[SearchResultItem]
+    """
+    Matching assets ordered by semantic distance (closest first) when `query` is
+    set.
+    """
