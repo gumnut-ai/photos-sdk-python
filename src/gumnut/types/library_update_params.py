@@ -10,5 +10,7 @@ __all__ = ["LibraryUpdateParams"]
 
 class LibraryUpdateParams(TypedDict, total=False):
     description: Optional[str]
+    """New free-form description for the library. Omit to leave unchanged."""
 
     name: Optional[str]
+    """New display name for the library. Omit to leave unchanged."""

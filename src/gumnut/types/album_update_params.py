@@ -10,5 +10,7 @@ __all__ = ["AlbumUpdateParams"]
 
 class AlbumUpdateParams(TypedDict, total=False):
     description: Optional[str]
+    """New free-form description for the album. Omit to leave unchanged."""
 
     name: Optional[str]
+    """New display name for the album. Omit to leave unchanged."""

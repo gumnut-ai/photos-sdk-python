@@ -53,12 +53,20 @@ class AssetsAssociationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetsAssociationAddResponse:
-        """Adds one or more existing assets to a specific album.
+        """Adds one or more existing assets to the specified album.
 
-        Assets must be in the same
-        library as the album. Duplicate assets are ignored.
+        Assets must already be
+        in the same library as the album (this tool does not upload new assets). Assets
+        already in the album are silently skipped and returned separately as
+        `duplicate_assets`. Idempotent: calling with the same IDs twice leaves the album
+        in the same state.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to add the assets to.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -90,12 +98,19 @@ class AssetsAssociationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Removes one or more assets from a specific album.
+        """Detaches one or more assets from the given album.
 
-        Note: This does not delete the
-        assets themselves.
+        The assets remain in the
+        library and in any other albums they belong to. Use `delete_asset` to delete the
+        asset entirely. To empty an album completely, call `list_album_assets` to get
+        the links and then remove them, or delete the album itself with `delete_album`.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to detach assets from.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -151,12 +166,20 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetsAssociationAddResponse:
-        """Adds one or more existing assets to a specific album.
+        """Adds one or more existing assets to the specified album.
 
-        Assets must be in the same
-        library as the album. Duplicate assets are ignored.
+        Assets must already be
+        in the same library as the album (this tool does not upload new assets). Assets
+        already in the album are silently skipped and returned separately as
+        `duplicate_assets`. Idempotent: calling with the same IDs twice leaves the album
+        in the same state.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to add the assets to.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,12 +213,19 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Removes one or more assets from a specific album.
+        """Detaches one or more assets from the given album.
 
-        Note: This does not delete the
-        assets themselves.
+        The assets remain in the
+        library and in any other albums they belong to. Use `delete_asset` to delete the
+        asset entirely. To empty an album completely, call `list_album_assets` to get
+        the links and then remove them, or delete the album itself with `delete_album`.
 
         Args:
+          album_id: Album ID (with `album_` prefix) of the album to detach assets from.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

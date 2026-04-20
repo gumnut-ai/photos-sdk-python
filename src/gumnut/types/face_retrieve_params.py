@@ -10,4 +10,7 @@ __all__ = ["FaceRetrieveParams"]
 
 class FaceRetrieveParams(TypedDict, total=False):
     library_id: Optional[str]
-    """Library ID (required if user has multiple libraries)"""
+    """Library the face belongs to.
+
+    Optional if the user has a single library; required when they have multiple.
+    """
