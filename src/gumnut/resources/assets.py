@@ -179,6 +179,11 @@ class AssetsResource(SyncAPIResource):
         in the image. `list_assets` does not filter by image content, location, or
         caption text.
 
+        **To present a curated set of specific assets to the user** (e.g., a hand-picked
+        subset of `search_assets` results), call this tool with `ids=[...]` rather than
+        building a custom gallery — the asset IDs you already have are enough to
+        re-render them through the interactive widget.
+
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last asset in `data` as `starting_after_id` to fetch the next page.
 
@@ -584,6 +589,11 @@ class AsyncAssetsResource(AsyncAPIResource):
         ('photos from Japan'), or any concept requiring semantic understanding of what's
         in the image. `list_assets` does not filter by image content, location, or
         caption text.
+
+        **To present a curated set of specific assets to the user** (e.g., a hand-picked
+        subset of `search_assets` results), call this tool with `ids=[...]` rather than
+        building a custom gallery — the asset IDs you already have are enough to
+        re-render them through the interactive widget.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last asset in `data` as `starting_after_id` to fetch the next page.
