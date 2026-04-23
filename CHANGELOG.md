@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.73.0 (2026-04-23)
+
+Full Changelog: [v0.72.0...v0.73.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.72.0...v0.73.0)
+
+### Features
+
+* **api:** api update ([fe93d60](https://github.com/gumnut-ai/photos-sdk-python/commit/fe93d60f2202b2076708d3f6d863de3918eb7677))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([fbf8f33](https://github.com/gumnut-ai/photos-sdk-python/commit/fbf8f33f8a41c0391e04e114cafc7d15fd2a241e))
+
 ## 0.72.0 (2026-04-21)
 
 Full Changelog: [v0.71.0...v0.72.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.71.0...v0.72.0)
