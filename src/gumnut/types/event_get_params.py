@@ -36,8 +36,8 @@ class EventGetParams(TypedDict, total=False):
     entity_types: Optional[str]
     """Comma-separated list of entity types to include (e.g., `asset,album`).
 
-    Valid values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`. Omit to
-    receive events for all types.
+    Valid values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`,
+    `metadata`. Omit to receive events for all types.
     """
 
     library_id: Optional[str]
