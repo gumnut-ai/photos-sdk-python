@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.75.0 (2026-04-28)
+
+Full Changelog: [v0.74.0...v0.75.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.74.0...v0.75.0)
+
+### Features
+
+* support setting headers via env ([14fd20b](https://github.com/gumnut-ai/photos-sdk-python/commit/14fd20bd7edd8f0168047ffed9e05dcdf4647edb))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([5b546ea](https://github.com/gumnut-ai/photos-sdk-python/commit/5b546ea35b91a92ac63f9c6b8bf7192e8b9f738f))
+
 ## 0.74.0 (2026-04-24)
 
 Full Changelog: [v0.73.0...v0.74.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.73.0...v0.74.0)
