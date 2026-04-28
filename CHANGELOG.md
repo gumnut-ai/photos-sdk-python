@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.76.0 (2026-04-28)
+
+Full Changelog: [v0.75.0...v0.76.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.75.0...v0.76.0)
+
+### Features
+
+* **api:** add people merge endpoint ([e2dfbab](https://github.com/gumnut-ai/photos-sdk-python/commit/e2dfbabf58c3ef5e68ef3a159e4b742cc40f625b))
+
 ## 0.75.0 (2026-04-28)
 
 Full Changelog: [v0.74.0...v0.75.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.74.0...v0.75.0)
