@@ -9,7 +9,9 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import PersonResponse
+from gumnut.types import (
+    PersonResponse,
+)
 from gumnut._utils import parse_date
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -242,6 +244,52 @@ class TestPeople:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_merge(self, client: Gumnut) -> None:
+        person = client.people.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        )
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_merge(self, client: Gumnut) -> None:
+        response = client.people.with_raw_response.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        person = response.parse()
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_merge(self, client: Gumnut) -> None:
+        with client.people.with_streaming_response.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            person = response.parse()
+            assert_matches_type(PersonResponse, person, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_merge(self, client: Gumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
+            client.people.with_raw_response.merge(
+                person_id="",
+                source_person_ids=["string"],
+            )
+
 
 class TestAsyncPeople:
     parametrize = pytest.mark.parametrize(
@@ -469,4 +517,50 @@ class TestAsyncPeople:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
             await async_client.people.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_merge(self, async_client: AsyncGumnut) -> None:
+        person = await async_client.people.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        )
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_merge(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.people.with_raw_response.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        person = await response.parse()
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_merge(self, async_client: AsyncGumnut) -> None:
+        async with async_client.people.with_streaming_response.merge(
+            person_id="person_id",
+            source_person_ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            person = await response.parse()
+            assert_matches_type(PersonResponse, person, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_merge(self, async_client: AsyncGumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
+            await async_client.people.with_raw_response.merge(
+                person_id="",
+                source_person_ids=["string"],
             )

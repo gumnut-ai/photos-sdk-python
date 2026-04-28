@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import person_list_params, person_create_params, person_update_params
+from ..types import person_list_params, person_merge_params, person_create_params, person_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -356,6 +356,47 @@ class PeopleResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def merge(
+        self,
+        person_id: str,
+        *,
+        source_person_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PersonResponse:
+        """
+        Merges one or more source people into the primary person identified by the URL.
+        All faces from source people are reassigned to the primary person. Source people
+        are permanently deleted (this cannot be undone). The primary person's centroid
+        embedding is recalculated.
+
+        Args:
+          source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
+              after their faces are moved.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not person_id:
+            raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
+        return self._post(
+            path_template("/api/people/{person_id}/merge", person_id=person_id),
+            body=maybe_transform({"source_person_ids": source_person_ids}, person_merge_params.PersonMergeParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PersonResponse,
+        )
+
 
 class AsyncPeopleResource(AsyncAPIResource):
     @cached_property
@@ -687,6 +728,49 @@ class AsyncPeopleResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def merge(
+        self,
+        person_id: str,
+        *,
+        source_person_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PersonResponse:
+        """
+        Merges one or more source people into the primary person identified by the URL.
+        All faces from source people are reassigned to the primary person. Source people
+        are permanently deleted (this cannot be undone). The primary person's centroid
+        embedding is recalculated.
+
+        Args:
+          source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
+              after their faces are moved.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not person_id:
+            raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
+        return await self._post(
+            path_template("/api/people/{person_id}/merge", person_id=person_id),
+            body=await async_maybe_transform(
+                {"source_person_ids": source_person_ids}, person_merge_params.PersonMergeParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PersonResponse,
+        )
+
 
 class PeopleResourceWithRawResponse:
     def __init__(self, people: PeopleResource) -> None:
@@ -706,6 +790,9 @@ class PeopleResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             people.delete,
+        )
+        self.merge = to_raw_response_wrapper(
+            people.merge,
         )
 
 
@@ -728,6 +815,9 @@ class AsyncPeopleResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             people.delete,
         )
+        self.merge = async_to_raw_response_wrapper(
+            people.merge,
+        )
 
 
 class PeopleResourceWithStreamingResponse:
@@ -749,6 +839,9 @@ class PeopleResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             people.delete,
         )
+        self.merge = to_streamed_response_wrapper(
+            people.merge,
+        )
 
 
 class AsyncPeopleResourceWithStreamingResponse:
@@ -769,4 +862,7 @@ class AsyncPeopleResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             people.delete,
+        )
+        self.merge = async_to_streamed_response_wrapper(
+            people.merge,
         )

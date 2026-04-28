@@ -4,21 +4,9 @@ from typing import Dict, Optional
 from datetime import date, datetime
 
 from .._models import BaseModel
+from .shared.asset_variant import AssetVariant
 
-__all__ = ["PersonResponse", "AssetURLs"]
-
-
-class AssetURLs(BaseModel):
-    """A single image variant with its URL, MIME type, and target width."""
-
-    mimetype: str
-    """MIME type of the served image"""
-
-    url: str
-    """URL to fetch this image variant"""
-
-    width: Optional[int] = None
-    """Target width in pixels (null if unknown)"""
+__all__ = ["PersonResponse"]
 
 
 class PersonResponse(BaseModel):
@@ -42,7 +30,7 @@ class PersonResponse(BaseModel):
     asset_count: Optional[int] = None
     """Number of unique photos this person appears in, or null if not computed"""
 
-    asset_urls: Optional[Dict[str, AssetURLs]] = None
+    asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Asset variants from this person's thumbnail face.
 
     May be null when embedded in an AssetResponse; use /api/people endpoints for

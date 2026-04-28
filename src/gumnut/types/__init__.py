@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .shared import AssetVariant as AssetVariant
 from .exif_response import ExifResponse as ExifResponse
 from .face_response import FaceResponse as FaceResponse
 from .user_response import UserResponse as UserResponse
@@ -18,6 +19,7 @@ from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
+from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
@@ -28,6 +30,7 @@ from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
+from .person_merge_params import PersonMergeParams as PersonMergeParams
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
 from .asset_count_response import AssetCountResponse as AssetCountResponse
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
