@@ -4,21 +4,9 @@ from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .shared.asset_variant import AssetVariant
 
-__all__ = ["AlbumResponse", "AssetURLs"]
-
-
-class AssetURLs(BaseModel):
-    """A single image variant with its URL, MIME type, and target width."""
-
-    mimetype: str
-    """MIME type of the served image"""
-
-    url: str
-    """URL to fetch this image variant"""
-
-    width: Optional[int] = None
-    """Target width in pixels (null if unknown)"""
+__all__ = ["AlbumResponse"]
 
 
 class AlbumResponse(BaseModel):
@@ -42,7 +30,7 @@ class AlbumResponse(BaseModel):
     album_cover_asset_id: Optional[str] = None
     """ID of the asset used as the album cover"""
 
-    asset_urls: Optional[Dict[str, AssetURLs]] = None
+    asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Asset variants for the album cover: 'thumbnail'"""
 
     description: Optional[str] = None
