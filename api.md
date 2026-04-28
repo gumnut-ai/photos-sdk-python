@@ -1,3 +1,9 @@
+# Shared Types
+
+```python
+from gumnut.types import AssetVariant
+```
+
 # APIKeys
 
 Types:
@@ -23,6 +29,7 @@ from gumnut.types import (
     AssetExistenceResponse,
     AssetLiteResponse,
     AssetResponse,
+    MetadataResponse,
 )
 ```
 
@@ -149,6 +156,7 @@ Methods:
 - <code title="patch /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">update</a>(person_id, \*\*<a href="src/gumnut/types/person_update_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="get /api/people">client.people.<a href="./src/gumnut/resources/people.py">list</a>(\*\*<a href="src/gumnut/types/person_list_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">SyncCursorPage[PersonResponse]</a></code>
 - <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> None</code>
+- <code title="post /api/people/{person_id}/merge">client.people.<a href="./src/gumnut/resources/people.py">merge</a>(person_id, \*\*<a href="src/gumnut/types/person_merge_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 
 # Ping
 
