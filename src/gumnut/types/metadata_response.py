@@ -41,6 +41,15 @@ class MetadataResponse(BaseModel):
     digitized_datetime: Optional[datetime] = None
     """When the photo was digitized, with timezone offset if available"""
 
+    display_label: Optional[str] = None
+    """Human-readable location label.
+
+    Picks the most specific available identifier (place_name > sublocation > city >
+    country) and appends broader context (city, then state-or-country). Example:
+    'Golden Gate Bridge, San Francisco, California'. Null when no location fields
+    are populated.
+    """
+
     exposure_bias: Optional[float] = None
     """Exposure compensation in EV (e.g., -1.0, +0.5)"""
 
