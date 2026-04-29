@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -43,3 +43,9 @@ class AssetCountsParams(TypedDict, total=False):
 
     person_id: Optional[str]
     """Filter by assets associated with a specific person ID"""
+
+    state: Literal["live", "trashed", "all"]
+    """
+    Which set of assets to count: `live` (default — excludes trashed assets),
+    `trashed` (only trashed assets), or `all` (both live and trashed).
+    """

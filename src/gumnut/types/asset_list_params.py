@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -71,4 +71,11 @@ class AssetListParams(TypedDict, total=False):
     next page. Omit for the first page. `list_assets` uses cursor pagination; the
     sibling `search_assets` uses 1-indexed `page` numbers (naming inconsistency is
     tracked as a follow-up).
+    """
+
+    state: Literal["live", "trashed", "all"]
+    """
+    Which set of assets to read from: `live` (default — only assets that are not
+    trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
+    `all` (both live and trashed, ordered by capture time like `live`).
     """
