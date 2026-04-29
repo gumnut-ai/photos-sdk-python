@@ -223,8 +223,8 @@ class LibrariesResource(SyncAPIResource):
 
         **Does not delete asset files from object storage.** The library's underlying
         asset files will be orphaned in storage. To purge files as well, call
-        `delete_asset` on each asset first (that endpoint removes both the database
-        record and the stored file), then delete the library.
+        `permanently_delete_assets` on the library's assets first (that tool removes
+        both the database record and the stored file), then delete the library.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to delete.
@@ -448,8 +448,8 @@ class AsyncLibrariesResource(AsyncAPIResource):
 
         **Does not delete asset files from object storage.** The library's underlying
         asset files will be orphaned in storage. To purge files as well, call
-        `delete_asset` on each asset first (that endpoint removes both the database
-        record and the stored file), then delete the library.
+        `permanently_delete_assets` on the library's assets first (that tool removes
+        both the database record and the stored file), then delete the library.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to delete.
