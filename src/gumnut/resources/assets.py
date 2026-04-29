@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Mapping, Optional, cast
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -160,6 +161,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -223,6 +225,10 @@ class AssetsResource(SyncAPIResource):
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
               numbers (naming inconsistency is tracked as a follow-up).
 
+          state: Which set of assets to read from: `live` (default — only assets that are not
+              trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
+              `all` (both live and trashed, ordered by capture time like `live`).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -249,6 +255,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,
+                        "state": state,
                     },
                     asset_list_params.AssetListParams,
                 ),
@@ -269,7 +276,9 @@ class AssetsResource(SyncAPIResource):
     ) -> None:
         """
         Deletes the asset entirely — the database record, the stored file, and all
-        associated data (faces, album links, etc.). This is irreversible.
+        associated data (faces, album links, etc.). **Irreversible.** Prefer
+        `trash_assets` for the user's standard delete action so accidents can be
+        recovered.
 
         **Use `remove_assets_from_album` instead** when the user only wants to remove an
         asset from a specific album but keep the file in their library. Use
@@ -370,6 +379,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -407,6 +417,9 @@ class AssetsResource(SyncAPIResource):
 
           person_id: Filter by assets associated with a specific person ID
 
+          state: Which set of assets to count: `live` (default — excludes trashed assets),
+              `trashed` (only trashed assets), or `all` (both live and trashed).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -431,6 +444,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
                 ),
@@ -571,6 +585,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -634,6 +649,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
               numbers (naming inconsistency is tracked as a follow-up).
 
+          state: Which set of assets to read from: `live` (default — only assets that are not
+              trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
+              `all` (both live and trashed, ordered by capture time like `live`).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -660,6 +679,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "starting_after_id": starting_after_id,
+                        "state": state,
                     },
                     asset_list_params.AssetListParams,
                 ),
@@ -680,7 +700,9 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> None:
         """
         Deletes the asset entirely — the database record, the stored file, and all
-        associated data (faces, album links, etc.). This is irreversible.
+        associated data (faces, album links, etc.). **Irreversible.** Prefer
+        `trash_assets` for the user's standard delete action so accidents can be
+        recovered.
 
         **Use `remove_assets_from_album` instead** when the user only wants to remove an
         asset from a specific album but keep the file in their library. Use
@@ -781,6 +803,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -818,6 +841,9 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           person_id: Filter by assets associated with a specific person ID
 
+          state: Which set of assets to count: `live` (default — excludes trashed assets),
+              `trashed` (only trashed assets), or `all` (both live and trashed).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -842,6 +868,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
                 ),

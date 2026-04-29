@@ -286,9 +286,10 @@ class AlbumsResource(SyncAPIResource):
         """Deletes the album itself.
 
         Assets that were in the album remain in the library —
-        only the album and its asset-links are removed. Use `delete_asset` to delete the
-        underlying assets, or `remove_assets_from_album` to detach specific assets from
-        an album you want to keep.
+        only the album and its asset-links are removed. Use `trash_assets` (or
+        `permanently_delete_assets` for irreversible removal) to delete the underlying
+        assets, or `remove_assets_from_album` to detach specific assets from an album
+        you want to keep.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to delete.
@@ -567,9 +568,10 @@ class AsyncAlbumsResource(AsyncAPIResource):
         """Deletes the album itself.
 
         Assets that were in the album remain in the library —
-        only the album and its asset-links are removed. Use `delete_asset` to delete the
-        underlying assets, or `remove_assets_from_album` to detach specific assets from
-        an album you want to keep.
+        only the album and its asset-links are removed. Use `trash_assets` (or
+        `permanently_delete_assets` for irreversible removal) to delete the underlying
+        assets, or `remove_assets_from_album` to detach specific assets from an album
+        you want to keep.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to delete.

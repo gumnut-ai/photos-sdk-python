@@ -93,5 +93,12 @@ class AssetResponse(BaseModel):
     people: Optional[List[PersonResponse]] = None
     """All unique people identified in this asset (deduplicated from faces)"""
 
+    trashed_at: Optional[datetime] = None
+    """When this asset was moved to trash (ISO 8601, UTC).
+
+    `null` for live assets. Trashed assets are excluded from default list/search
+    results and are purged after the configured retention window.
+    """
+
     width: Optional[int] = None
     """Width of the asset in pixels"""
