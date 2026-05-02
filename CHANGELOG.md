@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.79.0 (2026-05-02)
+
+Full Changelog: [v0.78.0...v0.79.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.78.0...v0.79.0)
+
+### Features
+
+* **api:** api update ([8c89bf5](https://github.com/gumnut-ai/photos-sdk-python/commit/8c89bf5aad9a5458d199778216f270f29b8c2092))
+
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([6ed862b](https://github.com/gumnut-ai/photos-sdk-python/commit/6ed862b9e820d1ea24edeb3923ef7b18af557193))
+
 ## 0.78.0 (2026-04-30)
 
 Full Changelog: [v0.77.0...v0.78.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.77.0...v0.78.0)
