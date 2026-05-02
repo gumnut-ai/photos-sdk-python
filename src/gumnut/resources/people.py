@@ -374,6 +374,10 @@ class PeopleResource(SyncAPIResource):
         are permanently deleted (this cannot be undone). The primary person's centroid
         embedding is recalculated.
 
+        In the degenerate case where the primary and all sources are unnamed and have
+        zero faces, the primary is auto-deleted by the post-merge centroid recompute
+        (GUM-681) and the response is `204 No Content`.
+
         Args:
           source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
               after their faces are moved.
@@ -745,6 +749,10 @@ class AsyncPeopleResource(AsyncAPIResource):
         All faces from source people are reassigned to the primary person. Source people
         are permanently deleted (this cannot be undone). The primary person's centroid
         embedding is recalculated.
+
+        In the degenerate case where the primary and all sources are unnamed and have
+        zero faces, the primary is auto-deleted by the post-merge centroid recompute
+        (GUM-681) and the response is `204 No Content`.
 
         Args:
           source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
