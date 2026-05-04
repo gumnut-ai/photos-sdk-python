@@ -13,5 +13,6 @@ class AssetsAssociationAddParams(TypedDict, total=False):
     asset_ids: Required[SequenceNotStr[str]]
     """Asset IDs (with `asset_` prefix) to associate with the album.
 
-    Get IDs from `list_assets`, `search_assets`, or `list_album_assets`.
+    Get IDs from `list_assets`, `search_assets`, or `list_album_assets`. Up to 100
+    ids per request.
     """
