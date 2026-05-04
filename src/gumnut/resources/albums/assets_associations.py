@@ -61,11 +61,14 @@ class AssetsAssociationsResource(SyncAPIResource):
         `duplicate_assets`. Idempotent: calling with the same IDs twice leaves the album
         in the same state.
 
+        Up to 100 ids per request; over-cap requests return 422.
+
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
           asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+              `list_assets`, `search_assets`, or `list_album_assets`. Up to 100 ids per
+              request.
 
           extra_headers: Send extra headers
 
@@ -106,11 +109,14 @@ class AssetsAssociationsResource(SyncAPIResource):
         entirely. To empty an album completely, call `list_album_assets` to get the
         links and then remove them, or delete the album itself with `delete_album`.
 
+        Up to 100 ids per request; over-cap requests return 422.
+
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
 
           asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+              `list_assets`, `search_assets`, or `list_album_assets`. Up to 100 ids per
+              request.
 
           extra_headers: Send extra headers
 
@@ -175,11 +181,14 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         `duplicate_assets`. Idempotent: calling with the same IDs twice leaves the album
         in the same state.
 
+        Up to 100 ids per request; over-cap requests return 422.
+
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
           asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+              `list_assets`, `search_assets`, or `list_album_assets`. Up to 100 ids per
+              request.
 
           extra_headers: Send extra headers
 
@@ -222,11 +231,14 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         entirely. To empty an album completely, call `list_album_assets` to get the
         links and then remove them, or delete the album itself with `delete_album`.
 
+        Up to 100 ids per request; over-cap requests return 422.
+
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
 
           asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+              `list_assets`, `search_assets`, or `list_album_assets`. Up to 100 ids per
+              request.
 
           extra_headers: Send extra headers
 
