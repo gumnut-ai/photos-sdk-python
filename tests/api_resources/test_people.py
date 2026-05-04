@@ -66,7 +66,16 @@ class TestPeople:
     @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         person = client.people.retrieve(
-            "person_id",
+            person_id="person_id",
+        )
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Gumnut) -> None:
+        person = client.people.retrieve(
+            person_id="person_id",
+            include="include",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -74,7 +83,7 @@ class TestPeople:
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.people.with_raw_response.retrieve(
-            "person_id",
+            person_id="person_id",
         )
 
         assert response.is_closed is True
@@ -86,7 +95,7 @@ class TestPeople:
     @parametrize
     def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.retrieve(
-            "person_id",
+            person_id="person_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -101,7 +110,7 @@ class TestPeople:
     def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
             client.people.with_raw_response.retrieve(
-                "",
+                person_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -172,6 +181,7 @@ class TestPeople:
             album_id="album_id",
             asset_id="asset_id",
             ids=["string", "string"],
+            include="include",
             library_id="library_id",
             limit=1,
             name="name",
@@ -341,7 +351,16 @@ class TestAsyncPeople:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.retrieve(
-            "person_id",
+            person_id="person_id",
+        )
+        assert_matches_type(PersonResponse, person, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncGumnut) -> None:
+        person = await async_client.people.retrieve(
+            person_id="person_id",
+            include="include",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -349,7 +368,7 @@ class TestAsyncPeople:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.people.with_raw_response.retrieve(
-            "person_id",
+            person_id="person_id",
         )
 
         assert response.is_closed is True
@@ -361,7 +380,7 @@ class TestAsyncPeople:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.retrieve(
-            "person_id",
+            person_id="person_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -376,7 +395,7 @@ class TestAsyncPeople:
     async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `person_id` but received ''"):
             await async_client.people.with_raw_response.retrieve(
-                "",
+                person_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -447,6 +466,7 @@ class TestAsyncPeople:
             album_id="album_id",
             asset_id="asset_id",
             ids=["string", "string"],
+            include="include",
             library_id="library_id",
             limit=1,
             name="name",

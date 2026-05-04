@@ -8,7 +8,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import person_list_params, person_merge_params, person_create_params, person_update_params
+from ..types import (
+    person_list_params,
+    person_merge_params,
+    person_create_params,
+    person_update_params,
+    person_retrieve_params,
+)
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -119,6 +125,7 @@ class PeopleResource(SyncAPIResource):
         self,
         person_id: str,
         *,
+        include: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,6 +143,9 @@ class PeopleResource(SyncAPIResource):
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
               `get_face.person_id`, or any response containing a person reference.
 
+          include: Comma-separated list of opt-in expansion fields. See `list_people` for supported
+              values.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -149,7 +159,11 @@ class PeopleResource(SyncAPIResource):
         return self._get(
             path_template("/api/people/{person_id}", person_id=person_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include": include}, person_retrieve_params.PersonRetrieveParams),
             ),
             cast_to=PersonResponse,
         )
@@ -227,6 +241,7 @@ class PeopleResource(SyncAPIResource):
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -265,6 +280,12 @@ class PeopleResource(SyncAPIResource):
               set, `name_filter` defaults to `all` so unnamed clusters are included in the
               lookup.
 
+          include:
+              Comma-separated list of opt-in expansion fields. Supported values:
+              `cluster_metrics` (adds the nested `cluster_metrics` object — `pairwise_p90`,
+              `pairwise_mean`, `face_count` — for each Person with a populated centroid).
+              Unknown values return 422.
+
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.
 
@@ -302,6 +323,7 @@ class PeopleResource(SyncAPIResource):
                         "album_id": album_id,
                         "asset_id": asset_id,
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "name": name,
@@ -495,6 +517,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         self,
         person_id: str,
         *,
+        include: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -512,6 +535,9 @@ class AsyncPeopleResource(AsyncAPIResource):
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
               `get_face.person_id`, or any response containing a person reference.
 
+          include: Comma-separated list of opt-in expansion fields. See `list_people` for supported
+              values.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -525,7 +551,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/people/{person_id}", person_id=person_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"include": include}, person_retrieve_params.PersonRetrieveParams),
             ),
             cast_to=PersonResponse,
         )
@@ -603,6 +633,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -641,6 +672,12 @@ class AsyncPeopleResource(AsyncAPIResource):
               set, `name_filter` defaults to `all` so unnamed clusters are included in the
               lookup.
 
+          include:
+              Comma-separated list of opt-in expansion fields. Supported values:
+              `cluster_metrics` (adds the nested `cluster_metrics` object — `pairwise_p90`,
+              `pairwise_mean`, `face_count` — for each Person with a populated centroid).
+              Unknown values return 422.
+
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.
 
@@ -678,6 +715,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                         "album_id": album_id,
                         "asset_id": asset_id,
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "name": name,
