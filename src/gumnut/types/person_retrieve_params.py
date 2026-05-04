@@ -5,18 +5,12 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["FaceRetrieveParams"]
+__all__ = ["PersonRetrieveParams"]
 
 
-class FaceRetrieveParams(TypedDict, total=False):
+class PersonRetrieveParams(TypedDict, total=False):
     include: Optional[str]
     """Comma-separated list of opt-in expansion fields.
 
-    See `list_faces` for supported values.
-    """
-
-    library_id: Optional[str]
-    """Library the face belongs to.
-
-    Optional if the user has a single library; required when they have multiple.
+    See `list_people` for supported values.
     """

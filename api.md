@@ -152,7 +152,7 @@ from gumnut.types import PersonResponse
 Methods:
 
 - <code title="post /api/people">client.people.<a href="./src/gumnut/resources/people.py">create</a>(\*\*<a href="src/gumnut/types/person_create_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
-- <code title="get /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">retrieve</a>(person_id) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
+- <code title="get /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">retrieve</a>(person_id, \*\*<a href="src/gumnut/types/person_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="patch /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">update</a>(person_id, \*\*<a href="src/gumnut/types/person_update_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="get /api/people">client.people.<a href="./src/gumnut/resources/people.py">list</a>(\*\*<a href="src/gumnut/types/person_list_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">SyncCursorPage[PersonResponse]</a></code>
 - <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> None</code>
