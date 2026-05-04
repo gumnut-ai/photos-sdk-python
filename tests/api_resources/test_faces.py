@@ -31,6 +31,7 @@ class TestFaces:
     def test_method_retrieve_with_all_params(self, client: Gumnut) -> None:
         face = client.faces.retrieve(
             face_id="face_id",
+            include="include",
             library_id="library_id",
         )
         assert_matches_type(FaceResponse, face, path=["response"])
@@ -133,6 +134,7 @@ class TestFaces:
         face = client.faces.list(
             asset_id="asset_id",
             ids=["string", "string"],
+            include="include",
             library_id="library_id",
             limit=1,
             person_id="person_id",
@@ -232,6 +234,7 @@ class TestAsyncFaces:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncGumnut) -> None:
         face = await async_client.faces.retrieve(
             face_id="face_id",
+            include="include",
             library_id="library_id",
         )
         assert_matches_type(FaceResponse, face, path=["response"])
@@ -334,6 +337,7 @@ class TestAsyncFaces:
         face = await async_client.faces.list(
             asset_id="asset_id",
             ids=["string", "string"],
+            include="include",
             library_id="library_id",
             limit=1,
             person_id="person_id",

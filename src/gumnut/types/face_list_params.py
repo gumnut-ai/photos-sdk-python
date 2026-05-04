@@ -20,6 +20,13 @@ class FaceListParams(TypedDict, total=False):
     ids: Optional[SequenceNotStr[str]]
     """Look up specific faces by ID (max 100). IDs use the `face_` prefix."""
 
+    include: Optional[str]
+    """Comma-separated list of opt-in expansion fields.
+
+    Supported values: `cluster_assignment` (adds the nested `cluster_assignment`
+    object — `distance_to_person` and a top-K `candidates` list of nearby Persons).
+    """
+
     library_id: Optional[str]
     """Library to list from.
 

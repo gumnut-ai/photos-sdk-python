@@ -30,6 +30,14 @@ class PersonListParams(TypedDict, total=False):
     the lookup.
     """
 
+    include: Optional[str]
+    """Comma-separated list of opt-in expansion fields.
+
+    Supported values: `cluster_metrics` (adds the nested `cluster_metrics` object —
+    `pairwise_p90`, `pairwise_mean`, `face_count` — for each Person with a populated
+    centroid). Unknown values return 422.
+    """
+
     library_id: Optional[str]
     """Library to list from.
 
