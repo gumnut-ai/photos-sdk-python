@@ -41,6 +41,10 @@ Methods:
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> None</code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
+- <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> None</code>
+- <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> None</code>
+- <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> None</code>
+- <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> None</code>
 
 # Albums
 
@@ -101,7 +105,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import FaceResponse
+from gumnut.types import ClusterAssignmentResponse, FaceResponse
 ```
 
 Methods:
@@ -146,7 +150,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import PersonResponse
+from gumnut.types import ClusterMetricsResponse, PersonResponse
 ```
 
 Methods:
