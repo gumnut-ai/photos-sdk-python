@@ -21,6 +21,7 @@ from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
+from .asset_trash_params import AssetTrashParams as AssetTrashParams
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .person_list_params import PersonListParams as PersonListParams
@@ -33,6 +34,7 @@ from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
 from .person_merge_params import PersonMergeParams as PersonMergeParams
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
 from .asset_count_response import AssetCountResponse as AssetCountResponse
+from .asset_restore_params import AssetRestoreParams as AssetRestoreParams
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
 from .person_update_params import PersonUpdateParams as PersonUpdateParams
@@ -48,7 +50,11 @@ from .oauth_exchange_params import OAuthExchangeParams as OAuthExchangeParams
 from .person_retrieve_params import PersonRetrieveParams as PersonRetrieveParams
 from .album_asset_list_params import AlbumAssetListParams as AlbumAssetListParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
+from .asset_delete_list_params import AssetDeleteListParams as AssetDeleteListParams
+from .asset_empty_trash_params import AssetEmptyTrashParams as AssetEmptyTrashParams
 from .asset_existence_response import AssetExistenceResponse as AssetExistenceResponse
+from .cluster_metrics_response import ClusterMetricsResponse as ClusterMetricsResponse
 from .logout_endpoint_response import LogoutEndpointResponse as LogoutEndpointResponse
+from .cluster_assignment_response import ClusterAssignmentResponse as ClusterAssignmentResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_check_existence_params import AssetCheckExistenceParams as AssetCheckExistenceParams
