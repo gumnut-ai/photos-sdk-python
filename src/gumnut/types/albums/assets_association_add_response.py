@@ -16,3 +16,9 @@ class AssetsAssociationAddResponse(BaseModel):
     Asset IDs that were already in the album and were skipped (idempotent no-op, not
     an error).
     """
+
+    not_found_assets: List[str]
+    """
+    Asset IDs that were skipped because they do not exist or do not belong to the
+    album's library.
+    """
