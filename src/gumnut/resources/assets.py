@@ -8,7 +8,16 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import asset_list_params, asset_counts_params, asset_create_params, asset_check_existence_params
+from ..types import (
+    asset_list_params,
+    asset_trash_params,
+    asset_counts_params,
+    asset_create_params,
+    asset_restore_params,
+    asset_delete_list_params,
+    asset_empty_trash_params,
+    asset_check_existence_params,
+)
 from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
@@ -452,6 +461,195 @@ class AssetsResource(SyncAPIResource):
             cast_to=AssetCountResponse,
         )
 
+    def delete_list(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Hard-deletes each specified asset — the database record, the stored file, and
+        all associated data (faces, album links, etc.). **Irreversible.** Prefer
+        `trash_assets` for the user's standard delete action so accidents can be
+        recovered.
+
+        Up to 100 ids per request; over-cap requests return 422.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            "/api/assets",
+            body=maybe_transform({"ids": ids}, asset_delete_list_params.AssetDeleteListParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"library_id": library_id}, asset_delete_list_params.AssetDeleteListParams),
+            ),
+            cast_to=NoneType,
+        )
+
+    def empty_trash(
+        self,
+        *,
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Hard-deletes every trashed asset in the caller's library in one shot — storage
+        and CDN are cleaned up via the same outbox path as the scheduled purge task.
+        **Irreversible**. Deliberately not exposed as an MCP tool.
+
+        Args:
+          library_id: Library whose trashed assets to permanently delete. Optional if the user has a
+              single library; required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/api/assets/empty-trash",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"library_id": library_id}, asset_empty_trash_params.AssetEmptyTrashParams),
+            ),
+            cast_to=NoneType,
+        )
+
+    def restore(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Restores trashed assets so they reappear in default list/search results.
+        Idempotent — assets that are already live are silently skipped.
+
+        Pairs with `trash_assets`: assets soft-deleted there can be brought back here
+        within the retention window.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/api/assets/restore",
+            body=maybe_transform({"ids": ids}, asset_restore_params.AssetRestoreParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"library_id": library_id}, asset_restore_params.AssetRestoreParams),
+            ),
+            cast_to=NoneType,
+        )
+
+    def trash(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """Soft-deletes the given assets.
+
+        Trashed assets are excluded from default
+        list/search results and are purged after the configured retention window.
+        **Reversible** via `restore_assets` until purge.
+
+        Use this for the user's standard 'delete' action. To delete forever in one step,
+        use `permanently_delete_assets` instead — but prefer trash so the user can
+        recover from accidental deletes.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/api/assets/trash",
+            body=maybe_transform({"ids": ids}, asset_trash_params.AssetTrashParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"library_id": library_id}, asset_trash_params.AssetTrashParams),
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncAssetsResource(AsyncAPIResource):
     @cached_property
@@ -876,6 +1074,199 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=AssetCountResponse,
         )
 
+    async def delete_list(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Hard-deletes each specified asset — the database record, the stored file, and
+        all associated data (faces, album links, etc.). **Irreversible.** Prefer
+        `trash_assets` for the user's standard delete action so accidents can be
+        recovered.
+
+        Up to 100 ids per request; over-cap requests return 422.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            "/api/assets",
+            body=await async_maybe_transform({"ids": ids}, asset_delete_list_params.AssetDeleteListParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"library_id": library_id}, asset_delete_list_params.AssetDeleteListParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def empty_trash(
+        self,
+        *,
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Hard-deletes every trashed asset in the caller's library in one shot — storage
+        and CDN are cleaned up via the same outbox path as the scheduled purge task.
+        **Irreversible**. Deliberately not exposed as an MCP tool.
+
+        Args:
+          library_id: Library whose trashed assets to permanently delete. Optional if the user has a
+              single library; required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/api/assets/empty-trash",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"library_id": library_id}, asset_empty_trash_params.AssetEmptyTrashParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def restore(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Restores trashed assets so they reappear in default list/search results.
+        Idempotent — assets that are already live are silently skipped.
+
+        Pairs with `trash_assets`: assets soft-deleted there can be brought back here
+        within the retention window.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/api/assets/restore",
+            body=await async_maybe_transform({"ids": ids}, asset_restore_params.AssetRestoreParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"library_id": library_id}, asset_restore_params.AssetRestoreParams),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def trash(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """Soft-deletes the given assets.
+
+        Trashed assets are excluded from default
+        list/search results and are purged after the configured retention window.
+        **Reversible** via `restore_assets` until purge.
+
+        Use this for the user's standard 'delete' action. To delete forever in one step,
+        use `permanently_delete_assets` instead — but prefer trash so the user can
+        recover from accidental deletes.
+
+        Args:
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+              request.
+
+          library_id: Library that owns the assets. Optional if the user has a single library;
+              required when they have multiple.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/api/assets/trash",
+            body=await async_maybe_transform({"ids": ids}, asset_trash_params.AssetTrashParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"library_id": library_id}, asset_trash_params.AssetTrashParams),
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AssetsResourceWithRawResponse:
     def __init__(self, assets: AssetsResource) -> None:
@@ -898,6 +1289,18 @@ class AssetsResourceWithRawResponse:
         )
         self.counts = to_raw_response_wrapper(
             assets.counts,
+        )
+        self.delete_list = to_raw_response_wrapper(
+            assets.delete_list,
+        )
+        self.empty_trash = to_raw_response_wrapper(
+            assets.empty_trash,
+        )
+        self.restore = to_raw_response_wrapper(
+            assets.restore,
+        )
+        self.trash = to_raw_response_wrapper(
+            assets.trash,
         )
 
 
@@ -923,6 +1326,18 @@ class AsyncAssetsResourceWithRawResponse:
         self.counts = async_to_raw_response_wrapper(
             assets.counts,
         )
+        self.delete_list = async_to_raw_response_wrapper(
+            assets.delete_list,
+        )
+        self.empty_trash = async_to_raw_response_wrapper(
+            assets.empty_trash,
+        )
+        self.restore = async_to_raw_response_wrapper(
+            assets.restore,
+        )
+        self.trash = async_to_raw_response_wrapper(
+            assets.trash,
+        )
 
 
 class AssetsResourceWithStreamingResponse:
@@ -947,6 +1362,18 @@ class AssetsResourceWithStreamingResponse:
         self.counts = to_streamed_response_wrapper(
             assets.counts,
         )
+        self.delete_list = to_streamed_response_wrapper(
+            assets.delete_list,
+        )
+        self.empty_trash = to_streamed_response_wrapper(
+            assets.empty_trash,
+        )
+        self.restore = to_streamed_response_wrapper(
+            assets.restore,
+        )
+        self.trash = to_streamed_response_wrapper(
+            assets.trash,
+        )
 
 
 class AsyncAssetsResourceWithStreamingResponse:
@@ -970,4 +1397,16 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.counts = async_to_streamed_response_wrapper(
             assets.counts,
+        )
+        self.delete_list = async_to_streamed_response_wrapper(
+            assets.delete_list,
+        )
+        self.empty_trash = async_to_streamed_response_wrapper(
+            assets.empty_trash,
+        )
+        self.restore = async_to_streamed_response_wrapper(
+            assets.restore,
+        )
+        self.trash = async_to_streamed_response_wrapper(
+            assets.trash,
         )

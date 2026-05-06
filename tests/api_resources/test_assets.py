@@ -293,6 +293,171 @@ class TestAssets:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_list(self, client: Gumnut) -> None:
+        asset = client.assets.delete_list(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_list_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.delete_list(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete_list(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.delete_list(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete_list(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.delete_list(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_empty_trash(self, client: Gumnut) -> None:
+        asset = client.assets.empty_trash()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_empty_trash_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.empty_trash(
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_empty_trash(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.empty_trash()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_empty_trash(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.empty_trash() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore(self, client: Gumnut) -> None:
+        asset = client.assets.restore(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.restore(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_restore(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.restore(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_restore(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.restore(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_trash(self, client: Gumnut) -> None:
+        asset = client.assets.trash(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_trash_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.trash(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_trash(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.trash(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_trash(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.trash(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncAssets:
     parametrize = pytest.mark.parametrize(
@@ -566,5 +731,170 @@ class TestAsyncAssets:
 
             asset = await response.parse()
             assert_matches_type(AssetCountResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_list(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.delete_list(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_list_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.delete_list(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete_list(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.delete_list(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete_list(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.delete_list(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_empty_trash(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.empty_trash()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_empty_trash_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.empty_trash(
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_empty_trash(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.empty_trash()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_empty_trash(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.empty_trash() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.restore(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.restore(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_restore(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.restore(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_restore(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.restore(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert asset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_trash(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.trash(
+            ids=["string"],
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_trash_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.trash(
+            ids=["string"],
+            library_id="library_id",
+        )
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_trash(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.trash(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert asset is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_trash(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.trash(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert asset is None
 
         assert cast(Any, response.is_closed) is True
