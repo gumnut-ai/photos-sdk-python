@@ -93,7 +93,7 @@ Methods:
 Types:
 
 ```python
-from gumnut.types import EventsResponse, ExifResponse
+from gumnut.types import EventsResponse
 ```
 
 Methods:

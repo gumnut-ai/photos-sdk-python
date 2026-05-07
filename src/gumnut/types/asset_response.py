@@ -4,7 +4,6 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .exif_response import ExifResponse
 from .face_response import FaceResponse
 from .person_response import PersonResponse
 from .metadata_response import MetadataResponse
@@ -68,12 +67,9 @@ class AssetResponse(BaseModel):
     """AI-generated description of the asset's content, quality, and composition.
 
     null means description generation has not yet run; empty string means the model
-    refused to describe the asset. Distinct from exif.description (camera-embedded
-    EXIF metadata).
+    refused to describe the asset. Distinct from metadata.description
+    (camera-embedded EXIF metadata).
     """
-
-    exif: Optional[ExifResponse] = None
-    """EXIF metadata extracted from image and video files."""
 
     faces: Optional[List[FaceResponse]] = None
     """All faces detected in this asset"""
