@@ -1,9 +1,9 @@
-# Gumnut Python API library
+# Gumnut AI Python API library
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/gumnut-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/gumnut-sdk/)
 
-The Gumnut Python library provides convenient access to the Gumnut REST API from any Python 3.9+
+The Gumnut AI Python library provides convenient access to the Gumnut AI REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [api.gumnut.ai](https://api.gumnut.ai/redoc). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.gumnut.ai](https://docs.gumnut.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -26,9 +26,9 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-client = Gumnut(
+client = GumnutAI(
     api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -43,14 +43,14 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncGumnut` instead of `Gumnut` and use `await` with each API call:
+Simply import `AsyncGumnutAI` instead of `GumnutAI` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from gumnut import AsyncGumnut
+from gumnut import AsyncGumnutAI
 
-client = AsyncGumnut(
+client = AsyncGumnutAI(
     api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -82,11 +82,11 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 import os
 import asyncio
 from gumnut import DefaultAioHttpClient
-from gumnut import AsyncGumnut
+from gumnut import AsyncGumnutAI
 
 
 async def main() -> None:
-    async with AsyncGumnut(
+    async with AsyncGumnutAI(
         api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
@@ -108,14 +108,14 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Pagination
 
-List methods in the Gumnut API are paginated.
+List methods in the Gumnut AI API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-client = Gumnut()
+client = GumnutAI()
 
 all_assets = []
 # Automatically fetches more pages as needed.
@@ -131,9 +131,9 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from gumnut import AsyncGumnut
+from gumnut import AsyncGumnutAI
 
-client = AsyncGumnut()
+client = AsyncGumnutAI()
 
 
 async def main() -> None:
@@ -185,9 +185,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-client = Gumnut()
+client = GumnutAI()
 
 client.assets.create(
     asset_data=Path("/path/to/file"),
@@ -211,9 +211,9 @@ All errors inherit from `gumnut.APIError`.
 
 ```python
 import gumnut
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-client = Gumnut()
+client = GumnutAI()
 
 try:
     client.albums.create()
@@ -250,10 +250,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
 # Configure the default for all requests:
-client = Gumnut(
+client = GumnutAI(
     # default is 2
     max_retries=0,
 )
@@ -268,16 +268,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
 # Configure the default for all requests:
-client = Gumnut(
+client = GumnutAI(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Gumnut(
+client = GumnutAI(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -295,10 +295,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `GUMNUT_LOG` to `info`.
+You can enable logging by setting the environment variable `GUMNUT_AI_LOG` to `info`.
 
 ```shell
-$ export GUMNUT_LOG=info
+$ export GUMNUT_AI_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -320,9 +320,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-client = Gumnut()
+client = GumnutAI()
 response = client.albums.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
@@ -394,10 +394,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from gumnut import Gumnut, DefaultHttpxClient
+from gumnut import GumnutAI, DefaultHttpxClient
 
-client = Gumnut(
-    # Or use the `GUMNUT_BASE_URL` env var
+client = GumnutAI(
+    # Or use the `GUMNUT_AI_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -417,9 +417,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from gumnut import Gumnut
+from gumnut import GumnutAI
 
-with Gumnut() as client:
+with GumnutAI() as client:
   # make requests here
   ...
 

@@ -63,10 +63,19 @@ if TYPE_CHECKING:
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
+__all__ = [
+    "Timeout",
+    "Transport",
+    "ProxiesTypes",
+    "RequestOptions",
+    "GumnutAI",
+    "AsyncGumnutAI",
+    "Client",
+    "AsyncClient",
+]
 
 
-class Gumnut(SyncAPIClient):
+class GumnutAI(SyncAPIClient):
     # client options
     api_key: str | None
 
@@ -93,7 +102,7 @@ class Gumnut(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Gumnut client instance.
+        """Construct a new synchronous GumnutAI client instance.
 
         This automatically infers the `api_key` argument from the `GUMNUT_API_KEY` environment variable if it is not provided.
         """
@@ -102,11 +111,11 @@ class Gumnut(SyncAPIClient):
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("GUMNUT_BASE_URL")
+            base_url = os.environ.get("GUMNUT_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://api.gumnut.ai"
 
-        custom_headers_env = os.environ.get("GUMNUT_CUSTOM_HEADERS")
+        custom_headers_env = os.environ.get("GUMNUT_AI_CUSTOM_HEADERS")
         if custom_headers_env is not None:
             parsed: dict[str, str] = {}
             for line in custom_headers_env.split("\n"):
@@ -199,12 +208,12 @@ class Gumnut(SyncAPIClient):
         return UsersResource(self)
 
     @cached_property
-    def with_raw_response(self) -> GumnutWithRawResponse:
-        return GumnutWithRawResponse(self)
+    def with_raw_response(self) -> GumnutAIWithRawResponse:
+        return GumnutAIWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> GumnutWithStreamedResponse:
-        return GumnutWithStreamedResponse(self)
+    def with_streaming_response(self) -> GumnutAIWithStreamedResponse:
+        return GumnutAIWithStreamedResponse(self)
 
     @property
     @override
@@ -322,7 +331,7 @@ class Gumnut(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncGumnut(AsyncAPIClient):
+class AsyncGumnutAI(AsyncAPIClient):
     # client options
     api_key: str | None
 
@@ -349,7 +358,7 @@ class AsyncGumnut(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncGumnut client instance.
+        """Construct a new async AsyncGumnutAI client instance.
 
         This automatically infers the `api_key` argument from the `GUMNUT_API_KEY` environment variable if it is not provided.
         """
@@ -358,11 +367,11 @@ class AsyncGumnut(AsyncAPIClient):
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("GUMNUT_BASE_URL")
+            base_url = os.environ.get("GUMNUT_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://api.gumnut.ai"
 
-        custom_headers_env = os.environ.get("GUMNUT_CUSTOM_HEADERS")
+        custom_headers_env = os.environ.get("GUMNUT_AI_CUSTOM_HEADERS")
         if custom_headers_env is not None:
             parsed: dict[str, str] = {}
             for line in custom_headers_env.split("\n"):
@@ -455,12 +464,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncUsersResource(self)
 
     @cached_property
-    def with_raw_response(self) -> AsyncGumnutWithRawResponse:
-        return AsyncGumnutWithRawResponse(self)
+    def with_raw_response(self) -> AsyncGumnutAIWithRawResponse:
+        return AsyncGumnutAIWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncGumnutWithStreamedResponse:
-        return AsyncGumnutWithStreamedResponse(self)
+    def with_streaming_response(self) -> AsyncGumnutAIWithStreamedResponse:
+        return AsyncGumnutAIWithStreamedResponse(self)
 
     @property
     @override
@@ -578,10 +587,10 @@ class AsyncGumnut(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class GumnutWithRawResponse:
-    _client: Gumnut
+class GumnutAIWithRawResponse:
+    _client: GumnutAI
 
-    def __init__(self, client: Gumnut) -> None:
+    def __init__(self, client: GumnutAI) -> None:
         self._client = client
 
     @cached_property
@@ -657,10 +666,10 @@ class GumnutWithRawResponse:
         return UsersResourceWithRawResponse(self._client.users)
 
 
-class AsyncGumnutWithRawResponse:
-    _client: AsyncGumnut
+class AsyncGumnutAIWithRawResponse:
+    _client: AsyncGumnutAI
 
-    def __init__(self, client: AsyncGumnut) -> None:
+    def __init__(self, client: AsyncGumnutAI) -> None:
         self._client = client
 
     @cached_property
@@ -736,10 +745,10 @@ class AsyncGumnutWithRawResponse:
         return AsyncUsersResourceWithRawResponse(self._client.users)
 
 
-class GumnutWithStreamedResponse:
-    _client: Gumnut
+class GumnutAIWithStreamedResponse:
+    _client: GumnutAI
 
-    def __init__(self, client: Gumnut) -> None:
+    def __init__(self, client: GumnutAI) -> None:
         self._client = client
 
     @cached_property
@@ -815,10 +824,10 @@ class GumnutWithStreamedResponse:
         return UsersResourceWithStreamingResponse(self._client.users)
 
 
-class AsyncGumnutWithStreamedResponse:
-    _client: AsyncGumnut
+class AsyncGumnutAIWithStreamedResponse:
+    _client: AsyncGumnutAI
 
-    def __init__(self, client: AsyncGumnut) -> None:
+    def __init__(self, client: AsyncGumnutAI) -> None:
         self._client = client
 
     @cached_property
@@ -894,6 +903,6 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncUsersResourceWithStreamingResponse(self._client.users)
 
 
-Client = Gumnut
+Client = GumnutAI
 
-AsyncClient = AsyncGumnut
+AsyncClient = AsyncGumnutAI

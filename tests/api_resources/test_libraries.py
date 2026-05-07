@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import Gumnut, AsyncGumnut
+from gumnut import GumnutAI, AsyncGumnutAI
 from tests.utils import assert_matches_type
 from gumnut.types import LibraryResponse, LibraryListResponse
 
@@ -19,7 +19,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create(self, client: Gumnut) -> None:
+    def test_method_create(self, client: GumnutAI) -> None:
         library = client.libraries.create(
             name="name",
         )
@@ -27,7 +27,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Gumnut) -> None:
+    def test_method_create_with_all_params(self, client: GumnutAI) -> None:
         library = client.libraries.create(
             name="name",
             description="description",
@@ -36,7 +36,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Gumnut) -> None:
+    def test_raw_response_create(self, client: GumnutAI) -> None:
         response = client.libraries.with_raw_response.create(
             name="name",
         )
@@ -48,7 +48,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Gumnut) -> None:
+    def test_streaming_response_create(self, client: GumnutAI) -> None:
         with client.libraries.with_streaming_response.create(
             name="name",
         ) as response:
@@ -62,7 +62,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Gumnut) -> None:
+    def test_method_retrieve(self, client: GumnutAI) -> None:
         library = client.libraries.retrieve(
             "library_id",
         )
@@ -70,7 +70,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Gumnut) -> None:
+    def test_raw_response_retrieve(self, client: GumnutAI) -> None:
         response = client.libraries.with_raw_response.retrieve(
             "library_id",
         )
@@ -82,7 +82,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Gumnut) -> None:
+    def test_streaming_response_retrieve(self, client: GumnutAI) -> None:
         with client.libraries.with_streaming_response.retrieve(
             "library_id",
         ) as response:
@@ -96,7 +96,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Gumnut) -> None:
+    def test_path_params_retrieve(self, client: GumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             client.libraries.with_raw_response.retrieve(
                 "",
@@ -104,7 +104,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update(self, client: Gumnut) -> None:
+    def test_method_update(self, client: GumnutAI) -> None:
         library = client.libraries.update(
             library_id="library_id",
         )
@@ -112,7 +112,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: Gumnut) -> None:
+    def test_method_update_with_all_params(self, client: GumnutAI) -> None:
         library = client.libraries.update(
             library_id="library_id",
             description="description",
@@ -122,7 +122,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: Gumnut) -> None:
+    def test_raw_response_update(self, client: GumnutAI) -> None:
         response = client.libraries.with_raw_response.update(
             library_id="library_id",
         )
@@ -134,7 +134,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: Gumnut) -> None:
+    def test_streaming_response_update(self, client: GumnutAI) -> None:
         with client.libraries.with_streaming_response.update(
             library_id="library_id",
         ) as response:
@@ -148,7 +148,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: Gumnut) -> None:
+    def test_path_params_update(self, client: GumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             client.libraries.with_raw_response.update(
                 library_id="",
@@ -156,13 +156,13 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: Gumnut) -> None:
+    def test_method_list(self, client: GumnutAI) -> None:
         library = client.libraries.list()
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Gumnut) -> None:
+    def test_raw_response_list(self, client: GumnutAI) -> None:
         response = client.libraries.with_raw_response.list()
 
         assert response.is_closed is True
@@ -172,7 +172,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Gumnut) -> None:
+    def test_streaming_response_list(self, client: GumnutAI) -> None:
         with client.libraries.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -184,7 +184,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_delete(self, client: Gumnut) -> None:
+    def test_method_delete(self, client: GumnutAI) -> None:
         library = client.libraries.delete(
             "library_id",
         )
@@ -192,7 +192,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: Gumnut) -> None:
+    def test_raw_response_delete(self, client: GumnutAI) -> None:
         response = client.libraries.with_raw_response.delete(
             "library_id",
         )
@@ -204,7 +204,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: Gumnut) -> None:
+    def test_streaming_response_delete(self, client: GumnutAI) -> None:
         with client.libraries.with_streaming_response.delete(
             "library_id",
         ) as response:
@@ -218,7 +218,7 @@ class TestLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: Gumnut) -> None:
+    def test_path_params_delete(self, client: GumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             client.libraries.with_raw_response.delete(
                 "",
@@ -232,7 +232,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncGumnut) -> None:
+    async def test_method_create(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.create(
             name="name",
         )
@@ -240,7 +240,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.create(
             name="name",
             description="description",
@@ -249,7 +249,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_create(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.libraries.with_raw_response.create(
             name="name",
         )
@@ -261,7 +261,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.libraries.with_streaming_response.create(
             name="name",
         ) as response:
@@ -275,7 +275,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
+    async def test_method_retrieve(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.retrieve(
             "library_id",
         )
@@ -283,7 +283,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.libraries.with_raw_response.retrieve(
             "library_id",
         )
@@ -295,7 +295,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.libraries.with_streaming_response.retrieve(
             "library_id",
         ) as response:
@@ -309,7 +309,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncGumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             await async_client.libraries.with_raw_response.retrieve(
                 "",
@@ -317,7 +317,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncGumnut) -> None:
+    async def test_method_update(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.update(
             library_id="library_id",
         )
@@ -325,7 +325,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.update(
             library_id="library_id",
             description="description",
@@ -335,7 +335,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_update(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.libraries.with_raw_response.update(
             library_id="library_id",
         )
@@ -347,7 +347,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.libraries.with_streaming_response.update(
             library_id="library_id",
         ) as response:
@@ -361,7 +361,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
+    async def test_path_params_update(self, async_client: AsyncGumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             await async_client.libraries.with_raw_response.update(
                 library_id="",
@@ -369,13 +369,13 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncGumnut) -> None:
+    async def test_method_list(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.list()
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_list(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.libraries.with_raw_response.list()
 
         assert response.is_closed is True
@@ -385,7 +385,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.libraries.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -397,7 +397,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncGumnut) -> None:
+    async def test_method_delete(self, async_client: AsyncGumnutAI) -> None:
         library = await async_client.libraries.delete(
             "library_id",
         )
@@ -405,7 +405,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.libraries.with_raw_response.delete(
             "library_id",
         )
@@ -417,7 +417,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.libraries.with_streaming_response.delete(
             "library_id",
         ) as response:
@@ -431,7 +431,7 @@ class TestAsyncLibraries:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
+    async def test_path_params_delete(self, async_client: AsyncGumnutAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             await async_client.libraries.with_raw_response.delete(
                 "",
