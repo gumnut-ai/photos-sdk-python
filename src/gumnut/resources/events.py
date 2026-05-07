@@ -98,10 +98,7 @@ class EventsResource(SyncAPIResource):
         - `person_created`, `person_updated`, `person_deleted`
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
-        - `exif_created`, `exif_updated`, `exif_deleted`
-        - `metadata_updated` (emitted alongside `exif_updated` during the asset*metadata
-          migration window; `exif*\\**` events are deprecated and will be removed in a
-          future release)
+        - `metadata_updated`
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
@@ -116,8 +113,8 @@ class EventsResource(SyncAPIResource):
               window.
 
           entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
-              values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`, `metadata`.
-              Omit to receive events for all types.
+              values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`. Omit to
+              receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
               required when they have multiple. Use `list_libraries` to enumerate.
@@ -229,10 +226,7 @@ class AsyncEventsResource(AsyncAPIResource):
         - `person_created`, `person_updated`, `person_deleted`
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
-        - `exif_created`, `exif_updated`, `exif_deleted`
-        - `metadata_updated` (emitted alongside `exif_updated` during the asset*metadata
-          migration window; `exif*\\**` events are deprecated and will be removed in a
-          future release)
+        - `metadata_updated`
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
@@ -247,8 +241,8 @@ class AsyncEventsResource(AsyncAPIResource):
               window.
 
           entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
-              values: `asset`, `album`, `person`, `face`, `album_asset`, `exif`, `metadata`.
-              Omit to receive events for all types.
+              values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`. Omit to
+              receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
               required when they have multiple. Use `list_libraries` to enumerate.
