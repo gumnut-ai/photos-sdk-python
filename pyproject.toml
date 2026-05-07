@@ -1,11 +1,11 @@
 [project]
 name = "gumnut-sdk"
 version = "0.84.0"
-description = "The official Python library for the Gumnut AI API"
+description = "The official Python library for the Gumnut API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Gumnut AI", email = "tedmao@gmail.com" },
+{ name = "Gumnut", email = "tedmao@gmail.com" },
 ]
 
 dependencies = [

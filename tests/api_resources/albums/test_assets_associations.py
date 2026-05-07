@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import GumnutAI, AsyncGumnutAI
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types.albums import (
     AssetsAssociationAddResponse,
@@ -21,7 +21,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_add(self, client: GumnutAI) -> None:
+    def test_method_add(self, client: Gumnut) -> None:
         assets_association = client.albums.assets_associations.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -30,7 +30,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_add(self, client: GumnutAI) -> None:
+    def test_raw_response_add(self, client: Gumnut) -> None:
         response = client.albums.assets_associations.with_raw_response.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -43,7 +43,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_add(self, client: GumnutAI) -> None:
+    def test_streaming_response_add(self, client: Gumnut) -> None:
         with client.albums.assets_associations.with_streaming_response.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -58,7 +58,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_add(self, client: GumnutAI) -> None:
+    def test_path_params_add(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
             client.albums.assets_associations.with_raw_response.add(
                 album_id="",
@@ -67,7 +67,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_remove(self, client: GumnutAI) -> None:
+    def test_method_remove(self, client: Gumnut) -> None:
         assets_association = client.albums.assets_associations.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -76,7 +76,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_remove(self, client: GumnutAI) -> None:
+    def test_raw_response_remove(self, client: Gumnut) -> None:
         response = client.albums.assets_associations.with_raw_response.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -89,7 +89,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_remove(self, client: GumnutAI) -> None:
+    def test_streaming_response_remove(self, client: Gumnut) -> None:
         with client.albums.assets_associations.with_streaming_response.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -104,7 +104,7 @@ class TestAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_remove(self, client: GumnutAI) -> None:
+    def test_path_params_remove(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
             client.albums.assets_associations.with_raw_response.remove(
                 album_id="",
@@ -119,7 +119,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_add(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_add(self, async_client: AsyncGumnut) -> None:
         assets_association = await async_client.albums.assets_associations.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -128,7 +128,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_add(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_add(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.assets_associations.with_raw_response.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -141,7 +141,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_add(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_add(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.assets_associations.with_streaming_response.add(
             album_id="album_id",
             asset_ids=["string"],
@@ -156,7 +156,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_add(self, async_client: AsyncGumnutAI) -> None:
+    async def test_path_params_add(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
             await async_client.albums.assets_associations.with_raw_response.add(
                 album_id="",
@@ -165,7 +165,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_remove(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_remove(self, async_client: AsyncGumnut) -> None:
         assets_association = await async_client.albums.assets_associations.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -174,7 +174,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_remove(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_remove(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.assets_associations.with_raw_response.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -187,7 +187,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_remove(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_remove(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.assets_associations.with_streaming_response.remove(
             album_id="album_id",
             asset_ids=["string"],
@@ -202,7 +202,7 @@ class TestAsyncAssetsAssociations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_remove(self, async_client: AsyncGumnutAI) -> None:
+    async def test_path_params_remove(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
             await async_client.albums.assets_associations.with_raw_response.remove(
                 album_id="",

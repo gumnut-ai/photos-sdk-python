@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import GumnutAI, AsyncGumnutAI
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import EventsResponse
 from gumnut._utils import parse_datetime
@@ -20,13 +20,13 @@ class TestEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get(self, client: GumnutAI) -> None:
+    def test_method_get(self, client: Gumnut) -> None:
         event = client.events.get()
         assert_matches_type(EventsResponse, event, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_with_all_params(self, client: GumnutAI) -> None:
+    def test_method_get_with_all_params(self, client: Gumnut) -> None:
         event = client.events.get(
             after_cursor="after_cursor",
             created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -39,7 +39,7 @@ class TestEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get(self, client: GumnutAI) -> None:
+    def test_raw_response_get(self, client: Gumnut) -> None:
         response = client.events.with_raw_response.get()
 
         assert response.is_closed is True
@@ -49,7 +49,7 @@ class TestEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get(self, client: GumnutAI) -> None:
+    def test_streaming_response_get(self, client: Gumnut) -> None:
         with client.events.with_streaming_response.get() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -67,13 +67,13 @@ class TestAsyncEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_get(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get()
         assert_matches_type(EventsResponse, event, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_with_all_params(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_get_with_all_params(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get(
             after_cursor="after_cursor",
             created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -86,7 +86,7 @@ class TestAsyncEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_get(self, async_client: AsyncGumnut) -> None:
         response = await async_client.events.with_raw_response.get()
 
         assert response.is_closed is True
@@ -96,7 +96,7 @@ class TestAsyncEvents:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_get(self, async_client: AsyncGumnut) -> None:
         async with async_client.events.with_streaming_response.get() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
