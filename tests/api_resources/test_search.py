@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import Gumnut, AsyncGumnut
+from gumnut import GumnutAI, AsyncGumnutAI
 from tests.utils import assert_matches_type
 from gumnut.types import SearchResponse
 from gumnut._utils import parse_datetime
@@ -20,13 +20,13 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_search(self, client: Gumnut) -> None:
+    def test_method_search(self, client: GumnutAI) -> None:
         search = client.search.search()
         assert_matches_type(SearchResponse, search, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_search_with_all_params(self, client: Gumnut) -> None:
+    def test_method_search_with_all_params(self, client: GumnutAI) -> None:
         search = client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -41,7 +41,7 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_search(self, client: Gumnut) -> None:
+    def test_raw_response_search(self, client: GumnutAI) -> None:
         response = client.search.with_raw_response.search()
 
         assert response.is_closed is True
@@ -51,7 +51,7 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_search(self, client: Gumnut) -> None:
+    def test_streaming_response_search(self, client: GumnutAI) -> None:
         with client.search.with_streaming_response.search() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -63,13 +63,13 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_search_assets(self, client: Gumnut) -> None:
+    def test_method_search_assets(self, client: GumnutAI) -> None:
         search = client.search.search_assets()
         assert_matches_type(SearchResponse, search, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
+    def test_method_search_assets_with_all_params(self, client: GumnutAI) -> None:
         search = client.search.search_assets(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -85,7 +85,7 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_search_assets(self, client: Gumnut) -> None:
+    def test_raw_response_search_assets(self, client: GumnutAI) -> None:
         response = client.search.with_raw_response.search_assets()
 
         assert response.is_closed is True
@@ -95,7 +95,7 @@ class TestSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_search_assets(self, client: Gumnut) -> None:
+    def test_streaming_response_search_assets(self, client: GumnutAI) -> None:
         with client.search.with_streaming_response.search_assets() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -113,13 +113,13 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_search(self, async_client: AsyncGumnut) -> None:
+    async def test_method_search(self, async_client: AsyncGumnutAI) -> None:
         search = await async_client.search.search()
         assert_matches_type(SearchResponse, search, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_search_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         search = await async_client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -134,7 +134,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_search(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_search(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.search.with_raw_response.search()
 
         assert response.is_closed is True
@@ -144,7 +144,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_search(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_search(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.search.with_streaming_response.search() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -156,13 +156,13 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_search_assets(self, async_client: AsyncGumnut) -> None:
+    async def test_method_search_assets(self, async_client: AsyncGumnutAI) -> None:
         search = await async_client.search.search_assets()
         assert_matches_type(SearchResponse, search, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         search = await async_client.search.search_assets(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -178,7 +178,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_search_assets(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_search_assets(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.search.with_raw_response.search_assets()
 
         assert response.is_closed is True
@@ -188,7 +188,7 @@ class TestAsyncSearch:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_search_assets(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_search_assets(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.search.with_streaming_response.search_assets() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

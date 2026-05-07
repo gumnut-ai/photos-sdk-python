@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import Gumnut, AsyncGumnut
+from gumnut import GumnutAI, AsyncGumnutAI
 from tests.utils import assert_matches_type
 from gumnut.types import (
     AuthURLResponse,
@@ -23,7 +23,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_auth_url(self, client: Gumnut) -> None:
+    def test_method_auth_url(self, client: GumnutAI) -> None:
         oauth = client.oauth.auth_url(
             redirect_uri="redirect_uri",
         )
@@ -31,7 +31,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_auth_url_with_all_params(self, client: Gumnut) -> None:
+    def test_method_auth_url_with_all_params(self, client: GumnutAI) -> None:
         oauth = client.oauth.auth_url(
             redirect_uri="redirect_uri",
             code_challenge="code_challenge",
@@ -41,7 +41,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_auth_url(self, client: Gumnut) -> None:
+    def test_raw_response_auth_url(self, client: GumnutAI) -> None:
         response = client.oauth.with_raw_response.auth_url(
             redirect_uri="redirect_uri",
         )
@@ -53,7 +53,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_auth_url(self, client: Gumnut) -> None:
+    def test_streaming_response_auth_url(self, client: GumnutAI) -> None:
         with client.oauth.with_streaming_response.auth_url(
             redirect_uri="redirect_uri",
         ) as response:
@@ -67,13 +67,13 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_exchange(self, client: Gumnut) -> None:
+    def test_method_exchange(self, client: GumnutAI) -> None:
         oauth = client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_exchange_with_all_params(self, client: Gumnut) -> None:
+    def test_method_exchange_with_all_params(self, client: GumnutAI) -> None:
         oauth = client.oauth.exchange(
             code="code",
             code_verifier="code_verifier",
@@ -84,7 +84,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_exchange(self, client: Gumnut) -> None:
+    def test_raw_response_exchange(self, client: GumnutAI) -> None:
         response = client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
@@ -94,7 +94,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_exchange(self, client: Gumnut) -> None:
+    def test_streaming_response_exchange(self, client: GumnutAI) -> None:
         with client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -106,13 +106,13 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_logout_endpoint(self, client: Gumnut) -> None:
+    def test_method_logout_endpoint(self, client: GumnutAI) -> None:
         oauth = client.oauth.logout_endpoint()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_logout_endpoint(self, client: Gumnut) -> None:
+    def test_raw_response_logout_endpoint(self, client: GumnutAI) -> None:
         response = client.oauth.with_raw_response.logout_endpoint()
 
         assert response.is_closed is True
@@ -122,7 +122,7 @@ class TestOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_logout_endpoint(self, client: Gumnut) -> None:
+    def test_streaming_response_logout_endpoint(self, client: GumnutAI) -> None:
         with client.oauth.with_streaming_response.logout_endpoint() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -140,7 +140,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_auth_url(self, async_client: AsyncGumnut) -> None:
+    async def test_method_auth_url(self, async_client: AsyncGumnutAI) -> None:
         oauth = await async_client.oauth.auth_url(
             redirect_uri="redirect_uri",
         )
@@ -148,7 +148,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_auth_url_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_auth_url_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         oauth = await async_client.oauth.auth_url(
             redirect_uri="redirect_uri",
             code_challenge="code_challenge",
@@ -158,7 +158,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_auth_url(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_auth_url(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.oauth.with_raw_response.auth_url(
             redirect_uri="redirect_uri",
         )
@@ -170,7 +170,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_auth_url(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_auth_url(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.oauth.with_streaming_response.auth_url(
             redirect_uri="redirect_uri",
         ) as response:
@@ -184,13 +184,13 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_exchange(self, async_client: AsyncGumnut) -> None:
+    async def test_method_exchange(self, async_client: AsyncGumnutAI) -> None:
         oauth = await async_client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_exchange_with_all_params(self, async_client: AsyncGumnut) -> None:
+    async def test_method_exchange_with_all_params(self, async_client: AsyncGumnutAI) -> None:
         oauth = await async_client.oauth.exchange(
             code="code",
             code_verifier="code_verifier",
@@ -201,7 +201,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_exchange(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_exchange(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
@@ -211,7 +211,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_exchange(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_exchange(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -223,13 +223,13 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_logout_endpoint(self, async_client: AsyncGumnut) -> None:
+    async def test_method_logout_endpoint(self, async_client: AsyncGumnutAI) -> None:
         oauth = await async_client.oauth.logout_endpoint()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_logout_endpoint(self, async_client: AsyncGumnut) -> None:
+    async def test_raw_response_logout_endpoint(self, async_client: AsyncGumnutAI) -> None:
         response = await async_client.oauth.with_raw_response.logout_endpoint()
 
         assert response.is_closed is True
@@ -239,7 +239,7 @@ class TestAsyncOAuth:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_logout_endpoint(self, async_client: AsyncGumnut) -> None:
+    async def test_streaming_response_logout_endpoint(self, async_client: AsyncGumnutAI) -> None:
         async with async_client.oauth.with_streaming_response.logout_endpoint() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
