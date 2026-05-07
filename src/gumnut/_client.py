@@ -36,7 +36,20 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import ping, faces, oauth, users, albums, assets, events, people, search, libraries, album_assets
+    from .resources import (
+        ping,
+        faces,
+        oauth,
+        users,
+        albums,
+        assets,
+        events,
+        people,
+        search,
+        api_keys,
+        libraries,
+        album_assets,
+    )
     from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
@@ -45,6 +58,7 @@ if TYPE_CHECKING:
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
+    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.libraries import LibrariesResource, AsyncLibrariesResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
@@ -111,6 +125,12 @@ class Gumnut(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def api_keys(self) -> APIKeysResource:
+        from .resources.api_keys import APIKeysResource
+
+        return APIKeysResource(self)
 
     @cached_property
     def assets(self) -> AssetsResource:
@@ -363,6 +383,12 @@ class AsyncGumnut(AsyncAPIClient):
         )
 
     @cached_property
+    def api_keys(self) -> AsyncAPIKeysResource:
+        from .resources.api_keys import AsyncAPIKeysResource
+
+        return AsyncAPIKeysResource(self)
+
+    @cached_property
     def assets(self) -> AsyncAssetsResource:
         from .resources.assets import AsyncAssetsResource
 
@@ -559,6 +585,12 @@ class GumnutWithRawResponse:
         self._client = client
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+        from .resources.api_keys import APIKeysResourceWithRawResponse
+
+        return APIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
     def assets(self) -> assets.AssetsResourceWithRawResponse:
         from .resources.assets import AssetsResourceWithRawResponse
 
@@ -630,6 +662,12 @@ class AsyncGumnutWithRawResponse:
 
     def __init__(self, client: AsyncGumnut) -> None:
         self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
+
+        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
 
     @cached_property
     def assets(self) -> assets.AsyncAssetsResourceWithRawResponse:
@@ -705,6 +743,12 @@ class GumnutWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import APIKeysResourceWithStreamingResponse
+
+        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
     def assets(self) -> assets.AssetsResourceWithStreamingResponse:
         from .resources.assets import AssetsResourceWithStreamingResponse
 
@@ -776,6 +820,12 @@ class AsyncGumnutWithStreamedResponse:
 
     def __init__(self, client: AsyncGumnut) -> None:
         self._client = client
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
+
+        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
 
     @cached_property
     def assets(self) -> assets.AsyncAssetsResourceWithStreamingResponse:
