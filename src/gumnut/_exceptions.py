@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class GumnutAIError(Exception):
+class GumnutError(Exception):
     pass
 
 
-class APIError(GumnutAIError):
+class APIError(GumnutError):
     message: str
     request: httpx.Request
 

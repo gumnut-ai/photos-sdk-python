@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import GumnutAI, AsyncGumnutAI
+    from ._client import Gumnut, AsyncGumnut
 
 
 class SyncAPIResource:
-    _client: GumnutAI
+    _client: Gumnut
 
-    def __init__(self, client: GumnutAI) -> None:
+    def __init__(self, client: Gumnut) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncGumnutAI
+    _client: AsyncGumnut
 
-    def __init__(self, client: AsyncGumnutAI) -> None:
+    def __init__(self, client: AsyncGumnut) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post

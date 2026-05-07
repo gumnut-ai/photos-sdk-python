@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import GumnutAI, AsyncGumnutAI
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import (
     APIKeyResponse,
@@ -23,7 +23,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create(self, client: GumnutAI) -> None:
+    def test_method_create(self, client: Gumnut) -> None:
         api_key = client.api_keys.create(
             name="name",
         )
@@ -31,7 +31,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: GumnutAI) -> None:
+    def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.create(
             name="name",
         )
@@ -43,7 +43,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: GumnutAI) -> None:
+    def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.create(
             name="name",
         ) as response:
@@ -57,7 +57,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update(self, client: GumnutAI) -> None:
+    def test_method_update(self, client: Gumnut) -> None:
         api_key = client.api_keys.update(
             key_id="key_id",
             name="name",
@@ -66,7 +66,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: GumnutAI) -> None:
+    def test_raw_response_update(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.update(
             key_id="key_id",
             name="name",
@@ -79,7 +79,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: GumnutAI) -> None:
+    def test_streaming_response_update(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.update(
             key_id="key_id",
             name="name",
@@ -94,7 +94,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: GumnutAI) -> None:
+    def test_path_params_update(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             client.api_keys.with_raw_response.update(
                 key_id="",
@@ -103,13 +103,13 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: GumnutAI) -> None:
+    def test_method_list(self, client: Gumnut) -> None:
         api_key = client.api_keys.list()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: GumnutAI) -> None:
+    def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -119,7 +119,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: GumnutAI) -> None:
+    def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -131,7 +131,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_delete(self, client: GumnutAI) -> None:
+    def test_method_delete(self, client: Gumnut) -> None:
         api_key = client.api_keys.delete(
             "key_id",
         )
@@ -139,7 +139,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: GumnutAI) -> None:
+    def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.delete(
             "key_id",
         )
@@ -151,7 +151,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: GumnutAI) -> None:
+    def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.delete(
             "key_id",
         ) as response:
@@ -165,7 +165,7 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: GumnutAI) -> None:
+    def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             client.api_keys.with_raw_response.delete(
                 "",
@@ -179,7 +179,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_create(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.create(
             name="name",
         )
@@ -187,7 +187,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.create(
             name="name",
         )
@@ -199,7 +199,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.create(
             name="name",
         ) as response:
@@ -213,7 +213,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_update(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.update(
             key_id="key_id",
             name="name",
@@ -222,7 +222,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.update(
             key_id="key_id",
             name="name",
@@ -235,7 +235,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.update(
             key_id="key_id",
             name="name",
@@ -250,7 +250,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncGumnutAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             await async_client.api_keys.with_raw_response.update(
                 key_id="",
@@ -259,13 +259,13 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_list(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.list()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -275,7 +275,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -287,7 +287,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.delete(
             "key_id",
         )
@@ -295,7 +295,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.delete(
             "key_id",
         )
@@ -307,7 +307,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.delete(
             "key_id",
         ) as response:
@@ -321,7 +321,7 @@ class TestAsyncAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncGumnutAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `key_id` but received ''"):
             await async_client.api_keys.with_raw_response.delete(
                 "",

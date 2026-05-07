@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from gumnut import GumnutAI, AsyncGumnutAI
+from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import UserResponse
 
@@ -19,13 +19,13 @@ class TestUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_me(self, client: GumnutAI) -> None:
+    def test_method_me(self, client: Gumnut) -> None:
         user = client.users.me()
         assert_matches_type(UserResponse, user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_me(self, client: GumnutAI) -> None:
+    def test_raw_response_me(self, client: Gumnut) -> None:
         response = client.users.with_raw_response.me()
 
         assert response.is_closed is True
@@ -35,7 +35,7 @@ class TestUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_me(self, client: GumnutAI) -> None:
+    def test_streaming_response_me(self, client: Gumnut) -> None:
         with client.users.with_streaming_response.me() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -53,13 +53,13 @@ class TestAsyncUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_me(self, async_client: AsyncGumnutAI) -> None:
+    async def test_method_me(self, async_client: AsyncGumnut) -> None:
         user = await async_client.users.me()
         assert_matches_type(UserResponse, user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_me(self, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_me(self, async_client: AsyncGumnut) -> None:
         response = await async_client.users.with_raw_response.me()
 
         assert response.is_closed is True
@@ -69,7 +69,7 @@ class TestAsyncUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_me(self, async_client: AsyncGumnutAI) -> None:
+    async def test_streaming_response_me(self, async_client: AsyncGumnut) -> None:
         async with async_client.users.with_streaming_response.me() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
