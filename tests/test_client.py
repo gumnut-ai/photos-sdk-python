@@ -19,7 +19,7 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from gumnut import GumnutAI, AsyncGumnutAI, APIResponseValidationError
+from gumnut import Gumnut, AsyncGumnut, APIResponseValidationError
 from gumnut._types import Omit
 from gumnut._utils import asyncify
 from gumnut._models import BaseModel, FinalRequestOptions
@@ -103,7 +103,7 @@ async def _make_async_iterator(iterable: Iterable[T], counter: Optional[Counter]
         yield item
 
 
-def _get_open_connections(client: GumnutAI | AsyncGumnutAI) -> int:
+def _get_open_connections(client: Gumnut | AsyncGumnut) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -111,9 +111,9 @@ def _get_open_connections(client: GumnutAI | AsyncGumnutAI) -> int:
     return len(pool._requests)
 
 
-class TestGumnutAI:
+class TestGumnut:
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_raw_response(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.post("/foo", cast_to=httpx.Response)
@@ -122,7 +122,7 @@ class TestGumnutAI:
         assert response.json() == {"foo": "bar"}
 
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_for_binary(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_raw_response_for_binary(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/foo").mock(
             return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
         )
@@ -132,7 +132,7 @@ class TestGumnutAI:
         assert isinstance(response, httpx.Response)
         assert response.json() == {"foo": "bar"}
 
-    def test_copy(self, client: GumnutAI) -> None:
+    def test_copy(self, client: Gumnut) -> None:
         copied = client.copy()
         assert id(copied) != id(client)
 
@@ -140,7 +140,7 @@ class TestGumnutAI:
         assert copied.api_key == "another My API Key"
         assert client.api_key == "My API Key"
 
-    def test_copy_default_options(self, client: GumnutAI) -> None:
+    def test_copy_default_options(self, client: Gumnut) -> None:
         # options that have a default are overridden correctly
         copied = client.copy(max_retries=7)
         assert copied.max_retries == 7
@@ -157,7 +157,7 @@ class TestGumnutAI:
         assert isinstance(client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = GumnutAI(
+        client = Gumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -192,7 +192,7 @@ class TestGumnutAI:
         client.close()
 
     def test_copy_default_query(self) -> None:
-        client = GumnutAI(
+        client = Gumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -229,7 +229,7 @@ class TestGumnutAI:
 
         client.close()
 
-    def test_copy_signature(self, client: GumnutAI) -> None:
+    def test_copy_signature(self, client: Gumnut) -> None:
         # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
         init_signature = inspect.signature(
             # mypy doesn't like that we access the `__init__` property.
@@ -246,7 +246,7 @@ class TestGumnutAI:
             assert copy_param is not None, f"copy() signature is missing the {name} param"
 
     @pytest.mark.skipif(sys.version_info >= (3, 10), reason="fails because of a memory leak that started from 3.12")
-    def test_copy_build_request(self, client: GumnutAI) -> None:
+    def test_copy_build_request(self, client: Gumnut) -> None:
         options = FinalRequestOptions(method="get", url="/foo")
 
         def build_request(options: FinalRequestOptions) -> None:
@@ -308,7 +308,7 @@ class TestGumnutAI:
                     print(frame)
             raise AssertionError()
 
-    def test_request_timeout(self, client: GumnutAI) -> None:
+    def test_request_timeout(self, client: Gumnut) -> None:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
         assert timeout == DEFAULT_TIMEOUT
@@ -318,9 +318,7 @@ class TestGumnutAI:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = GumnutAI(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -331,7 +329,7 @@ class TestGumnutAI:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = GumnutAI(
+            client = Gumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -343,7 +341,7 @@ class TestGumnutAI:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = GumnutAI(
+            client = Gumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -355,7 +353,7 @@ class TestGumnutAI:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = GumnutAI(
+            client = Gumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -368,7 +366,7 @@ class TestGumnutAI:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                GumnutAI(
+                Gumnut(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -376,14 +374,14 @@ class TestGumnutAI:
                 )
 
     def test_default_headers_option(self) -> None:
-        test_client = GumnutAI(
+        test_client = Gumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        test_client2 = GumnutAI(
+        test_client2 = Gumnut(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -400,12 +398,12 @@ class TestGumnutAI:
         test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with update_env(**{"GUMNUT_API_KEY": Omit()}):
-            client2 = GumnutAI(base_url=base_url, api_key=None, _strict_response_validation=True)
+            client2 = Gumnut(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
@@ -419,7 +417,7 @@ class TestGumnutAI:
         assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
-        client = GumnutAI(
+        client = Gumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -438,7 +436,7 @@ class TestGumnutAI:
 
         client.close()
 
-    def test_hardcoded_query_params_in_url(self, client: GumnutAI) -> None:
+    def test_hardcoded_query_params_in_url(self, client: Gumnut) -> None:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
         url = httpx.URL(request.url)
         assert dict(url.params) == {"beta": "true"}
@@ -462,7 +460,7 @@ class TestGumnutAI:
         )
         assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
 
-    def test_request_extra_json(self, client: GumnutAI) -> None:
+    def test_request_extra_json(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -496,7 +494,7 @@ class TestGumnutAI:
         data = json.loads(request.content.decode("utf-8"))
         assert data == {"foo": "bar", "baz": None}
 
-    def test_request_extra_headers(self, client: GumnutAI) -> None:
+    def test_request_extra_headers(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -518,7 +516,7 @@ class TestGumnutAI:
         )
         assert request.headers.get("X-Bar") == "false"
 
-    def test_request_extra_query(self, client: GumnutAI) -> None:
+    def test_request_extra_query(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -559,7 +557,7 @@ class TestGumnutAI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: GumnutAI) -> None:
+    def test_multipart_repeating_array(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -589,7 +587,7 @@ class TestGumnutAI:
         ]
 
     @pytest.mark.respx(base_url=base_url)
-    def test_binary_content_upload(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_binary_content_upload(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
         file_content = b"Hello, this is a test file."
@@ -614,7 +612,7 @@ class TestGumnutAI:
             assert counter.value == 0, "the request body should not have been read"
             return httpx.Response(200, content=request.read())
 
-        with GumnutAI(
+        with Gumnut(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -633,7 +631,7 @@ class TestGumnutAI:
             assert counter.value == 1
 
     @pytest.mark.respx(base_url=base_url)
-    def test_binary_content_upload_with_body_is_deprecated(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_binary_content_upload_with_body_is_deprecated(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
         file_content = b"Hello, this is a test file."
@@ -653,7 +651,7 @@ class TestGumnutAI:
         assert response.content == file_content
 
     @pytest.mark.respx(base_url=base_url)
-    def test_basic_union_response(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_basic_union_response(self, respx_mock: MockRouter, client: Gumnut) -> None:
         class Model1(BaseModel):
             name: str
 
@@ -667,7 +665,7 @@ class TestGumnutAI:
         assert response.foo == "bar"
 
     @pytest.mark.respx(base_url=base_url)
-    def test_union_response_different_types(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_union_response_different_types(self, respx_mock: MockRouter, client: Gumnut) -> None:
         """Union of objects with the same field name using a different type"""
 
         class Model1(BaseModel):
@@ -689,7 +687,7 @@ class TestGumnutAI:
         assert response.foo == 1
 
     @pytest.mark.respx(base_url=base_url)
-    def test_non_application_json_content_type_for_json_data(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_non_application_json_content_type_for_json_data(self, respx_mock: MockRouter, client: Gumnut) -> None:
         """
         Response that sets Content-Type to something other than application/json but returns json data
         """
@@ -710,7 +708,7 @@ class TestGumnutAI:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = GumnutAI(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = Gumnut(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -720,15 +718,15 @@ class TestGumnutAI:
         client.close()
 
     def test_base_url_env(self) -> None:
-        with update_env(GUMNUT_AI_BASE_URL="http://localhost:5000/from/env"):
-            client = GumnutAI(api_key=api_key, _strict_response_validation=True)
+        with update_env(GUMNUT_BASE_URL="http://localhost:5000/from/env"):
+            client = Gumnut(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            GumnutAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            GumnutAI(
+            Gumnut(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Gumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -737,7 +735,7 @@ class TestGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: GumnutAI) -> None:
+    def test_base_url_trailing_slash(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -751,8 +749,8 @@ class TestGumnutAI:
     @pytest.mark.parametrize(
         "client",
         [
-            GumnutAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            GumnutAI(
+            Gumnut(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Gumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -761,7 +759,7 @@ class TestGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: GumnutAI) -> None:
+    def test_base_url_no_trailing_slash(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -775,8 +773,8 @@ class TestGumnutAI:
     @pytest.mark.parametrize(
         "client",
         [
-            GumnutAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            GumnutAI(
+            Gumnut(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Gumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -785,7 +783,7 @@ class TestGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: GumnutAI) -> None:
+    def test_absolute_request_url(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -797,7 +795,7 @@ class TestGumnutAI:
         client.close()
 
     def test_copied_client_does_not_close_http(self) -> None:
-        test_client = GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -808,7 +806,7 @@ class TestGumnutAI:
         assert not test_client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        test_client = GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -816,7 +814,7 @@ class TestGumnutAI:
         assert test_client.is_closed()
 
     @pytest.mark.respx(base_url=base_url)
-    def test_client_response_validation_error(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_client_response_validation_error(self, respx_mock: MockRouter, client: Gumnut) -> None:
         class Model(BaseModel):
             foo: str
 
@@ -829,7 +827,7 @@ class TestGumnutAI:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -838,12 +836,12 @@ class TestGumnutAI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = GumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        non_strict_client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -874,7 +872,7 @@ class TestGumnutAI:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(
-        self, remaining_retries: int, retry_after: str, timeout: float, client: GumnutAI
+        self, remaining_retries: int, retry_after: str, timeout: float, client: Gumnut
     ) -> None:
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -883,7 +881,7 @@ class TestGumnutAI:
 
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/api/albums").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
@@ -893,7 +891,7 @@ class TestGumnutAI:
 
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Gumnut) -> None:
         respx_mock.post("/api/albums").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
@@ -906,7 +904,7 @@ class TestGumnutAI:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: GumnutAI,
+        client: Gumnut,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -935,7 +933,7 @@ class TestGumnutAI:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: GumnutAI, failures_before_success: int, respx_mock: MockRouter
+        self, client: Gumnut, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -958,7 +956,7 @@ class TestGumnutAI:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: GumnutAI, failures_before_success: int, respx_mock: MockRouter
+        self, client: Gumnut, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -1008,7 +1006,7 @@ class TestGumnutAI:
         )
 
     @pytest.mark.respx(base_url=base_url)
-    def test_follow_redirects(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_follow_redirects(self, respx_mock: MockRouter, client: Gumnut) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
             return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
@@ -1020,7 +1018,7 @@ class TestGumnutAI:
         assert response.json() == {"status": "ok"}
 
     @pytest.mark.respx(base_url=base_url)
-    def test_follow_redirects_disabled(self, respx_mock: MockRouter, client: GumnutAI) -> None:
+    def test_follow_redirects_disabled(self, respx_mock: MockRouter, client: Gumnut) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(
             return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
@@ -1033,9 +1031,9 @@ class TestGumnutAI:
         assert exc_info.value.response.headers["Location"] == f"{base_url}/redirected"
 
 
-class TestAsyncGumnutAI:
+class TestAsyncGumnut:
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.post("/foo", cast_to=httpx.Response)
@@ -1044,7 +1042,7 @@ class TestAsyncGumnutAI:
         assert response.json() == {"foo": "bar"}
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_for_binary(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_raw_response_for_binary(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         respx_mock.post("/foo").mock(
             return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
         )
@@ -1054,7 +1052,7 @@ class TestAsyncGumnutAI:
         assert isinstance(response, httpx.Response)
         assert response.json() == {"foo": "bar"}
 
-    def test_copy(self, async_client: AsyncGumnutAI) -> None:
+    def test_copy(self, async_client: AsyncGumnut) -> None:
         copied = async_client.copy()
         assert id(copied) != id(async_client)
 
@@ -1062,7 +1060,7 @@ class TestAsyncGumnutAI:
         assert copied.api_key == "another My API Key"
         assert async_client.api_key == "My API Key"
 
-    def test_copy_default_options(self, async_client: AsyncGumnutAI) -> None:
+    def test_copy_default_options(self, async_client: AsyncGumnut) -> None:
         # options that have a default are overridden correctly
         copied = async_client.copy(max_retries=7)
         assert copied.max_retries == 7
@@ -1079,7 +1077,7 @@ class TestAsyncGumnutAI:
         assert isinstance(async_client.timeout, httpx.Timeout)
 
     async def test_copy_default_headers(self) -> None:
-        client = AsyncGumnutAI(
+        client = AsyncGumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -1114,7 +1112,7 @@ class TestAsyncGumnutAI:
         await client.close()
 
     async def test_copy_default_query(self) -> None:
-        client = AsyncGumnutAI(
+        client = AsyncGumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1151,7 +1149,7 @@ class TestAsyncGumnutAI:
 
         await client.close()
 
-    def test_copy_signature(self, async_client: AsyncGumnutAI) -> None:
+    def test_copy_signature(self, async_client: AsyncGumnut) -> None:
         # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
         init_signature = inspect.signature(
             # mypy doesn't like that we access the `__init__` property.
@@ -1168,7 +1166,7 @@ class TestAsyncGumnutAI:
             assert copy_param is not None, f"copy() signature is missing the {name} param"
 
     @pytest.mark.skipif(sys.version_info >= (3, 10), reason="fails because of a memory leak that started from 3.12")
-    def test_copy_build_request(self, async_client: AsyncGumnutAI) -> None:
+    def test_copy_build_request(self, async_client: AsyncGumnut) -> None:
         options = FinalRequestOptions(method="get", url="/foo")
 
         def build_request(options: FinalRequestOptions) -> None:
@@ -1230,7 +1228,7 @@ class TestAsyncGumnutAI:
                     print(frame)
             raise AssertionError()
 
-    async def test_request_timeout(self, async_client: AsyncGumnutAI) -> None:
+    async def test_request_timeout(self, async_client: AsyncGumnut) -> None:
         request = async_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
         assert timeout == DEFAULT_TIMEOUT
@@ -1242,7 +1240,7 @@ class TestAsyncGumnutAI:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncGumnutAI(
+        client = AsyncGumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1255,7 +1253,7 @@ class TestAsyncGumnutAI:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncGumnutAI(
+            client = AsyncGumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1267,7 +1265,7 @@ class TestAsyncGumnutAI:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncGumnutAI(
+            client = AsyncGumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1279,7 +1277,7 @@ class TestAsyncGumnutAI:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncGumnutAI(
+            client = AsyncGumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1292,7 +1290,7 @@ class TestAsyncGumnutAI:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncGumnutAI(
+                AsyncGumnut(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -1300,14 +1298,14 @@ class TestAsyncGumnutAI:
                 )
 
     async def test_default_headers_option(self) -> None:
-        test_client = AsyncGumnutAI(
+        test_client = AsyncGumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        test_client2 = AsyncGumnutAI(
+        test_client2 = AsyncGumnut(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1324,12 +1322,12 @@ class TestAsyncGumnutAI:
         await test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = AsyncGumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with update_env(**{"GUMNUT_API_KEY": Omit()}):
-            client2 = AsyncGumnutAI(base_url=base_url, api_key=None, _strict_response_validation=True)
+            client2 = AsyncGumnut(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
@@ -1343,7 +1341,7 @@ class TestAsyncGumnutAI:
         assert request2.headers.get("Authorization") is None
 
     async def test_default_query_option(self) -> None:
-        client = AsyncGumnutAI(
+        client = AsyncGumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1362,7 +1360,7 @@ class TestAsyncGumnutAI:
 
         await client.close()
 
-    async def test_hardcoded_query_params_in_url(self, async_client: AsyncGumnutAI) -> None:
+    async def test_hardcoded_query_params_in_url(self, async_client: AsyncGumnut) -> None:
         request = async_client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
         url = httpx.URL(request.url)
         assert dict(url.params) == {"beta": "true"}
@@ -1386,7 +1384,7 @@ class TestAsyncGumnutAI:
         )
         assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
 
-    def test_request_extra_json(self, client: GumnutAI) -> None:
+    def test_request_extra_json(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1420,7 +1418,7 @@ class TestAsyncGumnutAI:
         data = json.loads(request.content.decode("utf-8"))
         assert data == {"foo": "bar", "baz": None}
 
-    def test_request_extra_headers(self, client: GumnutAI) -> None:
+    def test_request_extra_headers(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1442,7 +1440,7 @@ class TestAsyncGumnutAI:
         )
         assert request.headers.get("X-Bar") == "false"
 
-    def test_request_extra_query(self, client: GumnutAI) -> None:
+    def test_request_extra_query(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1483,7 +1481,7 @@ class TestAsyncGumnutAI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncGumnutAI) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncGumnut) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -1513,7 +1511,7 @@ class TestAsyncGumnutAI:
         ]
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_binary_content_upload(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_binary_content_upload(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
         file_content = b"Hello, this is a test file."
@@ -1538,7 +1536,7 @@ class TestAsyncGumnutAI:
             assert counter.value == 0, "the request body should not have been read"
             return httpx.Response(200, content=await request.aread())
 
-        async with AsyncGumnutAI(
+        async with AsyncGumnut(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1558,7 +1556,7 @@ class TestAsyncGumnutAI:
 
     @pytest.mark.respx(base_url=base_url)
     async def test_binary_content_upload_with_body_is_deprecated(
-        self, respx_mock: MockRouter, async_client: AsyncGumnutAI
+        self, respx_mock: MockRouter, async_client: AsyncGumnut
     ) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
@@ -1579,7 +1577,7 @@ class TestAsyncGumnutAI:
         assert response.content == file_content
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_basic_union_response(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_basic_union_response(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         class Model1(BaseModel):
             name: str
 
@@ -1593,7 +1591,7 @@ class TestAsyncGumnutAI:
         assert response.foo == "bar"
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_union_response_different_types(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_union_response_different_types(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         """Union of objects with the same field name using a different type"""
 
         class Model1(BaseModel):
@@ -1616,7 +1614,7 @@ class TestAsyncGumnutAI:
 
     @pytest.mark.respx(base_url=base_url)
     async def test_non_application_json_content_type_for_json_data(
-        self, respx_mock: MockRouter, async_client: AsyncGumnutAI
+        self, respx_mock: MockRouter, async_client: AsyncGumnut
     ) -> None:
         """
         Response that sets Content-Type to something other than application/json but returns json data
@@ -1638,7 +1636,7 @@ class TestAsyncGumnutAI:
         assert response.foo == 2
 
     async def test_base_url_setter(self) -> None:
-        client = AsyncGumnutAI(
+        client = AsyncGumnut(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1650,17 +1648,17 @@ class TestAsyncGumnutAI:
         await client.close()
 
     async def test_base_url_env(self) -> None:
-        with update_env(GUMNUT_AI_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncGumnutAI(api_key=api_key, _strict_response_validation=True)
+        with update_env(GUMNUT_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncGumnut(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1669,7 +1667,7 @@ class TestAsyncGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    async def test_base_url_trailing_slash(self, client: AsyncGumnutAI) -> None:
+    async def test_base_url_trailing_slash(self, client: AsyncGumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1683,10 +1681,10 @@ class TestAsyncGumnutAI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1695,7 +1693,7 @@ class TestAsyncGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    async def test_base_url_no_trailing_slash(self, client: AsyncGumnutAI) -> None:
+    async def test_base_url_no_trailing_slash(self, client: AsyncGumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1709,10 +1707,10 @@ class TestAsyncGumnutAI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1721,7 +1719,7 @@ class TestAsyncGumnutAI:
         ],
         ids=["standard", "custom http client"],
     )
-    async def test_absolute_request_url(self, client: AsyncGumnutAI) -> None:
+    async def test_absolute_request_url(self, client: AsyncGumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1733,7 +1731,7 @@ class TestAsyncGumnutAI:
         await client.close()
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        test_client = AsyncGumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -1745,7 +1743,7 @@ class TestAsyncGumnutAI:
         assert not test_client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        test_client = AsyncGumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        test_client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -1753,7 +1751,7 @@ class TestAsyncGumnutAI:
         assert test_client.is_closed()
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_client_response_validation_error(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_client_response_validation_error(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         class Model(BaseModel):
             foo: str
 
@@ -1766,7 +1764,7 @@ class TestAsyncGumnutAI:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncGumnutAI(
+            AsyncGumnut(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
@@ -1777,12 +1775,12 @@ class TestAsyncGumnutAI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncGumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = AsyncGumnutAI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        non_strict_client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1813,7 +1811,7 @@ class TestAsyncGumnutAI:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     async def test_parse_retry_after_header(
-        self, remaining_retries: int, retry_after: str, timeout: float, async_client: AsyncGumnutAI
+        self, remaining_retries: int, retry_after: str, timeout: float, async_client: AsyncGumnut
     ) -> None:
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -1822,9 +1820,7 @@ class TestAsyncGumnutAI:
 
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncGumnutAI
-    ) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         respx_mock.post("/api/albums").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
@@ -1834,9 +1830,7 @@ class TestAsyncGumnutAI:
 
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncGumnutAI
-    ) -> None:
+    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         respx_mock.post("/api/albums").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
@@ -1849,7 +1843,7 @@ class TestAsyncGumnutAI:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncGumnutAI,
+        async_client: AsyncGumnut,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1878,7 +1872,7 @@ class TestAsyncGumnutAI:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
-        self, async_client: AsyncGumnutAI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncGumnut, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1901,7 +1895,7 @@ class TestAsyncGumnutAI:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncGumnutAI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncGumnut, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1955,7 +1949,7 @@ class TestAsyncGumnutAI:
         )
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_follow_redirects(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_follow_redirects(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
             return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
@@ -1967,7 +1961,7 @@ class TestAsyncGumnutAI:
         assert response.json() == {"status": "ok"}
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_follow_redirects_disabled(self, respx_mock: MockRouter, async_client: AsyncGumnutAI) -> None:
+    async def test_follow_redirects_disabled(self, respx_mock: MockRouter, async_client: AsyncGumnut) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(
             return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
