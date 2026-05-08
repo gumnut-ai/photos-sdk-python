@@ -69,11 +69,11 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Creates an album (with optional name and description) and returns it.
-
-        The album
-        starts empty — follow up with `add_assets_to_album` to populate it. To rename an
-        existing album, use `update_album` instead of creating a new one.
+        """
+        Creates a new, empty album in a library (with optional name and description) and
+        returns it. The album starts empty — follow up with `add_assets_to_album` to
+        populate it. To rename an existing album, use `update_album` instead of creating
+        a new one.
 
         Args:
           description: Optional free-form description shown alongside the album name.
@@ -119,10 +119,10 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Fetches one album's metadata (name, description, cover, counts).
+        """Fetches one album's metadata by ID (name, description, cover, counts).
 
-        Use when you
-        already have an album ID. Does not include the album's assets — use
+        Use when
+        you already have an album ID. Does not include the album's assets — use
         `list_album_assets` or `list_assets` with `album_id` for that.
 
         Args:
@@ -161,11 +161,11 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Updates the `name` and/or `description` of an existing album.
+        """Renames an album or changes its description.
 
-        Only the fields
-        included in the request body are changed. To modify the contents of an album,
-        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Only the fields included in the
+        request body are changed. To modify the contents of an album, use
+        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
@@ -215,11 +215,10 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AlbumResponse]:
-        """Returns a paginated list of albums ordered by creation time (newest first).
-
-        Use
-        this to enumerate a user's albums or to find which albums contain a specific
-        asset (via `asset_id`).
+        """
+        Returns a paginated list of albums ordered by creation time (newest first),
+        optionally filtered by asset membership or ID. Use this to enumerate a user's
+        albums or to find which albums contain a specific asset (via `asset_id`).
 
         `list_albums` returns album metadata only — to list the assets inside a
         particular album, use `list_album_assets` or `list_assets` with `album_id`.
@@ -351,11 +350,11 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Creates an album (with optional name and description) and returns it.
-
-        The album
-        starts empty — follow up with `add_assets_to_album` to populate it. To rename an
-        existing album, use `update_album` instead of creating a new one.
+        """
+        Creates a new, empty album in a library (with optional name and description) and
+        returns it. The album starts empty — follow up with `add_assets_to_album` to
+        populate it. To rename an existing album, use `update_album` instead of creating
+        a new one.
 
         Args:
           description: Optional free-form description shown alongside the album name.
@@ -401,10 +400,10 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Fetches one album's metadata (name, description, cover, counts).
+        """Fetches one album's metadata by ID (name, description, cover, counts).
 
-        Use when you
-        already have an album ID. Does not include the album's assets — use
+        Use when
+        you already have an album ID. Does not include the album's assets — use
         `list_album_assets` or `list_assets` with `album_id` for that.
 
         Args:
@@ -443,11 +442,11 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Updates the `name` and/or `description` of an existing album.
+        """Renames an album or changes its description.
 
-        Only the fields
-        included in the request body are changed. To modify the contents of an album,
-        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Only the fields included in the
+        request body are changed. To modify the contents of an album, use
+        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
@@ -497,11 +496,10 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
-        """Returns a paginated list of albums ordered by creation time (newest first).
-
-        Use
-        this to enumerate a user's albums or to find which albums contain a specific
-        asset (via `asset_id`).
+        """
+        Returns a paginated list of albums ordered by creation time (newest first),
+        optionally filtered by asset membership or ID. Use this to enumerate a user's
+        albums or to find which albums contain a specific asset (via `asset_id`).
 
         `list_albums` returns album metadata only — to list the assets inside a
         particular album, use `list_album_assets` or `list_assets` with `album_id`.

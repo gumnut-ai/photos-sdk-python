@@ -68,11 +68,12 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Creates a new person.
+        """Creates a new person record (a named identity for grouping faces).
 
-        Most people are auto-created by face clustering, so this
-        tool is typically used only when the user explicitly wants to introduce a new
-        identity before any faces are attached.
+        Most people
+        are auto-created by face clustering, so this tool is typically used only when
+        the user explicitly wants to introduce a new identity before any faces are
+        attached.
 
         To assign an existing face to an existing person, use `update_face` with the
         target `person_id`.
@@ -133,11 +134,11 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Fetches one person's metadata (name, asset count, thumbnail, etc.).
+        """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
-        Use this
-        when you already have a `person_id`. To find photos that contain this person,
-        use `search_assets` with `person_ids` or `list_assets` with `person_id`.
+        Use
+        this when you already have a `person_id`. To find photos that contain this
+        person, use `search_assets` with `person_ids` or `list_assets` with `person_id`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
@@ -184,11 +185,11 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Updates metadata on an existing person.
+        """Updates a person's name, birth date, visibility, or thumbnail.
 
-        Only the fields included in the request
-        body are changed. Typical use: assigning a name ('name this face cluster
-        "Alice"') or choosing a better thumbnail.
+        Only the fields
+        included in the request body are changed. Typical use: assigning a name ('name
+        this face cluster "Alice"') or choosing a better thumbnail.
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.
@@ -256,9 +257,10 @@ class PeopleResource(SyncAPIResource):
     ) -> SyncCursorPage[PersonResponse]:
         """
         Returns a paginated list of people (named identities that group one or more
-        faces), ordered by creation time (newest first). Use this to enumerate who
-        appears in the library, to resolve a user-typed name to a `person_id`, or to
-        find who appears in a specific asset or album.
+        faces), ordered by creation time (newest first), optionally filtered by asset,
+        album, name, or ID. Use this to enumerate who appears in the library, to resolve
+        a user-typed name to a `person_id`, or to find who appears in a specific asset
+        or album.
 
         By default only **named** people are returned; pass `name_filter=all` or
         `name_filter=unnamed` to include clusters that haven't been named yet.
@@ -347,10 +349,10 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes the person.
-
-        The faces that were attached to this person are not deleted
-        — they become unassigned and will be re-clustered on the next clustering pass.
+        """
+        Deletes the person record; the faces that were attached to this person are not
+        deleted — they become unassigned and will be re-clustered on the next clustering
+        pass.
 
         Use `update_face` with `person_id=null` to detach a specific face without
         deleting the whole person. Use `delete_face` to remove a face detection
@@ -460,11 +462,12 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Creates a new person.
+        """Creates a new person record (a named identity for grouping faces).
 
-        Most people are auto-created by face clustering, so this
-        tool is typically used only when the user explicitly wants to introduce a new
-        identity before any faces are attached.
+        Most people
+        are auto-created by face clustering, so this tool is typically used only when
+        the user explicitly wants to introduce a new identity before any faces are
+        attached.
 
         To assign an existing face to an existing person, use `update_face` with the
         target `person_id`.
@@ -525,11 +528,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Fetches one person's metadata (name, asset count, thumbnail, etc.).
+        """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
-        Use this
-        when you already have a `person_id`. To find photos that contain this person,
-        use `search_assets` with `person_ids` or `list_assets` with `person_id`.
+        Use
+        this when you already have a `person_id`. To find photos that contain this
+        person, use `search_assets` with `person_ids` or `list_assets` with `person_id`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
@@ -576,11 +579,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
-        """Updates metadata on an existing person.
+        """Updates a person's name, birth date, visibility, or thumbnail.
 
-        Only the fields included in the request
-        body are changed. Typical use: assigning a name ('name this face cluster
-        "Alice"') or choosing a better thumbnail.
+        Only the fields
+        included in the request body are changed. Typical use: assigning a name ('name
+        this face cluster "Alice"') or choosing a better thumbnail.
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.
@@ -648,9 +651,10 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> AsyncPaginator[PersonResponse, AsyncCursorPage[PersonResponse]]:
         """
         Returns a paginated list of people (named identities that group one or more
-        faces), ordered by creation time (newest first). Use this to enumerate who
-        appears in the library, to resolve a user-typed name to a `person_id`, or to
-        find who appears in a specific asset or album.
+        faces), ordered by creation time (newest first), optionally filtered by asset,
+        album, name, or ID. Use this to enumerate who appears in the library, to resolve
+        a user-typed name to a `person_id`, or to find who appears in a specific asset
+        or album.
 
         By default only **named** people are returned; pass `name_filter=all` or
         `name_filter=unnamed` to include clusters that haven't been named yet.
@@ -739,10 +743,10 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Deletes the person.
-
-        The faces that were attached to this person are not deleted
-        — they become unassigned and will be re-clustered on the next clustering pass.
+        """
+        Deletes the person record; the faces that were attached to this person are not
+        deleted — they become unassigned and will be re-clustered on the next clustering
+        pass.
 
         Use `update_face` with `person_id=null` to detach a specific face without
         deleting the whole person. Use `delete_face` to remove a face detection
