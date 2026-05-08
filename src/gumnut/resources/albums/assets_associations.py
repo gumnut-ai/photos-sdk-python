@@ -104,8 +104,8 @@ class AssetsAssociationsResource(SyncAPIResource):
     ) -> None:
         """Detaches one or more assets from the given album.
 
-        The assets remain in the
-        library and in any other albums they belong to. Use `trash_assets` (or
+        The assets themselves remain
+        in the library and in any other albums they belong to. Use `trash_assets` (or
         `permanently_delete_assets` for irreversible removal) to delete the asset
         entirely. To empty an album completely, call `list_album_assets` to get the
         links and then remove them, or delete the album itself with `delete_album`.
@@ -227,8 +227,8 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
     ) -> None:
         """Detaches one or more assets from the given album.
 
-        The assets remain in the
-        library and in any other albums they belong to. Use `trash_assets` (or
+        The assets themselves remain
+        in the library and in any other albums they belong to. Use `trash_assets` (or
         `permanently_delete_assets` for irreversible removal) to delete the asset
         entirely. To empty an album completely, call `list_album_assets` to get the
         links and then remove them, or delete the album itself with `delete_album`.

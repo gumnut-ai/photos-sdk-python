@@ -49,12 +49,12 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserResponse:
-        """Returns the authenticated caller's profile.
+        """Returns the profile of the authenticated user (the caller).
 
-        Use this at the start of a session
-        to ground subsequent calls (e.g., to confirm the caller's identity before making
-        destructive changes). This tool does not accept a user ID; it always returns the
-        authenticated caller.
+        Use this at the
+        start of a session to ground subsequent calls (e.g., to confirm the caller's
+        identity before making destructive changes). This tool does not accept a user
+        ID; it always returns the authenticated caller.
         """
         return self._get(
             "/api/users/me",
@@ -95,12 +95,12 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserResponse:
-        """Returns the authenticated caller's profile.
+        """Returns the profile of the authenticated user (the caller).
 
-        Use this at the start of a session
-        to ground subsequent calls (e.g., to confirm the caller's identity before making
-        destructive changes). This tool does not accept a user ID; it always returns the
-        authenticated caller.
+        Use this at the
+        start of a session to ground subsequent calls (e.g., to confirm the caller's
+        identity before making destructive changes). This tool does not accept a user
+        ID; it always returns the authenticated caller.
         """
         return await self._get(
             "/api/users/me",
