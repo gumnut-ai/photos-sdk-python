@@ -56,11 +56,12 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Creates a new, empty library.
+        """Creates a new, empty photo library for the authenticated user.
 
-        A library is the top-level container for assets,
-        albums, people, and faces — most users have exactly one. Only create a new
-        library when the user explicitly asks for a separate container.
+        A library is the
+        top-level container for assets, albums, people, and faces — most users have
+        exactly one. Only create a new library when the user explicitly asks for a
+        separate container.
 
         Args:
           name: Display name for the new library. Required.
@@ -101,11 +102,11 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Fetches one library's metadata (name, description, asset count).
+        """Fetches one library's metadata by ID (name, description, asset count).
 
-        Use when you
-        already have a specific `library_id`; for enumerating a user's libraries prefer
-        `list_libraries`.
+        Use when
+        you already have a specific `library_id`; for enumerating a user's libraries
+        prefer `list_libraries`.
 
         Args:
           library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
@@ -142,11 +143,11 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Updates the `name` and/or `description` of an existing library.
+        """Renames a library or changes its description.
 
-        Only the fields
-        included in the request body are changed. Library contents (assets, albums,
-        people, faces) are not affected.
+        Only the fields included in the
+        request body are changed. Library contents (assets, albums, people, faces) are
+        not affected.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to update.
@@ -191,10 +192,10 @@ class LibrariesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
         """
-        Returns every library the user owns (no pagination — users typically have one or
-        a handful). Call this when another tool's `library_id` parameter is required but
-        you don't yet know which libraries exist. A single-library user can usually omit
-        `library_id` on other tools entirely.
+        Returns every library owned by the authenticated user (no pagination — users
+        typically have one or a handful). Call this when another tool's `library_id`
+        parameter is required but you don't yet know which libraries exist. A
+        single-library user can usually omit `library_id` on other tools entirely.
         """
         return self._get(
             "/api/libraries",
@@ -217,8 +218,9 @@ class LibrariesResource(SyncAPIResource):
     ) -> None:
         """
         Deletes the library and all its contents — assets (including their stored
-        files), albums, people, and faces. This is irreversible and should be used only
-        when the user explicitly confirms they want to destroy an entire library.
+        files), albums, people, and faces. **Destructive and irreversible** — should be
+        used only when the user explicitly confirms they want to destroy an entire
+        library.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to delete.
@@ -275,11 +277,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Creates a new, empty library.
+        """Creates a new, empty photo library for the authenticated user.
 
-        A library is the top-level container for assets,
-        albums, people, and faces — most users have exactly one. Only create a new
-        library when the user explicitly asks for a separate container.
+        A library is the
+        top-level container for assets, albums, people, and faces — most users have
+        exactly one. Only create a new library when the user explicitly asks for a
+        separate container.
 
         Args:
           name: Display name for the new library. Required.
@@ -320,11 +323,11 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Fetches one library's metadata (name, description, asset count).
+        """Fetches one library's metadata by ID (name, description, asset count).
 
-        Use when you
-        already have a specific `library_id`; for enumerating a user's libraries prefer
-        `list_libraries`.
+        Use when
+        you already have a specific `library_id`; for enumerating a user's libraries
+        prefer `list_libraries`.
 
         Args:
           library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
@@ -361,11 +364,11 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Updates the `name` and/or `description` of an existing library.
+        """Renames a library or changes its description.
 
-        Only the fields
-        included in the request body are changed. Library contents (assets, albums,
-        people, faces) are not affected.
+        Only the fields included in the
+        request body are changed. Library contents (assets, albums, people, faces) are
+        not affected.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to update.
@@ -410,10 +413,10 @@ class AsyncLibrariesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
         """
-        Returns every library the user owns (no pagination — users typically have one or
-        a handful). Call this when another tool's `library_id` parameter is required but
-        you don't yet know which libraries exist. A single-library user can usually omit
-        `library_id` on other tools entirely.
+        Returns every library owned by the authenticated user (no pagination — users
+        typically have one or a handful). Call this when another tool's `library_id`
+        parameter is required but you don't yet know which libraries exist. A
+        single-library user can usually omit `library_id` on other tools entirely.
         """
         return await self._get(
             "/api/libraries",
@@ -436,8 +439,9 @@ class AsyncLibrariesResource(AsyncAPIResource):
     ) -> None:
         """
         Deletes the library and all its contents — assets (including their stored
-        files), albums, people, and faces. This is irreversible and should be used only
-        when the user explicitly confirms they want to destroy an entire library.
+        files), albums, people, and faces. **Destructive and irreversible** — should be
+        used only when the user explicitly confirms they want to destroy an entire
+        library.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to delete.

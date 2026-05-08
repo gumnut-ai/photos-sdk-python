@@ -61,10 +61,11 @@ class AlbumAssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AlbumAssetResponse]:
         """
-        Returns paginated _link_ records describing which assets are in which albums —
-        each row contains `album_id` + `asset_id` + link timestamps, not the full asset
-        or album metadata. Use this when you specifically need the junction records (for
-        sync or change tracking).
+        Returns paginated _link_ records (lightweight join rows between albums and
+        assets) describing which assets are in which albums — each row contains
+        `album_id` + `asset_id` + link timestamps, not the full asset or album metadata.
+        Use this when you specifically need the junction records (for sync or change
+        tracking).
 
         **For most use cases you want a different tool:** use `list_assets` with
         `album_id` to get the full asset metadata for a specific album; use
@@ -136,8 +137,8 @@ class AlbumAssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumAssetResponse:
         """
-        Fetches one album-asset link record (the junction row between an album and an
-        asset). Rarely needed directly; most callers want `get_asset` or `get_album`
+        Fetches one album-asset link record by ID (the junction row between an album and
+        an asset). Rarely needed directly; most callers want `get_asset` or `get_album`
         instead.
 
         Args:
@@ -200,10 +201,11 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AlbumAssetResponse, AsyncCursorPage[AlbumAssetResponse]]:
         """
-        Returns paginated _link_ records describing which assets are in which albums —
-        each row contains `album_id` + `asset_id` + link timestamps, not the full asset
-        or album metadata. Use this when you specifically need the junction records (for
-        sync or change tracking).
+        Returns paginated _link_ records (lightweight join rows between albums and
+        assets) describing which assets are in which albums — each row contains
+        `album_id` + `asset_id` + link timestamps, not the full asset or album metadata.
+        Use this when you specifically need the junction records (for sync or change
+        tracking).
 
         **For most use cases you want a different tool:** use `list_assets` with
         `album_id` to get the full asset metadata for a specific album; use
@@ -275,8 +277,8 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumAssetResponse:
         """
-        Fetches one album-asset link record (the junction row between an album and an
-        asset). Rarely needed directly; most callers want `get_asset` or `get_album`
+        Fetches one album-asset link record by ID (the junction row between an album and
+        an asset). Rarely needed directly; most callers want `get_asset` or `get_album`
         instead.
 
         Args:

@@ -130,10 +130,10 @@ class AssetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
-        """Fetches one asset and its associated metadata.
+        """Fetches one asset and its associated metadata by ID.
 
-        Use this when you already have a
-        specific asset ID (e.g., from `list_assets`, `search_assets`, or
+        Use this when you already
+        have a specific asset ID (e.g., from `list_assets`, `search_assets`, or
         `list_album_assets`) and need its full details. For bulk fetch of multiple known
         IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
 
@@ -179,10 +179,10 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AssetResponse]:
         """
-        Returns a paginated list of assets ordered by local capture time (newest first).
-        Use this tool for structured browsing and filtering — when the request can be
-        expressed as exact filters on album membership, people, date range, or specific
-        asset IDs.
+        Returns a paginated list of assets ordered by local capture time (newest first),
+        optionally filtered by album, person, date range, or asset ID. Use this tool for
+        structured browsing and filtering — when the request can be expressed as exact
+        filters on album membership, people, date range, or specific asset IDs.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), location or place
@@ -522,9 +522,9 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Hard-deletes every trashed asset in the caller's library in one shot — storage
-        and CDN are cleaned up via the same outbox path as the scheduled purge task.
-        **Irreversible**. Deliberately not exposed as an MCP tool.
+        Permanently deletes every trashed asset in the caller's library in one shot —
+        storage and CDN are cleaned up via the same outbox path as the scheduled purge
+        task. **Irreversible**. Deliberately not exposed as an MCP tool.
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
@@ -743,10 +743,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
-        """Fetches one asset and its associated metadata.
+        """Fetches one asset and its associated metadata by ID.
 
-        Use this when you already have a
-        specific asset ID (e.g., from `list_assets`, `search_assets`, or
+        Use this when you already
+        have a specific asset ID (e.g., from `list_assets`, `search_assets`, or
         `list_album_assets`) and need its full details. For bulk fetch of multiple known
         IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
 
@@ -792,10 +792,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
-        Returns a paginated list of assets ordered by local capture time (newest first).
-        Use this tool for structured browsing and filtering — when the request can be
-        expressed as exact filters on album membership, people, date range, or specific
-        asset IDs.
+        Returns a paginated list of assets ordered by local capture time (newest first),
+        optionally filtered by album, person, date range, or asset ID. Use this tool for
+        structured browsing and filtering — when the request can be expressed as exact
+        filters on album membership, people, date range, or specific asset IDs.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), location or place
@@ -1137,9 +1137,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Hard-deletes every trashed asset in the caller's library in one shot — storage
-        and CDN are cleaned up via the same outbox path as the scheduled purge task.
-        **Irreversible**. Deliberately not exposed as an MCP tool.
+        Permanently deletes every trashed asset in the caller's library in one shot —
+        storage and CDN are cleaned up via the same outbox path as the scheduled purge
+        task. **Irreversible**. Deliberately not exposed as an MCP tool.
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
