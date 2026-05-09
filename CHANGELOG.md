@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.87.1 (2026-05-09)
+
+Full Changelog: [v0.87.0...v0.87.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.87.0...v0.87.1)
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([3a15de6](https://github.com/gumnut-ai/photos-sdk-python/commit/3a15de693391fddddaf05b2cf00da139b78b9243))
+
 ## 0.87.0 (2026-05-08)
 
 Full Changelog: [v0.86.0...v0.87.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.86.0...v0.87.0)
