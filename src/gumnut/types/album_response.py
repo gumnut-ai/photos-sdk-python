@@ -28,7 +28,11 @@ class AlbumResponse(BaseModel):
     """When this album was last updated"""
 
     album_cover_asset_id: Optional[str] = None
-    """ID of the asset used as the album cover"""
+    """ID of the asset displayed as the album cover.
+
+    May be a server-selected default when the album has no explicit cover set, or
+    null when the album has no live assets.
+    """
 
     asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Asset variants for the album cover: 'thumbnail'"""

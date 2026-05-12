@@ -152,6 +152,7 @@ class AlbumsResource(SyncAPIResource):
         self,
         album_id: str,
         *,
+        album_cover_asset_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -161,15 +162,19 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Renames an album or changes its description.
+        """Updates album metadata (name, description, and/or cover).
 
-        Only the fields included in the
-        request body are changed. To modify the contents of an album, use
-        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Only the fields
+        included in the request body are changed. To modify the contents of an album,
+        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
+
+          album_cover_asset_id: Asset ID (with `asset_` prefix) to use as the album cover. Must be a live asset
+              already in the album — get IDs from `list_album_assets`. Pass `null` to clear
+              the explicit cover. Omit to leave unchanged.
 
           description: New free-form description for the album. Omit to leave unchanged.
 
@@ -189,6 +194,7 @@ class AlbumsResource(SyncAPIResource):
             path_template("/api/albums/{album_id}", album_id=album_id),
             body=maybe_transform(
                 {
+                    "album_cover_asset_id": album_cover_asset_id,
                     "description": description,
                     "name": name,
                 },
@@ -433,6 +439,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         self,
         album_id: str,
         *,
+        album_cover_asset_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -442,15 +449,19 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Renames an album or changes its description.
+        """Updates album metadata (name, description, and/or cover).
 
-        Only the fields included in the
-        request body are changed. To modify the contents of an album, use
-        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Only the fields
+        included in the request body are changed. To modify the contents of an album,
+        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
+
+          album_cover_asset_id: Asset ID (with `asset_` prefix) to use as the album cover. Must be a live asset
+              already in the album — get IDs from `list_album_assets`. Pass `null` to clear
+              the explicit cover. Omit to leave unchanged.
 
           description: New free-form description for the album. Omit to leave unchanged.
 
@@ -470,6 +481,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
             path_template("/api/albums/{album_id}", album_id=album_id),
             body=await async_maybe_transform(
                 {
+                    "album_cover_asset_id": album_cover_asset_id,
                     "description": description,
                     "name": name,
                 },
