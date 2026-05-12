@@ -108,6 +108,12 @@ class MetadataResponse(BaseModel):
     rating: Optional[int] = None
     """User or camera rating (typically 1-5 stars)"""
 
+    raw_height: Optional[int] = None
+    """Pre-rotation raw height; null when not available"""
+
+    raw_width: Optional[int] = None
+    """Pre-rotation raw width; null when not available"""
+
     state: Optional[str] = None
     """State/province name"""
 
