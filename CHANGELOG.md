@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.88.0 (2026-05-12)
+
+Full Changelog: [v0.87.1...v0.88.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.87.1...v0.88.0)
+
+### Features
+
+* **internal/types:** support eagerly validating pydantic iterators ([9d5f88a](https://github.com/gumnut-ai/photos-sdk-python/commit/9d5f88acbd10da584d39372a8fa11d7e0cae8051))
+
 ## 0.87.1 (2026-05-09)
 
 Full Changelog: [v0.87.0...v0.87.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.87.0...v0.87.1)
