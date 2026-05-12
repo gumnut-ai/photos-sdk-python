@@ -111,6 +111,7 @@ class TestAlbums:
     def test_method_update_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.update(
             album_id="album_id",
+            album_cover_asset_id="album_cover_asset_id",
             description="description",
             name="name",
         )
@@ -331,6 +332,7 @@ class TestAsyncAlbums:
     async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.update(
             album_id="album_id",
+            album_cover_asset_id="album_cover_asset_id",
             description="description",
             name="name",
         )
