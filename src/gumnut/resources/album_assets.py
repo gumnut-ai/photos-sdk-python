@@ -84,7 +84,8 @@ class AlbumAssetsResource(SyncAPIResource):
               album metadata directly.
 
           ids: Look up specific album-asset link records by ID (max 100). The ID has the
-              `album_asset_` prefix.
+              `album_asset_` prefix. Accepts multiple `ids=` query params or a single
+              comma-delimited value (e.g., `ids=album_asset_1,album_asset_2`).
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.
@@ -224,7 +225,8 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
               album metadata directly.
 
           ids: Look up specific album-asset link records by ID (max 100). The ID has the
-              `album_asset_` prefix.
+              `album_asset_` prefix. Accepts multiple `ids=` query params or a single
+              comma-delimited value (e.g., `ids=album_asset_1,album_asset_2`).
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.

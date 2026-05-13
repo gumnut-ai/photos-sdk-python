@@ -5,14 +5,17 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["FaceRetrieveParams"]
 
 
 class FaceRetrieveParams(TypedDict, total=False):
-    include: Optional[str]
-    """Comma-separated list of opt-in expansion fields.
+    include: Optional[SequenceNotStr[str]]
+    """Opt-in expansion fields.
 
-    See `list_faces` for supported values.
+    See `list_faces` for supported values. Accepts multiple `include=` query params
+    or a single comma-delimited value.
     """
 
     library_id: Optional[str]

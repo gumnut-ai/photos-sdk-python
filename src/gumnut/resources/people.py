@@ -126,7 +126,7 @@ class PeopleResource(SyncAPIResource):
         self,
         person_id: str,
         *,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,8 +144,8 @@ class PeopleResource(SyncAPIResource):
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
               `get_face.person_id`, or any response containing a person reference.
 
-          include: Comma-separated list of opt-in expansion fields. See `list_people` for supported
-              values.
+          include: Opt-in expansion fields. See `list_people` for supported values. Accepts
+              multiple `include=` query params or a single comma-delimited value.
 
           extra_headers: Send extra headers
 
@@ -242,7 +242,7 @@ class PeopleResource(SyncAPIResource):
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -278,15 +278,15 @@ class PeopleResource(SyncAPIResource):
           asset_id: Return only people who have at least one face in this asset. Useful for 'who is
               in this photo?'.
 
-          ids: Look up specific people by ID (max 100; each ID has the `person_` prefix). When
-              set, `name_filter` defaults to `all` so unnamed clusters are included in the
-              lookup.
+          ids: Look up specific people by ID (max 100; each ID has the `person_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=person_1,person_2`). When set, `name_filter` defaults to `all` so unnamed
+              clusters are included in the lookup.
 
-          include:
-              Comma-separated list of opt-in expansion fields. Supported values:
-              `cluster_metrics` (adds the nested `cluster_metrics` object — `pairwise_p90`,
-              `pairwise_mean`, `face_count` — for each Person with a populated centroid).
-              Unknown values return 422.
+          include: Opt-in expansion fields. Supported values: `cluster_metrics` (adds the nested
+              `cluster_metrics` object — `pairwise_p90`, `pairwise_mean`, `face_count` — for
+              each Person with a populated centroid). Accepts multiple `include=` query params
+              or a single comma-delimited value. Unknown values return 422.
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.
@@ -520,7 +520,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         self,
         person_id: str,
         *,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -538,8 +538,8 @@ class AsyncPeopleResource(AsyncAPIResource):
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
               `get_face.person_id`, or any response containing a person reference.
 
-          include: Comma-separated list of opt-in expansion fields. See `list_people` for supported
-              values.
+          include: Opt-in expansion fields. See `list_people` for supported values. Accepts
+              multiple `include=` query params or a single comma-delimited value.
 
           extra_headers: Send extra headers
 
@@ -636,7 +636,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         album_id: Optional[str] | Omit = omit,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -672,15 +672,15 @@ class AsyncPeopleResource(AsyncAPIResource):
           asset_id: Return only people who have at least one face in this asset. Useful for 'who is
               in this photo?'.
 
-          ids: Look up specific people by ID (max 100; each ID has the `person_` prefix). When
-              set, `name_filter` defaults to `all` so unnamed clusters are included in the
-              lookup.
+          ids: Look up specific people by ID (max 100; each ID has the `person_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=person_1,person_2`). When set, `name_filter` defaults to `all` so unnamed
+              clusters are included in the lookup.
 
-          include:
-              Comma-separated list of opt-in expansion fields. Supported values:
-              `cluster_metrics` (adds the nested `cluster_metrics` object — `pairwise_p90`,
-              `pairwise_mean`, `face_count` — for each Person with a populated centroid).
-              Unknown values return 422.
+          include: Opt-in expansion fields. Supported values: `cluster_metrics` (adds the nested
+              `cluster_metrics` object — `pairwise_p90`, `pairwise_mean`, `face_count` — for
+              each Person with a populated centroid). Accepts multiple `include=` query params
+              or a single comma-delimited value. Unknown values return 422.
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.

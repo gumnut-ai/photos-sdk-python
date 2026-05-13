@@ -8,7 +8,7 @@ from datetime import datetime
 import httpx
 
 from ..types import event_get_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -50,7 +50,7 @@ class EventsResource(SyncAPIResource):
         after_cursor: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
         created_at_lt: Union[str, datetime, None] | Omit = omit,
-        entity_types: Optional[str] | Omit = omit,
+        entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -112,9 +112,10 @@ class EventsResource(SyncAPIResource):
               `created_at_lt` across all pages so newly arriving events don't shift the
               window.
 
-          entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
-              values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`. Omit to
-              receive events for all types.
+          entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
+              `album`, `person`, `face`, `album_asset`, `metadata`. Accepts multiple
+              `entity_types=` query params or a single comma-delimited value (e.g.,
+              `entity_types=asset,album`). Omit to receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
               required when they have multiple. Use `list_libraries` to enumerate.
@@ -178,7 +179,7 @@ class AsyncEventsResource(AsyncAPIResource):
         after_cursor: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
         created_at_lt: Union[str, datetime, None] | Omit = omit,
-        entity_types: Optional[str] | Omit = omit,
+        entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -240,9 +241,10 @@ class AsyncEventsResource(AsyncAPIResource):
               `created_at_lt` across all pages so newly arriving events don't shift the
               window.
 
-          entity_types: Comma-separated list of entity types to include (e.g., `asset,album`). Valid
-              values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`. Omit to
-              receive events for all types.
+          entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
+              `album`, `person`, `face`, `album_asset`, `metadata`. Accepts multiple
+              `entity_types=` query params or a single comma-delimited value (e.g.,
+              `entity_types=asset,album`). Omit to receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
               required when they have multiple. Use `list_libraries` to enumerate.
