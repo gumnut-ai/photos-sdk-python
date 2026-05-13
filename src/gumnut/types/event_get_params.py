@@ -6,6 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["EventGetParams"]
@@ -33,11 +34,12 @@ class EventGetParams(TypedDict, total=False):
     window.
     """
 
-    entity_types: Optional[str]
-    """Comma-separated list of entity types to include (e.g., `asset,album`).
+    entity_types: Optional[SequenceNotStr[str]]
+    """Entity types to include (e.g., `asset`, `album`).
 
     Valid values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`.
-    Omit to receive events for all types.
+    Accepts multiple `entity_types=` query params or a single comma-delimited value
+    (e.g., `entity_types=asset,album`). Omit to receive events for all types.
     """
 
     library_id: Optional[str]

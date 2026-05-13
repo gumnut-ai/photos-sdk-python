@@ -193,9 +193,9 @@ class SearchResource(SyncAPIResource):
 
           page: Page number
 
-          person_ids: Filter to only include assets containing ALL of these person IDs. Can be
-              comma-delimited string (e.g. 'person_123,person_abc') or multiple query
-              parameters.
+          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
+              Accepts multiple `person_ids=` form fields or a single comma-delimited value
+              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
 
           query: The text query to search for. If you want to search for a specific person or set
               of people, use the person_ids parameter instead.If you want to search for a
@@ -410,9 +410,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: Page number
 
-          person_ids: Filter to only include assets containing ALL of these person IDs. Can be
-              comma-delimited string (e.g. 'person_123,person_abc') or multiple query
-              parameters.
+          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
+              Accepts multiple `person_ids=` form fields or a single comma-delimited value
+              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
 
           query: The text query to search for. If you want to search for a specific person or set
               of people, use the person_ids parameter instead.If you want to search for a

@@ -203,10 +203,10 @@ class AssetsResource(SyncAPIResource):
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
               param when you need the full asset metadata in one call.
 
-          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix). Use
-              this for bulk fetch when you already have asset IDs. Combines with other filters
-              (album_id, person_id, datetime range) using AND logic — the result is the
-              intersection.
+          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
+              datetime range) using AND logic — the result is the intersection.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -816,10 +816,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
               param when you need the full asset metadata in one call.
 
-          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix). Use
-              this for bulk fetch when you already have asset IDs. Combines with other filters
-              (album_id, person_id, datetime range) using AND logic — the result is the
-              intersection.
+          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
+              datetime range) using AND logic — the result is the intersection.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
