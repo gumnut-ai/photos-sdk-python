@@ -26,16 +26,18 @@ class PersonListParams(TypedDict, total=False):
     ids: Optional[SequenceNotStr[str]]
     """Look up specific people by ID (max 100; each ID has the `person_` prefix).
 
-    When set, `name_filter` defaults to `all` so unnamed clusters are included in
-    the lookup.
+    Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+    `ids=person_1,person_2`). When set, `name_filter` defaults to `all` so unnamed
+    clusters are included in the lookup.
     """
 
-    include: Optional[str]
-    """Comma-separated list of opt-in expansion fields.
+    include: Optional[SequenceNotStr[str]]
+    """Opt-in expansion fields.
 
     Supported values: `cluster_metrics` (adds the nested `cluster_metrics` object —
     `pairwise_p90`, `pairwise_mean`, `face_count` — for each Person with a populated
-    centroid). Unknown values return 422.
+    centroid). Accepts multiple `include=` query params or a single comma-delimited
+    value. Unknown values return 422.
     """
 
     library_id: Optional[str]

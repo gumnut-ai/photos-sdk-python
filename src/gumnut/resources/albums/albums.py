@@ -236,8 +236,9 @@ class AlbumsResource(SyncAPIResource):
           asset_id: Return only albums that contain this asset. Useful for answering 'which albums
               is this photo in?' without calling `list_album_assets`.
 
-          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix). Use
-              for bulk fetch when IDs are already known.
+          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=album_1,album_2`).
 
           library_id: Library to list albums from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate.
@@ -523,8 +524,9 @@ class AsyncAlbumsResource(AsyncAPIResource):
           asset_id: Return only albums that contain this asset. Useful for answering 'which albums
               is this photo in?' without calling `list_album_assets`.
 
-          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix). Use
-              for bulk fetch when IDs are already known.
+          ids: Look up specific albums by ID (max 100; each ID has the `album_` prefix).
+              Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=album_1,album_2`).
 
           library_id: Library to list albums from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate.

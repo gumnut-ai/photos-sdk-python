@@ -21,7 +21,8 @@ class AlbumListParams(TypedDict, total=False):
     ids: Optional[SequenceNotStr[str]]
     """Look up specific albums by ID (max 100; each ID has the `album_` prefix).
 
-    Use for bulk fetch when IDs are already known.
+    Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
+    `ids=album_1,album_2`).
     """
 
     library_id: Optional[str]

@@ -48,7 +48,7 @@ class FacesResource(SyncAPIResource):
         self,
         face_id: str,
         *,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,8 +65,8 @@ class FacesResource(SyncAPIResource):
           face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
               `faces` array on `get_asset` / `list_assets` responses.
 
-          include: Comma-separated list of opt-in expansion fields. See `list_faces` for supported
-              values.
+          include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
+              `include=` query params or a single comma-delimited value.
 
           library_id: Library the face belongs to. Optional if the user has a single library; required
               when they have multiple.
@@ -160,7 +160,7 @@ class FacesResource(SyncAPIResource):
         *,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -190,12 +190,14 @@ class FacesResource(SyncAPIResource):
           asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
               this photo'.
 
-          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix.
+          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix. Accepts
+              multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=face_1,face_2`).
 
-          include:
-              Comma-separated list of opt-in expansion fields. Supported values:
-              `cluster_assignment` (adds the nested `cluster_assignment` object —
-              `distance_to_person` and a top-K `candidates` list of nearby Persons).
+          include: Opt-in expansion fields. Supported values: `cluster_assignment` (adds the nested
+              `cluster_assignment` object — `distance_to_person` and a top-K `candidates` list
+              of nearby Persons). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g., `include=cluster_assignment`).
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.
@@ -316,7 +318,7 @@ class AsyncFacesResource(AsyncAPIResource):
         self,
         face_id: str,
         *,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -333,8 +335,8 @@ class AsyncFacesResource(AsyncAPIResource):
           face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
               `faces` array on `get_asset` / `list_assets` responses.
 
-          include: Comma-separated list of opt-in expansion fields. See `list_faces` for supported
-              values.
+          include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
+              `include=` query params or a single comma-delimited value.
 
           library_id: Library the face belongs to. Optional if the user has a single library; required
               when they have multiple.
@@ -428,7 +430,7 @@ class AsyncFacesResource(AsyncAPIResource):
         *,
         asset_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        include: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         person_id: Optional[str] | Omit = omit,
@@ -458,12 +460,14 @@ class AsyncFacesResource(AsyncAPIResource):
           asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
               this photo'.
 
-          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix.
+          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix. Accepts
+              multiple `ids=` query params or a single comma-delimited value (e.g.,
+              `ids=face_1,face_2`).
 
-          include:
-              Comma-separated list of opt-in expansion fields. Supported values:
-              `cluster_assignment` (adds the nested `cluster_assignment` object —
-              `distance_to_person` and a top-K `candidates` list of nearby Persons).
+          include: Opt-in expansion fields. Supported values: `cluster_assignment` (adds the nested
+              `cluster_assignment` object — `distance_to_person` and a top-K `candidates` list
+              of nearby Persons). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g., `include=cluster_assignment`).
 
           library_id: Library to list from. Optional if the user has a single library; required when
               they have multiple.

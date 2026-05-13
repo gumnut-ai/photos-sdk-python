@@ -75,7 +75,7 @@ class TestPeople:
     def test_method_retrieve_with_all_params(self, client: Gumnut) -> None:
         person = client.people.retrieve(
             person_id="person_id",
-            include="include",
+            include=["string", "string"],
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -181,7 +181,7 @@ class TestPeople:
             album_id="album_id",
             asset_id="asset_id",
             ids=["string", "string"],
-            include="include",
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             name="name",
@@ -360,7 +360,7 @@ class TestAsyncPeople:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncGumnut) -> None:
         person = await async_client.people.retrieve(
             person_id="person_id",
-            include="include",
+            include=["string", "string"],
         )
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -466,7 +466,7 @@ class TestAsyncPeople:
             album_id="album_id",
             asset_id="asset_id",
             ids=["string", "string"],
-            include="include",
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             name="name",
