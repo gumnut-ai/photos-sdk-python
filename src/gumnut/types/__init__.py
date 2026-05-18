@@ -54,6 +54,7 @@ from .asset_empty_trash_params import AssetEmptyTrashParams as AssetEmptyTrashPa
 from .asset_existence_response import AssetExistenceResponse as AssetExistenceResponse
 from .cluster_metrics_response import ClusterMetricsResponse as ClusterMetricsResponse
 from .logout_endpoint_response import LogoutEndpointResponse as LogoutEndpointResponse
+from .asset_update_asset_params import AssetUpdateAssetParams as AssetUpdateAssetParams
 from .cluster_assignment_response import ClusterAssignmentResponse as ClusterAssignmentResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_check_existence_params import AssetCheckExistenceParams as AssetCheckExistenceParams
