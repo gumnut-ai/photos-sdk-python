@@ -235,6 +235,90 @@ class TestLibraries:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore(self, client: Gumnut) -> None:
+        library = client.libraries.restore(
+            "library_id",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_restore(self, client: Gumnut) -> None:
+        response = client.libraries.with_raw_response.restore(
+            "library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = response.parse()
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_restore(self, client: Gumnut) -> None:
+        with client.libraries.with_streaming_response.restore(
+            "library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = response.parse()
+            assert_matches_type(LibraryResponse, library, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_restore(self, client: Gumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
+            client.libraries.with_raw_response.restore(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_trash(self, client: Gumnut) -> None:
+        library = client.libraries.trash(
+            "library_id",
+        )
+        assert library is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_trash(self, client: Gumnut) -> None:
+        response = client.libraries.with_raw_response.trash(
+            "library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = response.parse()
+        assert library is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_trash(self, client: Gumnut) -> None:
+        with client.libraries.with_streaming_response.trash(
+            "library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = response.parse()
+            assert library is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_trash(self, client: Gumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
+            client.libraries.with_raw_response.trash(
+                "",
+            )
+
 
 class TestAsyncLibraries:
     parametrize = pytest.mark.parametrize(
@@ -453,5 +537,89 @@ class TestAsyncLibraries:
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
             await async_client.libraries.with_raw_response.delete(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore(self, async_client: AsyncGumnut) -> None:
+        library = await async_client.libraries.restore(
+            "library_id",
+        )
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_restore(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.libraries.with_raw_response.restore(
+            "library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = await response.parse()
+        assert_matches_type(LibraryResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_restore(self, async_client: AsyncGumnut) -> None:
+        async with async_client.libraries.with_streaming_response.restore(
+            "library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = await response.parse()
+            assert_matches_type(LibraryResponse, library, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_restore(self, async_client: AsyncGumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
+            await async_client.libraries.with_raw_response.restore(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_trash(self, async_client: AsyncGumnut) -> None:
+        library = await async_client.libraries.trash(
+            "library_id",
+        )
+        assert library is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_trash(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.libraries.with_raw_response.trash(
+            "library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        library = await response.parse()
+        assert library is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_trash(self, async_client: AsyncGumnut) -> None:
+        async with async_client.libraries.with_streaming_response.trash(
+            "library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            library = await response.parse()
+            assert library is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_trash(self, async_client: AsyncGumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
+            await async_client.libraries.with_raw_response.trash(
                 "",
             )
