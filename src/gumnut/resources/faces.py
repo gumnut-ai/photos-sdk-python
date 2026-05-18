@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -253,7 +253,7 @@ class FacesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Removes one face detection row; the underlying asset and the person this face
         was assigned to are both preserved.
@@ -280,7 +280,6 @@ class FacesResource(SyncAPIResource):
         """
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
@@ -290,7 +289,7 @@ class FacesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, face_delete_params.FaceDeleteParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 
@@ -523,7 +522,7 @@ class AsyncFacesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Removes one face detection row; the underlying asset and the person this face
         was assigned to are both preserved.
@@ -550,7 +549,6 @@ class AsyncFacesResource(AsyncAPIResource):
         """
         if not face_id:
             raise ValueError(f"Expected a non-empty value for `face_id` but received {face_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/api/faces/{face_id}", face_id=face_id),
             options=make_request_options(
@@ -560,7 +558,7 @@ class AsyncFacesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"library_id": library_id}, face_delete_params.FaceDeleteParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 
