@@ -16,6 +16,7 @@ from ..types import (
     asset_restore_params,
     asset_delete_list_params,
     asset_empty_trash_params,
+    asset_update_asset_params,
     asset_check_existence_params,
 )
 from .._files import deepcopy_with_paths
@@ -650,6 +651,83 @@ class AssetsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def update_asset(
+        self,
+        asset_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        latitude: Optional[float] | Omit = omit,
+        longitude: Optional[float] | Omit = omit,
+        original_datetime: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetResponse:
+        """
+        Edits the user-editable metadata for a single asset — description, GPS
+        coordinates, and original capture datetime. Only fields included in the request
+        body are changed; others are left untouched. Passing `null` for a field removes
+        a previously-set value; the response then falls back to the value embedded in
+        the file when present. `latitude` and `longitude` must be set together (both
+        written or both cleared).
+
+        Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
+        names refresh against the new effective coordinates. Setting the datetime moves
+        the asset in the timeline (`list_assets` ordering).
+
+        Args:
+          asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
+          description: User-set description for the asset. Pass `null` to remove a previously-set value
+              (the response then falls back to the description embedded in the file, if any).
+              Omit to leave unchanged. Distinct from the AI-generated `description` field on
+              the response — this writes to `metadata.description`.
+
+          latitude: GPS latitude in decimal degrees, `[-90, 90]`. Must be set together with
+              `longitude`. Pass `null` (along with `longitude=null`) to remove a
+              previously-set value; omit to leave unchanged.
+
+          longitude: GPS longitude in decimal degrees, `[-180, 180]`. Must be set together with
+              `latitude`. Pass `null` (along with `latitude=null`) to remove a previously-set
+              value; omit to leave unchanged.
+
+          original_datetime: When the asset was originally captured. Aware values store the offset from
+              `utcoffset()` alongside; naive values store NULL offset. Pass `null` to remove a
+              previously-set value — the response then falls back to the datetime embedded in
+              the file when present, otherwise to the file's upload timestamp. Omit to leave
+              unchanged.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not asset_id:
+            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
+        return self._patch(
+            path_template("/api/assets/{asset_id}", asset_id=asset_id),
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "original_datetime": original_datetime,
+                },
+                asset_update_asset_params.AssetUpdateAssetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AssetResponse,
+        )
+
 
 class AsyncAssetsResource(AsyncAPIResource):
     @cached_property
@@ -1267,6 +1345,83 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def update_asset(
+        self,
+        asset_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        latitude: Optional[float] | Omit = omit,
+        longitude: Optional[float] | Omit = omit,
+        original_datetime: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetResponse:
+        """
+        Edits the user-editable metadata for a single asset — description, GPS
+        coordinates, and original capture datetime. Only fields included in the request
+        body are changed; others are left untouched. Passing `null` for a field removes
+        a previously-set value; the response then falls back to the value embedded in
+        the file when present. `latitude` and `longitude` must be set together (both
+        written or both cleared).
+
+        Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
+        names refresh against the new effective coordinates. Setting the datetime moves
+        the asset in the timeline (`list_assets` ordering).
+
+        Args:
+          asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
+              `list_assets`, `search_assets`, or `list_album_assets`.
+
+          description: User-set description for the asset. Pass `null` to remove a previously-set value
+              (the response then falls back to the description embedded in the file, if any).
+              Omit to leave unchanged. Distinct from the AI-generated `description` field on
+              the response — this writes to `metadata.description`.
+
+          latitude: GPS latitude in decimal degrees, `[-90, 90]`. Must be set together with
+              `longitude`. Pass `null` (along with `longitude=null`) to remove a
+              previously-set value; omit to leave unchanged.
+
+          longitude: GPS longitude in decimal degrees, `[-180, 180]`. Must be set together with
+              `latitude`. Pass `null` (along with `latitude=null`) to remove a previously-set
+              value; omit to leave unchanged.
+
+          original_datetime: When the asset was originally captured. Aware values store the offset from
+              `utcoffset()` alongside; naive values store NULL offset. Pass `null` to remove a
+              previously-set value — the response then falls back to the datetime embedded in
+              the file when present, otherwise to the file's upload timestamp. Omit to leave
+              unchanged.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not asset_id:
+            raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
+        return await self._patch(
+            path_template("/api/assets/{asset_id}", asset_id=asset_id),
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "original_datetime": original_datetime,
+                },
+                asset_update_asset_params.AssetUpdateAssetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AssetResponse,
+        )
+
 
 class AssetsResourceWithRawResponse:
     def __init__(self, assets: AssetsResource) -> None:
@@ -1301,6 +1456,9 @@ class AssetsResourceWithRawResponse:
         )
         self.trash = to_raw_response_wrapper(
             assets.trash,
+        )
+        self.update_asset = to_raw_response_wrapper(
+            assets.update_asset,
         )
 
 
@@ -1338,6 +1496,9 @@ class AsyncAssetsResourceWithRawResponse:
         self.trash = async_to_raw_response_wrapper(
             assets.trash,
         )
+        self.update_asset = async_to_raw_response_wrapper(
+            assets.update_asset,
+        )
 
 
 class AssetsResourceWithStreamingResponse:
@@ -1374,6 +1535,9 @@ class AssetsResourceWithStreamingResponse:
         self.trash = to_streamed_response_wrapper(
             assets.trash,
         )
+        self.update_asset = to_streamed_response_wrapper(
+            assets.update_asset,
+        )
 
 
 class AsyncAssetsResourceWithStreamingResponse:
@@ -1409,4 +1573,7 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.trash = async_to_streamed_response_wrapper(
             assets.trash,
+        )
+        self.update_asset = async_to_streamed_response_wrapper(
+            assets.update_asset,
         )

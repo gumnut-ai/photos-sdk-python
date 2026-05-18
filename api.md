@@ -45,6 +45,7 @@ Methods:
 - <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> None</code>
 - <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> None</code>
 - <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> None</code>
+- <code title="patch /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">update_asset</a>(asset_id, \*\*<a href="src/gumnut/types/asset_update_asset_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 
 # Albums
 
