@@ -131,6 +131,8 @@ Methods:
 - <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
 - <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">list</a>(\*\*<a href="src/gumnut/types/library_list_params.py">params</a>) -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
 - <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> None</code>
+- <code title="post /api/libraries/{library_id}/restore">client.libraries.<a href="./src/gumnut/resources/libraries.py">restore</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries.py">trash</a>(library_id) -> None</code>
 
 # OAuth
 
