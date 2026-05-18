@@ -30,6 +30,7 @@ from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
+from .library_list_params import LibraryListParams as LibraryListParams
 from .person_merge_params import PersonMergeParams as PersonMergeParams
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
 from .asset_count_response import AssetCountResponse as AssetCountResponse
