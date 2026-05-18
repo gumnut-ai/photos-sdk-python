@@ -9,7 +9,10 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import LibraryResponse, LibraryListResponse
+from gumnut.types import (
+    LibraryResponse,
+    LibraryListResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -158,6 +161,14 @@ class TestLibraries:
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         library = client.libraries.list()
+        assert_matches_type(LibraryListResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Gumnut) -> None:
+        library = client.libraries.list(
+            state="live",
+        )
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -371,6 +382,14 @@ class TestAsyncLibraries:
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         library = await async_client.libraries.list()
+        assert_matches_type(LibraryListResponse, library, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
+        library = await async_client.libraries.list(
+            state="live",
+        )
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
