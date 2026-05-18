@@ -267,6 +267,88 @@ class LibrariesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def restore(
+        self,
+        library_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LibraryResponse:
+        """
+        Restores a previously-trashed library so it reappears in default list/search
+        results. Works as long as the library row still exists — once `get_library`
+        returns 404 the row is gone and restore is no longer possible. If the background
+        drain has already started purging assets, restore succeeds but recovers only the
+        assets the drain hasn't gotten to yet.
+
+        Args:
+          library_id: Library ID (with `lib_` prefix) of the trashed library to restore.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not library_id:
+            raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
+        return self._post(
+            path_template("/api/libraries/{library_id}/restore", library_id=library_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LibraryResponse,
+        )
+
+    def trash(
+        self,
+        library_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """Moves the library and all its contents into the trash.
+
+        The library becomes
+        inaccessible by default and can be fully restored within 90 days by calling
+        `restore_library`. After 90 days the library's assets are gradually purged in
+        the background; until the library row itself is removed, restore still works but
+        recovers only the assets not yet purged.
+
+        Idempotent — a second call on an already-trashed library no-ops and returns 204.
+
+        Args:
+          library_id: Library ID (with `lib_` prefix) of the library to trash.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not library_id:
+            raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            path_template("/api/libraries/{library_id}/trash", library_id=library_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncLibrariesResource(AsyncAPIResource):
     @cached_property
@@ -510,6 +592,88 @@ class AsyncLibrariesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def restore(
+        self,
+        library_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LibraryResponse:
+        """
+        Restores a previously-trashed library so it reappears in default list/search
+        results. Works as long as the library row still exists — once `get_library`
+        returns 404 the row is gone and restore is no longer possible. If the background
+        drain has already started purging assets, restore succeeds but recovers only the
+        assets the drain hasn't gotten to yet.
+
+        Args:
+          library_id: Library ID (with `lib_` prefix) of the trashed library to restore.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not library_id:
+            raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
+        return await self._post(
+            path_template("/api/libraries/{library_id}/restore", library_id=library_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LibraryResponse,
+        )
+
+    async def trash(
+        self,
+        library_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """Moves the library and all its contents into the trash.
+
+        The library becomes
+        inaccessible by default and can be fully restored within 90 days by calling
+        `restore_library`. After 90 days the library's assets are gradually purged in
+        the background; until the library row itself is removed, restore still works but
+        recovers only the assets not yet purged.
+
+        Idempotent — a second call on an already-trashed library no-ops and returns 204.
+
+        Args:
+          library_id: Library ID (with `lib_` prefix) of the library to trash.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not library_id:
+            raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            path_template("/api/libraries/{library_id}/trash", library_id=library_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class LibrariesResourceWithRawResponse:
     def __init__(self, libraries: LibrariesResource) -> None:
@@ -529,6 +693,12 @@ class LibrariesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             libraries.delete,
+        )
+        self.restore = to_raw_response_wrapper(
+            libraries.restore,
+        )
+        self.trash = to_raw_response_wrapper(
+            libraries.trash,
         )
 
 
@@ -551,6 +721,12 @@ class AsyncLibrariesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             libraries.delete,
         )
+        self.restore = async_to_raw_response_wrapper(
+            libraries.restore,
+        )
+        self.trash = async_to_raw_response_wrapper(
+            libraries.trash,
+        )
 
 
 class LibrariesResourceWithStreamingResponse:
@@ -572,6 +748,12 @@ class LibrariesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             libraries.delete,
         )
+        self.restore = to_streamed_response_wrapper(
+            libraries.restore,
+        )
+        self.trash = to_streamed_response_wrapper(
+            libraries.trash,
+        )
 
 
 class AsyncLibrariesResourceWithStreamingResponse:
@@ -592,4 +774,10 @@ class AsyncLibrariesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             libraries.delete,
+        )
+        self.restore = async_to_streamed_response_wrapper(
+            libraries.restore,
+        )
+        self.trash = async_to_streamed_response_wrapper(
+            libraries.trash,
         )
