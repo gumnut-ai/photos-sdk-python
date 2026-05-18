@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.94.0 (2026-05-18)
+
+Full Changelog: [v0.93.0...v0.94.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.93.0...v0.94.0)
+
+### Features
+
+* **api:** library trash/restore endpoints ([68b0a7a](https://github.com/gumnut-ai/photos-sdk-python/commit/68b0a7a54318a988f40b079646fc259bb3e37cd8))
+
 ## 0.93.0 (2026-05-18)
 
 Full Changelog: [v0.92.0...v0.93.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.92.0...v0.93.0)
