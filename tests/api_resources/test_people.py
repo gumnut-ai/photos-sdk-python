@@ -218,7 +218,7 @@ class TestPeople:
         person = client.people.delete(
             "person_id",
         )
-        assert person is None
+        assert_matches_type(object, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -230,7 +230,7 @@ class TestPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = response.parse()
-        assert person is None
+        assert_matches_type(object, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -242,7 +242,7 @@ class TestPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = response.parse()
-            assert person is None
+            assert_matches_type(object, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -503,7 +503,7 @@ class TestAsyncPeople:
         person = await async_client.people.delete(
             "person_id",
         )
-        assert person is None
+        assert_matches_type(object, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -515,7 +515,7 @@ class TestAsyncPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = await response.parse()
-        assert person is None
+        assert_matches_type(object, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -527,7 +527,7 @@ class TestAsyncPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = await response.parse()
-            assert person is None
+            assert_matches_type(object, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

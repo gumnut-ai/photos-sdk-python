@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NoneType, NotGiven, SequenceNotStr, not_given
+from ..._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -101,7 +101,7 @@ class AssetsAssociationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
@@ -129,7 +129,6 @@ class AssetsAssociationsResource(SyncAPIResource):
         """
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/api/albums/{album_id}/assets", album_id=album_id),
             body=maybe_transform(
@@ -138,7 +137,7 @@ class AssetsAssociationsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 
@@ -224,7 +223,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
@@ -252,7 +251,6 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         """
         if not album_id:
             raise ValueError(f"Expected a non-empty value for `album_id` but received {album_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/api/albums/{album_id}/assets", album_id=album_id),
             body=await async_maybe_transform(
@@ -261,7 +259,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 

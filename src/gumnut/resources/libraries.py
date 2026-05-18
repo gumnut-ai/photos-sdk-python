@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import library_list_params, library_create_params, library_update_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -235,12 +235,12 @@ class LibrariesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
-        Returns 204 immediately; the drain proceeds asynchronously in bounded batches
-        and does not block on completion. Restore still works until the drain finishes
+        Returns immediately; the drain proceeds asynchronously in bounded batches and
+        does not block on completion. Restore still works until the drain finishes
         purging all assets, but past this point it will recover only the assets the
         drain hasn't gotten to yet. Returns 409 if the library has not been trashed yet;
         trash it first.
@@ -258,13 +258,12 @@ class LibrariesResource(SyncAPIResource):
         """
         if not library_id:
             raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/api/libraries/{library_id}", library_id=library_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def restore(
@@ -316,7 +315,7 @@ class LibrariesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Moves the library and all its contents into the trash.
 
         The library becomes
@@ -325,7 +324,7 @@ class LibrariesResource(SyncAPIResource):
         the background; until the library row itself is removed, restore still works but
         recovers only the assets not yet purged.
 
-        Idempotent — a second call on an already-trashed library no-ops and returns 204.
+        Idempotent — a second call on an already-trashed library no-ops.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to trash.
@@ -340,13 +339,12 @@ class LibrariesResource(SyncAPIResource):
         """
         if not library_id:
             raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             path_template("/api/libraries/{library_id}/trash", library_id=library_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 
@@ -560,12 +558,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
-        Returns 204 immediately; the drain proceeds asynchronously in bounded batches
-        and does not block on completion. Restore still works until the drain finishes
+        Returns immediately; the drain proceeds asynchronously in bounded batches and
+        does not block on completion. Restore still works until the drain finishes
         purging all assets, but past this point it will recover only the assets the
         drain hasn't gotten to yet. Returns 409 if the library has not been trashed yet;
         trash it first.
@@ -583,13 +581,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         """
         if not library_id:
             raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/api/libraries/{library_id}", library_id=library_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def restore(
@@ -641,7 +638,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Moves the library and all its contents into the trash.
 
         The library becomes
@@ -650,7 +647,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         the background; until the library row itself is removed, restore still works but
         recovers only the assets not yet purged.
 
-        Idempotent — a second call on an already-trashed library no-ops and returns 204.
+        Idempotent — a second call on an already-trashed library no-ops.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to trash.
@@ -665,13 +662,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         """
         if not library_id:
             raise ValueError(f"Expected a non-empty value for `library_id` but received {library_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             path_template("/api/libraries/{library_id}/trash", library_id=library_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
 
