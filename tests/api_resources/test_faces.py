@@ -170,7 +170,7 @@ class TestFaces:
         face = client.faces.delete(
             face_id="face_id",
         )
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -179,7 +179,7 @@ class TestFaces:
             face_id="face_id",
             library_id="library_id",
         )
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -191,7 +191,7 @@ class TestFaces:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         face = response.parse()
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -203,7 +203,7 @@ class TestFaces:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             face = response.parse()
-            assert face is None
+            assert_matches_type(object, face, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -373,7 +373,7 @@ class TestAsyncFaces:
         face = await async_client.faces.delete(
             face_id="face_id",
         )
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -382,7 +382,7 @@ class TestAsyncFaces:
             face_id="face_id",
             library_id="library_id",
         )
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -394,7 +394,7 @@ class TestAsyncFaces:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         face = await response.parse()
-        assert face is None
+        assert_matches_type(object, face, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -406,7 +406,7 @@ class TestAsyncFaces:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             face = await response.parse()
-            assert face is None
+            assert_matches_type(object, face, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -17,7 +17,7 @@ Methods:
 - <code title="post /api/api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">create</a>(\*\*<a href="src/gumnut/types/api_key_create_params.py">params</a>) -> <a href="./src/gumnut/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
 - <code title="patch /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">update</a>(key_id, \*\*<a href="src/gumnut/types/api_key_update_params.py">params</a>) -> <a href="./src/gumnut/types/api_key_response.py">APIKeyResponse</a></code>
 - <code title="get /api/api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">list</a>() -> <a href="./src/gumnut/types/api_key_list_response.py">APIKeyListResponse</a></code>
-- <code title="delete /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">delete</a>(key_id) -> None</code>
+- <code title="delete /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">delete</a>(key_id) -> object</code>
 
 # Assets
 
@@ -38,13 +38,13 @@ Methods:
 - <code title="post /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">create</a>(\*\*<a href="src/gumnut/types/asset_create_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">retrieve</a>(asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">list</a>(\*\*<a href="src/gumnut/types/asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">SyncCursorPage[AssetResponse]</a></code>
-- <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> None</code>
+- <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> object</code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
-- <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> None</code>
-- <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> None</code>
-- <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> None</code>
-- <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> None</code>
+- <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> object</code>
+- <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> object</code>
+- <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> object</code>
+- <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> object</code>
 - <code title="patch /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">update_asset</a>(asset_id, \*\*<a href="src/gumnut/types/asset_update_asset_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 
 # Albums
@@ -61,7 +61,7 @@ Methods:
 - <code title="get /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">retrieve</a>(album_id) -> <a href="./src/gumnut/types/album_response.py">AlbumResponse</a></code>
 - <code title="patch /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">update</a>(album_id, \*\*<a href="src/gumnut/types/album_update_params.py">params</a>) -> <a href="./src/gumnut/types/album_response.py">AlbumResponse</a></code>
 - <code title="get /api/albums">client.albums.<a href="./src/gumnut/resources/albums/albums.py">list</a>(\*\*<a href="src/gumnut/types/album_list_params.py">params</a>) -> <a href="./src/gumnut/types/album_response.py">SyncCursorPage[AlbumResponse]</a></code>
-- <code title="delete /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">delete</a>(album_id) -> None</code>
+- <code title="delete /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">delete</a>(album_id) -> object</code>
 
 ## AssetsAssociations
 
@@ -74,7 +74,7 @@ from gumnut.types.albums import AlbumAssetAssociation, AssetsAssociationAddRespo
 Methods:
 
 - <code title="post /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/assets_association_add_response.py">AssetsAssociationAddResponse</a></code>
-- <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> None</code>
+- <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> object</code>
 
 # AlbumAssets
 
@@ -114,7 +114,7 @@ Methods:
 - <code title="get /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">retrieve</a>(face_id, \*\*<a href="src/gumnut/types/face_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
-- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> None</code>
+- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> object</code>
 
 # Libraries
 
@@ -130,9 +130,9 @@ Methods:
 - <code title="get /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">retrieve</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
 - <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
 - <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">list</a>(\*\*<a href="src/gumnut/types/library_list_params.py">params</a>) -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
-- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> None</code>
+- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> object</code>
 - <code title="post /api/libraries/{library_id}/restore">client.libraries.<a href="./src/gumnut/resources/libraries.py">restore</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries.py">trash</a>(library_id) -> None</code>
+- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries.py">trash</a>(library_id) -> object</code>
 
 # OAuth
 
@@ -162,7 +162,7 @@ Methods:
 - <code title="get /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">retrieve</a>(person_id, \*\*<a href="src/gumnut/types/person_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="patch /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">update</a>(person_id, \*\*<a href="src/gumnut/types/person_update_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="get /api/people">client.people.<a href="./src/gumnut/resources/people.py">list</a>(\*\*<a href="src/gumnut/types/person_list_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">SyncCursorPage[PersonResponse]</a></code>
-- <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> None</code>
+- <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> object</code>
 - <code title="post /api/people/{person_id}/merge">client.people.<a href="./src/gumnut/resources/people.py">merge</a>(person_id, \*\*<a href="src/gumnut/types/person_merge_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 
 # Ping

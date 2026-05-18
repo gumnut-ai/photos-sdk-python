@@ -20,7 +20,7 @@ from ..types import (
     asset_check_existence_params,
 )
 from .._files import deepcopy_with_paths
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -283,7 +283,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Deletes the asset entirely — the database record, the stored file, and all
         associated data (faces, album links, etc.). **Irreversible.** Prefer
@@ -307,13 +307,12 @@ class AssetsResource(SyncAPIResource):
         """
         if not asset_id:
             raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def check_existence(
@@ -473,7 +472,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Hard-deletes each specified asset — the database record, the stored file, and
         all associated data (faces, album links, etc.). **Irreversible.** Prefer
@@ -497,7 +496,6 @@ class AssetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             "/api/assets",
             body=maybe_transform({"ids": ids}, asset_delete_list_params.AssetDeleteListParams),
@@ -508,7 +506,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, asset_delete_list_params.AssetDeleteListParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def empty_trash(
@@ -521,7 +519,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Permanently deletes every trashed asset in the caller's library in one shot —
         storage and CDN are cleaned up via the same outbox path as the scheduled purge
@@ -539,7 +537,6 @@ class AssetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/api/assets/empty-trash",
             options=make_request_options(
@@ -549,7 +546,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, asset_empty_trash_params.AssetEmptyTrashParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def restore(
@@ -563,7 +560,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Restores trashed assets so they reappear in default list/search results.
         Idempotent — assets that are already live are silently skipped.
@@ -586,7 +583,6 @@ class AssetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/api/assets/restore",
             body=maybe_transform({"ids": ids}, asset_restore_params.AssetRestoreParams),
@@ -597,7 +593,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, asset_restore_params.AssetRestoreParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def trash(
@@ -611,7 +607,7 @@ class AssetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Soft-deletes the given assets.
 
         Trashed assets are excluded from default
@@ -637,7 +633,6 @@ class AssetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/api/assets/trash",
             body=maybe_transform({"ids": ids}, asset_trash_params.AssetTrashParams),
@@ -648,7 +643,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, asset_trash_params.AssetTrashParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def update_asset(
@@ -973,7 +968,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Deletes the asset entirely — the database record, the stored file, and all
         associated data (faces, album links, etc.). **Irreversible.** Prefer
@@ -997,13 +992,12 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         if not asset_id:
             raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def check_existence(
@@ -1163,7 +1157,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Hard-deletes each specified asset — the database record, the stored file, and
         all associated data (faces, album links, etc.). **Irreversible.** Prefer
@@ -1187,7 +1181,6 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             "/api/assets",
             body=await async_maybe_transform({"ids": ids}, asset_delete_list_params.AssetDeleteListParams),
@@ -1200,7 +1193,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                     {"library_id": library_id}, asset_delete_list_params.AssetDeleteListParams
                 ),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def empty_trash(
@@ -1213,7 +1206,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Permanently deletes every trashed asset in the caller's library in one shot —
         storage and CDN are cleaned up via the same outbox path as the scheduled purge
@@ -1231,7 +1224,6 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/api/assets/empty-trash",
             options=make_request_options(
@@ -1243,7 +1235,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                     {"library_id": library_id}, asset_empty_trash_params.AssetEmptyTrashParams
                 ),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def restore(
@@ -1257,7 +1249,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Restores trashed assets so they reappear in default list/search results.
         Idempotent — assets that are already live are silently skipped.
@@ -1280,7 +1272,6 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/api/assets/restore",
             body=await async_maybe_transform({"ids": ids}, asset_restore_params.AssetRestoreParams),
@@ -1291,7 +1282,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"library_id": library_id}, asset_restore_params.AssetRestoreParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def trash(
@@ -1305,7 +1296,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """Soft-deletes the given assets.
 
         Trashed assets are excluded from default
@@ -1331,7 +1322,6 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/api/assets/trash",
             body=await async_maybe_transform({"ids": ids}, asset_trash_params.AssetTrashParams),
@@ -1342,7 +1332,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"library_id": library_id}, asset_trash_params.AssetTrashParams),
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def update_asset(

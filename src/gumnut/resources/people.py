@@ -15,7 +15,7 @@ from ..types import (
     person_update_params,
     person_retrieve_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -348,7 +348,7 @@ class PeopleResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
@@ -371,13 +371,12 @@ class PeopleResource(SyncAPIResource):
         """
         if not person_id:
             raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/api/people/{person_id}", person_id=person_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     def merge(
@@ -742,7 +741,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> object:
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
@@ -765,13 +764,12 @@ class AsyncPeopleResource(AsyncAPIResource):
         """
         if not person_id:
             raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/api/people/{person_id}", person_id=person_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=object,
         )
 
     async def merge(
