@@ -261,7 +261,7 @@ class TestAssets:
     def test_method_counts_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.counts(
             album_id="album_id",
-            group_by="group_by",
+            group_by="month",
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -756,7 +756,7 @@ class TestAsyncAssets:
     async def test_method_counts_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.counts(
             album_id="album_id",
-            group_by="group_by",
+            group_by="month",
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
