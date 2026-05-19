@@ -15,8 +15,11 @@ class AssetCountsParams(TypedDict, total=False):
     album_id: Optional[str]
     """Filter by assets in a specific album"""
 
-    group_by: str
-    """Time period to group counts by. Currently only 'month' is supported."""
+    group_by: Literal["month"]
+    """Time period to group counts by.
+
+    Only `month` is supported; other values return 422.
+    """
 
     library_id: Optional[str]
     """Library to count assets in (optional)"""

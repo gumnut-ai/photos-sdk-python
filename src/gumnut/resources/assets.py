@@ -382,7 +382,7 @@ class AssetsResource(SyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
-        group_by: str | Omit = omit,
+        group_by: Literal["month"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -396,10 +396,16 @@ class AssetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetCountResponse:
-        """Returns asset counts grouped by time period.
+        """
+        Counts assets bucketed by time period — use this to summarize a library (or a
+        filtered slice) without paging through the full timeline. Returns one row per
+        bucket, ordered most-recent-first, with optional filtering by album, person,
+        date range, or trash state.
 
-        Supports optional filtering by
-        album, person, or date range. Results are ordered by time bucket descending.
+        To list the actual assets within a bucket, call `list_assets` with the same
+        filters and a `local_datetime_after` / `local_datetime_before` window matching
+        the bucket. Does not filter by image content or location; for content-based
+        search use `search_assets`.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
         `data` as `local_datetime_before` to fetch the next page.
@@ -407,7 +413,8 @@ class AssetsResource(SyncAPIResource):
         Args:
           album_id: Filter by assets in a specific album
 
-          group_by: Time period to group counts by. Currently only 'month' is supported.
+          group_by: Time period to group counts by. Only `month` is supported; other values
+              return 422.
 
           library_id: Library to count assets in (optional)
 
@@ -566,7 +573,8 @@ class AssetsResource(SyncAPIResource):
         Idempotent — assets that are already live are silently skipped.
 
         Pairs with `trash_assets`: assets soft-deleted there can be brought back here
-        within the retention window.
+        within the retention window. To restore a whole trashed library, use
+        `restore_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
@@ -614,9 +622,9 @@ class AssetsResource(SyncAPIResource):
         list/search results and are purged after the configured retention window.
         **Reversible** via `restore_assets` until purge.
 
-        Use this for the user's standard 'delete' action. To delete forever in one step,
-        use `permanently_delete_assets` instead — but prefer trash so the user can
-        recover from accidental deletes.
+        Use this for the user's standard 'delete' action — there is no MCP-exposed
+        permanent-delete tool, so trash is the only path. To trash an entire library at
+        once instead of enumerating asset IDs, use `trash_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
@@ -672,6 +680,11 @@ class AssetsResource(SyncAPIResource):
         Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
         names refresh against the new effective coordinates. Setting the datetime moves
         the asset in the timeline (`list_assets` ordering).
+
+        Does not change album membership, face assignments, or person clusters. Use
+        `add_assets_to_album` / `remove_assets_from_album` for album changes,
+        `update_face` to reassign a face to a person, and `trash_assets` to soft-delete
+        the asset itself.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
@@ -1067,7 +1080,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
-        group_by: str | Omit = omit,
+        group_by: Literal["month"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -1081,10 +1094,16 @@ class AsyncAssetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetCountResponse:
-        """Returns asset counts grouped by time period.
+        """
+        Counts assets bucketed by time period — use this to summarize a library (or a
+        filtered slice) without paging through the full timeline. Returns one row per
+        bucket, ordered most-recent-first, with optional filtering by album, person,
+        date range, or trash state.
 
-        Supports optional filtering by
-        album, person, or date range. Results are ordered by time bucket descending.
+        To list the actual assets within a bucket, call `list_assets` with the same
+        filters and a `local_datetime_after` / `local_datetime_before` window matching
+        the bucket. Does not filter by image content or location; for content-based
+        search use `search_assets`.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
         `data` as `local_datetime_before` to fetch the next page.
@@ -1092,7 +1111,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         Args:
           album_id: Filter by assets in a specific album
 
-          group_by: Time period to group counts by. Currently only 'month' is supported.
+          group_by: Time period to group counts by. Only `month` is supported; other values
+              return 422.
 
           library_id: Library to count assets in (optional)
 
@@ -1255,7 +1275,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         Idempotent — assets that are already live are silently skipped.
 
         Pairs with `trash_assets`: assets soft-deleted there can be brought back here
-        within the retention window.
+        within the retention window. To restore a whole trashed library, use
+        `restore_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
@@ -1303,9 +1324,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         list/search results and are purged after the configured retention window.
         **Reversible** via `restore_assets` until purge.
 
-        Use this for the user's standard 'delete' action. To delete forever in one step,
-        use `permanently_delete_assets` instead — but prefer trash so the user can
-        recover from accidental deletes.
+        Use this for the user's standard 'delete' action — there is no MCP-exposed
+        permanent-delete tool, so trash is the only path. To trash an entire library at
+        once instead of enumerating asset IDs, use `trash_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
@@ -1361,6 +1382,11 @@ class AsyncAssetsResource(AsyncAPIResource):
         Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
         names refresh against the new effective coordinates. Setting the datetime moves
         the asset in the timeline (`list_assets` ordering).
+
+        Does not change album membership, face assignments, or person clusters. Use
+        `add_assets_to_album` / `remove_assets_from_album` for album changes,
+        `update_face` to reassign a face to a person, and `trash_assets` to soft-delete
+        the asset itself.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from

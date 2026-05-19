@@ -261,8 +261,7 @@ class FacesResource(SyncAPIResource):
         **Use `update_face` with `person_id=null` instead** when the user wants to
         disassociate the face from a person without discarding the detection (so
         re-clustering can try again). Use `delete_person` to remove a person; use
-        `trash_assets` (or `permanently_delete_assets` for irreversible removal) to
-        remove the photo entirely.
+        `trash_assets` to remove the photo entirely.
 
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
@@ -530,8 +529,7 @@ class AsyncFacesResource(AsyncAPIResource):
         **Use `update_face` with `person_id=null` instead** when the user wants to
         disassociate the face from a person without discarding the detection (so
         re-clustering can try again). Use `delete_person` to remove a person; use
-        `trash_assets` (or `permanently_delete_assets` for irreversible removal) to
-        remove the photo entirely.
+        `trash_assets` to remove the photo entirely.
 
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
