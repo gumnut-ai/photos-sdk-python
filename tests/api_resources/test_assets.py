@@ -212,6 +212,55 @@ class TestAssets:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_bulk_update_assets(self, client: Gumnut) -> None:
+        asset = client.assets.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        )
+        assert_matches_type(object, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_bulk_update_assets(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert_matches_type(object, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_bulk_update_assets(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert_matches_type(object, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_check_existence(self, client: Gumnut) -> None:
         asset = client.assets.check_existence()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
@@ -704,6 +753,55 @@ class TestAsyncAssets:
             await async_client.assets.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_update_assets(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        )
+        assert_matches_type(object, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_bulk_update_assets(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert_matches_type(object, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_bulk_update_assets(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.bulk_update_assets(
+            updates=[
+                {
+                    "id": "id",
+                    "change": {},
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert_matches_type(object, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

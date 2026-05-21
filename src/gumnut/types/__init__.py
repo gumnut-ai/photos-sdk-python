@@ -59,3 +59,4 @@ from .asset_update_asset_params import AssetUpdateAssetParams as AssetUpdateAsse
 from .cluster_assignment_response import ClusterAssignmentResponse as ClusterAssignmentResponse
 from .search_search_assets_params import SearchSearchAssetsParams as SearchSearchAssetsParams
 from .asset_check_existence_params import AssetCheckExistenceParams as AssetCheckExistenceParams
+from .asset_bulk_update_assets_params import AssetBulkUpdateAssetsParams as AssetBulkUpdateAssetsParams

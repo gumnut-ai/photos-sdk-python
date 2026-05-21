@@ -39,6 +39,7 @@ Methods:
 - <code title="get /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">retrieve</a>(asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">list</a>(\*\*<a href="src/gumnut/types/asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">SyncCursorPage[AssetResponse]</a></code>
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> object</code>
+- <code title="post /api/assets/bulk-update">client.assets.<a href="./src/gumnut/resources/assets.py">bulk_update_assets</a>(\*\*<a href="src/gumnut/types/asset_bulk_update_assets_params.py">params</a>) -> object</code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
 - <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> object</code>
