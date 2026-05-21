@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Mapping, Optional, cast
+from typing import Union, Mapping, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -18,6 +18,7 @@ from ..types import (
     asset_empty_trash_params,
     asset_update_asset_params,
     asset_check_existence_params,
+    asset_bulk_update_assets_params,
 )
 from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
@@ -309,6 +310,60 @@ class AssetsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `asset_id` but received {asset_id!r}")
         return self._delete(
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
+    def bulk_update_assets(
+        self,
+        *,
+        updates: Iterable[asset_bulk_update_assets_params.Update],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Updates metadata on multiple assets in one transactional call.
+
+        Each item carries
+        the target asset id and the per-asset change — different fields can be changed
+        on different assets in the same request. Atomic: any per-item validation failure
+        or unknown / cross-user id rejects the whole batch and writes nothing.
+
+        Use this when the caller already holds the new per-asset values — importing
+        metadata from another photo manager, per-camera time-offset correction, GPS
+        correction from re-extracted EXIF, captioning output. The tool does not derive
+        new values from the existing asset (no relative-shift mode); each item's new
+        values are taken verbatim from the request.
+
+        Up to 100 items per request; over-cap requests return 422. For a single-asset
+        edit, prefer `update_asset` — semantically identical but slightly more concise
+        at the call site.
+
+        Does not change album membership (use `add_assets_to_album` /
+        `remove_assets_from_album`), trash or delete assets (use `trash_assets`), or
+        modify faces or people.
+
+        Args:
+          updates: List of per-asset updates. Each item carries the target asset id and the change
+              to apply to it; different fields can be changed on different assets in the same
+              request. Up to 100 items per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/assets/bulk-update",
+            body=maybe_transform({"updates": updates}, asset_bulk_update_assets_params.AssetBulkUpdateAssetsParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1009,6 +1064,62 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    async def bulk_update_assets(
+        self,
+        *,
+        updates: Iterable[asset_bulk_update_assets_params.Update],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Updates metadata on multiple assets in one transactional call.
+
+        Each item carries
+        the target asset id and the per-asset change — different fields can be changed
+        on different assets in the same request. Atomic: any per-item validation failure
+        or unknown / cross-user id rejects the whole batch and writes nothing.
+
+        Use this when the caller already holds the new per-asset values — importing
+        metadata from another photo manager, per-camera time-offset correction, GPS
+        correction from re-extracted EXIF, captioning output. The tool does not derive
+        new values from the existing asset (no relative-shift mode); each item's new
+        values are taken verbatim from the request.
+
+        Up to 100 items per request; over-cap requests return 422. For a single-asset
+        edit, prefer `update_asset` — semantically identical but slightly more concise
+        at the call site.
+
+        Does not change album membership (use `add_assets_to_album` /
+        `remove_assets_from_album`), trash or delete assets (use `trash_assets`), or
+        modify faces or people.
+
+        Args:
+          updates: List of per-asset updates. Each item carries the target asset id and the change
+              to apply to it; different fields can be changed on different assets in the same
+              request. Up to 100 items per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/assets/bulk-update",
+            body=await async_maybe_transform(
+                {"updates": updates}, asset_bulk_update_assets_params.AssetBulkUpdateAssetsParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def check_existence(
         self,
         *,
@@ -1447,6 +1558,9 @@ class AssetsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             assets.delete,
         )
+        self.bulk_update_assets = to_raw_response_wrapper(
+            assets.bulk_update_assets,
+        )
         self.check_existence = to_raw_response_wrapper(
             assets.check_existence,
         )
@@ -1485,6 +1599,9 @@ class AsyncAssetsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             assets.delete,
+        )
+        self.bulk_update_assets = async_to_raw_response_wrapper(
+            assets.bulk_update_assets,
         )
         self.check_existence = async_to_raw_response_wrapper(
             assets.check_existence,
@@ -1525,6 +1642,9 @@ class AssetsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             assets.delete,
         )
+        self.bulk_update_assets = to_streamed_response_wrapper(
+            assets.bulk_update_assets,
+        )
         self.check_existence = to_streamed_response_wrapper(
             assets.check_existence,
         )
@@ -1563,6 +1683,9 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             assets.delete,
+        )
+        self.bulk_update_assets = async_to_streamed_response_wrapper(
+            assets.bulk_update_assets,
         )
         self.check_existence = async_to_streamed_response_wrapper(
             assets.check_existence,
