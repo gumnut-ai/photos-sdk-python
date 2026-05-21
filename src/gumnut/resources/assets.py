@@ -678,13 +678,9 @@ class AssetsResource(SyncAPIResource):
         written or both cleared).
 
         Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
-        names refresh against the new effective coordinates. Setting the datetime moves
-        the asset in the timeline (`list_assets` ordering).
+        names refresh against the new effective coordinates.
 
-        Does not change album membership, face assignments, or person clusters. Use
-        `add_assets_to_album` / `remove_assets_from_album` for album changes,
-        `update_face` to reassign a face to a person, and `trash_assets` to soft-delete
-        the asset itself.
+        For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
@@ -1380,13 +1376,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         written or both cleared).
 
         Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
-        names refresh against the new effective coordinates. Setting the datetime moves
-        the asset in the timeline (`list_assets` ordering).
+        names refresh against the new effective coordinates.
 
-        Does not change album membership, face assignments, or person clusters. Use
-        `add_assets_to_album` / `remove_assets_from_album` for album changes,
-        `update_face` to reassign a face to a person, and `trash_assets` to soft-delete
-        the asset itself.
+        For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
