@@ -73,6 +73,12 @@ class AssetResponse(BaseModel):
     (camera-embedded EXIF metadata).
     """
 
+    duration: Optional[float] = None
+    """Video length in seconds.
+
+    `null` for images and for videos whose duration has not been extracted yet.
+    """
+
     faces: Optional[List[FaceResponse]] = None
     """All faces detected in this asset"""
 
