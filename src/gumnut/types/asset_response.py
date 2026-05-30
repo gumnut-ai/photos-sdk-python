@@ -97,6 +97,14 @@ class AssetResponse(BaseModel):
     people: Optional[List[PersonResponse]] = None
     """All unique people identified in this asset (deduplicated from faces)"""
 
+    thumbhash: Optional[str] = None
+    """Base64-encoded ThumbHash placeholder (~28 chars).
+
+    Clients decode with the `thumbhash` library (JS / Swift / Kotlin) to render an
+    instant blurred preview before the CDN thumbnail arrives. `null` while
+    generation is pending.
+    """
+
     trashed_at: Optional[datetime] = None
     """When this asset was moved to trash (ISO 8601, UTC).
 
