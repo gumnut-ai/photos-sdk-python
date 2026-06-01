@@ -23,6 +23,7 @@ from .ping_get_response import PingGetResponse as PingGetResponse
 from .asset_trash_params import AssetTrashParams as AssetTrashParams
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
+from .file_data_response import FileDataResponse as FileDataResponse
 from .person_list_params import PersonListParams as PersonListParams
 from .search_result_item import SearchResultItem as SearchResultItem
 from .album_create_params import AlbumCreateParams as AlbumCreateParams
