@@ -14,6 +14,7 @@ from ..types import (
     asset_counts_params,
     asset_create_params,
     asset_restore_params,
+    asset_retrieve_params,
     asset_delete_list_params,
     asset_empty_trash_params,
     asset_update_asset_params,
@@ -125,6 +126,7 @@ class AssetsResource(SyncAPIResource):
         self,
         asset_id: str,
         *,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -143,6 +145,14 @@ class AssetsResource(SyncAPIResource):
           asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
               `search_assets`, or `list_album_assets`.
 
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -156,7 +166,11 @@ class AssetsResource(SyncAPIResource):
         return self._get(
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include": include}, asset_retrieve_params.AssetRetrieveParams),
             ),
             cast_to=AssetResponse,
         )
@@ -166,6 +180,7 @@ class AssetsResource(SyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -209,6 +224,14 @@ class AssetsResource(SyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
               datetime range) using AND logic — the result is the intersection.
+
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -260,6 +283,7 @@ class AssetsResource(SyncAPIResource):
                     {
                         "album_id": album_id,
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
@@ -863,6 +887,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         asset_id: str,
         *,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -881,6 +906,14 @@ class AsyncAssetsResource(AsyncAPIResource):
           asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
               `search_assets`, or `list_album_assets`.
 
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -894,7 +927,11 @@ class AsyncAssetsResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"include": include}, asset_retrieve_params.AssetRetrieveParams),
             ),
             cast_to=AssetResponse,
         )
@@ -904,6 +941,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         *,
         album_id: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -947,6 +985,14 @@ class AsyncAssetsResource(AsyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
               datetime range) using AND logic — the result is the intersection.
+
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -998,6 +1044,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                     {
                         "album_id": album_id,
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,

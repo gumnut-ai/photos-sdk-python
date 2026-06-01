@@ -36,7 +36,7 @@ from gumnut.types import (
 Methods:
 
 - <code title="post /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">create</a>(\*\*<a href="src/gumnut/types/asset_create_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
-- <code title="get /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">retrieve</a>(asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
+- <code title="get /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">retrieve</a>(asset_id, \*\*<a href="src/gumnut/types/asset_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">list</a>(\*\*<a href="src/gumnut/types/asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">SyncCursorPage[AssetResponse]</a></code>
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> object</code>
 - <code title="post /api/assets/bulk-update">client.assets.<a href="./src/gumnut/resources/assets.py">bulk_update_assets</a>(\*\*<a href="src/gumnut/types/asset_bulk_update_assets_params.py">params</a>) -> object</code>
