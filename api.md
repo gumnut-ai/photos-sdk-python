@@ -29,6 +29,7 @@ from gumnut.types import (
     AssetExistenceResponse,
     AssetLiteResponse,
     AssetResponse,
+    FileDataResponse,
     MetadataResponse,
 )
 ```

@@ -7,49 +7,10 @@ from .._models import BaseModel
 from .face_response import FaceResponse
 from .person_response import PersonResponse
 from .metadata_response import MetadataResponse
+from .file_data_response import FileDataResponse
 from .shared.asset_variant import AssetVariant
 
-__all__ = ["AssetResponse", "FileData"]
-
-
-class FileData(BaseModel):
-    """File/provenance scalars describing the uploaded *file* (not its content).
-
-    Returned only when requested via ``include=file_data``; the whole object is
-    ``null`` otherwise. When present, every field carries its real value —
-    ``checksum_sha1`` is the lone exception (``null`` for legacy rows that never
-    had a SHA-1). This nested object is the preferred home for the file/provenance
-    group; the equivalent top-level ``AssetResponse`` fields are retained for
-    backwards compatibility until clients migrate, and populated under the same
-    ``include=file_data`` gate.
-    """
-
-    checksum: str
-    """
-    Base64-encoded SHA-256 hash of the asset contents for duplicate detection and
-    integrity.
-    """
-
-    device_asset_id: str
-    """Original asset identifier from the device that uploaded this asset."""
-
-    device_id: str
-    """Identifier of the device that uploaded this asset."""
-
-    file_created_at: datetime
-    """When the file was created on the uploading device."""
-
-    file_modified_at: datetime
-    """When the file was last modified on the uploading device."""
-
-    file_size_bytes: int
-    """File size of the asset in bytes."""
-
-    checksum_sha1: Optional[str] = None
-    """Base64-encoded SHA-1 hash for Immich client compatibility.
-
-    `null` for older assets that have no SHA-1.
-    """
+__all__ = ["AssetResponse"]
 
 
 class AssetResponse(BaseModel):
@@ -139,7 +100,7 @@ class AssetResponse(BaseModel):
     `include=file_data`. Superseded by `file_data.file_created_at`.
     """
 
-    file_data: Optional[FileData] = None
+    file_data: Optional[FileDataResponse] = None
     """File/provenance scalars describing the uploaded _file_ (not its content).
 
     Returned only when requested via `include=file_data`; the whole object is `null`
