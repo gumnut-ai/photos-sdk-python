@@ -27,6 +27,18 @@ class SearchSearchParams(TypedDict, total=False):
     inconsistency is tracked as a follow-up).
     """
 
+    include: Optional[SequenceNotStr[str]]
+    """Opt-in expansion fields.
+
+    Supported values: `metadata` (camera/EXIF/GPS and location names), `faces`,
+    `people`, `metrics` (ML quality scores), and `file_data` (a group token gating
+    the file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
+    `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
+    multiple `include=` query params or a single comma-delimited value (e.g.
+    `include=faces,people`). Unknown values return 422. When omitted, all fields are
+    returned (transition default).
+    """
+
     library_id: Optional[str]
     """Library to search.
 

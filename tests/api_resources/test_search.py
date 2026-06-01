@@ -30,6 +30,7 @@ class TestSearch:
         search = client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             page=1,
@@ -71,6 +72,7 @@ class TestSearch:
     @parametrize
     def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search_assets(
+            include=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             image=b"Example data",
@@ -123,6 +125,7 @@ class TestAsyncSearch:
         search = await async_client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             page=1,
@@ -164,6 +167,7 @@ class TestAsyncSearch:
     @parametrize
     async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search_assets(
+            include=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             image=b"Example data",

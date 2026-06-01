@@ -86,7 +86,16 @@ class TestAssets:
     @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         asset = client.assets.retrieve(
-            "asset_id",
+            asset_id="asset_id",
+        )
+        assert_matches_type(AssetResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.retrieve(
+            asset_id="asset_id",
+            include=["string", "string"],
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -94,7 +103,7 @@ class TestAssets:
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.retrieve(
-            "asset_id",
+            asset_id="asset_id",
         )
 
         assert response.is_closed is True
@@ -106,7 +115,7 @@ class TestAssets:
     @parametrize
     def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.retrieve(
-            "asset_id",
+            asset_id="asset_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -121,7 +130,7 @@ class TestAssets:
     def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
             client.assets.with_raw_response.retrieve(
-                "",
+                asset_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -136,6 +145,7 @@ class TestAssets:
         asset = client.assets.list(
             album_id="album_id",
             ids=["string", "string"],
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -630,7 +640,16 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.retrieve(
-            "asset_id",
+            asset_id="asset_id",
+        )
+        assert_matches_type(AssetResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.retrieve(
+            asset_id="asset_id",
+            include=["string", "string"],
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -638,7 +657,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.retrieve(
-            "asset_id",
+            asset_id="asset_id",
         )
 
         assert response.is_closed is True
@@ -650,7 +669,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.retrieve(
-            "asset_id",
+            asset_id="asset_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -665,7 +684,7 @@ class TestAsyncAssets:
     async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
             await async_client.assets.with_raw_response.retrieve(
-                "",
+                asset_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -680,6 +699,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.list(
             album_id="album_id",
             ids=["string", "string"],
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
