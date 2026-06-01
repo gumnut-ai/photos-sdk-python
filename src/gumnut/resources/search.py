@@ -50,6 +50,7 @@ class SearchResource(SyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -94,6 +95,14 @@ class SearchResource(SyncAPIResource):
           captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
+
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
 
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
@@ -142,6 +151,7 @@ class SearchResource(SyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
@@ -158,6 +168,7 @@ class SearchResource(SyncAPIResource):
     def search_assets(
         self,
         *,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
@@ -181,6 +192,14 @@ class SearchResource(SyncAPIResource):
         provided. Can search by text query, uploaded image, or both combined.
 
         Args:
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
+
           captured_after: Filter to only include assets captured after this date (ISO format).
 
           captured_before: Filter to only include assets captured before this date (ISO format).
@@ -236,7 +255,11 @@ class SearchResource(SyncAPIResource):
             body=maybe_transform(body, search_search_assets_params.SearchSearchAssetsParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include": include}, search_search_assets_params.SearchSearchAssetsParams),
             ),
             cast_to=SearchResponse,
         )
@@ -267,6 +290,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -311,6 +335,14 @@ class AsyncSearchResource(AsyncAPIResource):
           captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
+
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
 
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
@@ -359,6 +391,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
@@ -375,6 +408,7 @@ class AsyncSearchResource(AsyncAPIResource):
     async def search_assets(
         self,
         *,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
@@ -398,6 +432,14 @@ class AsyncSearchResource(AsyncAPIResource):
         provided. Can search by text query, uploaded image, or both combined.
 
         Args:
+          include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
+              location names), `faces`, `people`, `metrics` (ML quality scores), and
+              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
+              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              `file_size_bytes`). Accepts multiple `include=` query params or a single
+              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
+              When omitted, all fields are returned (transition default).
+
           captured_after: Filter to only include assets captured after this date (ISO format).
 
           captured_before: Filter to only include assets captured before this date (ISO format).
@@ -453,7 +495,13 @@ class AsyncSearchResource(AsyncAPIResource):
             body=await async_maybe_transform(body, search_search_assets_params.SearchSearchAssetsParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"include": include}, search_search_assets_params.SearchSearchAssetsParams
+                ),
             ),
             cast_to=SearchResponse,
         )
