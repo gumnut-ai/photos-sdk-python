@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.104.0 (2026-06-01)
+
+Full Changelog: [v0.103.0...v0.104.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.103.0...v0.104.0)
+
+### Features
+
+* **api:** Add file_data_response ([6b8675a](https://github.com/gumnut-ai/photos-sdk-python/commit/6b8675a98d6d024c9ef74a8d2fcdefa8a9f69985))
+
 ## 0.103.0 (2026-06-01)
 
 Full Changelog: [v0.102.0...v0.103.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.102.0...v0.103.0)
