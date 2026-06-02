@@ -26,6 +26,12 @@ class UserResponse(BaseModel):
     is_verified: bool
     """Whether this user's email is verified"""
 
+    storage_limit_bytes: int
+    """Maximum bytes of assets the user may store"""
+
+    storage_used_bytes: int
+    """Total bytes of assets the user is currently storing"""
+
     updated_at: datetime
     """When this user account was last updated"""
 

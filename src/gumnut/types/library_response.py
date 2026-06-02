@@ -23,6 +23,9 @@ class LibraryResponse(BaseModel):
     name: str
     """Display name of the library"""
 
+    storage_used_bytes: int
+    """Bytes of assets currently stored in this library"""
+
     updated_at: datetime
     """When this library was last updated"""
 
@@ -31,3 +34,6 @@ class LibraryResponse(BaseModel):
 
     description: Optional[str] = None
     """Optional description text for the library"""
+
+    storage_limit_bytes: Optional[int] = None
+    """Maximum bytes this library may store, or null if no per-library limit applies"""
