@@ -20,6 +20,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.face_response import FaceResponse
+from ..types.face_delete_response import FaceDeleteResponse
 
 __all__ = ["FacesResource", "AsyncFacesResource"]
 
@@ -253,7 +254,7 @@ class FacesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> FaceDeleteResponse:
         """
         Removes one face detection row; the underlying asset and the person this face
         was assigned to are both preserved.
@@ -288,7 +289,7 @@ class FacesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, face_delete_params.FaceDeleteParams),
             ),
-            cast_to=object,
+            cast_to=FaceDeleteResponse,
         )
 
 
@@ -521,7 +522,7 @@ class AsyncFacesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> FaceDeleteResponse:
         """
         Removes one face detection row; the underlying asset and the person this face
         was assigned to are both preserved.
@@ -556,7 +557,7 @@ class AsyncFacesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"library_id": library_id}, face_delete_params.FaceDeleteParams),
             ),
-            cast_to=object,
+            cast_to=FaceDeleteResponse,
         )
 
 
