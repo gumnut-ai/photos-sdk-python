@@ -11,6 +11,7 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import (
     PersonResponse,
+    PersonDeleteResponse,
 )
 from gumnut._utils import parse_date
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
@@ -218,7 +219,7 @@ class TestPeople:
         person = client.people.delete(
             "person_id",
         )
-        assert_matches_type(object, person, path=["response"])
+        assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -230,7 +231,7 @@ class TestPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = response.parse()
-        assert_matches_type(object, person, path=["response"])
+        assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -242,7 +243,7 @@ class TestPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = response.parse()
-            assert_matches_type(object, person, path=["response"])
+            assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -503,7 +504,7 @@ class TestAsyncPeople:
         person = await async_client.people.delete(
             "person_id",
         )
-        assert_matches_type(object, person, path=["response"])
+        assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -515,7 +516,7 @@ class TestAsyncPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = await response.parse()
-        assert_matches_type(object, person, path=["response"])
+        assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -527,7 +528,7 @@ class TestAsyncPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = await response.parse()
-            assert_matches_type(object, person, path=["response"])
+            assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -12,6 +12,8 @@ from tests.utils import assert_matches_type
 from gumnut.types import (
     LibraryResponse,
     LibraryListResponse,
+    LibraryTrashResponse,
+    LibraryDeleteResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -199,7 +201,7 @@ class TestLibraries:
         library = client.libraries.delete(
             "library_id",
         )
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -211,7 +213,7 @@ class TestLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         library = response.parse()
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -223,7 +225,7 @@ class TestLibraries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             library = response.parse()
-            assert_matches_type(object, library, path=["response"])
+            assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -283,7 +285,7 @@ class TestLibraries:
         library = client.libraries.trash(
             "library_id",
         )
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -295,7 +297,7 @@ class TestLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         library = response.parse()
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -307,7 +309,7 @@ class TestLibraries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             library = response.parse()
-            assert_matches_type(object, library, path=["response"])
+            assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -504,7 +506,7 @@ class TestAsyncLibraries:
         library = await async_client.libraries.delete(
             "library_id",
         )
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -516,7 +518,7 @@ class TestAsyncLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         library = await response.parse()
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -528,7 +530,7 @@ class TestAsyncLibraries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             library = await response.parse()
-            assert_matches_type(object, library, path=["response"])
+            assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -588,7 +590,7 @@ class TestAsyncLibraries:
         library = await async_client.libraries.trash(
             "library_id",
         )
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -600,7 +602,7 @@ class TestAsyncLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         library = await response.parse()
-        assert_matches_type(object, library, path=["response"])
+        assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -612,7 +614,7 @@ class TestAsyncLibraries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             library = await response.parse()
-            assert_matches_type(object, library, path=["response"])
+            assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -19,6 +19,7 @@ from .._base_client import make_request_options
 from ..types.api_key_response import APIKeyResponse
 from ..types.api_key_list_response import APIKeyListResponse
 from ..types.api_key_create_response import APIKeyCreateResponse
+from ..types.api_key_delete_response import APIKeyDeleteResponse
 
 __all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
 
@@ -139,7 +140,7 @@ class APIKeysResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> APIKeyDeleteResponse:
         """
         Deletes a specific API key
 
@@ -159,7 +160,7 @@ class APIKeysResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=APIKeyDeleteResponse,
         )
 
 
@@ -279,7 +280,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> APIKeyDeleteResponse:
         """
         Deletes a specific API key
 
@@ -299,7 +300,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=APIKeyDeleteResponse,
         )
 
 
