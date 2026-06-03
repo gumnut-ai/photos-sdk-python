@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.107.0 (2026-06-03)
+
+Full Changelog: [v0.106.0...v0.107.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.106.0...v0.107.0)
+
+### Features
+
+* **api:** api update ([85f30b4](https://github.com/gumnut-ai/photos-sdk-python/commit/85f30b454eebf50ae636c8193d9aa1038904fe3b))
+
 ## 0.106.0 (2026-06-03)
 
 Full Changelog: [v0.105.0...v0.106.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.105.0...v0.106.0)
