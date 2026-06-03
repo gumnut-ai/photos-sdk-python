@@ -151,7 +151,9 @@ class AssetsResource(SyncAPIResource):
               `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, all fields are returned (transition default).
+              When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              value above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -231,7 +233,9 @@ class AssetsResource(SyncAPIResource):
               `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, all fields are returned (transition default).
+              When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              value above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -912,7 +916,9 @@ class AsyncAssetsResource(AsyncAPIResource):
               `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, all fields are returned (transition default).
+              When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              value above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -992,7 +998,9 @@ class AsyncAssetsResource(AsyncAPIResource):
               `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, all fields are returned (transition default).
+              When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              value above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
