@@ -12,7 +12,13 @@ from tests.utils import assert_matches_type
 from gumnut.types import (
     AssetResponse,
     AssetCountResponse,
+    AssetTrashResponse,
+    AssetDeleteResponse,
+    AssetRestoreResponse,
     AssetExistenceResponse,
+    AssetDeleteListResponse,
+    AssetEmptyTrashResponse,
+    AssetBulkUpdateAssetsResponse,
 )
 from gumnut._utils import parse_datetime
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
@@ -184,7 +190,7 @@ class TestAssets:
         asset = client.assets.delete(
             "asset_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -196,7 +202,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -208,7 +214,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -231,7 +237,7 @@ class TestAssets:
                 }
             ],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -248,7 +254,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -265,7 +271,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -358,7 +364,7 @@ class TestAssets:
         asset = client.assets.delete_list(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -367,7 +373,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -379,7 +385,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -391,7 +397,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -399,7 +405,7 @@ class TestAssets:
     @parametrize
     def test_method_empty_trash(self, client: Gumnut) -> None:
         asset = client.assets.empty_trash()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -407,7 +413,7 @@ class TestAssets:
         asset = client.assets.empty_trash(
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -417,7 +423,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -427,7 +433,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -437,7 +443,7 @@ class TestAssets:
         asset = client.assets.restore(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -446,7 +452,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -458,7 +464,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -470,7 +476,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -480,7 +486,7 @@ class TestAssets:
         asset = client.assets.trash(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -489,7 +495,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -501,7 +507,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -513,7 +519,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -738,7 +744,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.delete(
             "asset_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -750,7 +756,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -762,7 +768,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -785,7 +791,7 @@ class TestAsyncAssets:
                 }
             ],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -802,7 +808,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -819,7 +825,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -912,7 +918,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.delete_list(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -921,7 +927,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -933,7 +939,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -945,7 +951,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -953,7 +959,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_empty_trash(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.empty_trash()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -961,7 +967,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.empty_trash(
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -971,7 +977,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -981,7 +987,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -991,7 +997,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.restore(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1000,7 +1006,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1012,7 +1018,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1024,7 +1030,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1034,7 +1040,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.trash(
             ids=["string"],
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1043,7 +1049,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1055,7 +1061,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(object, asset, path=["response"])
+        assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1067,7 +1073,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(object, asset, path=["response"])
+            assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

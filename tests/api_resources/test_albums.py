@@ -9,7 +9,7 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import AlbumResponse
+from gumnut.types import AlbumResponse, AlbumDeleteResponse
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -197,7 +197,7 @@ class TestAlbums:
         album = client.albums.delete(
             "album_id",
         )
-        assert_matches_type(object, album, path=["response"])
+        assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -209,7 +209,7 @@ class TestAlbums:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         album = response.parse()
-        assert_matches_type(object, album, path=["response"])
+        assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -221,7 +221,7 @@ class TestAlbums:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             album = response.parse()
-            assert_matches_type(object, album, path=["response"])
+            assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -418,7 +418,7 @@ class TestAsyncAlbums:
         album = await async_client.albums.delete(
             "album_id",
         )
-        assert_matches_type(object, album, path=["response"])
+        assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -430,7 +430,7 @@ class TestAsyncAlbums:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         album = await response.parse()
-        assert_matches_type(object, album, path=["response"])
+        assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -442,7 +442,7 @@ class TestAsyncAlbums:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             album = await response.parse()
-            assert_matches_type(object, album, path=["response"])
+            assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

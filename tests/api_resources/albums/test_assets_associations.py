@@ -11,6 +11,7 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types.albums import (
     AssetsAssociationAddResponse,
+    AssetsAssociationRemoveResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -72,7 +73,7 @@ class TestAssetsAssociations:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert_matches_type(object, assets_association, path=["response"])
+        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -85,7 +86,7 @@ class TestAssetsAssociations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         assets_association = response.parse()
-        assert_matches_type(object, assets_association, path=["response"])
+        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -98,7 +99,7 @@ class TestAssetsAssociations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             assets_association = response.parse()
-            assert_matches_type(object, assets_association, path=["response"])
+            assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -170,7 +171,7 @@ class TestAsyncAssetsAssociations:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert_matches_type(object, assets_association, path=["response"])
+        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -183,7 +184,7 @@ class TestAsyncAssetsAssociations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         assets_association = await response.parse()
-        assert_matches_type(object, assets_association, path=["response"])
+        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -196,7 +197,7 @@ class TestAsyncAssetsAssociations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             assets_association = await response.parse()
-            assert_matches_type(object, assets_association, path=["response"])
+            assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
