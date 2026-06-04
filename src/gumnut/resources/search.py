@@ -98,13 +98,14 @@ class SearchResource(SyncAPIResource):
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
-              `file_size_bytes`). Accepts multiple `include=` query params or a single
-              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
-              value above is null/absent until you request it.
+              `file_data` (a group token populating the nested `file_data` object with the
+              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
+              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
+              multiple `include=` query params or a single comma-delimited value (e.g.
+              `include=faces,people`). Unknown values return 422. When omitted, only the lean
+              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
+              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
+              until you request it.
 
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
@@ -196,13 +197,14 @@ class SearchResource(SyncAPIResource):
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
-              `file_size_bytes`). Accepts multiple `include=` query params or a single
-              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
-              value above is null/absent until you request it.
+              `file_data` (a group token populating the nested `file_data` object with the
+              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
+              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
+              multiple `include=` query params or a single comma-delimited value (e.g.
+              `include=faces,people`). Unknown values return 422. When omitted, only the lean
+              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
+              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
+              until you request it.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -342,13 +344,14 @@ class AsyncSearchResource(AsyncAPIResource):
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
-              `file_size_bytes`). Accepts multiple `include=` query params or a single
-              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
-              value above is null/absent until you request it.
+              `file_data` (a group token populating the nested `file_data` object with the
+              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
+              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
+              multiple `include=` query params or a single comma-delimited value (e.g.
+              `include=faces,people`). Unknown values return 422. When omitted, only the lean
+              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
+              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
+              until you request it.
 
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
@@ -440,13 +443,14 @@ class AsyncSearchResource(AsyncAPIResource):
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token gating the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
-              `file_size_bytes`). Accepts multiple `include=` query params or a single
-              comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
-              When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
-              value above is null/absent until you request it.
+              `file_data` (a group token populating the nested `file_data` object with the
+              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
+              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
+              multiple `include=` query params or a single comma-delimited value (e.g.
+              `include=faces,people`). Unknown values return 422. When omitted, only the lean
+              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
+              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
+              until you request it.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 

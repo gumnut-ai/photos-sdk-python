@@ -14,10 +14,7 @@ class FileDataResponse(BaseModel):
     Returned only when requested via ``include=file_data``; the whole object is
     ``null`` otherwise. When present, every field carries its real value —
     ``checksum_sha1`` is the lone exception (``null`` for legacy rows that never
-    had a SHA-1). This nested object is the preferred home for the file/provenance
-    group; the equivalent top-level ``AssetResponse`` fields are retained for
-    backwards compatibility until clients migrate, and populated under the same
-    ``include=file_data`` gate.
+    had a SHA-1). This nested object is the home for the file/provenance group.
     """
 
     checksum: str
