@@ -37,9 +37,9 @@ class AssetResponse(BaseModel):
     asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Named asset variants.
 
-    Images: 'original', 'thumbnail', 'preview', 'fullsize'. Videos: 'original'
-    always, plus 'thumbnail_image', 'preview_image', 'fullsize_image' once a still
-    has been extracted.
+    Images: 'original', 'thumbnail', 'small', 'preview', 'fullsize'. Videos:
+    'original' always, plus 'thumbnail_image', 'small_image', 'preview_image',
+    'fullsize_image' once a still has been extracted.
     """
 
     description: Optional[str] = None
