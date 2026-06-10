@@ -63,6 +63,15 @@ class PersonListParams(TypedDict, total=False):
     Defaults to `named` (or `all` when `ids` is provided).
     """
 
+    sort: Literal["created_at_desc", "created_at_asc", "name_asc", "name_desc", "asset_count_desc", "asset_count_asc"]
+    """
+    Sort order for results: `created_at_desc` (newest people first; default) /
+    `created_at_asc`, `name_asc` / `name_desc` (alphabetical by name, locale-aware;
+    unnamed people always sort last), or `asset_count_desc` / `asset_count_asc` (by
+    number of photos the person appears in). Name sorts cannot be combined with
+    `name_filter=unnamed`.
+    """
+
     starting_after_id: Optional[str]
     """Cursor for pagination.
 
