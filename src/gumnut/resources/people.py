@@ -138,8 +138,9 @@ class PeopleResource(SyncAPIResource):
         """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
         Use
-        this when you already have a `person_id`. To find photos that contain this
-        person, use `search_assets` with `person_ids` or `list_assets` with `person_id`.
+        this when you already have a `person_id`. The JSON response is metadata only; to
+        get the photos that contain this person, use `search_assets` with `person_ids`
+        or `list_assets` with `person_id`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
@@ -531,8 +532,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
         Use
-        this when you already have a `person_id`. To find photos that contain this
-        person, use `search_assets` with `person_ids` or `list_assets` with `person_id`.
+        this when you already have a `person_id`. The JSON response is metadata only; to
+        get the photos that contain this person, use `search_assets` with `person_ids`
+        or `list_assets` with `person_id`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
