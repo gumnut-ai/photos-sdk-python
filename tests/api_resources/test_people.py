@@ -187,6 +187,7 @@ class TestPeople:
             limit=1,
             name="name",
             name_filter="named",
+            sort="created_at_desc",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
@@ -472,6 +473,7 @@ class TestAsyncPeople:
             limit=1,
             name="name",
             name_filter="named",
+            sort="created_at_desc",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])

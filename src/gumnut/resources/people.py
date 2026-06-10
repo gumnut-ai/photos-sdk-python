@@ -249,6 +249,10 @@ class PeopleResource(SyncAPIResource):
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
         name_filter: Optional[Literal["named", "unnamed", "all"]] | Omit = omit,
+        sort: Literal[
+            "created_at_desc", "created_at_asc", "name_asc", "name_desc", "asset_count_desc", "asset_count_asc"
+        ]
+        | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -259,10 +263,10 @@ class PeopleResource(SyncAPIResource):
     ) -> SyncCursorPage[PersonResponse]:
         """
         Returns a paginated list of people (named identities that group one or more
-        faces), ordered by creation time (newest first), optionally filtered by asset,
-        album, name, or ID. Use this to enumerate who appears in the library, to resolve
-        a user-typed name to a `person_id`, or to find who appears in a specific asset
-        or album.
+        faces), ordered according to `sort` (newest first by default), optionally
+        filtered by asset, album, name, or ID. Use this to enumerate who appears in the
+        library, to resolve a user-typed name to a `person_id`, or to find who appears
+        in a specific asset or album.
 
         By default only **named** people are returned; pass `name_filter=all` or
         `name_filter=unnamed` to include clusters that haven't been named yet.
@@ -303,6 +307,12 @@ class PeopleResource(SyncAPIResource):
               returns only nameless face clusters awaiting a name; `all` returns both.
               Defaults to `named` (or `all` when `ids` is provided).
 
+          sort: Sort order for results: `created_at_desc` (newest people first; default) /
+              `created_at_asc`, `name_asc` / `name_desc` (alphabetical by name, locale-aware;
+              unnamed people always sort last), or `asset_count_desc` / `asset_count_asc` (by
+              number of photos the person appears in). Name sorts cannot be combined with
+              `name_filter=unnamed`.
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last person in the previous
               response's `data` to fetch the next page. Omit for the first page.
 
@@ -332,6 +342,7 @@ class PeopleResource(SyncAPIResource):
                         "limit": limit,
                         "name": name,
                         "name_filter": name_filter,
+                        "sort": sort,
                         "starting_after_id": starting_after_id,
                     },
                     person_list_params.PersonListParams,
@@ -643,6 +654,10 @@ class AsyncPeopleResource(AsyncAPIResource):
         limit: int | Omit = omit,
         name: Optional[str] | Omit = omit,
         name_filter: Optional[Literal["named", "unnamed", "all"]] | Omit = omit,
+        sort: Literal[
+            "created_at_desc", "created_at_asc", "name_asc", "name_desc", "asset_count_desc", "asset_count_asc"
+        ]
+        | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -653,10 +668,10 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> AsyncPaginator[PersonResponse, AsyncCursorPage[PersonResponse]]:
         """
         Returns a paginated list of people (named identities that group one or more
-        faces), ordered by creation time (newest first), optionally filtered by asset,
-        album, name, or ID. Use this to enumerate who appears in the library, to resolve
-        a user-typed name to a `person_id`, or to find who appears in a specific asset
-        or album.
+        faces), ordered according to `sort` (newest first by default), optionally
+        filtered by asset, album, name, or ID. Use this to enumerate who appears in the
+        library, to resolve a user-typed name to a `person_id`, or to find who appears
+        in a specific asset or album.
 
         By default only **named** people are returned; pass `name_filter=all` or
         `name_filter=unnamed` to include clusters that haven't been named yet.
@@ -697,6 +712,12 @@ class AsyncPeopleResource(AsyncAPIResource):
               returns only nameless face clusters awaiting a name; `all` returns both.
               Defaults to `named` (or `all` when `ids` is provided).
 
+          sort: Sort order for results: `created_at_desc` (newest people first; default) /
+              `created_at_asc`, `name_asc` / `name_desc` (alphabetical by name, locale-aware;
+              unnamed people always sort last), or `asset_count_desc` / `asset_count_asc` (by
+              number of photos the person appears in). Name sorts cannot be combined with
+              `name_filter=unnamed`.
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last person in the previous
               response's `data` to fetch the next page. Omit for the first page.
 
@@ -726,6 +747,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                         "limit": limit,
                         "name": name,
                         "name_filter": name_filter,
+                        "sort": sort,
                         "starting_after_id": starting_after_id,
                     },
                     person_list_params.PersonListParams,
