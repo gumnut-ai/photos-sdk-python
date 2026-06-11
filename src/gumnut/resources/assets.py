@@ -152,15 +152,17 @@ class AssetsResource(SyncAPIResource):
               `search_assets`, or `list_album_assets`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token populating the nested `file_data` object with the
-              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
-              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
-              multiple `include=` query params or a single comma-delimited value (e.g.
-              `include=faces,people`). Unknown values return 422. When omitted, only the lean
-              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
-              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
-              until you request it.
+              location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
+              (a group token populating the nested `file_data` object with the file/provenance
+              scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
+              `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
+              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
+              variants whether or not this is passed — callers reading non-thumbnail variants
+              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
+              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
+              values return 422. When omitted, only the lean core is returned (`id`,
+              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
+              `asset_urls`) and each data field above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -235,15 +237,17 @@ class AssetsResource(SyncAPIResource):
               datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token populating the nested `file_data` object with the
-              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
-              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
-              multiple `include=` query params or a single comma-delimited value (e.g.
-              `include=faces,people`). Unknown values return 422. When omitted, only the lean
-              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
-              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
-              until you request it.
+              location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
+              (a group token populating the nested `file_data` object with the file/provenance
+              scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
+              `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
+              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
+              variants whether or not this is passed — callers reading non-thumbnail variants
+              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
+              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
+              values return 422. When omitted, only the lean core is returned (`id`,
+              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
+              `asset_urls`) and each data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -919,15 +923,17 @@ class AsyncAssetsResource(AsyncAPIResource):
               `search_assets`, or `list_album_assets`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token populating the nested `file_data` object with the
-              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
-              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
-              multiple `include=` query params or a single comma-delimited value (e.g.
-              `include=faces,people`). Unknown values return 422. When omitted, only the lean
-              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
-              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
-              until you request it.
+              location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
+              (a group token populating the nested `file_data` object with the file/provenance
+              scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
+              `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
+              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
+              variants whether or not this is passed — callers reading non-thumbnail variants
+              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
+              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
+              values return 422. When omitted, only the lean core is returned (`id`,
+              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
+              `asset_urls`) and each data field above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -1002,15 +1008,17 @@ class AsyncAssetsResource(AsyncAPIResource):
               datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `metrics` (ML quality scores), and
-              `file_data` (a group token populating the nested `file_data` object with the
-              file/provenance scalars `device_asset_id`, `device_id`, `file_created_at`,
-              `file_modified_at`, `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts
-              multiple `include=` query params or a single comma-delimited value (e.g.
-              `include=faces,people`). Unknown values return 422. When omitted, only the lean
-              core is returned (`id`, `mime_type`, `local_datetime`, dimensions,
-              `description`, `thumbhash`, `asset_urls`) and each value above is null/absent
-              until you request it.
+              location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
+              (a group token populating the nested `file_data` object with the file/provenance
+              scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
+              `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
+              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
+              variants whether or not this is passed — callers reading non-thumbnail variants
+              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
+              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
+              values return 422. When omitted, only the lean core is returned (`id`,
+              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
+              `asset_urls`) and each data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
