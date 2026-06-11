@@ -15,12 +15,15 @@ class AssetRetrieveParams(TypedDict, total=False):
     """Opt-in expansion fields.
 
     Supported values: `metadata` (camera/EXIF/GPS and location names), `faces`,
-    `people`, `metrics` (ML quality scores), and `file_data` (a group token
-    populating the nested `file_data` object with the file/provenance scalars
+    `people`, `metrics` (ML quality scores), `file_data` (a group token populating
+    the nested `file_data` object with the file/provenance scalars
     `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
-    `checksum`, `checksum_sha1`, `file_size_bytes`). Accepts multiple `include=`
-    query params or a single comma-delimited value (e.g. `include=faces,people`).
-    Unknown values return 422. When omitted, only the lean core is returned (`id`,
+    `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
+    non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
+    variants whether or not this is passed — callers reading non-thumbnail variants
+    should pass it now, ahead of a planned trim). Accepts multiple `include=` query
+    params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
+    values return 422. When omitted, only the lean core is returned (`id`,
     `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
-    `asset_urls`) and each value above is null/absent until you request it.
+    `asset_urls`) and each data field above is null/absent until you request it.
     """
