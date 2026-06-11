@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.asset_variant import AssetVariant
@@ -25,6 +26,12 @@ class FaceResponse(BaseModel):
     created_at: datetime
     """When this face was detected and recorded"""
 
+    source: Literal["automatic", "manual"]
+    """
+    How this face was added: 'automatic' for detector-found faces, 'manual' for
+    user-drawn face boxes.
+    """
+
     updated_at: datetime
     """When this face record was last updated"""
 
@@ -37,6 +44,14 @@ class FaceResponse(BaseModel):
     currently-assigned Person, and which other Persons are nearby in embedding
     space. Surfaced via `include=cluster_assignment` on the faces endpoints — used
     by the operator-facing face cleanup dashboard to triage mis-clustered faces.
+    """
+
+    confidence: Optional[float] = None
+    """
+    Detector confidence on a 0-1 scale; higher is more confident among faces
+    detected under the same configuration (values are not comparable across detector
+    generations). Null on legacy faces without a stored score and on manually added
+    faces.
     """
 
     person_id: Optional[str] = None
