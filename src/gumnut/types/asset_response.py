@@ -38,8 +38,10 @@ class AssetResponse(BaseModel):
     """Named asset variants.
 
     Images: 'original', 'thumbnail', 'small', 'preview', 'fullsize'. Videos:
-    'original' always, plus 'thumbnail_image', 'small_image', 'preview_image',
-    'fullsize_image' once a still has been extracted.
+    'original', plus 'thumbnail_image', 'small_image', 'preview_image',
+    'fullsize_image' pointing at the extracted still. Variant URLs are stable: a
+    derived variant may briefly 404 until its artifact is generated, then serve from
+    the same URL.
     """
 
     description: Optional[str] = None
