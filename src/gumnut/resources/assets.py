@@ -158,13 +158,14 @@ class AssetsResource(SyncAPIResource):
               (a group token populating the nested `file_data` object with the file/provenance
               scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
               `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
-              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
-              variants whether or not this is passed — callers reading non-thumbnail variants
-              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
-              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
-              values return 422. When omitted, only the lean core is returned (`id`,
-              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
-              `asset_urls`) and each data field above is null/absent until you request it.
+              non-thumbnail `asset_urls` size variants; without it `asset_urls` carries only
+              its lean rung — `thumbnail`, or `thumbnail_image` for a video with an extracted
+              still, or `original` for a still-less video — so callers that render
+              non-thumbnail variants must pass it). Accepts multiple `include=` query params
+              or a single comma-delimited value (e.g. `include=faces,people`). Unknown values
+              return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              data field above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -243,13 +244,14 @@ class AssetsResource(SyncAPIResource):
               (a group token populating the nested `file_data` object with the file/provenance
               scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
               `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
-              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
-              variants whether or not this is passed — callers reading non-thumbnail variants
-              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
-              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
-              values return 422. When omitted, only the lean core is returned (`id`,
-              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
-              `asset_urls`) and each data field above is null/absent until you request it.
+              non-thumbnail `asset_urls` size variants; without it `asset_urls` carries only
+              its lean rung — `thumbnail`, or `thumbnail_image` for a video with an extracted
+              still, or `original` for a still-less video — so callers that render
+              non-thumbnail variants must pass it). Accepts multiple `include=` query params
+              or a single comma-delimited value (e.g. `include=faces,people`). Unknown values
+              return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
@@ -931,13 +933,14 @@ class AsyncAssetsResource(AsyncAPIResource):
               (a group token populating the nested `file_data` object with the file/provenance
               scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
               `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
-              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
-              variants whether or not this is passed — callers reading non-thumbnail variants
-              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
-              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
-              values return 422. When omitted, only the lean core is returned (`id`,
-              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
-              `asset_urls`) and each data field above is null/absent until you request it.
+              non-thumbnail `asset_urls` size variants; without it `asset_urls` carries only
+              its lean rung — `thumbnail`, or `thumbnail_image` for a video with an extracted
+              still, or `original` for a still-less video — so callers that render
+              non-thumbnail variants must pass it). Accepts multiple `include=` query params
+              or a single comma-delimited value (e.g. `include=faces,people`). Unknown values
+              return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              data field above is null/absent until you request it.
 
           extra_headers: Send extra headers
 
@@ -1016,13 +1019,14 @@ class AsyncAssetsResource(AsyncAPIResource):
               (a group token populating the nested `file_data` object with the file/provenance
               scalars `device_asset_id`, `device_id`, `file_created_at`, `file_modified_at`,
               `checksum`, `checksum_sha1`, `file_size_bytes`), and `variants` (the
-              non-thumbnail `asset_urls` size variants; currently `asset_urls` carries all
-              variants whether or not this is passed — callers reading non-thumbnail variants
-              should pass it now, ahead of a planned trim). Accepts multiple `include=` query
-              params or a single comma-delimited value (e.g. `include=faces,people`). Unknown
-              values return 422. When omitted, only the lean core is returned (`id`,
-              `mime_type`, `local_datetime`, dimensions, `description`, `thumbhash`,
-              `asset_urls`) and each data field above is null/absent until you request it.
+              non-thumbnail `asset_urls` size variants; without it `asset_urls` carries only
+              its lean rung — `thumbnail`, or `thumbnail_image` for a video with an extracted
+              still, or `original` for a still-less video — so callers that render
+              non-thumbnail variants must pass it). Accepts multiple `include=` query params
+              or a single comma-delimited value (e.g. `include=faces,people`). Unknown values
+              return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
+              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
+              data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
               when they have multiple. Use `list_libraries` to enumerate available libraries.
