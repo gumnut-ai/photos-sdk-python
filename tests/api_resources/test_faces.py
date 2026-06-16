@@ -23,6 +23,74 @@ class TestFaces:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create(self, client: Gumnut) -> None:
+        face = client.faces.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        )
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Gumnut) -> None:
+        face = client.faces.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+            library_id="library_id",
+            person_id="person_id",
+        )
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Gumnut) -> None:
+        response = client.faces.with_raw_response.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        face = response.parse()
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Gumnut) -> None:
+        with client.faces.with_streaming_response.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            face = response.parse()
+            assert_matches_type(FaceResponse, face, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         face = client.faces.retrieve(
             face_id="face_id",
@@ -223,6 +291,74 @@ class TestAsyncFaces:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncGumnut) -> None:
+        face = await async_client.faces.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        )
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
+        face = await async_client.faces.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+            library_id="library_id",
+            person_id="person_id",
+        )
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.faces.with_raw_response.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        face = await response.parse()
+        assert_matches_type(FaceResponse, face, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
+        async with async_client.faces.with_streaming_response.create(
+            asset_id="asset_id",
+            bounding_box={
+                "h": 1,
+                "w": 1,
+                "x": 0,
+                "y": 0,
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            face = await response.parse()
+            assert_matches_type(FaceResponse, face, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
