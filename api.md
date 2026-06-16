@@ -128,6 +128,7 @@ from gumnut.types import ClusterAssignmentResponse, FaceResponse, FaceDeleteResp
 
 Methods:
 
+- <code title="post /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">create</a>(\*\*<a href="src/gumnut/types/face_create_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">retrieve</a>(face_id, \*\*<a href="src/gumnut/types/face_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
