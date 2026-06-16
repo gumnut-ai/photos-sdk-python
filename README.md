@@ -177,6 +177,27 @@ for asset in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from gumnut import Gumnut
+
+client = Gumnut()
+
+face_response = client.faces.create(
+    asset_id="asset_id",
+    bounding_box={
+        "h": 1,
+        "w": 1,
+        "x": 0,
+        "y": 0,
+    },
+)
+print(face_response.bounding_box)
+```
+
 from datetime import datetime
 
 ## File uploads

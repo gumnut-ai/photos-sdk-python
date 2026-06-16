@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import face_list_params, face_delete_params, face_update_params, face_retrieve_params
+from ..types import face_list_params, face_create_params, face_delete_params, face_update_params, face_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -44,6 +44,65 @@ class FacesResource(SyncAPIResource):
         For more information, see https://www.github.com/gumnut-ai/photos-sdk-python#with_streaming_response
         """
         return FacesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        asset_id: str,
+        bounding_box: face_create_params.BoundingBox,
+        library_id: Optional[str] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FaceResponse:
+        """Adds a user-drawn face box to an asset, for a face the detector missed.
+
+        To
+        remove a face detection instead, use `delete_face`; to introduce a brand-new
+        identity first, use `create_person`.
+
+        Args:
+          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. Get IDs from
+              `list_assets` / `search_assets`. The asset must belong to the target library.
+
+          bounding_box: Where the face is, as a box in display-space pixels matching the asset's
+              reported `width`/`height`. The box must fit inside those dimensions.
+
+          library_id: Library to create the face in. Optional if the user has a single library;
+              required when they have multiple.
+
+          person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
+              Omit to leave it unassigned; assign it later via `update_face`. Get IDs from
+              `list_people`; use `create_person` first if the identity doesn't exist yet.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/faces",
+            body=maybe_transform(
+                {
+                    "asset_id": asset_id,
+                    "bounding_box": bounding_box,
+                    "library_id": library_id,
+                    "person_id": person_id,
+                },
+                face_create_params.FaceCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FaceResponse,
+        )
 
     def retrieve(
         self,
@@ -313,6 +372,65 @@ class AsyncFacesResource(AsyncAPIResource):
         """
         return AsyncFacesResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        asset_id: str,
+        bounding_box: face_create_params.BoundingBox,
+        library_id: Optional[str] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FaceResponse:
+        """Adds a user-drawn face box to an asset, for a face the detector missed.
+
+        To
+        remove a face detection instead, use `delete_face`; to introduce a brand-new
+        identity first, use `create_person`.
+
+        Args:
+          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. Get IDs from
+              `list_assets` / `search_assets`. The asset must belong to the target library.
+
+          bounding_box: Where the face is, as a box in display-space pixels matching the asset's
+              reported `width`/`height`. The box must fit inside those dimensions.
+
+          library_id: Library to create the face in. Optional if the user has a single library;
+              required when they have multiple.
+
+          person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
+              Omit to leave it unassigned; assign it later via `update_face`. Get IDs from
+              `list_people`; use `create_person` first if the identity doesn't exist yet.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/faces",
+            body=await async_maybe_transform(
+                {
+                    "asset_id": asset_id,
+                    "bounding_box": bounding_box,
+                    "library_id": library_id,
+                    "person_id": person_id,
+                },
+                face_create_params.FaceCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FaceResponse,
+        )
+
     async def retrieve(
         self,
         face_id: str,
@@ -565,6 +683,9 @@ class FacesResourceWithRawResponse:
     def __init__(self, faces: FacesResource) -> None:
         self._faces = faces
 
+        self.create = to_raw_response_wrapper(
+            faces.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             faces.retrieve,
         )
@@ -583,6 +704,9 @@ class AsyncFacesResourceWithRawResponse:
     def __init__(self, faces: AsyncFacesResource) -> None:
         self._faces = faces
 
+        self.create = async_to_raw_response_wrapper(
+            faces.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             faces.retrieve,
         )
@@ -601,6 +725,9 @@ class FacesResourceWithStreamingResponse:
     def __init__(self, faces: FacesResource) -> None:
         self._faces = faces
 
+        self.create = to_streamed_response_wrapper(
+            faces.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             faces.retrieve,
         )
@@ -619,6 +746,9 @@ class AsyncFacesResourceWithStreamingResponse:
     def __init__(self, faces: AsyncFacesResource) -> None:
         self._faces = faces
 
+        self.create = async_to_streamed_response_wrapper(
+            faces.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             faces.retrieve,
         )
