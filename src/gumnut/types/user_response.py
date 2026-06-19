@@ -43,3 +43,9 @@ class UserResponse(BaseModel):
 
     last_name: Optional[str] = None
     """User's last name"""
+
+    timezone: Optional[str] = None
+    """User's home timezone as an IANA zone id (e.g.
+
+    'America/Los_Angeles'); null until a home zone is captured
+    """
