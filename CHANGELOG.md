@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.119.1 (2026-06-30)
+
+Full Changelog: [v0.119.0...v0.119.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.119.0...v0.119.1)
+
+### Bug Fixes
+
+* **types:** avoid type-checker errors on params with additional properties ([4f96752](https://github.com/gumnut-ai/photos-sdk-python/commit/4f9675200c4eb3d1b51052665012111b6369cf2b))
+
 ## 0.119.0 (2026-06-26)
 
 Full Changelog: [v0.118.0...v0.119.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.118.0...v0.119.0)
