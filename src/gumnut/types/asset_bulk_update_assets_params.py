@@ -21,7 +21,11 @@ class AssetBulkUpdateAssetsParams(TypedDict, total=False):
     """
 
 
-class UpdateChange(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class UpdateChange(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """The change to apply to this asset.
 
     Same shape as the body of the single-asset `update_asset` endpoint — same fields, same validation, same null-clears-the-override semantics.
