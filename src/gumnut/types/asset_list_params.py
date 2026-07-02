@@ -20,6 +20,22 @@ class AssetListParams(TypedDict, total=False):
     asset — prefer this param when you need the full asset metadata in one call.
     """
 
+    bbox: Optional[str]
+    """
+    Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+    numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+    (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. Mutually exclusive with
+    `center`/`radius`. A box whose `min_longitude` exceeds `max_longitude`
+    (antimeridian-crossing) is accepted but matches nothing — split it client-side.
+    """
+
+    center: Optional[str]
+    """
+    Center point of a radius location filter: two comma-separated decimal-degree
+    numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+    Mutually exclusive with `bbox`.
+    """
+
     ids: Optional[SequenceNotStr[str]]
     """Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
 
@@ -80,6 +96,12 @@ class AssetListParams(TypedDict, total=False):
 
     Singular on this tool; the sibling `search_assets` uses `person_ids` (plural,
     ALL-of).
+    """
+
+    radius: Optional[float]
+    """
+    Radius of the `center` location filter, in meters (greater than 0, at most
+    50000).
     """
 
     starting_after_id: Optional[str]

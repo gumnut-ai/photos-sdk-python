@@ -150,6 +150,8 @@ class TestAssets:
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.list(
             album_id="album_id",
+            bbox="bbox",
+            center="center",
             ids=["string", "string"],
             include=["string", "string"],
             library_id="library_id",
@@ -157,6 +159,7 @@ class TestAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            radius=0,
             starting_after_id="starting_after_id",
             state="live",
         )
@@ -704,6 +707,8 @@ class TestAsyncAssets:
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list(
             album_id="album_id",
+            bbox="bbox",
+            center="center",
             ids=["string", "string"],
             include=["string", "string"],
             library_id="library_id",
@@ -711,6 +716,7 @@ class TestAsyncAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            radius=0,
             starting_after_id="starting_after_id",
             state="live",
         )
