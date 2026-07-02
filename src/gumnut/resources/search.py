@@ -50,12 +50,14 @@ class SearchResource(SyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,11 +83,15 @@ class SearchResource(SyncAPIResource):
         filters alone (album, person, date range, ID) — it's cheaper and more
         deterministic than semantic search.
 
-        Does not filter by location/place today; pass place names as part of `query` and
-        rely on semantic matching until a structured location filter lands.
+        Location filtering is by coordinate radius only: pass `center` + `radius`
+        together to keep only assets within that circle (a filter that narrows
+        candidates — the semantic/date ordering is unchanged). Place-name search
+        ('photos in Paris') is not supported; pass place names as part of `query` and
+        rely on semantic matching.
 
         At least one of `query`, `person_ids`, `captured_before`, or `captured_after`
-        must be provided.
+        must be provided; the radius is an additional filter, not a search criterion on
+        its own.
 
         Args:
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
@@ -95,6 +101,9 @@ class SearchResource(SyncAPIResource):
           captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
+
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -132,6 +141,9 @@ class SearchResource(SyncAPIResource):
               in `query`) and `captured_before`/`captured_after` for dates (not phrases like
               'in 2023' in `query`).
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50,000).
+
           threshold: Maximum semantic distance for a result to be included (0.0 = identical, 1.0 =
               unrelated). Lower values return fewer, more confident matches; higher values
               return more results with looser matching. Default 0.8 is moderate — try 0.6 for
@@ -157,12 +169,14 @@ class SearchResource(SyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "center": center,
                         "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
                         "person_ids": person_ids,
                         "query": query,
+                        "radius": radius,
                         "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
@@ -177,12 +191,14 @@ class SearchResource(SyncAPIResource):
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -216,6 +232,9 @@ class SearchResource(SyncAPIResource):
 
           captured_before: Filter to only include assets captured before this date (ISO format).
 
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+
           image: Image file to search for similar assets. Can be combined with text query.
 
           library_id: Library to search assets from (optional)
@@ -233,6 +252,9 @@ class SearchResource(SyncAPIResource):
               photos taken during a specific date range, use the captured_before and
               captured_after parameters instead.
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50,000).
+
           threshold: Similarity threshold (lower means more similar)
 
           extra_headers: Send extra headers
@@ -247,12 +269,14 @@ class SearchResource(SyncAPIResource):
             {
                 "captured_after": captured_after,
                 "captured_before": captured_before,
+                "center": center,
                 "image": image,
                 "library_id": library_id,
                 "limit": limit,
                 "page": page,
                 "person_ids": person_ids,
                 "query": query,
+                "radius": radius,
                 "threshold": threshold,
             },
             [["image"]],
@@ -302,12 +326,14 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -333,11 +359,15 @@ class AsyncSearchResource(AsyncAPIResource):
         filters alone (album, person, date range, ID) — it's cheaper and more
         deterministic than semantic search.
 
-        Does not filter by location/place today; pass place names as part of `query` and
-        rely on semantic matching until a structured location filter lands.
+        Location filtering is by coordinate radius only: pass `center` + `radius`
+        together to keep only assets within that circle (a filter that narrows
+        candidates — the semantic/date ordering is unchanged). Place-name search
+        ('photos in Paris') is not supported; pass place names as part of `query` and
+        rely on semantic matching.
 
         At least one of `query`, `person_ids`, `captured_before`, or `captured_after`
-        must be provided.
+        must be provided; the radius is an additional filter, not a search criterion on
+        its own.
 
         Args:
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
@@ -347,6 +377,9 @@ class AsyncSearchResource(AsyncAPIResource):
           captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
+
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -384,6 +417,9 @@ class AsyncSearchResource(AsyncAPIResource):
               in `query`) and `captured_before`/`captured_after` for dates (not phrases like
               'in 2023' in `query`).
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50,000).
+
           threshold: Maximum semantic distance for a result to be included (0.0 = identical, 1.0 =
               unrelated). Lower values return fewer, more confident matches; higher values
               return more results with looser matching. Default 0.8 is moderate — try 0.6 for
@@ -409,12 +445,14 @@ class AsyncSearchResource(AsyncAPIResource):
                     {
                         "captured_after": captured_after,
                         "captured_before": captured_before,
+                        "center": center,
                         "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
                         "person_ids": person_ids,
                         "query": query,
+                        "radius": radius,
                         "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
@@ -429,12 +467,14 @@ class AsyncSearchResource(AsyncAPIResource):
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -468,6 +508,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
           captured_before: Filter to only include assets captured before this date (ISO format).
 
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+
           image: Image file to search for similar assets. Can be combined with text query.
 
           library_id: Library to search assets from (optional)
@@ -485,6 +528,9 @@ class AsyncSearchResource(AsyncAPIResource):
               photos taken during a specific date range, use the captured_before and
               captured_after parameters instead.
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50,000).
+
           threshold: Similarity threshold (lower means more similar)
 
           extra_headers: Send extra headers
@@ -499,12 +545,14 @@ class AsyncSearchResource(AsyncAPIResource):
             {
                 "captured_after": captured_after,
                 "captured_before": captured_before,
+                "center": center,
                 "image": image,
                 "library_id": library_id,
                 "limit": limit,
                 "page": page,
                 "person_ids": person_ids,
                 "query": query,
+                "radius": radius,
                 "threshold": threshold,
             },
             [["image"]],
