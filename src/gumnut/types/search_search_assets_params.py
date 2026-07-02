@@ -37,6 +37,12 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter to only include assets captured before this date (ISO format)."""
 
+    center: Optional[str]
+    """
+    Center point of a radius location filter: two comma-separated decimal-degree
+    numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+    """
+
     image: Optional[FileTypes]
     """Image file to search for similar assets. Can be combined with text query."""
 
@@ -62,6 +68,12 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     If you want to search for a specific person or set of people, use the person_ids
     parameter instead.If you want to search for a photos taken during a specific
     date range, use the captured_before and captured_after parameters instead.
+    """
+
+    radius: Optional[float]
+    """
+    Radius of the `center` location filter, in meters (greater than 0, at most
+    50,000).
     """
 
     threshold: float

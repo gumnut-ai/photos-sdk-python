@@ -30,12 +30,14 @@ class TestSearch:
         search = client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            center="center",
             include=["string", "string"],
             library_id="library_id",
             limit=1,
             page=1,
             person_ids=["string", "string"],
             query="query",
+            radius=0,
             threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
@@ -75,12 +77,14 @@ class TestSearch:
             include=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            center="center",
             image=b"Example data",
             library_id="library_id",
             limit=1,
             page=1,
             person_ids=["string"],
             query="query",
+            radius=0,
             threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
@@ -125,12 +129,14 @@ class TestAsyncSearch:
         search = await async_client.search.search(
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            center="center",
             include=["string", "string"],
             library_id="library_id",
             limit=1,
             page=1,
             person_ids=["string", "string"],
             query="query",
+            radius=0,
             threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
@@ -170,12 +176,14 @@ class TestAsyncSearch:
             include=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            center="center",
             image=b"Example data",
             library_id="library_id",
             limit=1,
             page=1,
             person_ids=["string"],
             query="query",
+            radius=0,
             threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])

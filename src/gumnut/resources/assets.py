@@ -193,6 +193,8 @@ class AssetsResource(SyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
@@ -200,6 +202,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -211,15 +214,20 @@ class AssetsResource(SyncAPIResource):
     ) -> SyncCursorPage[AssetResponse]:
         """
         Returns a paginated list of assets ordered by local capture time (newest first),
-        optionally filtered by album, person, date range, or asset ID. Use this tool for
-        structured browsing and filtering — when the request can be expressed as exact
-        filters on album membership, people, date range, or specific asset IDs.
+        optionally filtered by album, person, date range, geographic area, or asset ID.
+        Use this tool for structured browsing and filtering — when the request can be
+        expressed as exact filters on album membership, people, date range, geographic
+        coordinates, or specific asset IDs.
+
+        **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
+        a bounding box (`bbox`) to restrict results to a geographic area. The two modes
+        are mutually exclusive.
 
         **Use `search_assets` instead** when the request involves natural-language image
-        content ('photos of sunsets', 'pictures with my dog'), location or place
-        ('photos from Japan'), or any concept requiring semantic understanding of what's
-        in the image. `list_assets` does not filter by image content, location, or
-        caption text.
+        content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
+        from Japan'), or any concept requiring semantic understanding of what's in the
+        image. `list_assets` filters by coordinate but not by image content, place name,
+        or caption text.
 
         **To present a curated set of specific assets to the user** (e.g., a hand-picked
         subset of `search_assets` results), call this tool with `ids=[...]` rather than
@@ -233,6 +241,16 @@ class AssetsResource(SyncAPIResource):
           album_id: Return only assets that are in the album with this ID. Equivalent to calling
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
               param when you need the full asset metadata in one call.
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. Mutually exclusive with
+              `center`/`radius`. A box whose `min_longitude` exceeds `max_longitude`
+              (antimeridian-crossing) is accepted but matches nothing — split it client-side.
+
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
@@ -274,6 +292,9 @@ class AssetsResource(SyncAPIResource):
           person_id: Return only assets containing a face belonging to this person. Singular on this
               tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50000).
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Omit for the first page. `list_assets`
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
@@ -302,6 +323,8 @@ class AssetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "bbox": bbox,
+                        "center": center,
                         "ids": ids,
                         "include": include,
                         "library_id": library_id,
@@ -309,6 +332,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "radius": radius,
                         "starting_after_id": starting_after_id,
                         "state": state,
                     },
@@ -968,6 +992,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
+        center: Optional[str] | Omit = omit,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
@@ -975,6 +1001,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        radius: Optional[float] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -986,15 +1013,20 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
         Returns a paginated list of assets ordered by local capture time (newest first),
-        optionally filtered by album, person, date range, or asset ID. Use this tool for
-        structured browsing and filtering — when the request can be expressed as exact
-        filters on album membership, people, date range, or specific asset IDs.
+        optionally filtered by album, person, date range, geographic area, or asset ID.
+        Use this tool for structured browsing and filtering — when the request can be
+        expressed as exact filters on album membership, people, date range, geographic
+        coordinates, or specific asset IDs.
+
+        **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
+        a bounding box (`bbox`) to restrict results to a geographic area. The two modes
+        are mutually exclusive.
 
         **Use `search_assets` instead** when the request involves natural-language image
-        content ('photos of sunsets', 'pictures with my dog'), location or place
-        ('photos from Japan'), or any concept requiring semantic understanding of what's
-        in the image. `list_assets` does not filter by image content, location, or
-        caption text.
+        content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
+        from Japan'), or any concept requiring semantic understanding of what's in the
+        image. `list_assets` filters by coordinate but not by image content, place name,
+        or caption text.
 
         **To present a curated set of specific assets to the user** (e.g., a hand-picked
         subset of `search_assets` results), call this tool with `ids=[...]` rather than
@@ -1008,6 +1040,16 @@ class AsyncAssetsResource(AsyncAPIResource):
           album_id: Return only assets that are in the album with this ID. Equivalent to calling
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
               param when you need the full asset metadata in one call.
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. Mutually exclusive with
+              `center`/`radius`. A box whose `min_longitude` exceeds `max_longitude`
+              (antimeridian-crossing) is accepted but matches nothing — split it client-side.
+
+          center: Center point of a radius location filter: two comma-separated decimal-degree
+              numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
@@ -1049,6 +1091,9 @@ class AsyncAssetsResource(AsyncAPIResource):
           person_id: Return only assets containing a face belonging to this person. Singular on this
               tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
 
+          radius: Radius of the `center` location filter, in meters (greater than 0, at most
+              50000).
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Omit for the first page. `list_assets`
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
@@ -1077,6 +1122,8 @@ class AsyncAssetsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "bbox": bbox,
+                        "center": center,
                         "ids": ids,
                         "include": include,
                         "library_id": library_id,
@@ -1084,6 +1131,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "radius": radius,
                         "starting_after_id": starting_after_id,
                         "state": state,
                     },

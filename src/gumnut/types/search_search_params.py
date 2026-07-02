@@ -27,6 +27,12 @@ class SearchSearchParams(TypedDict, total=False):
     inconsistency is tracked as a follow-up).
     """
 
+    center: Optional[str]
+    """
+    Center point of a radius location filter: two comma-separated decimal-degree
+    numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+    """
+
     include: Optional[SequenceNotStr[str]]
     """Opt-in expansion fields.
 
@@ -81,6 +87,12 @@ class SearchSearchParams(TypedDict, total=False):
     Prefer structured params when available: use `person_ids` for people (not names
     in `query`) and `captured_before`/`captured_after` for dates (not phrases like
     'in 2023' in `query`).
+    """
+
+    radius: Optional[float]
+    """
+    Radius of the `center` location filter, in meters (greater than 0, at most
+    50,000).
     """
 
     threshold: float
