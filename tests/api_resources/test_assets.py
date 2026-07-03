@@ -18,6 +18,7 @@ from gumnut.types import (
     AssetExistenceResponse,
     AssetDeleteListResponse,
     AssetEmptyTrashResponse,
+    AssetClusterByGeoResponse,
     AssetBulkUpdateAssetsResponse,
 )
 from gumnut._utils import parse_datetime
@@ -315,6 +316,58 @@ class TestAssets:
 
             asset = response.parse()
             assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cluster_by_geo(self, client: Gumnut) -> None:
+        asset = client.assets.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        )
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cluster_by_geo_with_all_params(self, client: Gumnut) -> None:
+        asset = client.assets.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+            album_id="album_id",
+            library_id="library_id",
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            person_id="person_id",
+            state="live",
+        )
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_cluster_by_geo(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_cluster_by_geo(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -872,6 +925,58 @@ class TestAsyncAssets:
 
             asset = await response.parse()
             assert_matches_type(AssetExistenceResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cluster_by_geo(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        )
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cluster_by_geo_with_all_params(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+            album_id="album_id",
+            library_id="library_id",
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            person_id="person_id",
+            state="live",
+        )
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_cluster_by_geo(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_cluster_by_geo(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.cluster_by_geo(
+            bbox="bbox",
+            cell_size=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
