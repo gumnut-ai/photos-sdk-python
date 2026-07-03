@@ -18,6 +18,7 @@ from ..types import (
     asset_delete_list_params,
     asset_empty_trash_params,
     asset_update_asset_params,
+    asset_cluster_by_geo_params,
     asset_check_existence_params,
     asset_bulk_update_assets_params,
 )
@@ -42,6 +43,7 @@ from ..types.asset_restore_response import AssetRestoreResponse
 from ..types.asset_existence_response import AssetExistenceResponse
 from ..types.asset_delete_list_response import AssetDeleteListResponse
 from ..types.asset_empty_trash_response import AssetEmptyTrashResponse
+from ..types.asset_cluster_by_geo_response import AssetClusterByGeoResponse
 from ..types.asset_bulk_update_assets_response import AssetBulkUpdateAssetsResponse
 
 __all__ = ["AssetsResource", "AsyncAssetsResource"]
@@ -491,6 +493,95 @@ class AssetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=AssetExistenceResponse,
+        )
+
+    def cluster_by_geo(
+        self,
+        *,
+        bbox: str,
+        cell_size: float,
+        album_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetClusterByGeoResponse:
+        """
+        Clusters geotagged assets in a map viewport (bounding box) onto a grid of square
+        cells and returns one entry per non-empty cell — its centroid, asset count, and
+        a representative cover asset. Use this to render a clustered map or to count how
+        many photos fall in each part of a viewport at a chosen zoom granularity.
+
+        The result is a single un-paginated list capped at 1000 cells; a viewport that
+        is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
+        in). A viewport whose `min_longitude` exceeds `max_longitude` (crossing the
+        antimeridian) returns no cells — split it into two requests client-side. To list
+        the individual assets behind a cell, call `list_assets` with a tighter bounding
+        box over the same filters.
+
+        Args:
+          bbox: Map viewport as four comma-separated decimal-degree numbers
+              `min_longitude,min_latitude,max_longitude,max_latitude` (west,south,east,north),
+              e.g. `-77.1,38.9,-77.0,39.0`. A box whose `min_longitude` exceeds
+              `max_longitude` (antimeridian-crossing) returns no cells — split it client-side.
+
+          cell_size: Grid cell edge in decimal degrees — the clustering granularity. Larger values
+              give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
+              0.0001 (~11 m).
+
+          album_id: Return only assets that are in the album with this ID.
+
+          library_id: Library to cluster assets from. Optional if the user has a single library;
+              required when they have multiple.
+
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as on `list_assets`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as on `list_assets`.
+
+          person_id: Return only assets containing a face belonging to this person.
+
+          state: Which set of assets to cluster: `live` (default — excludes trashed assets),
+              `trashed` (only trashed assets), or `all` (both).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/api/assets/geo-clusters",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "bbox": bbox,
+                        "cell_size": cell_size,
+                        "album_id": album_id,
+                        "library_id": library_id,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
+                        "person_id": person_id,
+                        "state": state,
+                    },
+                    asset_cluster_by_geo_params.AssetClusterByGeoParams,
+                ),
+            ),
+            cast_to=AssetClusterByGeoResponse,
         )
 
     def counts(
@@ -1296,6 +1387,95 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=AssetExistenceResponse,
         )
 
+    async def cluster_by_geo(
+        self,
+        *,
+        bbox: str,
+        cell_size: float,
+        album_id: Optional[str] | Omit = omit,
+        library_id: Optional[str] | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        person_id: Optional[str] | Omit = omit,
+        state: Literal["live", "trashed", "all"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetClusterByGeoResponse:
+        """
+        Clusters geotagged assets in a map viewport (bounding box) onto a grid of square
+        cells and returns one entry per non-empty cell — its centroid, asset count, and
+        a representative cover asset. Use this to render a clustered map or to count how
+        many photos fall in each part of a viewport at a chosen zoom granularity.
+
+        The result is a single un-paginated list capped at 1000 cells; a viewport that
+        is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
+        in). A viewport whose `min_longitude` exceeds `max_longitude` (crossing the
+        antimeridian) returns no cells — split it into two requests client-side. To list
+        the individual assets behind a cell, call `list_assets` with a tighter bounding
+        box over the same filters.
+
+        Args:
+          bbox: Map viewport as four comma-separated decimal-degree numbers
+              `min_longitude,min_latitude,max_longitude,max_latitude` (west,south,east,north),
+              e.g. `-77.1,38.9,-77.0,39.0`. A box whose `min_longitude` exceeds
+              `max_longitude` (antimeridian-crossing) returns no cells — split it client-side.
+
+          cell_size: Grid cell edge in decimal degrees — the clustering granularity. Larger values
+              give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
+              0.0001 (~11 m).
+
+          album_id: Return only assets that are in the album with this ID.
+
+          library_id: Library to cluster assets from. Optional if the user has a single library;
+              required when they have multiple.
+
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as on `list_assets`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same awareness/offset semantics as on `list_assets`.
+
+          person_id: Return only assets containing a face belonging to this person.
+
+          state: Which set of assets to cluster: `live` (default — excludes trashed assets),
+              `trashed` (only trashed assets), or `all` (both).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/api/assets/geo-clusters",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "bbox": bbox,
+                        "cell_size": cell_size,
+                        "album_id": album_id,
+                        "library_id": library_id,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
+                        "person_id": person_id,
+                        "state": state,
+                    },
+                    asset_cluster_by_geo_params.AssetClusterByGeoParams,
+                ),
+            ),
+            cast_to=AssetClusterByGeoResponse,
+        )
+
     async def counts(
         self,
         *,
@@ -1677,6 +1857,9 @@ class AssetsResourceWithRawResponse:
         self.check_existence = to_raw_response_wrapper(
             assets.check_existence,
         )
+        self.cluster_by_geo = to_raw_response_wrapper(
+            assets.cluster_by_geo,
+        )
         self.counts = to_raw_response_wrapper(
             assets.counts,
         )
@@ -1718,6 +1901,9 @@ class AsyncAssetsResourceWithRawResponse:
         )
         self.check_existence = async_to_raw_response_wrapper(
             assets.check_existence,
+        )
+        self.cluster_by_geo = async_to_raw_response_wrapper(
+            assets.cluster_by_geo,
         )
         self.counts = async_to_raw_response_wrapper(
             assets.counts,
@@ -1761,6 +1947,9 @@ class AssetsResourceWithStreamingResponse:
         self.check_existence = to_streamed_response_wrapper(
             assets.check_existence,
         )
+        self.cluster_by_geo = to_streamed_response_wrapper(
+            assets.cluster_by_geo,
+        )
         self.counts = to_streamed_response_wrapper(
             assets.counts,
         )
@@ -1802,6 +1991,9 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.check_existence = async_to_streamed_response_wrapper(
             assets.check_existence,
+        )
+        self.cluster_by_geo = async_to_streamed_response_wrapper(
+            assets.cluster_by_geo,
         )
         self.counts = async_to_streamed_response_wrapper(
             assets.counts,

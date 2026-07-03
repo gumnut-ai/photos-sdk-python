@@ -38,6 +38,7 @@ from gumnut.types import (
     MetadataResponse,
     AssetDeleteResponse,
     AssetBulkUpdateAssetsResponse,
+    AssetClusterByGeoResponse,
     AssetDeleteListResponse,
     AssetEmptyTrashResponse,
     AssetRestoreResponse,
@@ -53,6 +54,7 @@ Methods:
 - <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets.py">delete</a>(asset_id) -> <a href="./src/gumnut/types/asset_delete_response.py">AssetDeleteResponse</a></code>
 - <code title="post /api/assets/bulk-update">client.assets.<a href="./src/gumnut/resources/assets.py">bulk_update_assets</a>(\*\*<a href="src/gumnut/types/asset_bulk_update_assets_params.py">params</a>) -> <a href="./src/gumnut/types/asset_bulk_update_assets_response.py">AssetBulkUpdateAssetsResponse</a></code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
+- <code title="get /api/assets/geo-clusters">client.assets.<a href="./src/gumnut/resources/assets.py">cluster_by_geo</a>(\*\*<a href="src/gumnut/types/asset_cluster_by_geo_params.py">params</a>) -> <a href="./src/gumnut/types/asset_cluster_by_geo_response.py">AssetClusterByGeoResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
 - <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_delete_list_response.py">AssetDeleteListResponse</a></code>
 - <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> <a href="./src/gumnut/types/asset_empty_trash_response.py">AssetEmptyTrashResponse</a></code>
