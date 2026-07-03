@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.122.0 (2026-07-03)
+
+Full Changelog: [v0.121.0...v0.122.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.121.0...v0.122.0)
+
+### Features
+
+* **api:** cluster by geo ([669ccf5](https://github.com/gumnut-ai/photos-sdk-python/commit/669ccf5b313449239377e31aec4a9a0ce34f7c5f))
+
 ## 0.121.0 (2026-07-02)
 
 Full Changelog: [v0.120.0...v0.121.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.120.0...v0.121.0)
