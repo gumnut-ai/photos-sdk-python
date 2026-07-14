@@ -95,6 +95,16 @@ class AssetResponse(BaseModel):
     identified.
     """
 
+    stack_id: Optional[str] = None
+    """
+    ID of the burst stack this asset belongs to (`asset_stack_` prefix), or `null`
+    when the asset is not part of a stack. Group assets by this value to collapse a
+    burst into a single tile; the stack's own cover and member count are not carried
+    on the asset. Distinct from `metadata.auto_stack_id`, which is the camera's
+    in-EXIF `MakerNotes:AutoStackID` string — this is the server-assigned foreign
+    key to the asset's stack.
+    """
+
     thumbhash: Optional[str] = None
     """Base64-encoded ThumbHash placeholder (~28 chars).
 
