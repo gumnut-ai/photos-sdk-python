@@ -41,7 +41,7 @@ class AssetListParams(TypedDict, total=False):
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
     `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
-    datetime range) using AND logic — the result is the intersection.
+    stack_id, datetime range) using AND logic — the result is the intersection.
     """
 
     include: Optional[SequenceNotStr[str]]
@@ -102,6 +102,12 @@ class AssetListParams(TypedDict, total=False):
     """
     Radius of the `center` location filter, in meters (greater than 0, at most
     50000).
+    """
+
+    stack_id: Optional[str]
+    """
+    Return only assets belonging to this burst stack (the `asset_stack_` ID carried
+    by the `stack_id` field on every asset).
     """
 
     starting_after_id: Optional[str]

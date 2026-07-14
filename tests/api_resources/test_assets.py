@@ -161,6 +161,7 @@ class TestAssets:
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
             radius=0,
+            stack_id="stack_id",
             starting_after_id="starting_after_id",
             state="live",
         )
@@ -770,6 +771,7 @@ class TestAsyncAssets:
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
             radius=0,
+            stack_id="stack_id",
             starting_after_id="starting_after_id",
             state="live",
         )

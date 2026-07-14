@@ -205,6 +205,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
+        stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -259,7 +260,7 @@ class AssetsResource(SyncAPIResource):
           ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
-              datetime range) using AND logic — the result is the intersection.
+              stack_id, datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -299,6 +300,9 @@ class AssetsResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
+          stack_id: Return only assets belonging to this burst stack (the `asset_stack_` ID carried
+              by the `stack_id` field on every asset).
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Omit for the first page. `list_assets`
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
@@ -337,6 +341,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "radius": radius,
+                        "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
                         "state": state,
                     },
@@ -1095,6 +1100,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
+        stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1149,7 +1155,7 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
-              datetime range) using AND logic — the result is the intersection.
+              stack_id, datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -1189,6 +1195,9 @@ class AsyncAssetsResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
+          stack_id: Return only assets belonging to this burst stack (the `asset_stack_` ID carried
+              by the `stack_id` field on every asset).
+
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Omit for the first page. `list_assets`
               uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
@@ -1227,6 +1236,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
                         "radius": radius,
+                        "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
                         "state": state,
                     },
