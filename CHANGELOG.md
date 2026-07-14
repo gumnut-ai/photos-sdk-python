@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.122.1 (2026-07-14)
+
+Full Changelog: [v0.122.0...v0.122.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.122.0...v0.122.1)
+
+### Bug Fixes
+
+* **internal:** resolve build failures ([56b685c](https://github.com/gumnut-ai/photos-sdk-python/commit/56b685c1162f593245b143ba30f4b2af641ca491))
+
 ## 0.122.0 (2026-07-03)
 
 Full Changelog: [v0.121.0...v0.122.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.121.0...v0.122.0)
