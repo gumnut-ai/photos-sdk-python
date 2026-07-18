@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.124.0 (2026-07-18)
+
+Full Changelog: [v0.123.0...v0.124.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.123.0...v0.124.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([a071cd8](https://github.com/gumnut-ai/photos-sdk-python/commit/a071cd8a0e19c202db688be84d6fa3a9041a714e))
+
 ## 0.123.0 (2026-07-14)
 
 Full Changelog: [v0.122.1...v0.123.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.122.1...v0.123.0)
