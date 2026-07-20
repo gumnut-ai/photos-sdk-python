@@ -27,7 +27,7 @@ class AlbumAssetListParams(TypedDict, total=False):
     """
 
     ids: Optional[SequenceNotStr[str]]
-    """Look up specific album-asset link records by ID (max 100).
+    """Look up specific album-asset link records by ID (max 200).
 
     The ID has the `album_asset_` prefix. Accepts multiple `ids=` query params or a
     single comma-delimited value (e.g., `ids=album_asset_1,album_asset_2`).
