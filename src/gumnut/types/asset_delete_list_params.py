@@ -14,7 +14,7 @@ class AssetDeleteListParams(TypedDict, total=False):
     ids: Required[SequenceNotStr[str]]
     """Asset IDs (each with the `asset_` prefix) to operate on.
 
-    Up to 100 ids per request.
+    Up to 200 ids per request.
     """
 
     library_id: Optional[str]

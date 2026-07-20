@@ -250,7 +250,7 @@ class FacesResource(SyncAPIResource):
           asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
               this photo'.
 
-          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix. Accepts
+          ids: Look up specific faces by ID (max 200). IDs use the `face_` prefix. Accepts
               multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=face_1,face_2`).
 
@@ -577,7 +577,7 @@ class AsyncFacesResource(AsyncAPIResource):
           asset_id: Return only faces detected in this asset. Useful for 'show me all the faces in
               this photo'.
 
-          ids: Look up specific faces by ID (max 100). IDs use the `face_` prefix. Accepts
+          ids: Look up specific faces by ID (max 200). IDs use the `face_` prefix. Accepts
               multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=face_1,face_2`).
 

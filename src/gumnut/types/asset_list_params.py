@@ -37,7 +37,7 @@ class AssetListParams(TypedDict, total=False):
     """
 
     ids: Optional[SequenceNotStr[str]]
-    """Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
+    """Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
     `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
