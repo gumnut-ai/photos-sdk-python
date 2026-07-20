@@ -46,6 +46,7 @@ if TYPE_CHECKING:
         events,
         people,
         search,
+        stacks,
         api_keys,
         libraries,
         album_assets,
@@ -58,6 +59,7 @@ if TYPE_CHECKING:
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
+    from .resources.stacks import StacksResource, AsyncStacksResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.libraries import LibrariesResource, AsyncLibrariesResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
@@ -191,6 +193,12 @@ class Gumnut(SyncAPIClient):
         from .resources.search import SearchResource
 
         return SearchResource(self)
+
+    @cached_property
+    def stacks(self) -> StacksResource:
+        from .resources.stacks import StacksResource
+
+        return StacksResource(self)
 
     @cached_property
     def users(self) -> UsersResource:
@@ -449,6 +457,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncSearchResource(self)
 
     @cached_property
+    def stacks(self) -> AsyncStacksResource:
+        from .resources.stacks import AsyncStacksResource
+
+        return AsyncStacksResource(self)
+
+    @cached_property
     def users(self) -> AsyncUsersResource:
         from .resources.users import AsyncUsersResource
 
@@ -651,6 +665,12 @@ class GumnutWithRawResponse:
         return SearchResourceWithRawResponse(self._client.search)
 
     @cached_property
+    def stacks(self) -> stacks.StacksResourceWithRawResponse:
+        from .resources.stacks import StacksResourceWithRawResponse
+
+        return StacksResourceWithRawResponse(self._client.stacks)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
         from .resources.users import UsersResourceWithRawResponse
 
@@ -728,6 +748,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.search import AsyncSearchResourceWithRawResponse
 
         return AsyncSearchResourceWithRawResponse(self._client.search)
+
+    @cached_property
+    def stacks(self) -> stacks.AsyncStacksResourceWithRawResponse:
+        from .resources.stacks import AsyncStacksResourceWithRawResponse
+
+        return AsyncStacksResourceWithRawResponse(self._client.stacks)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
@@ -809,6 +835,12 @@ class GumnutWithStreamedResponse:
         return SearchResourceWithStreamingResponse(self._client.search)
 
     @cached_property
+    def stacks(self) -> stacks.StacksResourceWithStreamingResponse:
+        from .resources.stacks import StacksResourceWithStreamingResponse
+
+        return StacksResourceWithStreamingResponse(self._client.stacks)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
         from .resources.users import UsersResourceWithStreamingResponse
 
@@ -886,6 +918,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.search import AsyncSearchResourceWithStreamingResponse
 
         return AsyncSearchResourceWithStreamingResponse(self._client.search)
+
+    @cached_property
+    def stacks(self) -> stacks.AsyncStacksResourceWithStreamingResponse:
+        from .resources.stacks import AsyncStacksResourceWithStreamingResponse
+
+        return AsyncStacksResourceWithStreamingResponse(self._client.stacks)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:

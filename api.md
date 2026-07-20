@@ -215,6 +215,19 @@ Methods:
 - <code title="get /api/search">client.search.<a href="./src/gumnut/resources/search.py">search</a>(\*\*<a href="src/gumnut/types/search_search_params.py">params</a>) -> <a href="./src/gumnut/types/search_response.py">SearchResponse</a></code>
 - <code title="post /api/search">client.search.<a href="./src/gumnut/resources/search.py">search_assets</a>(\*\*<a href="src/gumnut/types/search_search_assets_params.py">params</a>) -> <a href="./src/gumnut/types/search_response.py">SearchResponse</a></code>
 
+# Stacks
+
+Types:
+
+```python
+from gumnut.types import StackListStacksResponse, StackRetrieveStackResponse
+```
+
+Methods:
+
+- <code title="get /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">list_stacks</a>(\*\*<a href="src/gumnut/types/stack_list_stacks_params.py">params</a>) -> <a href="./src/gumnut/types/stack_list_stacks_response.py">SyncCursorPage[StackListStacksResponse]</a></code>
+- <code title="get /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">retrieve_stack</a>(stack_id) -> <a href="./src/gumnut/types/stack_retrieve_stack_response.py">StackRetrieveStackResponse</a></code>
+
 # Users
 
 Types:

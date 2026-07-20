@@ -72,6 +72,14 @@ from .search import (
     SearchResourceWithStreamingResponse,
     AsyncSearchResourceWithStreamingResponse,
 )
+from .stacks import (
+    StacksResource,
+    AsyncStacksResource,
+    StacksResourceWithRawResponse,
+    AsyncStacksResourceWithRawResponse,
+    StacksResourceWithStreamingResponse,
+    AsyncStacksResourceWithStreamingResponse,
+)
 from .api_keys import (
     APIKeysResource,
     AsyncAPIKeysResource,
@@ -164,6 +172,12 @@ __all__ = [
     "AsyncSearchResourceWithRawResponse",
     "SearchResourceWithStreamingResponse",
     "AsyncSearchResourceWithStreamingResponse",
+    "StacksResource",
+    "AsyncStacksResource",
+    "StacksResourceWithRawResponse",
+    "AsyncStacksResourceWithRawResponse",
+    "StacksResourceWithStreamingResponse",
+    "AsyncStacksResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",
