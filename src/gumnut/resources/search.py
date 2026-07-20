@@ -48,6 +48,7 @@ class SearchResource(SyncAPIResource):
     def search(
         self,
         *,
+        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -68,32 +69,38 @@ class SearchResource(SyncAPIResource):
     ) -> SearchResponse:
         """
         Searches for assets using semantic (CLIP-based) image-content matching and/or
-        structured filters on people and date range. Use this tool when the user
-        describes _what's in_ the photos they want — subjects, scenes, places,
-        activities, moods, objects — as opposed to browsing by album membership or exact
-        ID.
+        typed structured filters on albums, people, and date range. Use this tool when
+        the user describes _what's in_ the photos they want — subjects, scenes, places,
+        activities, moods, objects — optionally narrowed by album, person, date, or
+        location.
 
-        A natural-language `query` can be combined with structured filters
-        (`person_ids`, `captured_before`, `captured_after`) for precision. For example,
-        'photos of my kids at the beach last summer' becomes
+        Prefer typed filters for anything the request states exactly: `album_ids` for
+        album membership, `person_ids` for people, `captured_before`/`captured_after`
+        for date ranges, and `center` + `radius` for location. There is no typed camera
+        or place-name filter — pass those terms in the free-text `query`; matching is
+        semantic (CLIP embeddings), not an exact EXIF predicate, so results are
+        best-effort. For example, 'photos of my kids at the beach last summer' becomes
         `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
-        **Use `list_assets` instead** when the request can be answered with exact
-        filters alone (album, person, date range, ID) — it's cheaper and more
-        deterministic than semantic search.
+        **Use `list_assets` instead** for a plain browse a single exact filter can
+        answer (one album, one person, a date range, or IDs) with no content `query` —
+        it's cheaper and more deterministic than semantic search.
 
         Location filtering is by coordinate radius only: pass `center` + `radius`
         together to keep only assets within that circle (a filter that narrows
-        candidates — the semantic/date ordering is unchanged). Place-name search
-        ('photos in Paris') is not supported; pass place names as part of `query` and
-        rely on semantic matching.
+        candidates — the semantic/date ordering is unchanged).
 
-        At least one of `query`, `person_ids`, `captured_before`, or `captured_after`
-        must be provided; the radius is an additional filter, not a search criterion on
-        its own.
+        At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
+        `captured_after` must be provided; the radius is an additional filter, not a
+        search criterion on its own.
 
         Args:
+          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
+              multiple `album_ids=` query params or a single comma-delimited value (e.g.,
+              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
+              the sibling `list_assets` uses `album_id` (singular).
+
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
@@ -137,9 +144,10 @@ class SearchResource(SyncAPIResource):
               CLIP image embeddings, so it works best with concrete visual concepts: subjects,
               scenes, objects, settings ('beach sunset', 'birthday cake', 'mountain hike').
 
-              Prefer structured params when available: use `person_ids` for people (not names
-              in `query`) and `captured_before`/`captured_after` for dates (not phrases like
-              'in 2023' in `query`).
+              Prefer structured params when available: use `album_ids` for albums (not album
+              names in `query`), `person_ids` for people (not names in `query`), and
+              `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
+              `query`).
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -167,6 +175,7 @@ class SearchResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "album_ids": album_ids,
                         "captured_after": captured_after,
                         "captured_before": captured_before,
                         "center": center,
@@ -189,6 +198,7 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -227,6 +237,10 @@ class SearchResource(SyncAPIResource):
               return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
+
+          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
+              multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
+              `album_123,album_abc`). Get album IDs from `list_albums`.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -267,6 +281,7 @@ class SearchResource(SyncAPIResource):
         """
         body = deepcopy_with_paths(
             {
+                "album_ids": album_ids,
                 "captured_after": captured_after,
                 "captured_before": captured_before,
                 "center": center,
@@ -324,6 +339,7 @@ class AsyncSearchResource(AsyncAPIResource):
     async def search(
         self,
         *,
+        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -344,32 +360,38 @@ class AsyncSearchResource(AsyncAPIResource):
     ) -> SearchResponse:
         """
         Searches for assets using semantic (CLIP-based) image-content matching and/or
-        structured filters on people and date range. Use this tool when the user
-        describes _what's in_ the photos they want — subjects, scenes, places,
-        activities, moods, objects — as opposed to browsing by album membership or exact
-        ID.
+        typed structured filters on albums, people, and date range. Use this tool when
+        the user describes _what's in_ the photos they want — subjects, scenes, places,
+        activities, moods, objects — optionally narrowed by album, person, date, or
+        location.
 
-        A natural-language `query` can be combined with structured filters
-        (`person_ids`, `captured_before`, `captured_after`) for precision. For example,
-        'photos of my kids at the beach last summer' becomes
+        Prefer typed filters for anything the request states exactly: `album_ids` for
+        album membership, `person_ids` for people, `captured_before`/`captured_after`
+        for date ranges, and `center` + `radius` for location. There is no typed camera
+        or place-name filter — pass those terms in the free-text `query`; matching is
+        semantic (CLIP embeddings), not an exact EXIF predicate, so results are
+        best-effort. For example, 'photos of my kids at the beach last summer' becomes
         `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
-        **Use `list_assets` instead** when the request can be answered with exact
-        filters alone (album, person, date range, ID) — it's cheaper and more
-        deterministic than semantic search.
+        **Use `list_assets` instead** for a plain browse a single exact filter can
+        answer (one album, one person, a date range, or IDs) with no content `query` —
+        it's cheaper and more deterministic than semantic search.
 
         Location filtering is by coordinate radius only: pass `center` + `radius`
         together to keep only assets within that circle (a filter that narrows
-        candidates — the semantic/date ordering is unchanged). Place-name search
-        ('photos in Paris') is not supported; pass place names as part of `query` and
-        rely on semantic matching.
+        candidates — the semantic/date ordering is unchanged).
 
-        At least one of `query`, `person_ids`, `captured_before`, or `captured_after`
-        must be provided; the radius is an additional filter, not a search criterion on
-        its own.
+        At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
+        `captured_after` must be provided; the radius is an additional filter, not a
+        search criterion on its own.
 
         Args:
+          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
+              multiple `album_ids=` query params or a single comma-delimited value (e.g.,
+              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
+              the sibling `list_assets` uses `album_id` (singular).
+
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
               inconsistency is tracked as a follow-up).
@@ -413,9 +435,10 @@ class AsyncSearchResource(AsyncAPIResource):
               CLIP image embeddings, so it works best with concrete visual concepts: subjects,
               scenes, objects, settings ('beach sunset', 'birthday cake', 'mountain hike').
 
-              Prefer structured params when available: use `person_ids` for people (not names
-              in `query`) and `captured_before`/`captured_after` for dates (not phrases like
-              'in 2023' in `query`).
+              Prefer structured params when available: use `album_ids` for albums (not album
+              names in `query`), `person_ids` for people (not names in `query`), and
+              `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
+              `query`).
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -443,6 +466,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "album_ids": album_ids,
                         "captured_after": captured_after,
                         "captured_before": captured_before,
                         "center": center,
@@ -465,6 +489,7 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -503,6 +528,10 @@ class AsyncSearchResource(AsyncAPIResource):
               return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
+
+          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
+              multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
+              `album_123,album_abc`). Get album IDs from `list_albums`.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -543,6 +572,7 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         body = deepcopy_with_paths(
             {
+                "album_ids": album_ids,
                 "captured_after": captured_after,
                 "captured_before": captured_before,
                 "center": center,

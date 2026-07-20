@@ -245,7 +245,8 @@ class AssetsResource(SyncAPIResource):
         Args:
           album_id: Return only assets that are in the album with this ID. Equivalent to calling
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
-              param when you need the full asset metadata in one call.
+              param when you need the full asset metadata in one call. Singular on this tool;
+              the sibling `search_assets` uses `album_ids` (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -1140,7 +1141,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         Args:
           album_id: Return only assets that are in the album with this ID. Equivalent to calling
               `list_album_assets` with `album_id` and then fetching each asset — prefer this
-              param when you need the full asset metadata in one call.
+              param when you need the full asset metadata in one call. Singular on this tool;
+              the sibling `search_assets` uses `album_ids` (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`

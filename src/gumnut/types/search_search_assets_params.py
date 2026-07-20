@@ -31,6 +31,13 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     data field above is null/absent until you request it.
     """
 
+    album_ids: Optional[SequenceNotStr[str]]
+    """Filter to assets in ALL of these album IDs (intersection, not union).
+
+    Accepts multiple `album_ids=` form fields or a single comma-delimited value
+    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`.
+    """
+
     captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter to only include assets captured after this date (ISO format)."""
 
