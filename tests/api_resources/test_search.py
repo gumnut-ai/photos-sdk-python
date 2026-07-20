@@ -28,6 +28,7 @@ class TestSearch:
     @parametrize
     def test_method_search_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search(
+            album_ids=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
@@ -75,6 +76,7 @@ class TestSearch:
     def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search_assets(
             include=["string", "string"],
+            album_ids=["string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
@@ -127,6 +129,7 @@ class TestAsyncSearch:
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
+            album_ids=["string", "string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
@@ -174,6 +177,7 @@ class TestAsyncSearch:
     async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search_assets(
             include=["string", "string"],
+            album_ids=["string"],
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
