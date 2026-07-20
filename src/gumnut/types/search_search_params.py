@@ -13,6 +13,14 @@ __all__ = ["SearchSearchParams"]
 
 
 class SearchSearchParams(TypedDict, total=False):
+    album_ids: Optional[SequenceNotStr[str]]
+    """Filter to assets in ALL of these album IDs (intersection, not union).
+
+    Accepts multiple `album_ids=` query params or a single comma-delimited value
+    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this
+    tool; the sibling `list_assets` uses `album_id` (singular).
+    """
+
     captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets captured strictly after this instant (ISO 8601; exclusive).
 
@@ -84,9 +92,10 @@ class SearchSearchParams(TypedDict, total=False):
     concepts: subjects, scenes, objects, settings ('beach sunset', 'birthday cake',
     'mountain hike').
 
-    Prefer structured params when available: use `person_ids` for people (not names
-    in `query`) and `captured_before`/`captured_after` for dates (not phrases like
-    'in 2023' in `query`).
+    Prefer structured params when available: use `album_ids` for albums (not album
+    names in `query`), `person_ids` for people (not names in `query`), and
+    `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
+    `query`).
     """
 
     radius: Optional[float]
