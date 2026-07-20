@@ -16,7 +16,7 @@ class AssetBulkUpdateAssetsParams(TypedDict, total=False):
     """List of per-asset updates.
 
     Each item carries the target asset id and the change to apply to it; different
-    fields can be changed on different assets in the same request. Up to 100 items
+    fields can be changed on different assets in the same request. Up to 200 items
     per request.
     """
 

@@ -257,7 +257,7 @@ class AssetsResource(SyncAPIResource):
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
               Mutually exclusive with `bbox`.
 
-          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
+          ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
               stack_id, datetime range) using AND logic — the result is the intersection.
@@ -411,14 +411,14 @@ class AssetsResource(SyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        Up to 100 items per request; over-cap requests return 422. For a single-asset
+        Up to 200 items per request; over-cap requests return 422. For a single-asset
         edit, prefer `update_asset` — semantically identical but slightly more concise
         at the call site.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
               to apply to it; different fields can be changed on different assets in the same
-              request. Up to 100 items per request.
+              request. Up to 200 items per request.
 
           extra_headers: Send extra headers
 
@@ -697,10 +697,10 @@ class AssetsResource(SyncAPIResource):
         `trash_assets` for the user's standard delete action so accidents can be
         recovered.
 
-        Up to 100 ids per request; over-cap requests return 422.
+        Up to 200 ids per request; over-cap requests return 422.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
@@ -788,7 +788,7 @@ class AssetsResource(SyncAPIResource):
         `restore_library`.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
@@ -838,7 +838,7 @@ class AssetsResource(SyncAPIResource):
         once instead of enumerating asset IDs, use `trash_library`.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
@@ -1152,7 +1152,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
               Mutually exclusive with `bbox`.
 
-          ids: Look up specific assets by ID (max 100; each ID has the `asset_` prefix).
+          ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
               stack_id, datetime range) using AND logic — the result is the intersection.
@@ -1306,14 +1306,14 @@ class AsyncAssetsResource(AsyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        Up to 100 items per request; over-cap requests return 422. For a single-asset
+        Up to 200 items per request; over-cap requests return 422. For a single-asset
         edit, prefer `update_asset` — semantically identical but slightly more concise
         at the call site.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
               to apply to it; different fields can be changed on different assets in the same
-              request. Up to 100 items per request.
+              request. Up to 200 items per request.
 
           extra_headers: Send extra headers
 
@@ -1594,10 +1594,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         `trash_assets` for the user's standard delete action so accidents can be
         recovered.
 
-        Up to 100 ids per request; over-cap requests return 422.
+        Up to 200 ids per request; over-cap requests return 422.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
@@ -1689,7 +1689,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         `restore_library`.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
@@ -1739,7 +1739,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         once instead of enumerating asset IDs, use `trash_library`.
 
         Args:
-          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 100 ids per
+          ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
           library_id: Library that owns the assets. Optional if the user has a single library;
