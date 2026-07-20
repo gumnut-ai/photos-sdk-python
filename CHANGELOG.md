@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.127.0 (2026-07-20)
+
+Full Changelog: [v0.126.0...v0.127.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.126.0...v0.127.0)
+
+### Features
+
+* **api:** add endpoints for asset stacks. ([4bd8f0d](https://github.com/gumnut-ai/photos-sdk-python/commit/4bd8f0d652006efa8c18a2990c45846bc925da3c))
+
 ## 0.126.0 (2026-07-20)
 
 Full Changelog: [v0.125.0...v0.126.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.125.0...v0.126.0)
