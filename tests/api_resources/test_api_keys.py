@@ -32,6 +32,17 @@ class TestAPIKeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Gumnut) -> None:
+        api_key = client.api_keys.create(
+            name="name",
+            actions=["read"],
+            library_ids=["string"],
+            library_scope_mode="all_libraries",
+        )
+        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.create(
             name="name",
@@ -183,6 +194,17 @@ class TestAsyncAPIKeys:
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.create(
             name="name",
+        )
+        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
+        api_key = await async_client.api_keys.create(
+            name="name",
+            actions=["read"],
+            library_ids=["string"],
+            library_scope_mode="all_libraries",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 

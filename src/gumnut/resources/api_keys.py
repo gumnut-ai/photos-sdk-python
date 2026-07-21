@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+from typing import List, Optional
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import api_key_create_params, api_key_update_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -48,6 +51,9 @@ class APIKeysResource(SyncAPIResource):
         self,
         *,
         name: str,
+        actions: Optional[List[Literal["read", "write", "delete", "delete_permanently"]]] | Omit = omit,
+        library_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        library_scope_mode: Optional[Literal["all_libraries", "selected_libraries"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,6 +65,18 @@ class APIKeysResource(SyncAPIResource):
         Creates a new API key for the current user
 
         Args:
+          actions: Action verbs the key may perform. Omit for full access. `read` is required
+              whenever any broader action is selected.
+
+          library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
+              `selected_libraries`; not allowed otherwise. Up to 200 ids.
+
+          library_scope_mode: Which of the owner's libraries a grant covers.
+
+              `all_libraries` means all current and future live libraries owned by the grant's
+              user. `selected_libraries` means only the libraries listed in
+              `access_grant_libraries`, with no automatic expansion.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -69,7 +87,15 @@ class APIKeysResource(SyncAPIResource):
         """
         return self._post(
             "/api/api-keys/",
-            body=maybe_transform({"name": name}, api_key_create_params.APIKeyCreateParams),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "actions": actions,
+                    "library_ids": library_ids,
+                    "library_scope_mode": library_scope_mode,
+                },
+                api_key_create_params.APIKeyCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -188,6 +214,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        actions: Optional[List[Literal["read", "write", "delete", "delete_permanently"]]] | Omit = omit,
+        library_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        library_scope_mode: Optional[Literal["all_libraries", "selected_libraries"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,6 +228,18 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         Creates a new API key for the current user
 
         Args:
+          actions: Action verbs the key may perform. Omit for full access. `read` is required
+              whenever any broader action is selected.
+
+          library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
+              `selected_libraries`; not allowed otherwise. Up to 200 ids.
+
+          library_scope_mode: Which of the owner's libraries a grant covers.
+
+              `all_libraries` means all current and future live libraries owned by the grant's
+              user. `selected_libraries` means only the libraries listed in
+              `access_grant_libraries`, with no automatic expansion.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -209,7 +250,15 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         """
         return await self._post(
             "/api/api-keys/",
-            body=await async_maybe_transform({"name": name}, api_key_create_params.APIKeyCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "actions": actions,
+                    "library_ids": library_ids,
+                    "library_scope_mode": library_scope_mode,
+                },
+                api_key_create_params.APIKeyCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
