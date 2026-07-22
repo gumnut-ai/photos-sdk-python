@@ -92,6 +92,13 @@ class AssetListParams(TypedDict, total=False):
     follow-up).
     """
 
+    order: Literal["asc", "desc"]
+    """
+    Sort direction for the selected state's timestamp: capture time for
+    `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
+    same direction.
+    """
+
     person_id: Optional[str]
     """Deprecated compatibility alias for a single `person_ids` value."""
 
@@ -118,14 +125,16 @@ class AssetListParams(TypedDict, total=False):
     """Cursor for pagination.
 
     Pass the `id` of the last asset in the previous response's `data` to fetch the
-    next page. Omit for the first page. `list_assets` uses cursor pagination; the
-    sibling `search_assets` uses 1-indexed `page` numbers (naming inconsistency is
-    tracked as a follow-up).
+    next page. Repeat the same filters, `state`, and `order` on every page. Omit for
+    the first page. `list_assets` uses cursor pagination; the sibling
+    `search_assets` uses 1-indexed `page` numbers (naming inconsistency is tracked
+    as a follow-up).
     """
 
     state: Literal["live", "trashed", "all"]
     """
     Which set of assets to read from: `live` (default — only assets that are not
-    trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
-    `all` (both live and trashed, ordered by capture time like `live`).
+    trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
+    live and trashed, ordered by capture time like `live`). Ordering defaults to
+    newest or most recently trashed first.
     """
