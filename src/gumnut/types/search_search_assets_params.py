@@ -51,7 +51,17 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     image: Optional[FileTypes]
-    """Image file to search for similar assets. Can be combined with text query."""
+    """Image file for an independent dense-image retrieval stage.
+
+    When text is also provided, the stage ranks are fused rather than blending their
+    embeddings.
+    """
+
+    include_debug: bool
+    """Include per-stage dense/sparse ranks and scores plus fused attribution.
+
+    Intended for debugging and evaluation; omitted from normal responses.
+    """
 
     library_id: Optional[str]
     """Library to search assets from (optional)"""
@@ -84,4 +94,8 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     threshold: float
-    """Similarity threshold (lower means more similar)"""
+    """Deprecated compatibility parameter.
+
+    Accepted and validated but ignored because rank-fused results have no meaningful
+    cosine-distance cutoff.
+    """

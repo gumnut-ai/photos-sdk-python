@@ -26,6 +26,8 @@ class TestAPIKeys:
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         api_key = client.api_keys.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
@@ -34,10 +36,10 @@ class TestAPIKeys:
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         api_key = client.api_keys.create(
-            name="name",
             actions=["read"],
-            library_ids=["string"],
             library_scope_mode="all_libraries",
+            name="name",
+            library_ids=["string"],
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
@@ -45,6 +47,8 @@ class TestAPIKeys:
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.api_keys.with_raw_response.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         )
 
@@ -57,6 +61,8 @@ class TestAPIKeys:
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -193,6 +199,8 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
@@ -201,10 +209,10 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         api_key = await async_client.api_keys.create(
-            name="name",
             actions=["read"],
-            library_ids=["string"],
             library_scope_mode="all_libraries",
+            name="name",
+            library_ids=["string"],
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
@@ -212,6 +220,8 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.api_keys.with_raw_response.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         )
 
@@ -224,6 +234,8 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.create(
+            actions=["read"],
+            library_scope_mode="all_libraries",
             name="name",
         ) as response:
             assert not response.is_closed
