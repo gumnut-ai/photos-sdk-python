@@ -53,6 +53,7 @@ class SearchResource(SyncAPIResource):
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -68,19 +69,19 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using semantic (CLIP-based) image-content matching and/or
-        typed structured filters on albums, people, and date range. Use this tool when
-        the user describes _what's in_ the photos they want — subjects, scenes, places,
-        activities, moods, objects — optionally narrowed by album, person, date, or
-        location.
+        Searches for assets using rank fusion across dense visual retrieval and
+        authoritative-metadata full-text retrieval, with typed structured filters on
+        albums, people, and date range. Use this tool when the user describes _what's
+        in_ the photos they want — subjects, scenes, places, activities, moods, objects
+        — optionally narrowed by album, person, date, or location.
 
         Prefer typed filters for anything the request states exactly: `album_ids` for
         album membership, `person_ids` for people, `captured_before`/`captured_after`
         for date ranges, and `center` + `radius` for location. There is no typed camera
-        or place-name filter — pass those terms in the free-text `query`; matching is
-        semantic (CLIP embeddings), not an exact EXIF predicate, so results are
-        best-effort. For example, 'photos of my kids at the beach last summer' becomes
-        `query='kids at the beach'` + `captured_after=2025-06-01` +
+        or place-name filter — pass those terms in the free-text `query`; the metadata
+        full-text stage can match those terms, while dense retrieval adds
+        visual-semantic matches. For example, 'photos of my kids at the beach last
+        summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain browse a single exact filter can
@@ -126,6 +127,9 @@ class SearchResource(SyncAPIResource):
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
 
+          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
+              for debugging and evaluation; omitted from normal responses.
+
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
 
@@ -133,16 +137,18 @@ class SearchResource(SyncAPIResource):
 
           page: 1-indexed page number. `search_assets` uses page-number pagination; the sibling
               `list_assets` uses cursor pagination via `starting_after_id`. Increment `page`
-              to fetch subsequent pages.
+              to fetch subsequent pages. Relevance-ranked searches paginate a fixed top-200
+              fused candidate population, so pages beyond that population are empty.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Get person IDs from `list_people`. Plural on
               this tool; the sibling `list_assets` uses `person_id` (singular).
 
-          query: Natural-language description of the image content to search for. Matched against
-              CLIP image embeddings, so it works best with concrete visual concepts: subjects,
-              scenes, objects, settings ('beach sunset', 'birthday cake', 'mountain hike').
+          query: Natural-language search text. It runs independently through dense visual
+              retrieval and authoritative-metadata full-text retrieval, then the ranked lists
+              are fused. Concrete visual concepts work well in the dense stage, while exact
+              metadata terms can match through full-text search.
 
               Prefer structured params when available: use `album_ids` for albums (not album
               names in `query`), `person_ids` for people (not names in `query`), and
@@ -152,11 +158,9 @@ class SearchResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Maximum semantic distance for a result to be included (0.0 = identical, 1.0 =
-              unrelated). Lower values return fewer, more confident matches; higher values
-              return more results with looser matching. Default 0.8 is moderate — try 0.6 for
-              high-precision queries, 0.9 for exploratory searches. **Note:** this is inverted
-              from the usual 'similarity score' convention where higher means more similar.
+          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
+              window but ignored because rank-fused results do not have one meaningful
+              cosine-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -180,6 +184,7 @@ class SearchResource(SyncAPIResource):
                         "captured_before": captured_before,
                         "center": center,
                         "include": include,
+                        "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
@@ -203,6 +208,7 @@ class SearchResource(SyncAPIResource):
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
+        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -217,11 +223,12 @@ class SearchResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets using semantic similarity and/or metadata filters.
-
-        Results
-        include asset metadata, faces, and people. At least one search criterion must be
-        provided. Can search by text query, uploaded image, or both combined.
+        """
+        Searches for assets using Reciprocal Rank Fusion across independent dense-text,
+        dense-image, and authoritative-metadata full-text stages plus structured
+        filters. Results include asset metadata, faces, and people. At least one search
+        criterion must be provided. Text and uploaded-image signals stay independent
+        when both are provided.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -249,7 +256,11 @@ class SearchResource(SyncAPIResource):
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
-          image: Image file to search for similar assets. Can be combined with text query.
+          image: Image file for an independent dense-image retrieval stage. When text is also
+              provided, the stage ranks are fused rather than blending their embeddings.
+
+          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
+              for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search assets from (optional)
 
@@ -269,7 +280,8 @@ class SearchResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Similarity threshold (lower means more similar)
+          threshold: Deprecated compatibility parameter. Accepted and validated but ignored because
+              rank-fused results have no meaningful cosine-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -286,6 +298,7 @@ class SearchResource(SyncAPIResource):
                 "captured_before": captured_before,
                 "center": center,
                 "image": image,
+                "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
                 "page": page,
@@ -344,6 +357,7 @@ class AsyncSearchResource(AsyncAPIResource):
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -359,19 +373,19 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using semantic (CLIP-based) image-content matching and/or
-        typed structured filters on albums, people, and date range. Use this tool when
-        the user describes _what's in_ the photos they want — subjects, scenes, places,
-        activities, moods, objects — optionally narrowed by album, person, date, or
-        location.
+        Searches for assets using rank fusion across dense visual retrieval and
+        authoritative-metadata full-text retrieval, with typed structured filters on
+        albums, people, and date range. Use this tool when the user describes _what's
+        in_ the photos they want — subjects, scenes, places, activities, moods, objects
+        — optionally narrowed by album, person, date, or location.
 
         Prefer typed filters for anything the request states exactly: `album_ids` for
         album membership, `person_ids` for people, `captured_before`/`captured_after`
         for date ranges, and `center` + `radius` for location. There is no typed camera
-        or place-name filter — pass those terms in the free-text `query`; matching is
-        semantic (CLIP embeddings), not an exact EXIF predicate, so results are
-        best-effort. For example, 'photos of my kids at the beach last summer' becomes
-        `query='kids at the beach'` + `captured_after=2025-06-01` +
+        or place-name filter — pass those terms in the free-text `query`; the metadata
+        full-text stage can match those terms, while dense retrieval adds
+        visual-semantic matches. For example, 'photos of my kids at the beach last
+        summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain browse a single exact filter can
@@ -417,6 +431,9 @@ class AsyncSearchResource(AsyncAPIResource):
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
 
+          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
+              for debugging and evaluation; omitted from normal responses.
+
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple. Use `list_libraries` to enumerate available libraries.
 
@@ -424,16 +441,18 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: 1-indexed page number. `search_assets` uses page-number pagination; the sibling
               `list_assets` uses cursor pagination via `starting_after_id`. Increment `page`
-              to fetch subsequent pages.
+              to fetch subsequent pages. Relevance-ranked searches paginate a fixed top-200
+              fused candidate population, so pages beyond that population are empty.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Get person IDs from `list_people`. Plural on
               this tool; the sibling `list_assets` uses `person_id` (singular).
 
-          query: Natural-language description of the image content to search for. Matched against
-              CLIP image embeddings, so it works best with concrete visual concepts: subjects,
-              scenes, objects, settings ('beach sunset', 'birthday cake', 'mountain hike').
+          query: Natural-language search text. It runs independently through dense visual
+              retrieval and authoritative-metadata full-text retrieval, then the ranked lists
+              are fused. Concrete visual concepts work well in the dense stage, while exact
+              metadata terms can match through full-text search.
 
               Prefer structured params when available: use `album_ids` for albums (not album
               names in `query`), `person_ids` for people (not names in `query`), and
@@ -443,11 +462,9 @@ class AsyncSearchResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Maximum semantic distance for a result to be included (0.0 = identical, 1.0 =
-              unrelated). Lower values return fewer, more confident matches; higher values
-              return more results with looser matching. Default 0.8 is moderate — try 0.6 for
-              high-precision queries, 0.9 for exploratory searches. **Note:** this is inverted
-              from the usual 'similarity score' convention where higher means more similar.
+          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
+              window but ignored because rank-fused results do not have one meaningful
+              cosine-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -471,6 +488,7 @@ class AsyncSearchResource(AsyncAPIResource):
                         "captured_before": captured_before,
                         "center": center,
                         "include": include,
+                        "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
                         "page": page,
@@ -494,6 +512,7 @@ class AsyncSearchResource(AsyncAPIResource):
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
+        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -508,11 +527,12 @@ class AsyncSearchResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets using semantic similarity and/or metadata filters.
-
-        Results
-        include asset metadata, faces, and people. At least one search criterion must be
-        provided. Can search by text query, uploaded image, or both combined.
+        """
+        Searches for assets using Reciprocal Rank Fusion across independent dense-text,
+        dense-image, and authoritative-metadata full-text stages plus structured
+        filters. Results include asset metadata, faces, and people. At least one search
+        criterion must be provided. Text and uploaded-image signals stay independent
+        when both are provided.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -540,7 +560,11 @@ class AsyncSearchResource(AsyncAPIResource):
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
-          image: Image file to search for similar assets. Can be combined with text query.
+          image: Image file for an independent dense-image retrieval stage. When text is also
+              provided, the stage ranks are fused rather than blending their embeddings.
+
+          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
+              for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search assets from (optional)
 
@@ -560,7 +584,8 @@ class AsyncSearchResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Similarity threshold (lower means more similar)
+          threshold: Deprecated compatibility parameter. Accepted and validated but ignored because
+              rank-fused results have no meaningful cosine-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -577,6 +602,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 "captured_before": captured_before,
                 "center": center,
                 "image": image,
+                "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
                 "page": page,
