@@ -14,12 +14,11 @@ __all__ = ["AssetListParams"]
 
 class AssetListParams(TypedDict, total=False):
     album_id: Optional[str]
-    """Return only assets that are in the album with this ID.
+    """Return only assets in this album.
 
-    Equivalent to calling `list_album_assets` with `album_id` and then fetching each
-    asset — prefer this param when you need the full asset metadata in one call.
-    Singular on this tool; the sibling `search_assets` uses `album_ids` (plural,
-    ALL-of).
+    Get album IDs from `list_albums`. To browse one album's full asset metadata,
+    prefer this filter over `list_album_assets`, which returns link records. The
+    sibling `search_assets` uses `album_ids` (plural, ALL-of).
     """
 
     bbox: Optional[str]
@@ -42,7 +41,7 @@ class AssetListParams(TypedDict, total=False):
     """Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
-    `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
+    `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
     stack_id, datetime range) using AND logic — the result is the intersection.
     """
 
@@ -94,10 +93,13 @@ class AssetListParams(TypedDict, total=False):
     """
 
     person_id: Optional[str]
-    """Return only assets containing a face belonging to this person.
+    """Deprecated compatibility alias for a single `person_ids` value."""
 
-    Singular on this tool; the sibling `search_assets` uses `person_ids` (plural,
-    ALL-of).
+    person_ids: Optional[SequenceNotStr[str]]
+    """
+    Return only assets containing faces belonging to ALL of these people
+    (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+    query params or comma-delimited values. Get person IDs from `list_people`.
     """
 
     radius: Optional[float]

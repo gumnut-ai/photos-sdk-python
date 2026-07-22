@@ -6,6 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["AssetClusterByGeoParams"]
@@ -28,7 +29,7 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     """
 
     album_id: Optional[str]
-    """Return only assets that are in the album with this ID."""
+    """Return only assets in this album. Get album IDs from `list_albums`."""
 
     library_id: Optional[str]
     """Library to cluster assets from.
@@ -49,7 +50,14 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     """
 
     person_id: Optional[str]
-    """Return only assets containing a face belonging to this person."""
+    """Deprecated compatibility alias for a single `person_ids` value."""
+
+    person_ids: Optional[SequenceNotStr[str]]
+    """
+    Return only assets containing faces belonging to ALL of these people
+    (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+    query params or comma-delimited values.
+    """
 
     state: Literal["live", "trashed", "all"]
     """
