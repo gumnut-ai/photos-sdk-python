@@ -84,8 +84,8 @@ class SearchResource(SyncAPIResource):
         summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
-        **Use `list_assets` instead** for a plain browse a single exact filter can
-        answer (one album, one person, a date range, or IDs) with no content `query` —
+        **Use `list_assets` instead** for a plain structured browse that album, person,
+        date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
         Location filtering is by coordinate radius only: pass `center` + `radius`
@@ -142,8 +142,7 @@ class SearchResource(SyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`. Plural on
-              this tool; the sibling `list_assets` uses `person_id` (singular).
+              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
 
           query: Natural-language search text. It runs independently through dense visual
               retrieval and authoritative-metadata full-text retrieval, then the ranked lists
@@ -247,7 +246,8 @@ class SearchResource(SyncAPIResource):
 
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`.
+              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
+              the sibling `list_assets` uses `album_id` (singular).
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -388,8 +388,8 @@ class AsyncSearchResource(AsyncAPIResource):
         summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
 
-        **Use `list_assets` instead** for a plain browse a single exact filter can
-        answer (one album, one person, a date range, or IDs) with no content `query` —
+        **Use `list_assets` instead** for a plain structured browse that album, person,
+        date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
         Location filtering is by coordinate radius only: pass `center` + `radius`
@@ -446,8 +446,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`. Plural on
-              this tool; the sibling `list_assets` uses `person_id` (singular).
+              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
 
           query: Natural-language search text. It runs independently through dense visual
               retrieval and authoritative-metadata full-text retrieval, then the ranked lists
@@ -551,7 +550,8 @@ class AsyncSearchResource(AsyncAPIResource):
 
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`.
+              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
+              the sibling `list_assets` uses `album_id` (singular).
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 

@@ -204,6 +204,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -228,6 +229,9 @@ class AssetsResource(SyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
+        Album and person filters compose using AND. `person_id` is a deprecated alias
+        for one `person_ids` value; do not supply both person parameters.
+
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
         from Japan'), or any concept requiring semantic understanding of what's in the
@@ -243,10 +247,10 @@ class AssetsResource(SyncAPIResource):
         last asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Return only assets that are in the album with this ID. Equivalent to calling
-              `list_album_assets` with `album_id` and then fetching each asset — prefer this
-              param when you need the full asset metadata in one call. Singular on this tool;
-              the sibling `search_assets` uses `album_ids` (plural, ALL-of).
+          album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
+              one album's full asset metadata, prefer this filter over `list_album_assets`,
+              which returns link records. The sibling `search_assets` uses `album_ids`
+              (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -260,7 +264,7 @@ class AssetsResource(SyncAPIResource):
 
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
-              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
+              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
               stack_id, datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -295,8 +299,11 @@ class AssetsResource(SyncAPIResource):
               to `captured_before` on `search_assets` (naming inconsistency is tracked as a
               follow-up).
 
-          person_id: Return only assets containing a face belonging to this person. Singular on this
-              tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
+          person_id: Deprecated compatibility alias for a single `person_ids` value.
+
+          person_ids: Return only assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values. Get person IDs from `list_people`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
@@ -341,6 +348,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "radius": radius,
                         "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
@@ -511,6 +519,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -530,7 +539,9 @@ class AssetsResource(SyncAPIResource):
         in). A viewport whose `min_longitude` exceeds `max_longitude` (crossing the
         antimeridian) returns no cells — split it into two requests client-side. To list
         the individual assets behind a cell, call `list_assets` with a tighter bounding
-        box over the same filters.
+        box over the same filters. Album and person filters compose using AND.
+        `person_id` is a deprecated alias for one `person_ids` value; do not supply both
+        person parameters.
 
         Args:
           bbox: Map viewport as four comma-separated decimal-degree numbers
@@ -542,7 +553,7 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets that are in the album with this ID.
+          album_id: Return only assets in this album. Get album IDs from `list_albums`.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -553,7 +564,11 @@ class AssetsResource(SyncAPIResource):
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Same awareness/offset semantics as on `list_assets`.
 
-          person_id: Return only assets containing a face belonging to this person.
+          person_id: Deprecated compatibility alias for a single `person_ids` value.
+
+          person_ids: Return only assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values.
 
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
@@ -582,6 +597,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "state": state,
                     },
                     asset_cluster_by_geo_params.AssetClusterByGeoParams,
@@ -1100,6 +1116,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
@@ -1124,6 +1141,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
+        Album and person filters compose using AND. `person_id` is a deprecated alias
+        for one `person_ids` value; do not supply both person parameters.
+
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
         from Japan'), or any concept requiring semantic understanding of what's in the
@@ -1139,10 +1159,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         last asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Return only assets that are in the album with this ID. Equivalent to calling
-              `list_album_assets` with `album_id` and then fetching each asset — prefer this
-              param when you need the full asset metadata in one call. Singular on this tool;
-              the sibling `search_assets` uses `album_ids` (plural, ALL-of).
+          album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
+              one album's full asset metadata, prefer this filter over `list_album_assets`,
+              which returns link records. The sibling `search_assets` uses `album_ids`
+              (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -1156,7 +1176,7 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
-              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_id,
+              `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
               stack_id, datetime range) using AND logic — the result is the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -1191,8 +1211,11 @@ class AsyncAssetsResource(AsyncAPIResource):
               to `captured_before` on `search_assets` (naming inconsistency is tracked as a
               follow-up).
 
-          person_id: Return only assets containing a face belonging to this person. Singular on this
-              tool; the sibling `search_assets` uses `person_ids` (plural, ALL-of).
+          person_id: Deprecated compatibility alias for a single `person_ids` value.
+
+          person_ids: Return only assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values. Get person IDs from `list_people`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
@@ -1237,6 +1260,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "radius": radius,
                         "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
@@ -1409,6 +1433,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1428,7 +1453,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         in). A viewport whose `min_longitude` exceeds `max_longitude` (crossing the
         antimeridian) returns no cells — split it into two requests client-side. To list
         the individual assets behind a cell, call `list_assets` with a tighter bounding
-        box over the same filters.
+        box over the same filters. Album and person filters compose using AND.
+        `person_id` is a deprecated alias for one `person_ids` value; do not supply both
+        person parameters.
 
         Args:
           bbox: Map viewport as four comma-separated decimal-degree numbers
@@ -1440,7 +1467,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets that are in the album with this ID.
+          album_id: Return only assets in this album. Get album IDs from `list_albums`.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -1451,7 +1478,11 @@ class AsyncAssetsResource(AsyncAPIResource):
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Same awareness/offset semantics as on `list_assets`.
 
-          person_id: Return only assets containing a face belonging to this person.
+          person_id: Deprecated compatibility alias for a single `person_ids` value.
+
+          person_ids: Return only assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values.
 
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
@@ -1480,6 +1511,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "state": state,
                     },
                     asset_cluster_by_geo_params.AssetClusterByGeoParams,

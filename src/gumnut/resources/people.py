@@ -140,7 +140,7 @@ class PeopleResource(SyncAPIResource):
         Use
         this when you already have a `person_id`. The JSON response is metadata only; to
         get the photos that contain this person, use `search_assets` with `person_ids`
-        or `list_assets` with `person_id`.
+        or `list_assets` with `person_ids`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
@@ -301,7 +301,7 @@ class PeopleResource(SyncAPIResource):
 
           name: Filter by name using case-insensitive substring matching. Use this to resolve a
               user-supplied name like 'Alice' into a `person_id`, then pass that ID into
-              `search_assets.person_ids` or `list_assets.person_id`.
+              `search_assets.person_ids` or `list_assets.person_ids`.
 
           name_filter: Filter by name status: `named` returns only people with a name; `unnamed`
               returns only nameless face clusters awaiting a name; `all` returns both.
@@ -545,7 +545,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         Use
         this when you already have a `person_id`. The JSON response is metadata only; to
         get the photos that contain this person, use `search_assets` with `person_ids`
-        or `list_assets` with `person_id`.
+        or `list_assets` with `person_ids`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
@@ -706,7 +706,7 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           name: Filter by name using case-insensitive substring matching. Use this to resolve a
               user-supplied name like 'Alice' into a `person_id`, then pass that ID into
-              `search_assets.person_ids` or `list_assets.person_id`.
+              `search_assets.person_ids` or `list_assets.person_ids`.
 
           name_filter: Filter by name status: `named` returns only people with a name; `unnamed`
               returns only nameless face clusters awaiting a name; `all` returns both.
