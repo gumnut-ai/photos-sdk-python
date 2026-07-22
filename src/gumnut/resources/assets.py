@@ -203,6 +203,7 @@ class AssetsResource(SyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -217,11 +218,12 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AssetResponse]:
         """
-        Returns a paginated list of assets ordered by local capture time (newest first),
-        optionally filtered by album, person, date range, geographic area, or asset ID.
-        Use this tool for structured browsing and filtering — when the request can be
-        expressed as exact filters on album membership, people, date range, geographic
-        coordinates, or specific asset IDs.
+        Returns a paginated list of assets ordered by local capture time (or trash time
+        for trashed assets), newest first by default, optionally filtered by album,
+        person, date range, geographic area, or asset ID. Use this tool for structured
+        browsing and filtering — when the request can be expressed as exact filters on
+        album membership, people, date range, geographic coordinates, or specific asset
+        IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -244,7 +246,8 @@ class AssetsResource(SyncAPIResource):
         re-render them through the interactive widget.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
-        last asset in `data` as `starting_after_id` to fetch the next page.
+        last asset in `data` as `starting_after_id` and repeat the same filters,
+        `state`, and `order` to fetch the next page.
 
         Args:
           album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
@@ -299,6 +302,10 @@ class AssetsResource(SyncAPIResource):
               to `captured_before` on `search_assets` (naming inconsistency is tracked as a
               follow-up).
 
+          order: Sort direction for the selected state's timestamp: capture time for
+              `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
+              same direction.
+
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
           person_ids: Return only assets containing faces belonging to ALL of these people
@@ -312,13 +319,15 @@ class AssetsResource(SyncAPIResource):
               by the `stack_id` field on every asset).
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
-              response's `data` to fetch the next page. Omit for the first page. `list_assets`
-              uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
-              numbers (naming inconsistency is tracked as a follow-up).
+              response's `data` to fetch the next page. Repeat the same filters, `state`, and
+              `order` on every page. Omit for the first page. `list_assets` uses cursor
+              pagination; the sibling `search_assets` uses 1-indexed `page` numbers (naming
+              inconsistency is tracked as a follow-up).
 
           state: Which set of assets to read from: `live` (default — only assets that are not
-              trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
-              `all` (both live and trashed, ordered by capture time like `live`).
+              trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
+              live and trashed, ordered by capture time like `live`). Ordering defaults to
+              newest or most recently trashed first.
 
           extra_headers: Send extra headers
 
@@ -347,6 +356,7 @@ class AssetsResource(SyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "radius": radius,
@@ -1115,6 +1125,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -1129,11 +1140,12 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AssetResponse, AsyncCursorPage[AssetResponse]]:
         """
-        Returns a paginated list of assets ordered by local capture time (newest first),
-        optionally filtered by album, person, date range, geographic area, or asset ID.
-        Use this tool for structured browsing and filtering — when the request can be
-        expressed as exact filters on album membership, people, date range, geographic
-        coordinates, or specific asset IDs.
+        Returns a paginated list of assets ordered by local capture time (or trash time
+        for trashed assets), newest first by default, optionally filtered by album,
+        person, date range, geographic area, or asset ID. Use this tool for structured
+        browsing and filtering — when the request can be expressed as exact filters on
+        album membership, people, date range, geographic coordinates, or specific asset
+        IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -1156,7 +1168,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         re-render them through the interactive widget.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
-        last asset in `data` as `starting_after_id` to fetch the next page.
+        last asset in `data` as `starting_after_id` and repeat the same filters,
+        `state`, and `order` to fetch the next page.
 
         Args:
           album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
@@ -1211,6 +1224,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               to `captured_before` on `search_assets` (naming inconsistency is tracked as a
               follow-up).
 
+          order: Sort direction for the selected state's timestamp: capture time for
+              `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
+              same direction.
+
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
           person_ids: Return only assets containing faces belonging to ALL of these people
@@ -1224,13 +1241,15 @@ class AsyncAssetsResource(AsyncAPIResource):
               by the `stack_id` field on every asset).
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
-              response's `data` to fetch the next page. Omit for the first page. `list_assets`
-              uses cursor pagination; the sibling `search_assets` uses 1-indexed `page`
-              numbers (naming inconsistency is tracked as a follow-up).
+              response's `data` to fetch the next page. Repeat the same filters, `state`, and
+              `order` on every page. Omit for the first page. `list_assets` uses cursor
+              pagination; the sibling `search_assets` uses 1-indexed `page` numbers (naming
+              inconsistency is tracked as a follow-up).
 
           state: Which set of assets to read from: `live` (default — only assets that are not
-              trashed), `trashed` (only trashed assets, ordered by most recently trashed), or
-              `all` (both live and trashed, ordered by capture time like `live`).
+              trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
+              live and trashed, ordered by capture time like `live`). Ordering defaults to
+              newest or most recently trashed first.
 
           extra_headers: Send extra headers
 
@@ -1259,6 +1278,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "radius": radius,
