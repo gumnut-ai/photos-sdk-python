@@ -160,6 +160,7 @@ class TestAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            person_ids=["string", "string"],
             radius=0,
             stack_id="stack_id",
             starting_after_id="starting_after_id",
@@ -340,6 +341,7 @@ class TestAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            person_ids=["string", "string"],
             state="live",
         )
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
@@ -770,6 +772,7 @@ class TestAsyncAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            person_ids=["string", "string"],
             radius=0,
             stack_id="stack_id",
             starting_after_id="starting_after_id",
@@ -950,6 +953,7 @@ class TestAsyncAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             person_id="person_id",
+            person_ids=["string", "string"],
             state="live",
         )
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])

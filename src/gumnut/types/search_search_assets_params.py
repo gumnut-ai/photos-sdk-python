@@ -35,7 +35,8 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Filter to assets in ALL of these album IDs (intersection, not union).
 
     Accepts multiple `album_ids=` form fields or a single comma-delimited value
-    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`.
+    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this
+    tool; the sibling `list_assets` uses `album_id` (singular).
     """
 
     captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
