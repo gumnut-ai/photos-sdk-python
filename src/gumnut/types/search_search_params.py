@@ -59,6 +59,12 @@ class SearchSearchParams(TypedDict, total=False):
     data field above is null/absent until you request it.
     """
 
+    include_debug: bool
+    """Include per-stage dense/sparse ranks and scores plus fused attribution.
+
+    Intended for debugging and evaluation; omitted from normal responses.
+    """
+
     library_id: Optional[str]
     """Library to search.
 
@@ -74,7 +80,8 @@ class SearchSearchParams(TypedDict, total=False):
 
     `search_assets` uses page-number pagination; the sibling `list_assets` uses
     cursor pagination via `starting_after_id`. Increment `page` to fetch subsequent
-    pages.
+    pages. Relevance-ranked searches paginate a fixed top-200 fused candidate
+    population, so pages beyond that population are empty.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
@@ -86,11 +93,12 @@ class SearchSearchParams(TypedDict, total=False):
     """
 
     query: Optional[str]
-    """Natural-language description of the image content to search for.
+    """Natural-language search text.
 
-    Matched against CLIP image embeddings, so it works best with concrete visual
-    concepts: subjects, scenes, objects, settings ('beach sunset', 'birthday cake',
-    'mountain hike').
+    It runs independently through dense visual retrieval and authoritative-metadata
+    full-text retrieval, then the ranked lists are fused. Concrete visual concepts
+    work well in the dense stage, while exact metadata terms can match through
+    full-text search.
 
     Prefer structured params when available: use `album_ids` for albums (not album
     names in `query`), `person_ids` for people (not names in `query`), and
@@ -105,10 +113,8 @@ class SearchSearchParams(TypedDict, total=False):
     """
 
     threshold: float
-    """
-    Maximum semantic distance for a result to be included (0.0 = identical, 1.0 =
-    unrelated). Lower values return fewer, more confident matches; higher values
-    return more results with looser matching. Default 0.8 is moderate — try 0.6 for
-    high-precision queries, 0.9 for exploratory searches. **Note:** this is inverted
-    from the usual 'similarity score' convention where higher means more similar.
+    """Deprecated compatibility parameter.
+
+    Accepted and validated during the transition window but ignored because
+    rank-fused results do not have one meaningful cosine-distance cutoff.
     """

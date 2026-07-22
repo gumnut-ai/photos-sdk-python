@@ -50,10 +50,10 @@ class APIKeysResource(SyncAPIResource):
     def create(
         self,
         *,
+        actions: List[Literal["read", "write", "delete", "delete_permanently"]],
+        library_scope_mode: Literal["all_libraries", "selected_libraries"],
         name: str,
-        actions: Optional[List[Literal["read", "write", "delete", "delete_permanently"]]] | Omit = omit,
         library_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        library_scope_mode: Optional[Literal["all_libraries", "selected_libraries"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,17 +65,14 @@ class APIKeysResource(SyncAPIResource):
         Creates a new API key for the current user
 
         Args:
-          actions: Action verbs the key may perform. Omit for full access. `read` is required
-              whenever any broader action is selected.
+          actions: Action verbs the key may perform (at least one). `read` is required whenever any
+              broader action is selected. Pass all four actions for a full-access key.
+
+          library_scope_mode: Which libraries the key covers: `all_libraries` (all current and future
+              libraries) or `selected_libraries`.
 
           library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
               `selected_libraries`; not allowed otherwise. Up to 200 ids.
-
-          library_scope_mode: Which of the owner's libraries a grant covers.
-
-              `all_libraries` means all current and future live libraries owned by the grant's
-              user. `selected_libraries` means only the libraries listed in
-              `access_grant_libraries`, with no automatic expansion.
 
           extra_headers: Send extra headers
 
@@ -89,10 +86,10 @@ class APIKeysResource(SyncAPIResource):
             "/api/api-keys/",
             body=maybe_transform(
                 {
-                    "name": name,
                     "actions": actions,
-                    "library_ids": library_ids,
                     "library_scope_mode": library_scope_mode,
+                    "name": name,
+                    "library_ids": library_ids,
                 },
                 api_key_create_params.APIKeyCreateParams,
             ),
@@ -213,10 +210,10 @@ class AsyncAPIKeysResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        actions: List[Literal["read", "write", "delete", "delete_permanently"]],
+        library_scope_mode: Literal["all_libraries", "selected_libraries"],
         name: str,
-        actions: Optional[List[Literal["read", "write", "delete", "delete_permanently"]]] | Omit = omit,
         library_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        library_scope_mode: Optional[Literal["all_libraries", "selected_libraries"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -228,17 +225,14 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         Creates a new API key for the current user
 
         Args:
-          actions: Action verbs the key may perform. Omit for full access. `read` is required
-              whenever any broader action is selected.
+          actions: Action verbs the key may perform (at least one). `read` is required whenever any
+              broader action is selected. Pass all four actions for a full-access key.
+
+          library_scope_mode: Which libraries the key covers: `all_libraries` (all current and future
+              libraries) or `selected_libraries`.
 
           library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
               `selected_libraries`; not allowed otherwise. Up to 200 ids.
-
-          library_scope_mode: Which of the owner's libraries a grant covers.
-
-              `all_libraries` means all current and future live libraries owned by the grant's
-              user. `selected_libraries` means only the libraries listed in
-              `access_grant_libraries`, with no automatic expansion.
 
           extra_headers: Send extra headers
 
@@ -252,10 +246,10 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             "/api/api-keys/",
             body=await async_maybe_transform(
                 {
-                    "name": name,
                     "actions": actions,
-                    "library_ids": library_ids,
                     "library_scope_mode": library_scope_mode,
+                    "name": name,
+                    "library_ids": library_ids,
                 },
                 api_key_create_params.APIKeyCreateParams,
             ),

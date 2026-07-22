@@ -13,8 +13,8 @@ class SearchResultItem(BaseModel):
     """The matching asset."""
 
     distance: Optional[float] = None
-    """
-    Semantic distance from `query` (0.0 = identical, 1.0 = unrelated); lower is more
-    similar — inverted from the usual 'similarity score' convention. Null when no
-    semantic `query` was provided (structured-filter-only search).
+    """Best available dense-stage cosine distance (lower is more similar).
+
+    This is attribution only: results are ordered by fused rank, not distance. Null
+    for sparse-only and structured-filter-only matches.
     """
