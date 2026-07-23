@@ -25,4 +25,11 @@ class AssetCreateParams(TypedDict, total=False):
     file_modified_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     library_id: Optional[str]
-    """Library to upload asset to (optional)"""
+    """Library to upload into.
+
+    For an all-library credential, omit to use the account's sole live library or
+    create a fresh default when there are no live libraries; pass explicitly when
+    the account has multiple live libraries. For a selected-library credential, omit
+    to use its sole selected library; pass explicitly when it selects multiple
+    libraries.
+    """
