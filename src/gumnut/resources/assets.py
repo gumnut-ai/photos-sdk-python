@@ -86,15 +86,16 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
-        Uploads a new asset file (image or video) along with its metadata to the
-        specified library. If no library_id is provided and the user only has one
-        library, uses that library. If the user has multiple libraries, library_id is
-        required.
+        Uploads a new asset file (image or video) and its metadata.
 
         Args:
           asset_data: The asset file to upload
 
-          library_id: Library to upload asset to (optional)
+          library_id: Library to upload into. For an all-library credential, omit to use the account's
+              sole live library or create a fresh default when there are no live libraries;
+              pass explicitly when the account has multiple live libraries. For a
+              selected-library credential, omit to use its sole selected library; pass
+              explicitly when it selects multiple libraries.
 
           extra_headers: Send extra headers
 
@@ -1008,15 +1009,16 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
-        Uploads a new asset file (image or video) along with its metadata to the
-        specified library. If no library_id is provided and the user only has one
-        library, uses that library. If the user has multiple libraries, library_id is
-        required.
+        Uploads a new asset file (image or video) and its metadata.
 
         Args:
           asset_data: The asset file to upload
 
-          library_id: Library to upload asset to (optional)
+          library_id: Library to upload into. For an all-library credential, omit to use the account's
+              sole live library or create a fresh default when there are no live libraries;
+              pass explicitly when the account has multiple live libraries. For a
+              selected-library credential, omit to use its sole selected library; pass
+              explicitly when it selects multiple libraries.
 
           extra_headers: Send extra headers
 
