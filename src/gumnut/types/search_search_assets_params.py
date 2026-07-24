@@ -39,6 +39,15 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     tool; the sibling `list_assets` uses `album_id` (singular).
     """
 
+    bbox: Optional[str]
+    """
+    Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+    numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+    (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+    `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
+    matches nothing — split it client-side.
+    """
+
     captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter to only include assets captured after this date (ISO format)."""
 

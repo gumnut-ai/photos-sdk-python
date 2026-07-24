@@ -49,6 +49,7 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -77,9 +78,9 @@ class SearchResource(SyncAPIResource):
 
         Prefer typed filters for anything the request states exactly: `album_ids` for
         album membership, `person_ids` for people, `captured_before`/`captured_after`
-        for date ranges, and `center` + `radius` for location. There is no typed camera
-        or place-name filter — pass those terms in the free-text `query`; the metadata
-        full-text stage can match those terms, while dense retrieval adds
+        for date ranges, and `center` + `radius` or `bbox` for location. There is no
+        typed camera or place-name filter — pass those terms in the free-text `query`;
+        the metadata full-text stage can match those terms, while dense retrieval adds
         visual-semantic matches. For example, 'photos of my kids at the beach last
         summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
@@ -88,19 +89,27 @@ class SearchResource(SyncAPIResource):
         date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
-        Location filtering is by coordinate radius only: pass `center` + `radius`
-        together to keep only assets within that circle (a filter that narrows
-        candidates — the semantic/date ordering is unchanged).
+        **Location filtering is by coordinate,** matching `list_assets`, in two
+        mutually-exclusive modes: a radius (`center` + `radius`) keeps assets within
+        that circle, or a bounding box (`bbox`) keeps assets inside that map viewport.
+        Either is a filter that narrows candidates — the semantic/date ordering is
+        unchanged.
 
         At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
-        `captured_after` must be provided; the radius is an additional filter, not a
-        search criterion on its own.
+        `captured_after` must be provided; the location filter is an additional filter,
+        not a search criterion on its own.
 
         Args:
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` query params or a single comma-delimited value (e.g.,
               `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
               the sibling `list_assets` uses `album_id` (singular).
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+              `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
+              matches nothing — split it client-side.
 
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
@@ -179,6 +188,7 @@ class SearchResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_ids": album_ids,
+                        "bbox": bbox,
                         "captured_after": captured_after,
                         "captured_before": captured_before,
                         "center": center,
@@ -203,6 +213,7 @@ class SearchResource(SyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -227,7 +238,9 @@ class SearchResource(SyncAPIResource):
         dense-image, and authoritative-metadata full-text stages plus structured
         filters. Results include asset metadata, faces, and people. At least one search
         criterion must be provided. Text and uploaded-image signals stay independent
-        when both are provided.
+        when both are provided. Location filtering is by coordinate in two
+        mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
+        (`bbox`); it narrows candidates and is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -248,6 +261,12 @@ class SearchResource(SyncAPIResource):
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
               `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
               the sibling `list_assets` uses `album_id` (singular).
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+              `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
+              matches nothing — split it client-side.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -294,6 +313,7 @@ class SearchResource(SyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_ids": album_ids,
+                "bbox": bbox,
                 "captured_after": captured_after,
                 "captured_before": captured_before,
                 "center": center,
@@ -353,6 +373,7 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -381,9 +402,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
         Prefer typed filters for anything the request states exactly: `album_ids` for
         album membership, `person_ids` for people, `captured_before`/`captured_after`
-        for date ranges, and `center` + `radius` for location. There is no typed camera
-        or place-name filter — pass those terms in the free-text `query`; the metadata
-        full-text stage can match those terms, while dense retrieval adds
+        for date ranges, and `center` + `radius` or `bbox` for location. There is no
+        typed camera or place-name filter — pass those terms in the free-text `query`;
+        the metadata full-text stage can match those terms, while dense retrieval adds
         visual-semantic matches. For example, 'photos of my kids at the beach last
         summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
         `captured_before=2025-09-01`.
@@ -392,19 +413,27 @@ class AsyncSearchResource(AsyncAPIResource):
         date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
-        Location filtering is by coordinate radius only: pass `center` + `radius`
-        together to keep only assets within that circle (a filter that narrows
-        candidates — the semantic/date ordering is unchanged).
+        **Location filtering is by coordinate,** matching `list_assets`, in two
+        mutually-exclusive modes: a radius (`center` + `radius`) keeps assets within
+        that circle, or a bounding box (`bbox`) keeps assets inside that map viewport.
+        Either is a filter that narrows candidates — the semantic/date ordering is
+        unchanged.
 
         At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
-        `captured_after` must be provided; the radius is an additional filter, not a
-        search criterion on its own.
+        `captured_after` must be provided; the location filter is an additional filter,
+        not a search criterion on its own.
 
         Args:
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` query params or a single comma-delimited value (e.g.,
               `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
               the sibling `list_assets` uses `album_id` (singular).
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+              `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
+              matches nothing — split it client-side.
 
           captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
@@ -483,6 +512,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "album_ids": album_ids,
+                        "bbox": bbox,
                         "captured_after": captured_after,
                         "captured_before": captured_before,
                         "center": center,
@@ -507,6 +537,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
         captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -531,7 +562,9 @@ class AsyncSearchResource(AsyncAPIResource):
         dense-image, and authoritative-metadata full-text stages plus structured
         filters. Results include asset metadata, faces, and people. At least one search
         criterion must be provided. Text and uploaded-image signals stay independent
-        when both are provided.
+        when both are provided. Location filtering is by coordinate in two
+        mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
+        (`bbox`); it narrows candidates and is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -552,6 +585,12 @@ class AsyncSearchResource(AsyncAPIResource):
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
               `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
               the sibling `list_assets` uses `album_id` (singular).
+
+          bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+              numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+              (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+              `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
+              matches nothing — split it client-side.
 
           captured_after: Filter to only include assets captured after this date (ISO format).
 
@@ -598,6 +637,7 @@ class AsyncSearchResource(AsyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_ids": album_ids,
+                "bbox": bbox,
                 "captured_after": captured_after,
                 "captured_before": captured_before,
                 "center": center,
