@@ -92,9 +92,9 @@ class PeopleResource(SyncAPIResource):
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
               be named later via `update_person`.
 
-          thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix).
-              Typically set after the person has at least one associated face — get face IDs
-              from `list_faces`.
+          thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
+              by the entries of an asset's `faces` field (returned with `include=faces`). The
+              face need not already be assigned to a person.
 
           extra_headers: Send extra headers
 
@@ -143,8 +143,9 @@ class PeopleResource(SyncAPIResource):
         or `list_assets` with `person_ids`.
 
         Args:
-          person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
-              `get_face.person_id`, or any response containing a person reference.
+          person_id: Person ID (with `person_` prefix) to fetch. Carried by the `person_id` field on
+              a face and by the entries of an asset's `people` field (returned with
+              `include=people`).
 
           include: Opt-in expansion fields. See `list_people` for supported values. Accepts
               multiple `include=` query params or a single comma-delimited value.
@@ -207,8 +208,8 @@ class PeopleResource(SyncAPIResource):
 
           name: New display name. Omit to leave unchanged.
 
-          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Get face IDs
-              from `list_faces`.
+          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
+              person's faces with `list_faces` and `person_id`.
 
           extra_headers: Send extra headers
 
@@ -497,9 +498,9 @@ class AsyncPeopleResource(AsyncAPIResource):
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
               be named later via `update_person`.
 
-          thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix).
-              Typically set after the person has at least one associated face — get face IDs
-              from `list_faces`.
+          thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
+              by the entries of an asset's `faces` field (returned with `include=faces`). The
+              face need not already be assigned to a person.
 
           extra_headers: Send extra headers
 
@@ -548,8 +549,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         or `list_assets` with `person_ids`.
 
         Args:
-          person_id: Person ID (with `person_` prefix) to fetch. Obtain from `list_people`,
-              `get_face.person_id`, or any response containing a person reference.
+          person_id: Person ID (with `person_` prefix) to fetch. Carried by the `person_id` field on
+              a face and by the entries of an asset's `people` field (returned with
+              `include=people`).
 
           include: Opt-in expansion fields. See `list_people` for supported values. Accepts
               multiple `include=` query params or a single comma-delimited value.
@@ -612,8 +614,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           name: New display name. Omit to leave unchanged.
 
-          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Get face IDs
-              from `list_faces`.
+          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
+              person's faces with `list_faces` and `person_id`.
 
           extra_headers: Send extra headers
 

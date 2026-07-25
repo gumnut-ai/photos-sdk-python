@@ -12,8 +12,7 @@ class FaceCreateParams(TypedDict, total=False):
     asset_id: Required[str]
     """ID of the asset (with `asset_` prefix) to draw the face box on.
 
-    Get IDs from `list_assets` / `search_assets`. The asset must belong to the
-    target library.
+    The asset must belong to the target library.
     """
 
     bounding_box: Required[BoundingBox]
@@ -31,8 +30,8 @@ class FaceCreateParams(TypedDict, total=False):
     person_id: Optional[str]
     """Optional person ID (with `person_` prefix) to assign this face to at creation.
 
-    Omit to leave it unassigned; assign it later via `update_face`. Get IDs from
-    `list_people`; use `create_person` first if the identity doesn't exist yet.
+    Omit to leave it unassigned; assign it later via `update_face`. Use
+    `create_person` first if the identity doesn't exist yet.
     """
 
 

@@ -16,9 +16,9 @@ class AssetListParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album.
 
-    Get album IDs from `list_albums`. To browse one album's full asset metadata,
-    prefer this filter over `list_album_assets`, which returns link records. The
-    sibling `search_assets` uses `album_ids` (plural, ALL-of).
+    To browse one album's full asset metadata, prefer this filter over
+    `list_album_assets`, which returns link records. The sibling `search_assets`
+    uses `album_ids` (plural, ALL-of).
     """
 
     bbox: Optional[str]
@@ -66,8 +66,7 @@ class AssetListParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to list assets from.
 
-    Optional if the user has a single library; required when they have multiple. Use
-    `list_libraries` to enumerate available libraries.
+    Optional if the user has a single library; required when they have multiple.
     """
 
     limit: int
@@ -106,7 +105,8 @@ class AssetListParams(TypedDict, total=False):
     """
     Return only assets containing faces belonging to ALL of these people
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-    query params or comma-delimited values. Get person IDs from `list_people`.
+    query params or comma-delimited values. Person IDs are carried by the entries of
+    an asset's `people` field (returned with `include=people`).
     """
 
     radius: Optional[float]

@@ -15,8 +15,7 @@ class AlbumCreateParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to create the album in.
 
-    Optional if the user has a single library; required when they have multiple. Use
-    `list_libraries` to enumerate.
+    Optional if the user has a single library; required when they have multiple.
     """
 
     name: Optional[str]

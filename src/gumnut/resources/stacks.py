@@ -79,7 +79,7 @@ class StacksResource(SyncAPIResource):
               `ids=asset_stack_1,asset_stack_2`).
 
           library_id: Library to list stacks from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate.
+              when they have multiple.
 
           limit: Maximum number of stacks to return per page (1–200). Defaults to 20.
 
@@ -139,8 +139,8 @@ class StacksResource(SyncAPIResource):
         assets — to get its frames, use `list_assets` with `stack_id`.
 
         Args:
-          stack_id: Stack ID (with `asset_stack_` prefix) to fetch. Obtain from `list_stacks`, or
-              from the `stack_id` field carried by any asset that belongs to a stack.
+          stack_id: Stack ID (with `asset_stack_` prefix) to fetch. Carried by the `stack_id` field
+              on any asset that belongs to a stack.
 
           extra_headers: Send extra headers
 
@@ -214,7 +214,7 @@ class AsyncStacksResource(AsyncAPIResource):
               `ids=asset_stack_1,asset_stack_2`).
 
           library_id: Library to list stacks from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate.
+              when they have multiple.
 
           limit: Maximum number of stacks to return per page (1–200). Defaults to 20.
 
@@ -274,8 +274,8 @@ class AsyncStacksResource(AsyncAPIResource):
         assets — to get its frames, use `list_assets` with `stack_id`.
 
         Args:
-          stack_id: Stack ID (with `asset_stack_` prefix) to fetch. Obtain from `list_stacks`, or
-              from the `stack_id` field carried by any asset that belongs to a stack.
+          stack_id: Stack ID (with `asset_stack_` prefix) to fetch. Carried by the `stack_id` field
+              on any asset that belongs to a stack.
 
           extra_headers: Send extra headers
 

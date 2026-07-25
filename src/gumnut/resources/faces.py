@@ -66,8 +66,8 @@ class FacesResource(SyncAPIResource):
         identity first, use `create_person`.
 
         Args:
-          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. Get IDs from
-              `list_assets` / `search_assets`. The asset must belong to the target library.
+          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. The asset must
+              belong to the target library.
 
           bounding_box: Where the face is, as a box in display-space pixels matching the asset's
               reported `width`/`height`. The box must fit inside those dimensions.
@@ -76,8 +76,8 @@ class FacesResource(SyncAPIResource):
               required when they have multiple.
 
           person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
-              Omit to leave it unassigned; assign it later via `update_face`. Get IDs from
-              `list_people`; use `create_person` first if the identity doesn't exist yet.
+              Omit to leave it unassigned; assign it later via `update_face`. Use
+              `create_person` first if the identity doesn't exist yet.
 
           extra_headers: Send extra headers
 
@@ -122,8 +122,8 @@ class FacesResource(SyncAPIResource):
         thumbnail). Use when you already have a `face_id`.
 
         Args:
-          face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
-              `faces` array on `get_asset` / `list_assets` responses.
+          face_id: Face ID (with `face_` prefix) to fetch. Carried by the entries of an asset's
+              `faces` field (returned with `include=faces`).
 
           include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
               `include=` query params or a single comma-delimited value.
@@ -188,9 +188,8 @@ class FacesResource(SyncAPIResource):
               when they have multiple.
 
           person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
-              detach the face from its current person without deleting either. Get IDs from
-              `list_people`; use `create_person` first if the target identity doesn't exist
-              yet.
+              detach the face from its current person without deleting either. Use
+              `create_person` first if the target identity doesn't exist yet.
 
           extra_headers: Send extra headers
 
@@ -393,8 +392,8 @@ class AsyncFacesResource(AsyncAPIResource):
         identity first, use `create_person`.
 
         Args:
-          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. Get IDs from
-              `list_assets` / `search_assets`. The asset must belong to the target library.
+          asset_id: ID of the asset (with `asset_` prefix) to draw the face box on. The asset must
+              belong to the target library.
 
           bounding_box: Where the face is, as a box in display-space pixels matching the asset's
               reported `width`/`height`. The box must fit inside those dimensions.
@@ -403,8 +402,8 @@ class AsyncFacesResource(AsyncAPIResource):
               required when they have multiple.
 
           person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
-              Omit to leave it unassigned; assign it later via `update_face`. Get IDs from
-              `list_people`; use `create_person` first if the identity doesn't exist yet.
+              Omit to leave it unassigned; assign it later via `update_face`. Use
+              `create_person` first if the identity doesn't exist yet.
 
           extra_headers: Send extra headers
 
@@ -449,8 +448,8 @@ class AsyncFacesResource(AsyncAPIResource):
         thumbnail). Use when you already have a `face_id`.
 
         Args:
-          face_id: Face ID (with `face_` prefix) to fetch. Obtain from `list_faces` or from the
-              `faces` array on `get_asset` / `list_assets` responses.
+          face_id: Face ID (with `face_` prefix) to fetch. Carried by the entries of an asset's
+              `faces` field (returned with `include=faces`).
 
           include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
               `include=` query params or a single comma-delimited value.
@@ -515,9 +514,8 @@ class AsyncFacesResource(AsyncAPIResource):
               when they have multiple.
 
           person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
-              detach the face from its current person without deleting either. Get IDs from
-              `list_people`; use `create_person` first if the target identity doesn't exist
-              yet.
+              detach the face from its current person without deleting either. Use
+              `create_person` first if the target identity doesn't exist yet.
 
           extra_headers: Send extra headers
 

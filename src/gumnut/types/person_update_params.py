@@ -27,5 +27,6 @@ class PersonUpdateParams(TypedDict, total=False):
     thumbnail_face_id: Optional[str]
     """New thumbnail face ID for this person.
 
-    Omit to leave unchanged. Get face IDs from `list_faces`.
+    Omit to leave unchanged. Enumerate a person's faces with `list_faces` and
+    `person_id`.
     """

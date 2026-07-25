@@ -102,8 +102,8 @@ class SearchResource(SyncAPIResource):
         Args:
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` query params or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
-              the sibling `list_assets` uses `album_id` (singular).
+              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
+              `album_id` (singular).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -140,7 +140,7 @@ class SearchResource(SyncAPIResource):
               for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search. Optional if the user has a single library; required when they
-              have multiple. Use `list_libraries` to enumerate available libraries.
+              have multiple.
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
@@ -151,7 +151,8 @@ class SearchResource(SyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+              asset's `people` field (returned with `include=people`).
 
           query: Natural-language search text. It runs independently through dense visual
               retrieval and authoritative-metadata full-text retrieval, then the ranked lists
@@ -259,8 +260,8 @@ class SearchResource(SyncAPIResource):
 
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
-              the sibling `list_assets` uses `album_id` (singular).
+              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
+              `album_id` (singular).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -289,7 +290,8 @@ class SearchResource(SyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+              asset's `people` field (returned with `include=people`).
 
           query: The text query to search for. If you want to search for a specific person or set
               of people, use the person_ids parameter instead.If you want to search for a
@@ -426,8 +428,8 @@ class AsyncSearchResource(AsyncAPIResource):
         Args:
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` query params or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
-              the sibling `list_assets` uses `album_id` (singular).
+              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
+              `album_id` (singular).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -464,7 +466,7 @@ class AsyncSearchResource(AsyncAPIResource):
               for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search. Optional if the user has a single library; required when they
-              have multiple. Use `list_libraries` to enumerate available libraries.
+              have multiple.
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
@@ -475,7 +477,8 @@ class AsyncSearchResource(AsyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+              asset's `people` field (returned with `include=people`).
 
           query: Natural-language search text. It runs independently through dense visual
               retrieval and authoritative-metadata full-text retrieval, then the ranked lists
@@ -583,8 +586,8 @@ class AsyncSearchResource(AsyncAPIResource):
 
           album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
               multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this tool;
-              the sibling `list_assets` uses `album_id` (singular).
+              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
+              `album_id` (singular).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -613,7 +616,8 @@ class AsyncSearchResource(AsyncAPIResource):
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+              asset's `people` field (returned with `include=people`).
 
           query: The text query to search for. If you want to search for a specific person or set
               of people, use the person_ids parameter instead.If you want to search for a

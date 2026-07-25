@@ -12,8 +12,8 @@ class AlbumUpdateParams(TypedDict, total=False):
     album_cover_asset_id: Optional[str]
     """Asset ID (with `asset_` prefix) to use as the album cover.
 
-    Must be a live asset already in the album — get IDs from `list_album_assets`.
-    Pass `null` to clear the explicit cover. Omit to leave unchanged.
+    Must be a live asset already in the album. Pass `null` to clear the explicit
+    cover. Omit to leave unchanged.
     """
 
     description: Optional[str]

@@ -29,7 +29,7 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     """
 
     album_id: Optional[str]
-    """Return only assets in this album. Get album IDs from `list_albums`."""
+    """Return only assets in this album."""
 
     library_id: Optional[str]
     """Library to cluster assets from.
@@ -56,7 +56,8 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     """
     Return only assets containing faces belonging to ALL of these people
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-    query params or comma-delimited values.
+    query params or comma-delimited values. Person IDs are carried by the entries of
+    an asset's `people` field (returned with `include=people`).
     """
 
     state: Literal["live", "trashed", "all"]

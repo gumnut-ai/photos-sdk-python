@@ -153,8 +153,7 @@ class AssetsResource(SyncAPIResource):
         image pixels, call `view_asset` instead.
 
         Args:
-          asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
-              `search_assets`, or `list_album_assets`.
+          asset_id: Asset ID (with `asset_` prefix) to fetch.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -251,10 +250,9 @@ class AssetsResource(SyncAPIResource):
         `state`, and `order` to fetch the next page.
 
         Args:
-          album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
-              one album's full asset metadata, prefer this filter over `list_album_assets`,
-              which returns link records. The sibling `search_assets` uses `album_ids`
-              (plural, ALL-of).
+          album_id: Return only assets in this album. To browse one album's full asset metadata,
+              prefer this filter over `list_album_assets`, which returns link records. The
+              sibling `search_assets` uses `album_ids` (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -286,7 +284,7 @@ class AssetsResource(SyncAPIResource):
               data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate available libraries.
+              when they have multiple.
 
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
@@ -311,7 +309,8 @@ class AssetsResource(SyncAPIResource):
 
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Get person IDs from `list_people`.
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
@@ -564,7 +563,7 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets in this album. Get album IDs from `list_albums`.
+          album_id: Return only assets in this album.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -579,7 +578,8 @@ class AssetsResource(SyncAPIResource):
 
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values.
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
@@ -922,8 +922,7 @@ class AssetsResource(SyncAPIResource):
         For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
-          asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+          asset_id: Asset ID (with `asset_` prefix) of the asset to update.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set value
               (the response then falls back to the description embedded in the file, if any).
@@ -1076,8 +1075,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         image pixels, call `view_asset` instead.
 
         Args:
-          asset_id: Asset ID (with `asset_` prefix) to fetch. Obtain from `list_assets`,
-              `search_assets`, or `list_album_assets`.
+          asset_id: Asset ID (with `asset_` prefix) to fetch.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -1174,10 +1172,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         `state`, and `order` to fetch the next page.
 
         Args:
-          album_id: Return only assets in this album. Get album IDs from `list_albums`. To browse
-              one album's full asset metadata, prefer this filter over `list_album_assets`,
-              which returns link records. The sibling `search_assets` uses `album_ids`
-              (plural, ALL-of).
+          album_id: Return only assets in this album. To browse one album's full asset metadata,
+              prefer this filter over `list_album_assets`, which returns link records. The
+              sibling `search_assets` uses `album_ids` (plural, ALL-of).
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -1209,7 +1206,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               data field above is null/absent until you request it.
 
           library_id: Library to list assets from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate available libraries.
+              when they have multiple.
 
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
@@ -1234,7 +1231,8 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Get person IDs from `list_people`.
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
@@ -1489,7 +1487,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets in this album. Get album IDs from `list_albums`.
+          album_id: Return only assets in this album.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -1504,7 +1502,8 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values.
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
@@ -1851,8 +1850,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
-          asset_id: Asset ID (with `asset_` prefix) of the asset to update. Obtain from
-              `list_assets`, `search_assets`, or `list_album_assets`.
+          asset_id: Asset ID (with `asset_` prefix) of the asset to update.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set value
               (the response then falls back to the description embedded in the file, if any).

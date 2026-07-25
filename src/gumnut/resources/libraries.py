@@ -111,8 +111,7 @@ class LibrariesResource(SyncAPIResource):
         state.
 
         Args:
-          library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
-              response containing a library reference.
+          library_id: Library ID (with `lib_` prefix) to fetch.
 
           extra_headers: Send extra headers
 
@@ -439,8 +438,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         state.
 
         Args:
-          library_id: Library ID (with `lib_` prefix) to fetch. Obtain from `list_libraries` or any
-              response containing a library reference.
+          library_id: Library ID (with `lib_` prefix) to fetch.
 
           extra_headers: Send extra headers
 
