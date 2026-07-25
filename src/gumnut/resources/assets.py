@@ -563,7 +563,7 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets in this album.
+          album_id: Cluster only assets in this album.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -576,7 +576,7 @@ class AssetsResource(SyncAPIResource):
 
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
-          person_ids: Return only assets containing faces belonging to ALL of these people
+          person_ids: Cluster only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
@@ -1487,7 +1487,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Return only assets in this album.
+          album_id: Cluster only assets in this album.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
@@ -1500,7 +1500,7 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
-          person_ids: Return only assets containing faces belonging to ALL of these people
+          person_ids: Cluster only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
