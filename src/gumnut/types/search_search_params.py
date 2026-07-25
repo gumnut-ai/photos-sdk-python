@@ -17,8 +17,8 @@ class SearchSearchParams(TypedDict, total=False):
     """Filter to assets in ALL of these album IDs (intersection, not union).
 
     Accepts multiple `album_ids=` query params or a single comma-delimited value
-    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this
-    tool; the sibling `list_assets` uses `album_id` (singular).
+    (e.g., `album_123,album_abc`). Plural on this tool; the sibling `list_assets`
+    uses `album_id` (singular).
     """
 
     bbox: Optional[str]
@@ -77,8 +77,7 @@ class SearchSearchParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to search.
 
-    Optional if the user has a single library; required when they have multiple. Use
-    `list_libraries` to enumerate available libraries.
+    Optional if the user has a single library; required when they have multiple.
     """
 
     limit: int
@@ -97,7 +96,8 @@ class SearchSearchParams(TypedDict, total=False):
     """Filter to assets containing ALL of these person IDs (intersection, not union).
 
     Accepts multiple `person_ids=` query params or a single comma-delimited value
-    (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+    (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+    asset's `people` field (returned with `include=people`).
     """
 
     query: Optional[str]

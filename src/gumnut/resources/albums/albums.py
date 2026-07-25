@@ -80,7 +80,7 @@ class AlbumsResource(SyncAPIResource):
           description: Optional free-form description shown alongside the album name.
 
           library_id: Library to create the album in. Optional if the user has a single library;
-              required when they have multiple. Use `list_libraries` to enumerate.
+              required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
               set it here or via `update_album` after creation.
@@ -128,9 +128,7 @@ class AlbumsResource(SyncAPIResource):
         `list_album_assets` or `list_assets` with `album_id`.
 
         Args:
-          album_id: Album ID (with `album_` prefix) to fetch. Obtain from `list_albums` (optionally
-              filtered by `asset_id` to find albums containing a specific asset),
-              `list_album_assets`, or any response containing an album reference.
+          album_id: Album ID (with `album_` prefix) to fetch.
 
           extra_headers: Send extra headers
 
@@ -175,8 +173,8 @@ class AlbumsResource(SyncAPIResource):
           album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
 
           album_cover_asset_id: Asset ID (with `asset_` prefix) to use as the album cover. Must be a live asset
-              already in the album — get IDs from `list_album_assets`. Pass `null` to clear
-              the explicit cover. Omit to leave unchanged.
+              already in the album. Pass `null` to clear the explicit cover. Omit to leave
+              unchanged.
 
           description: New free-form description for the album. Pass `null` to clear the description.
               Omit to leave unchanged.
@@ -244,7 +242,7 @@ class AlbumsResource(SyncAPIResource):
               `ids=album_1,album_2`).
 
           library_id: Library to list albums from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate.
+              when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 
@@ -368,7 +366,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
           description: Optional free-form description shown alongside the album name.
 
           library_id: Library to create the album in. Optional if the user has a single library;
-              required when they have multiple. Use `list_libraries` to enumerate.
+              required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
               set it here or via `update_album` after creation.
@@ -416,9 +414,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         `list_album_assets` or `list_assets` with `album_id`.
 
         Args:
-          album_id: Album ID (with `album_` prefix) to fetch. Obtain from `list_albums` (optionally
-              filtered by `asset_id` to find albums containing a specific asset),
-              `list_album_assets`, or any response containing an album reference.
+          album_id: Album ID (with `album_` prefix) to fetch.
 
           extra_headers: Send extra headers
 
@@ -463,8 +459,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
           album_id: Album ID (with `album_` prefix) of the album to rename or re-describe.
 
           album_cover_asset_id: Asset ID (with `asset_` prefix) to use as the album cover. Must be a live asset
-              already in the album — get IDs from `list_album_assets`. Pass `null` to clear
-              the explicit cover. Omit to leave unchanged.
+              already in the album. Pass `null` to clear the explicit cover. Omit to leave
+              unchanged.
 
           description: New free-form description for the album. Pass `null` to clear the description.
               Omit to leave unchanged.
@@ -532,7 +528,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
               `ids=album_1,album_2`).
 
           library_id: Library to list albums from. Optional if the user has a single library; required
-              when they have multiple. Use `list_libraries` to enumerate.
+              when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 

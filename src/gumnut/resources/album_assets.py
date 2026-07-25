@@ -143,8 +143,8 @@ class AlbumAssetsResource(SyncAPIResource):
         instead.
 
         Args:
-          album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Obtain from
-              `list_album_assets`. Not the same as `asset_id` or `album_id`.
+          album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Carried by the `id`
+              field on an album-asset link record. Not the same as `asset_id` or `album_id`.
 
           extra_headers: Send extra headers
 
@@ -284,8 +284,8 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
         instead.
 
         Args:
-          album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Obtain from
-              `list_album_assets`. Not the same as `asset_id` or `album_id`.
+          album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Carried by the `id`
+              field on an album-asset link record. Not the same as `asset_id` or `album_id`.
 
           extra_headers: Send extra headers
 

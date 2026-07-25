@@ -45,8 +45,7 @@ class EventGetParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to stream events from.
 
-    Optional if the user has a single library; required when they have multiple. Use
-    `list_libraries` to enumerate.
+    Optional if the user has a single library; required when they have multiple.
     """
 
     limit: int

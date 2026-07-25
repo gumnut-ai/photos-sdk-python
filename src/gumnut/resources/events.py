@@ -118,7 +118,7 @@ class EventsResource(SyncAPIResource):
               `entity_types=asset,album`). Omit to receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
-              required when they have multiple. Use `list_libraries` to enumerate.
+              required when they have multiple.
 
           limit: Maximum number of events to return per page (1–200). Defaults to 20.
 
@@ -247,7 +247,7 @@ class AsyncEventsResource(AsyncAPIResource):
               `entity_types=asset,album`). Omit to receive events for all types.
 
           library_id: Library to stream events from. Optional if the user has a single library;
-              required when they have multiple. Use `list_libraries` to enumerate.
+              required when they have multiple.
 
           limit: Maximum number of events to return per page (1–200). Defaults to 20.
 

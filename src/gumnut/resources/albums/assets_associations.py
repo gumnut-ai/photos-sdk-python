@@ -68,8 +68,7 @@ class AssetsAssociationsResource(SyncAPIResource):
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
-          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`. Up to 200 ids per
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Up to 200 ids per
               request.
 
           extra_headers: Send extra headers
@@ -116,8 +115,7 @@ class AssetsAssociationsResource(SyncAPIResource):
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
 
-          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`. Up to 200 ids per
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Up to 200 ids per
               request.
 
           extra_headers: Send extra headers
@@ -188,8 +186,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
-          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`. Up to 200 ids per
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Up to 200 ids per
               request.
 
           extra_headers: Send extra headers
@@ -238,8 +235,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
 
-          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Get IDs from
-              `list_assets`, `search_assets`, or `list_album_assets`. Up to 200 ids per
+          asset_ids: Asset IDs (with `asset_` prefix) to associate with the album. Up to 200 ids per
               request.
 
           extra_headers: Send extra headers
