@@ -19,6 +19,5 @@ class FaceUpdateParams(TypedDict, total=False):
     """Target person ID (with `person_` prefix) to assign this face to.
 
     Pass `null` to detach the face from its current person without deleting either.
-    Get IDs from `list_people`; use `create_person` first if the target identity
-    doesn't exist yet.
+    Use `create_person` first if the target identity doesn't exist yet.
     """

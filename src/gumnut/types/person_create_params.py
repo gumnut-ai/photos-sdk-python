@@ -36,6 +36,6 @@ class PersonCreateParams(TypedDict, total=False):
     thumbnail_face_id: Optional[str]
     """ID of the face to use as this person's thumbnail (with `face_` prefix).
 
-    Typically set after the person has at least one associated face — get face IDs
-    from `list_faces`.
+    Carried by the entries of an asset's `faces` field (returned with
+    `include=faces`). The face need not already be assigned to a person.
     """

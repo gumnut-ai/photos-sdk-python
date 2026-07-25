@@ -75,10 +75,7 @@ class Update(TypedDict, total=False):
     """
 
     id: Required[str]
-    """Asset ID (with the `asset_` prefix) to apply this change to.
-
-    Obtain from `list_assets`, `search_assets`, or `list_album_assets`.
-    """
+    """Asset ID (with the `asset_` prefix) to apply this change to."""
 
     change: Required[UpdateChange]
     """The change to apply to this asset.

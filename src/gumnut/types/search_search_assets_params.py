@@ -35,8 +35,8 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Filter to assets in ALL of these album IDs (intersection, not union).
 
     Accepts multiple `album_ids=` form fields or a single comma-delimited value
-    (e.g., `album_123,album_abc`). Get album IDs from `list_albums`. Plural on this
-    tool; the sibling `list_assets` uses `album_id` (singular).
+    (e.g., `album_123,album_abc`). Plural on this tool; the sibling `list_assets`
+    uses `album_id` (singular).
     """
 
     bbox: Optional[str]
@@ -86,7 +86,8 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Filter to assets containing ALL of these person IDs (intersection, not union).
 
     Accepts multiple `person_ids=` form fields or a single comma-delimited value
-    (e.g., `person_123,person_abc`). Get person IDs from `list_people`.
+    (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
+    asset's `people` field (returned with `include=people`).
     """
 
     query: Optional[str]
