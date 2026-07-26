@@ -561,16 +561,22 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Cluster only assets in this album.
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as on `list_assets`.
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as on `list_assets`.
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
@@ -648,7 +654,7 @@ class AssetsResource(SyncAPIResource):
         `data` as `local_datetime_before` to fetch the next page.
 
         Args:
-          album_id: Filter by assets in a specific album
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           group_by: Time period to group counts by. Only `month` is supported; other values
               return 422.
@@ -657,16 +663,17 @@ class AssetsResource(SyncAPIResource):
 
           limit: Maximum number of time buckets to return (1-200)
 
-          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
-          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime. Use
-              the last time_bucket from a previous response to paginate.
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           person_id: Filter by assets associated with a specific person ID
 
@@ -1483,16 +1490,22 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_id: Cluster only assets in this album.
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           library_id: Library to cluster assets from. Optional if the user has a single library;
               required when they have multiple.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as on `list_assets`.
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as on `list_assets`.
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           person_id: Deprecated compatibility alias for a single `person_ids` value.
 
@@ -1570,7 +1583,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         `data` as `local_datetime_before` to fetch the next page.
 
         Args:
-          album_id: Filter by assets in a specific album
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           group_by: Time period to group counts by. Only `month` is supported; other values
               return 422.
@@ -1579,16 +1592,17 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           limit: Maximum number of time buckets to return (1-200)
 
-          local_datetime_after: Only include assets with local_datetime after this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
-          local_datetime_before: Only include assets with local_datetime before this value (ISO 8601). Naive
-              values compare directly against local_datetime. Timezone-aware values: assets
-              with a known offset are compared in UTC (local_datetime - offset); assets
-              without an offset fall back to wall-clock comparison against local_datetime. Use
-              the last time_bucket from a previous response to paginate.
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           person_id: Filter by assets associated with a specific person ID
 
