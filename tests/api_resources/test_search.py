@@ -28,15 +28,15 @@ class TestSearch:
     @parametrize
     def test_method_search_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search(
-            album_ids=["string", "string"],
+            album_id="album_id",
             bbox="bbox",
-            captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
-            captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
             include=["string", "string"],
             include_debug=True,
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             page=1,
             person_ids=["string", "string"],
             query="query",
@@ -78,6 +78,7 @@ class TestSearch:
     def test_method_search_assets_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search_assets(
             include=["string", "string"],
+            album_id="album_id",
             album_ids=["string"],
             bbox="bbox",
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -87,6 +88,8 @@ class TestSearch:
             include_debug=True,
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             page=1,
             person_ids=["string"],
             query="query",
@@ -133,15 +136,15 @@ class TestAsyncSearch:
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
-            album_ids=["string", "string"],
+            album_id="album_id",
             bbox="bbox",
-            captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
-            captured_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             center="center",
             include=["string", "string"],
             include_debug=True,
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             page=1,
             person_ids=["string", "string"],
             query="query",
@@ -183,6 +186,7 @@ class TestAsyncSearch:
     async def test_method_search_assets_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search_assets(
             include=["string", "string"],
+            album_id="album_id",
             album_ids=["string"],
             bbox="bbox",
             captured_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -192,6 +196,8 @@ class TestAsyncSearch:
             include_debug=True,
             library_id="library_id",
             limit=1,
+            local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             page=1,
             person_ids=["string"],
             query="query",
