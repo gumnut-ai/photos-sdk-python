@@ -13,13 +13,8 @@ __all__ = ["SearchSearchParams"]
 
 
 class SearchSearchParams(TypedDict, total=False):
-    album_ids: Optional[SequenceNotStr[str]]
-    """Filter to assets in ALL of these album IDs (intersection, not union).
-
-    Accepts multiple `album_ids=` query params or a single comma-delimited value
-    (e.g., `album_123,album_abc`). Plural on this tool; the sibling `list_assets`
-    uses `album_id` (singular).
-    """
+    album_id: Optional[str]
+    """Return only assets in this album — the album's `album_` ID, not its name."""
 
     bbox: Optional[str]
     """
@@ -28,20 +23,6 @@ class SearchSearchParams(TypedDict, total=False):
     (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
     `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
     matches nothing — split it client-side.
-    """
-
-    captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets captured strictly after this instant (ISO 8601; exclusive).
-
-    Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
-    inconsistency is tracked as a follow-up).
-    """
-
-    captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets captured strictly before this instant (ISO 8601; exclusive).
-
-    Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
-    inconsistency is tracked as a follow-up).
     """
 
     center: Optional[str]
@@ -83,13 +64,31 @@ class SearchSearchParams(TypedDict, total=False):
     limit: int
     """Maximum number of results per page (1–200). Defaults to 20."""
 
-    page: int
-    """1-indexed page number.
+    local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only include assets captured strictly after this instant (ISO 8601; exclusive).
 
-    `search_assets` uses page-number pagination; the sibling `list_assets` uses
-    cursor pagination via `starting_after_id`. Increment `page` to fetch subsequent
-    pages. Relevance-ranked searches paginate a fixed top-200 fused candidate
-    population, so pages beyond that population are empty.
+    Convert a relative or natural-language date phrase ('in 2023') into an explicit
+    bound before sending. `local_datetime` is the photo's wall-clock time in the
+    device's own timezone. Naive values compare directly against `local_datetime`.
+    Timezone-aware values: assets with a known offset are compared in UTC
+    (`local_datetime - offset`); assets without an offset fall back to wall-clock
+    comparison against `local_datetime`.
+    """
+
+    local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only include assets captured strictly before this instant (ISO 8601; exclusive).
+
+    Same conversion requirement and awareness/offset semantics as
+    `local_datetime_after`.
+    """
+
+    page: int
+    """1-indexed page number; increment it to fetch subsequent pages.
+
+    `search_assets` pages by number rather than by cursor because it ranks a fixed
+    top-200 fused candidate population by relevance, so pages beyond that population
+    are empty. The sibling `list_assets` cursors with `starting_after_id` over a
+    stable capture-time ordering.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
@@ -108,10 +107,10 @@ class SearchSearchParams(TypedDict, total=False):
     work well in the dense stage, while exact metadata terms can match through
     full-text search.
 
-    Prefer structured params when available: use `album_ids` for albums (not album
-    names in `query`), `person_ids` for people (not names in `query`), and
-    `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
-    `query`).
+    Resolve album and people names to IDs and pass them as `album_id` and
+    `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
+    `local_datetime_after`/`local_datetime_before` (here, `2023-01-01` and
+    `2024-01-01`). None of those belong in `query`.
     """
 
     radius: Optional[float]

@@ -31,12 +31,13 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     data field above is null/absent until you request it.
     """
 
-    album_ids: Optional[SequenceNotStr[str]]
-    """Filter to assets in ALL of these album IDs (intersection, not union).
+    album_id: Optional[str]
+    """Return only assets in this album — the album's `album_` ID, not its name."""
 
-    Accepts multiple `album_ids=` form fields or a single comma-delimited value
-    (e.g., `album_123,album_abc`). Plural on this tool; the sibling `list_assets`
-    uses `album_id` (singular).
+    album_ids: Optional[SequenceNotStr[str]]
+    """Deprecated alias for `album_id`.
+
+    Accepts a single album ID; supplying more than one is rejected.
     """
 
     bbox: Optional[str]
@@ -49,10 +50,10 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Filter to only include assets captured after this date (ISO format)."""
+    """Deprecated alias for `local_datetime_after`."""
 
     captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Filter to only include assets captured before this date (ISO format)."""
+    """Deprecated alias for `local_datetime_before`."""
 
     center: Optional[str]
     """
@@ -79,6 +80,24 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     limit: int
     """Number of results per page (1-200)"""
 
+    local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only include assets captured strictly after this instant (ISO 8601; exclusive).
+
+    Convert a relative or natural-language date phrase ('in 2023') into an explicit
+    bound before sending. `local_datetime` is the photo's wall-clock time in the
+    device's own timezone. Naive values compare directly against `local_datetime`.
+    Timezone-aware values: assets with a known offset are compared in UTC
+    (`local_datetime - offset`); assets without an offset fall back to wall-clock
+    comparison against `local_datetime`.
+    """
+
+    local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only include assets captured strictly before this instant (ISO 8601; exclusive).
+
+    Same conversion requirement and awareness/offset semantics as
+    `local_datetime_after`.
+    """
+
     page: int
     """Page number"""
 
@@ -91,11 +110,10 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     query: Optional[str]
-    """The text query to search for.
-
-    If you want to search for a specific person or set of people, use the person_ids
-    parameter instead.If you want to search for a photos taken during a specific
-    date range, use the captured_before and captured_after parameters instead.
+    """
+    Natural-language search text, matched against image embeddings and authoritative
+    metadata. Album and people names belong in `album_id` and `person_ids`, and date
+    ranges in `local_datetime_before`/`local_datetime_after`, not here.
     """
 
     radius: Optional[float]

@@ -48,15 +48,15 @@ class SearchResource(SyncAPIResource):
     def search(
         self,
         *,
-        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
-        captured_after: Union[str, datetime, None] | Omit = omit,
-        captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -76,48 +76,35 @@ class SearchResource(SyncAPIResource):
         in_ the photos they want — subjects, scenes, places, activities, moods, objects
         — optionally narrowed by album, person, date, or location.
 
-        Prefer typed filters for anything the request states exactly: `album_ids` for
-        album membership, `person_ids` for people, `captured_before`/`captured_after`
-        for date ranges, and `center` + `radius` or `bbox` for location. There is no
-        typed camera or place-name filter — pass those terms in the free-text `query`;
-        the metadata full-text stage can match those terms, while dense retrieval adds
-        visual-semantic matches. For example, 'photos of my kids at the beach last
-        summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
-        `captured_before=2025-09-01`.
+        Prefer typed filters for anything the request states exactly: `album_id` for
+        album membership, `person_ids` for people,
+        `local_datetime_before`/`local_datetime_after` for date ranges, and `center` +
+        `radius` or `bbox` for location. There is no typed camera or place-name filter —
+        pass those terms in the free-text `query`; the metadata full-text stage can
+        match those terms, while dense retrieval adds visual-semantic matches. For
+        example, 'photos of my kids at the beach last summer' becomes
+        `query='kids at the beach'` + `local_datetime_after=2025-06-01` +
+        `local_datetime_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain structured browse that album, person,
         date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
-        **Location filtering is by coordinate,** matching `list_assets`, in two
-        mutually-exclusive modes: a radius (`center` + `radius`) keeps assets within
-        that circle, or a bounding box (`bbox`) keeps assets inside that map viewport.
-        Either is a filter that narrows candidates — the semantic/date ordering is
-        unchanged.
+        **Location filtering is by coordinate,** in two mutually-exclusive modes: a
+        radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
-        `captured_after` must be provided; the location filter is an additional filter,
-        not a search criterion on its own.
+        At least one of `query`, `album_id`, `person_ids`, `local_datetime_before`, or
+        `local_datetime_after` must be provided; a location filter only narrows those
+        results and is not a search criterion on its own.
 
         Args:
-          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
-              multiple `album_ids=` query params or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
-              `album_id` (singular).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
-
-          captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
-              inconsistency is tracked as a follow-up).
-
-          captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
-              inconsistency is tracked as a follow-up).
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
@@ -144,10 +131,23 @@ class SearchResource(SyncAPIResource):
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
-          page: 1-indexed page number. `search_assets` uses page-number pagination; the sibling
-              `list_assets` uses cursor pagination via `starting_after_id`. Increment `page`
-              to fetch subsequent pages. Relevance-ranked searches paginate a fixed top-200
-              fused candidate population, so pages beyond that population are empty.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
+
+          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
+              pages by number rather than by cursor because it ranks a fixed top-200 fused
+              candidate population by relevance, so pages beyond that population are empty.
+              The sibling `list_assets` cursors with `starting_after_id` over a stable
+              capture-time ordering.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -159,10 +159,10 @@ class SearchResource(SyncAPIResource):
               are fused. Concrete visual concepts work well in the dense stage, while exact
               metadata terms can match through full-text search.
 
-              Prefer structured params when available: use `album_ids` for albums (not album
-              names in `query`), `person_ids` for people (not names in `query`), and
-              `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
-              `query`).
+              Resolve album and people names to IDs and pass them as `album_id` and
+              `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
+              `local_datetime_after`/`local_datetime_before` (here, `2023-01-01` and
+              `2024-01-01`). None of those belong in `query`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -188,15 +188,15 @@ class SearchResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "album_ids": album_ids,
+                        "album_id": album_id,
                         "bbox": bbox,
-                        "captured_after": captured_after,
-                        "captured_before": captured_before,
                         "center": center,
                         "include": include,
                         "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
                         "page": page,
                         "person_ids": person_ids,
                         "query": query,
@@ -213,6 +213,7 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_id: Optional[str] | Omit = omit,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
@@ -222,6 +223,8 @@ class SearchResource(SyncAPIResource):
         include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -258,10 +261,10 @@ class SearchResource(SyncAPIResource):
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
 
-          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
-              multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
-              `album_id` (singular).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
+
+          album_ids: Deprecated alias for `album_id`. Accepts a single album ID; supplying more than
+              one is rejected.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -269,9 +272,9 @@ class SearchResource(SyncAPIResource):
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
 
-          captured_after: Filter to only include assets captured after this date (ISO format).
+          captured_after: Deprecated alias for `local_datetime_after`.
 
-          captured_before: Filter to only include assets captured before this date (ISO format).
+          captured_before: Deprecated alias for `local_datetime_before`.
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
@@ -286,6 +289,18 @@ class SearchResource(SyncAPIResource):
 
           limit: Number of results per page (1-200)
 
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
+
           page: Page number
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
@@ -293,10 +308,9 @@ class SearchResource(SyncAPIResource):
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: The text query to search for. If you want to search for a specific person or set
-              of people, use the person_ids parameter instead.If you want to search for a
-              photos taken during a specific date range, use the captured_before and
-              captured_after parameters instead.
+          query: Natural-language search text, matched against image embeddings and authoritative
+              metadata. Album and people names belong in `album_id` and `person_ids`, and date
+              ranges in `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -314,6 +328,7 @@ class SearchResource(SyncAPIResource):
         """
         body = deepcopy_with_paths(
             {
+                "album_id": album_id,
                 "album_ids": album_ids,
                 "bbox": bbox,
                 "captured_after": captured_after,
@@ -323,6 +338,8 @@ class SearchResource(SyncAPIResource):
                 "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
+                "local_datetime_after": local_datetime_after,
+                "local_datetime_before": local_datetime_before,
                 "page": page,
                 "person_ids": person_ids,
                 "query": query,
@@ -374,15 +391,15 @@ class AsyncSearchResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
-        captured_after: Union[str, datetime, None] | Omit = omit,
-        captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -402,48 +419,35 @@ class AsyncSearchResource(AsyncAPIResource):
         in_ the photos they want — subjects, scenes, places, activities, moods, objects
         — optionally narrowed by album, person, date, or location.
 
-        Prefer typed filters for anything the request states exactly: `album_ids` for
-        album membership, `person_ids` for people, `captured_before`/`captured_after`
-        for date ranges, and `center` + `radius` or `bbox` for location. There is no
-        typed camera or place-name filter — pass those terms in the free-text `query`;
-        the metadata full-text stage can match those terms, while dense retrieval adds
-        visual-semantic matches. For example, 'photos of my kids at the beach last
-        summer' becomes `query='kids at the beach'` + `captured_after=2025-06-01` +
-        `captured_before=2025-09-01`.
+        Prefer typed filters for anything the request states exactly: `album_id` for
+        album membership, `person_ids` for people,
+        `local_datetime_before`/`local_datetime_after` for date ranges, and `center` +
+        `radius` or `bbox` for location. There is no typed camera or place-name filter —
+        pass those terms in the free-text `query`; the metadata full-text stage can
+        match those terms, while dense retrieval adds visual-semantic matches. For
+        example, 'photos of my kids at the beach last summer' becomes
+        `query='kids at the beach'` + `local_datetime_after=2025-06-01` +
+        `local_datetime_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain structured browse that album, person,
         date-range, location, or asset-ID filters can answer with no content `query` —
         it's cheaper and more deterministic than semantic search.
 
-        **Location filtering is by coordinate,** matching `list_assets`, in two
-        mutually-exclusive modes: a radius (`center` + `radius`) keeps assets within
-        that circle, or a bounding box (`bbox`) keeps assets inside that map viewport.
-        Either is a filter that narrows candidates — the semantic/date ordering is
-        unchanged.
+        **Location filtering is by coordinate,** in two mutually-exclusive modes: a
+        radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        At least one of `query`, `album_ids`, `person_ids`, `captured_before`, or
-        `captured_after` must be provided; the location filter is an additional filter,
-        not a search criterion on its own.
+        At least one of `query`, `album_id`, `person_ids`, `local_datetime_before`, or
+        `local_datetime_after` must be provided; a location filter only narrows those
+        results and is not a search criterion on its own.
 
         Args:
-          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
-              multiple `album_ids=` query params or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
-              `album_id` (singular).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
-
-          captured_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Equivalent in purpose to `local_datetime_after` on `list_assets` (naming
-              inconsistency is tracked as a follow-up).
-
-          captured_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Equivalent in purpose to `local_datetime_before` on `list_assets` (naming
-              inconsistency is tracked as a follow-up).
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
@@ -470,10 +474,23 @@ class AsyncSearchResource(AsyncAPIResource):
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
-          page: 1-indexed page number. `search_assets` uses page-number pagination; the sibling
-              `list_assets` uses cursor pagination via `starting_after_id`. Increment `page`
-              to fetch subsequent pages. Relevance-ranked searches paginate a fixed top-200
-              fused candidate population, so pages beyond that population are empty.
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
+
+          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
+              pages by number rather than by cursor because it ranks a fixed top-200 fused
+              candidate population by relevance, so pages beyond that population are empty.
+              The sibling `list_assets` cursors with `starting_after_id` over a stable
+              capture-time ordering.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -485,10 +502,10 @@ class AsyncSearchResource(AsyncAPIResource):
               are fused. Concrete visual concepts work well in the dense stage, while exact
               metadata terms can match through full-text search.
 
-              Prefer structured params when available: use `album_ids` for albums (not album
-              names in `query`), `person_ids` for people (not names in `query`), and
-              `captured_before`/`captured_after` for dates (not phrases like 'in 2023' in
-              `query`).
+              Resolve album and people names to IDs and pass them as `album_id` and
+              `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
+              `local_datetime_after`/`local_datetime_before` (here, `2023-01-01` and
+              `2024-01-01`). None of those belong in `query`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -514,15 +531,15 @@ class AsyncSearchResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "album_ids": album_ids,
+                        "album_id": album_id,
                         "bbox": bbox,
-                        "captured_after": captured_after,
-                        "captured_before": captured_before,
                         "center": center,
                         "include": include,
                         "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
+                        "local_datetime_after": local_datetime_after,
+                        "local_datetime_before": local_datetime_before,
                         "page": page,
                         "person_ids": person_ids,
                         "query": query,
@@ -539,6 +556,7 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
+        album_id: Optional[str] | Omit = omit,
         album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         captured_after: Union[str, datetime, None] | Omit = omit,
@@ -548,6 +566,8 @@ class AsyncSearchResource(AsyncAPIResource):
         include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        local_datetime_after: Union[str, datetime, None] | Omit = omit,
+        local_datetime_before: Union[str, datetime, None] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -584,10 +604,10 @@ class AsyncSearchResource(AsyncAPIResource):
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
 
-          album_ids: Filter to assets in ALL of these album IDs (intersection, not union). Accepts
-              multiple `album_ids=` form fields or a single comma-delimited value (e.g.,
-              `album_123,album_abc`). Plural on this tool; the sibling `list_assets` uses
-              `album_id` (singular).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
+
+          album_ids: Deprecated alias for `album_id`. Accepts a single album ID; supplying more than
+              one is rejected.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -595,9 +615,9 @@ class AsyncSearchResource(AsyncAPIResource):
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
 
-          captured_after: Filter to only include assets captured after this date (ISO format).
+          captured_after: Deprecated alias for `local_datetime_after`.
 
-          captured_before: Filter to only include assets captured before this date (ISO format).
+          captured_before: Deprecated alias for `local_datetime_before`.
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
@@ -612,6 +632,18 @@ class AsyncSearchResource(AsyncAPIResource):
 
           limit: Number of results per page (1-200)
 
+          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
+
+          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
+
           page: Page number
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
@@ -619,10 +651,9 @@ class AsyncSearchResource(AsyncAPIResource):
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: The text query to search for. If you want to search for a specific person or set
-              of people, use the person_ids parameter instead.If you want to search for a
-              photos taken during a specific date range, use the captured_before and
-              captured_after parameters instead.
+          query: Natural-language search text, matched against image embeddings and authoritative
+              metadata. Album and people names belong in `album_id` and `person_ids`, and date
+              ranges in `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
@@ -640,6 +671,7 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         body = deepcopy_with_paths(
             {
+                "album_id": album_id,
                 "album_ids": album_ids,
                 "bbox": bbox,
                 "captured_after": captured_after,
@@ -649,6 +681,8 @@ class AsyncSearchResource(AsyncAPIResource):
                 "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
+                "local_datetime_after": local_datetime_after,
+                "local_datetime_before": local_datetime_before,
                 "page": page,
                 "person_ids": person_ids,
                 "query": query,

@@ -231,8 +231,8 @@ class AssetsResource(SyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
-        Album and person filters compose using AND. `person_id` is a deprecated alias
-        for one `person_ids` value; do not supply both person parameters.
+        Album and person filters compose using AND; do not supply both `person_id` and
+        `person_ids`.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
@@ -245,14 +245,13 @@ class AssetsResource(SyncAPIResource):
         building a custom gallery — the asset IDs you already have are enough to
         re-render them through the interactive widget.
 
-        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
-        last asset in `data` as `starting_after_id` and repeat the same filters,
-        `state`, and `order` to fetch the next page.
+        **Pagination** is cursor-based: while `has_more` is true, keep fetching with
+        `starting_after_id`.
 
         Args:
-          album_id: Return only assets in this album. To browse one album's full asset metadata,
-              prefer this filter over `list_album_assets`, which returns link records. The
-              sibling `search_assets` uses `album_ids` (plural, ALL-of).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name. To
+              browse one album's full asset metadata, prefer this filter over
+              `list_album_assets`, which returns link records.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -289,17 +288,16 @@ class AssetsResource(SyncAPIResource):
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              `local_datetime` is the photo's wall-clock time in the device's own timezone.
-              Naive values compare directly against `local_datetime`. Timezone-aware values:
-              assets with a known offset are compared in UTC (`local_datetime - offset`);
-              assets without an offset fall back to wall-clock comparison against
-              `local_datetime`. Equivalent in purpose to `captured_after` on `search_assets`
-              (naming inconsistency is tracked as a follow-up).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as `local_datetime_after`. Equivalent in purpose
-              to `captured_before` on `search_assets` (naming inconsistency is tracked as a
-              follow-up).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -320,9 +318,9 @@ class AssetsResource(SyncAPIResource):
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
-              `order` on every page. Omit for the first page. `list_assets` uses cursor
-              pagination; the sibling `search_assets` uses 1-indexed `page` numbers (naming
-              inconsistency is tracked as a follow-up).
+              `order` on every page. Omit for the first page. `list_assets` cursors because it
+              walks a stable capture-time ordering; the sibling `search_assets` ranks by
+              relevance and so pages by number instead.
 
           state: Which set of assets to read from: `live` (default — only assets that are not
               trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
@@ -1153,8 +1151,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
-        Album and person filters compose using AND. `person_id` is a deprecated alias
-        for one `person_ids` value; do not supply both person parameters.
+        Album and person filters compose using AND; do not supply both `person_id` and
+        `person_ids`.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
@@ -1167,14 +1165,13 @@ class AsyncAssetsResource(AsyncAPIResource):
         building a custom gallery — the asset IDs you already have are enough to
         re-render them through the interactive widget.
 
-        **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
-        last asset in `data` as `starting_after_id` and repeat the same filters,
-        `state`, and `order` to fetch the next page.
+        **Pagination** is cursor-based: while `has_more` is true, keep fetching with
+        `starting_after_id`.
 
         Args:
-          album_id: Return only assets in this album. To browse one album's full asset metadata,
-              prefer this filter over `list_album_assets`, which returns link records. The
-              sibling `search_assets` uses `album_ids` (plural, ALL-of).
+          album_id: Return only assets in this album — the album's `album_` ID, not its name. To
+              browse one album's full asset metadata, prefer this filter over
+              `list_album_assets`, which returns link records.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -1211,17 +1208,16 @@ class AsyncAssetsResource(AsyncAPIResource):
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              `local_datetime` is the photo's wall-clock time in the device's own timezone.
-              Naive values compare directly against `local_datetime`. Timezone-aware values:
-              assets with a known offset are compared in UTC (`local_datetime - offset`);
-              assets without an offset fall back to wall-clock comparison against
-              `local_datetime`. Equivalent in purpose to `captured_after` on `search_assets`
-              (naming inconsistency is tracked as a follow-up).
+              Convert a relative or natural-language date phrase ('in 2023') into an explicit
+              bound before sending. `local_datetime` is the photo's wall-clock time in the
+              device's own timezone. Naive values compare directly against `local_datetime`.
+              Timezone-aware values: assets with a known offset are compared in UTC
+              (`local_datetime - offset`); assets without an offset fall back to wall-clock
+              comparison against `local_datetime`.
 
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same awareness/offset semantics as `local_datetime_after`. Equivalent in purpose
-              to `captured_before` on `search_assets` (naming inconsistency is tracked as a
-              follow-up).
+              Same conversion requirement and awareness/offset semantics as
+              `local_datetime_after`.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -1242,9 +1238,9 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
-              `order` on every page. Omit for the first page. `list_assets` uses cursor
-              pagination; the sibling `search_assets` uses 1-indexed `page` numbers (naming
-              inconsistency is tracked as a follow-up).
+              `order` on every page. Omit for the first page. `list_assets` cursors because it
+              walks a stable capture-time ordering; the sibling `search_assets` ranks by
+              relevance and so pages by number instead.
 
           state: Which set of assets to read from: `live` (default — only assets that are not
               trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
