@@ -13,7 +13,7 @@ __all__ = ["AssetCountsParams"]
 
 class AssetCountsParams(TypedDict, total=False):
     album_id: Optional[str]
-    """Filter by assets in a specific album"""
+    """Return only assets in this album — the album's `album_` ID, not its name."""
 
     group_by: Literal["month"]
     """Time period to group counts by.
@@ -28,20 +28,21 @@ class AssetCountsParams(TypedDict, total=False):
     """Maximum number of time buckets to return (1-200)"""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets with local_datetime after this value (ISO 8601).
+    """Only include assets captured strictly after this instant (ISO 8601; exclusive).
 
-    Naive values compare directly against local_datetime. Timezone-aware values:
-    assets with a known offset are compared in UTC (local_datetime - offset); assets
-    without an offset fall back to wall-clock comparison against local_datetime.
+    Convert a relative or natural-language date phrase ('in 2023') into an explicit
+    bound before sending. `local_datetime` is the photo's wall-clock time in the
+    device's own timezone. Naive values compare directly against `local_datetime`.
+    Timezone-aware values: assets with a known offset are compared in UTC
+    (`local_datetime - offset`); assets without an offset fall back to wall-clock
+    comparison against `local_datetime`.
     """
 
     local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets with local_datetime before this value (ISO 8601).
+    """Only include assets captured strictly before this instant (ISO 8601; exclusive).
 
-    Naive values compare directly against local_datetime. Timezone-aware values:
-    assets with a known offset are compared in UTC (local_datetime - offset); assets
-    without an offset fall back to wall-clock comparison against local_datetime. Use
-    the last time_bucket from a previous response to paginate.
+    Same conversion requirement and awareness/offset semantics as
+    `local_datetime_after`.
     """
 
     person_id: Optional[str]
