@@ -29,7 +29,7 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     """
 
     album_id: Optional[str]
-    """Cluster only assets in this album."""
+    """Return only assets in this album — the album's `album_` ID, not its name."""
 
     library_id: Optional[str]
     """Library to cluster assets from.
@@ -40,13 +40,19 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets captured strictly after this instant (ISO 8601; exclusive).
 
-    Same awareness/offset semantics as on `list_assets`.
+    Convert a relative or natural-language date phrase ('in 2023') into an explicit
+    bound before sending. `local_datetime` is the photo's wall-clock time in the
+    device's own timezone. Naive values compare directly against `local_datetime`.
+    Timezone-aware values: assets with a known offset are compared in UTC
+    (`local_datetime - offset`); assets without an offset fall back to wall-clock
+    comparison against `local_datetime`.
     """
 
     local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets captured strictly before this instant (ISO 8601; exclusive).
 
-    Same awareness/offset semantics as on `list_assets`.
+    Same conversion requirement and awareness/offset semantics as
+    `local_datetime_after`.
     """
 
     person_id: Optional[str]
