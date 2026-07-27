@@ -13,8 +13,10 @@ from gumnut.types import (
     StackDeleteResponse,
     StackSetCoverResponse,
     StackListStacksResponse,
+    StackCreateStackResponse,
     StackRemoveAssetsResponse,
     StackRetrieveStackResponse,
+    StackAddAssetsToStackResponse,
 )
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -65,6 +67,96 @@ class TestStacks:
             client.stacks.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_add_assets_to_stack(self, client: Gumnut) -> None:
+        stack = client.stacks.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        )
+        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_add_assets_to_stack(self, client: Gumnut) -> None:
+        response = client.stacks.with_raw_response.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stack = response.parse()
+        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_add_assets_to_stack(self, client: Gumnut) -> None:
+        with client.stacks.with_streaming_response.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stack = response.parse()
+            assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_add_assets_to_stack(self, client: Gumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
+            client.stacks.with_raw_response.add_assets_to_stack(
+                stack_id="",
+                asset_ids=["string"],
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_stack(self, client: Gumnut) -> None:
+        stack = client.stacks.create_stack(
+            asset_ids=["string", "string"],
+        )
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_stack_with_all_params(self, client: Gumnut) -> None:
+        stack = client.stacks.create_stack(
+            asset_ids=["string", "string"],
+            library_id="library_id",
+            primary_asset_id="primary_asset_id",
+        )
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_stack(self, client: Gumnut) -> None:
+        response = client.stacks.with_raw_response.create_stack(
+            asset_ids=["string", "string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stack = response.parse()
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_stack(self, client: Gumnut) -> None:
+        with client.stacks.with_streaming_response.create_stack(
+            asset_ids=["string", "string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stack = response.parse()
+            assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -288,6 +380,96 @@ class TestAsyncStacks:
             await async_client.stacks.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
+        stack = await async_client.stacks.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        )
+        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.stacks.with_raw_response.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stack = await response.parse()
+        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
+        async with async_client.stacks.with_streaming_response.add_assets_to_stack(
+            stack_id="stack_id",
+            asset_ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stack = await response.parse()
+            assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
+            await async_client.stacks.with_raw_response.add_assets_to_stack(
+                stack_id="",
+                asset_ids=["string"],
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_stack(self, async_client: AsyncGumnut) -> None:
+        stack = await async_client.stacks.create_stack(
+            asset_ids=["string", "string"],
+        )
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_stack_with_all_params(self, async_client: AsyncGumnut) -> None:
+        stack = await async_client.stacks.create_stack(
+            asset_ids=["string", "string"],
+            library_id="library_id",
+            primary_asset_id="primary_asset_id",
+        )
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_stack(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.stacks.with_raw_response.create_stack(
+            asset_ids=["string", "string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stack = await response.parse()
+        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_stack(self, async_client: AsyncGumnut) -> None:
+        async with async_client.stacks.with_streaming_response.create_stack(
+            asset_ids=["string", "string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stack = await response.parse()
+            assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

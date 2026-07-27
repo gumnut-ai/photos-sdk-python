@@ -222,6 +222,8 @@ Types:
 ```python
 from gumnut.types import (
     StackDeleteResponse,
+    StackAddAssetsToStackResponse,
+    StackCreateStackResponse,
     StackListStacksResponse,
     StackRemoveAssetsResponse,
     StackRetrieveStackResponse,
@@ -232,6 +234,8 @@ from gumnut.types import (
 Methods:
 
 - <code title="delete /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">delete</a>(stack_id) -> <a href="./src/gumnut/types/stack_delete_response.py">StackDeleteResponse</a></code>
+- <code title="post /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">add_assets_to_stack</a>(stack_id, \*\*<a href="src/gumnut/types/stack_add_assets_to_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_add_assets_to_stack_response.py">StackAddAssetsToStackResponse</a></code>
+- <code title="post /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">create_stack</a>(\*\*<a href="src/gumnut/types/stack_create_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_create_stack_response.py">StackCreateStackResponse</a></code>
 - <code title="get /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">list_stacks</a>(\*\*<a href="src/gumnut/types/stack_list_stacks_params.py">params</a>) -> <a href="./src/gumnut/types/stack_list_stacks_response.py">SyncCursorPage[StackListStacksResponse]</a></code>
 - <code title="delete /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">remove_assets</a>(stack_id, \*\*<a href="src/gumnut/types/stack_remove_assets_params.py">params</a>) -> <a href="./src/gumnut/types/stack_remove_assets_response.py">StackRemoveAssetsResponse</a></code>
 - <code title="get /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">retrieve_stack</a>(stack_id) -> <a href="./src/gumnut/types/stack_retrieve_stack_response.py">StackRetrieveStackResponse</a></code>

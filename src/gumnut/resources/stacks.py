@@ -7,7 +7,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import stack_set_cover_params, stack_list_stacks_params, stack_remove_assets_params
+from ..types import (
+    stack_set_cover_params,
+    stack_list_stacks_params,
+    stack_create_stack_params,
+    stack_remove_assets_params,
+    stack_add_assets_to_stack_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,8 +29,10 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.stack_delete_response import StackDeleteResponse
 from ..types.stack_set_cover_response import StackSetCoverResponse
 from ..types.stack_list_stacks_response import StackListStacksResponse
+from ..types.stack_create_stack_response import StackCreateStackResponse
 from ..types.stack_remove_assets_response import StackRemoveAssetsResponse
 from ..types.stack_retrieve_stack_response import StackRetrieveStackResponse
+from ..types.stack_add_assets_to_stack_response import StackAddAssetsToStackResponse
 
 __all__ = ["StacksResource", "AsyncStacksResource"]
 
@@ -86,6 +94,119 @@ class StacksResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=StackDeleteResponse,
+        )
+
+    def add_assets_to_stack(
+        self,
+        stack_id: str,
+        *,
+        asset_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StackAddAssetsToStackResponse:
+        """Adds one or more existing assets to the stack.
+
+        An asset already in another stack
+        is reconciled exactly as `create_stack` does. Ids already in this stack are
+        silently skipped.
+
+        An add that changes membership marks the stack user-owned (`origin = user`),
+        which freezes it against burst re-detection; a request that changes nothing
+        leaves `origin` unchanged.
+
+        If a concurrent stack change invalidates the request mid-flight, it returns 409
+        and nothing is changed; retry the request unchanged, except where the 409
+        reports the target stack itself is gone, which is terminal.
+
+        Args:
+          stack_id: Stack ID (with `asset_stack_` prefix) of the stack to add the assets to.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to add to the stack — all in the stack's
+              library.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not stack_id:
+            raise ValueError(f"Expected a non-empty value for `stack_id` but received {stack_id!r}")
+        return self._post(
+            path_template("/api/stacks/{stack_id}/assets", stack_id=stack_id),
+            body=maybe_transform(
+                {"asset_ids": asset_ids}, stack_add_assets_to_stack_params.StackAddAssetsToStackParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StackAddAssetsToStackResponse,
+        )
+
+    def create_stack(
+        self,
+        *,
+        asset_ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        primary_asset_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StackCreateStackResponse:
+        """
+        Groups two or more existing assets into a new user-owned stack (`origin = user`)
+        for collapsed display. A user-owned stack is never re-segmented by burst
+        re-detection.
+
+        An asset already in another stack is repointed into the new one, folding that
+        stack in whole if it was its pinned cover; a stack left with fewer than 2
+        members dissolves. The photos themselves are untouched.
+
+        If a concurrent stack change invalidates the request mid-flight, it returns 409
+        and nothing is created; retry the request unchanged.
+
+        Args:
+          asset_ids: Asset IDs (with `asset_` prefix) to group into the new stack — at least 2
+              distinct ids, all in the target library.
+
+          library_id: Library to create the stack in. Optional if the user has a single library;
+              required when they have multiple.
+
+          primary_asset_id: Asset ID (with `asset_` prefix) to pin as the stack's cover; must be one of
+              `asset_ids`. Omit to leave the cover unpinned — there is no automatic pick, and
+              clients choose their own display cover for an unpinned stack.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/stacks",
+            body=maybe_transform(
+                {
+                    "asset_ids": asset_ids,
+                    "library_id": library_id,
+                    "primary_asset_id": primary_asset_id,
+                },
+                stack_create_stack_params.StackCreateStackParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StackCreateStackResponse,
         )
 
     def list_stacks(
@@ -365,6 +486,119 @@ class AsyncStacksResource(AsyncAPIResource):
             cast_to=StackDeleteResponse,
         )
 
+    async def add_assets_to_stack(
+        self,
+        stack_id: str,
+        *,
+        asset_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StackAddAssetsToStackResponse:
+        """Adds one or more existing assets to the stack.
+
+        An asset already in another stack
+        is reconciled exactly as `create_stack` does. Ids already in this stack are
+        silently skipped.
+
+        An add that changes membership marks the stack user-owned (`origin = user`),
+        which freezes it against burst re-detection; a request that changes nothing
+        leaves `origin` unchanged.
+
+        If a concurrent stack change invalidates the request mid-flight, it returns 409
+        and nothing is changed; retry the request unchanged, except where the 409
+        reports the target stack itself is gone, which is terminal.
+
+        Args:
+          stack_id: Stack ID (with `asset_stack_` prefix) of the stack to add the assets to.
+
+          asset_ids: Asset IDs (with `asset_` prefix) to add to the stack — all in the stack's
+              library.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not stack_id:
+            raise ValueError(f"Expected a non-empty value for `stack_id` but received {stack_id!r}")
+        return await self._post(
+            path_template("/api/stacks/{stack_id}/assets", stack_id=stack_id),
+            body=await async_maybe_transform(
+                {"asset_ids": asset_ids}, stack_add_assets_to_stack_params.StackAddAssetsToStackParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StackAddAssetsToStackResponse,
+        )
+
+    async def create_stack(
+        self,
+        *,
+        asset_ids: SequenceNotStr[str],
+        library_id: Optional[str] | Omit = omit,
+        primary_asset_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StackCreateStackResponse:
+        """
+        Groups two or more existing assets into a new user-owned stack (`origin = user`)
+        for collapsed display. A user-owned stack is never re-segmented by burst
+        re-detection.
+
+        An asset already in another stack is repointed into the new one, folding that
+        stack in whole if it was its pinned cover; a stack left with fewer than 2
+        members dissolves. The photos themselves are untouched.
+
+        If a concurrent stack change invalidates the request mid-flight, it returns 409
+        and nothing is created; retry the request unchanged.
+
+        Args:
+          asset_ids: Asset IDs (with `asset_` prefix) to group into the new stack — at least 2
+              distinct ids, all in the target library.
+
+          library_id: Library to create the stack in. Optional if the user has a single library;
+              required when they have multiple.
+
+          primary_asset_id: Asset ID (with `asset_` prefix) to pin as the stack's cover; must be one of
+              `asset_ids`. Omit to leave the cover unpinned — there is no automatic pick, and
+              clients choose their own display cover for an unpinned stack.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/stacks",
+            body=await async_maybe_transform(
+                {
+                    "asset_ids": asset_ids,
+                    "library_id": library_id,
+                    "primary_asset_id": primary_asset_id,
+                },
+                stack_create_stack_params.StackCreateStackParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StackCreateStackResponse,
+        )
+
     def list_stacks(
         self,
         *,
@@ -594,6 +828,12 @@ class StacksResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             stacks.delete,
         )
+        self.add_assets_to_stack = to_raw_response_wrapper(
+            stacks.add_assets_to_stack,
+        )
+        self.create_stack = to_raw_response_wrapper(
+            stacks.create_stack,
+        )
         self.list_stacks = to_raw_response_wrapper(
             stacks.list_stacks,
         )
@@ -614,6 +854,12 @@ class AsyncStacksResourceWithRawResponse:
 
         self.delete = async_to_raw_response_wrapper(
             stacks.delete,
+        )
+        self.add_assets_to_stack = async_to_raw_response_wrapper(
+            stacks.add_assets_to_stack,
+        )
+        self.create_stack = async_to_raw_response_wrapper(
+            stacks.create_stack,
         )
         self.list_stacks = async_to_raw_response_wrapper(
             stacks.list_stacks,
@@ -636,6 +882,12 @@ class StacksResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             stacks.delete,
         )
+        self.add_assets_to_stack = to_streamed_response_wrapper(
+            stacks.add_assets_to_stack,
+        )
+        self.create_stack = to_streamed_response_wrapper(
+            stacks.create_stack,
+        )
         self.list_stacks = to_streamed_response_wrapper(
             stacks.list_stacks,
         )
@@ -656,6 +908,12 @@ class AsyncStacksResourceWithStreamingResponse:
 
         self.delete = async_to_streamed_response_wrapper(
             stacks.delete,
+        )
+        self.add_assets_to_stack = async_to_streamed_response_wrapper(
+            stacks.add_assets_to_stack,
+        )
+        self.create_stack = async_to_streamed_response_wrapper(
+            stacks.create_stack,
         )
         self.list_stacks = async_to_streamed_response_wrapper(
             stacks.list_stacks,
