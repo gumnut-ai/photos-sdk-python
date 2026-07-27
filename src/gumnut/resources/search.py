@@ -52,7 +52,6 @@ class SearchResource(SyncAPIResource):
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
-        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -122,9 +121,6 @@ class SearchResource(SyncAPIResource):
               return 422. When omitted, only the lean core is returned (`id`, `mime_type`,
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
-
-          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
-              for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple.
@@ -192,7 +188,6 @@ class SearchResource(SyncAPIResource):
                         "bbox": bbox,
                         "center": center,
                         "include": include,
-                        "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
@@ -214,13 +209,9 @@ class SearchResource(SyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
-        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
-        captured_after: Union[str, datetime, None] | Omit = omit,
-        captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
-        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -263,27 +254,17 @@ class SearchResource(SyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          album_ids: Deprecated alias for `album_id`. Accepts a single album ID; supplying more than
-              one is rejected.
-
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
 
-          captured_after: Deprecated alias for `local_datetime_after`.
-
-          captured_before: Deprecated alias for `local_datetime_before`.
-
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
-
-          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
-              for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search assets from (optional)
 
@@ -329,13 +310,9 @@ class SearchResource(SyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_id": album_id,
-                "album_ids": album_ids,
                 "bbox": bbox,
-                "captured_after": captured_after,
-                "captured_before": captured_before,
                 "center": center,
                 "image": image,
-                "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
                 "local_datetime_after": local_datetime_after,
@@ -395,7 +372,6 @@ class AsyncSearchResource(AsyncAPIResource):
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
-        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -466,9 +442,6 @@ class AsyncSearchResource(AsyncAPIResource):
               `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`) and each
               data field above is null/absent until you request it.
 
-          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
-              for debugging and evaluation; omitted from normal responses.
-
           library_id: Library to search. Optional if the user has a single library; required when they
               have multiple.
 
@@ -535,7 +508,6 @@ class AsyncSearchResource(AsyncAPIResource):
                         "bbox": bbox,
                         "center": center,
                         "include": include,
-                        "include_debug": include_debug,
                         "library_id": library_id,
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
@@ -557,13 +529,9 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
-        album_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
-        captured_after: Union[str, datetime, None] | Omit = omit,
-        captured_before: Union[str, datetime, None] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
-        include_debug: bool | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -606,27 +574,17 @@ class AsyncSearchResource(AsyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          album_ids: Deprecated alias for `album_id`. Accepts a single album ID; supplying more than
-              one is rejected.
-
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
               `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
               matches nothing — split it client-side.
 
-          captured_after: Deprecated alias for `local_datetime_after`.
-
-          captured_before: Deprecated alias for `local_datetime_before`.
-
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
 
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
-
-          include_debug: Include per-stage dense/sparse ranks and scores plus fused attribution. Intended
-              for debugging and evaluation; omitted from normal responses.
 
           library_id: Library to search assets from (optional)
 
@@ -672,13 +630,9 @@ class AsyncSearchResource(AsyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_id": album_id,
-                "album_ids": album_ids,
                 "bbox": bbox,
-                "captured_after": captured_after,
-                "captured_before": captured_before,
                 "center": center,
                 "image": image,
-                "include_debug": include_debug,
                 "library_id": library_id,
                 "limit": limit,
                 "local_datetime_after": local_datetime_after,
