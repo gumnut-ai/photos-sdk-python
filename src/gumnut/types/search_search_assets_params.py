@@ -34,12 +34,6 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
-    album_ids: Optional[SequenceNotStr[str]]
-    """Deprecated alias for `album_id`.
-
-    Accepts a single album ID; supplying more than one is rejected.
-    """
-
     bbox: Optional[str]
     """
     Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -48,12 +42,6 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     `min_longitude` exceeds `max_longitude` (antimeridian-crossing) is accepted but
     matches nothing — split it client-side.
     """
-
-    captured_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Deprecated alias for `local_datetime_after`."""
-
-    captured_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Deprecated alias for `local_datetime_before`."""
 
     center: Optional[str]
     """
@@ -66,12 +54,6 @@ class SearchSearchAssetsParams(TypedDict, total=False):
 
     When text is also provided, the stage ranks are fused rather than blending their
     embeddings.
-    """
-
-    include_debug: bool
-    """Include per-stage dense/sparse ranks and scores plus fused attribution.
-
-    Intended for debugging and evaluation; omitted from normal responses.
     """
 
     library_id: Optional[str]

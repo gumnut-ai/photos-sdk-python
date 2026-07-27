@@ -49,12 +49,6 @@ class SearchSearchParams(TypedDict, total=False):
     data field above is null/absent until you request it.
     """
 
-    include_debug: bool
-    """Include per-stage dense/sparse ranks and scores plus fused attribution.
-
-    Intended for debugging and evaluation; omitted from normal responses.
-    """
-
     library_id: Optional[str]
     """Library to search.
 

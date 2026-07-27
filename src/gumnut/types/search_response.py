@@ -2,10 +2,21 @@
 
 from typing import List, Optional
 
+from pydantic import Field as FieldInfo
+
 from .._models import BaseModel
 from .search_result_item import SearchResultItem
 
-__all__ = ["SearchResponse", "Debug", "DebugDenseImage", "DebugDenseText", "DebugFused", "DebugSparse"]
+__all__ = [
+    "SearchResponse",
+    "Debug",
+    "DebugDenseImage",
+    "DebugDenseText",
+    "DebugFused",
+    "DebugReranked",
+    "DebugReranker",
+    "DebugSparse",
+]
 
 
 class DebugDenseImage(BaseModel):
@@ -38,6 +49,28 @@ class DebugFused(BaseModel):
     sparse_rank: Optional[int] = None
 
 
+class DebugReranked(BaseModel):
+    asset_id: str
+
+    fused_rank: int
+
+    rank: int
+
+    score: Optional[float] = None
+
+
+class DebugReranker(BaseModel):
+    attempted: bool
+
+    duration_ms: float
+
+    fallback_reason: Optional[str] = None
+
+    api_model_revision: str = FieldInfo(alias="model_revision")
+
+    outcome: str
+
+
 class DebugSparse(BaseModel):
     asset_id: str
 
@@ -57,15 +90,22 @@ class Debug(BaseModel):
 
     fused: List[DebugFused]
 
+    reranked: List[DebugReranked]
+
+    reranker: DebugReranker
+
+    selected_ordering: str
+
     sparse: List[DebugSparse]
 
 
 class SearchResponse(BaseModel):
     data: List[SearchResultItem]
     """
-    For text or image search, matching assets are ordered by Reciprocal Rank Fusion
-    across the available dense and sparse stages. Structured-filter-only searches
-    retain newest-first capture-date ordering.
+    Text-query matches use the configured reranker over the first 50 Reciprocal Rank
+    Fusion candidates, with fail-open RRF ordering. Image-only matches use RRF
+    across available stages. Structured-filter-only searches retain newest-first
+    capture-date ordering.
     """
 
     debug: Optional[Debug] = None
