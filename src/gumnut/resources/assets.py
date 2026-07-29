@@ -317,8 +317,8 @@ class AssetsResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
-          stack_id: Return only assets belonging to this burst stack (the `asset_stack_` ID carried
-              by the `stack_id` field on every asset).
+          stack_id: Return only assets belonging to this stack (the `asset_stack_` ID carried by the
+              `stack_id` field on every asset).
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
@@ -1251,8 +1251,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
-          stack_id: Return only assets belonging to this burst stack (the `asset_stack_` ID carried
-              by the `stack_id` field on every asset).
+          stack_id: Return only assets belonging to this stack (the `asset_stack_` ID carried by the
+              `stack_id` field on every asset).
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
