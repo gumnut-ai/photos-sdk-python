@@ -119,8 +119,8 @@ class AssetListParams(TypedDict, total=False):
 
     stack_id: Optional[str]
     """
-    Return only assets belonging to this burst stack (the `asset_stack_` ID carried
-    by the `stack_id` field on every asset).
+    Return only assets belonging to this stack (the `asset_stack_` ID carried by the
+    `stack_id` field on every asset).
     """
 
     starting_after_id: Optional[str]
