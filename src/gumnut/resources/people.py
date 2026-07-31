@@ -372,6 +372,9 @@ class PeopleResource(SyncAPIResource):
         deleting the whole person. Use `delete_face` to remove a face detection
         entirely.
 
+        If a concurrent change to the person's faces collides with the deletion, it
+        returns 409 and nothing is deleted; retry the request unchanged.
+
         Args:
           person_id: Person ID (with `person_` prefix) of the person to delete.
 
@@ -777,6 +780,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         Use `update_face` with `person_id=null` to detach a specific face without
         deleting the whole person. Use `delete_face` to remove a face detection
         entirely.
+
+        If a concurrent change to the person's faces collides with the deletion, it
+        returns 409 and nothing is deleted; retry the request unchanged.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the person to delete.
