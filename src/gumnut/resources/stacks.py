@@ -73,7 +73,8 @@ class StacksResource(SyncAPIResource):
         loose, individual display. The photos themselves are untouched — nothing is
         trashed or deleted from the library; like `remove_assets_from_album`, this only
         removes an organizational grouping. Use `trash_assets` to soft-delete the
-        underlying assets.
+        underlying assets. If a concurrent mutation adds a frame mid-delete, returns 409
+        and nothing is changed; retry the request.
 
         Args:
           stack_id: Stack ID (with `asset_stack_` prefix) of the stack to dissolve.
@@ -463,7 +464,8 @@ class AsyncStacksResource(AsyncAPIResource):
         loose, individual display. The photos themselves are untouched — nothing is
         trashed or deleted from the library; like `remove_assets_from_album`, this only
         removes an organizational grouping. Use `trash_assets` to soft-delete the
-        underlying assets.
+        underlying assets. If a concurrent mutation adds a frame mid-delete, returns 409
+        and nothing is changed; retry the request.
 
         Args:
           stack_id: Stack ID (with `asset_stack_` prefix) of the stack to dissolve.

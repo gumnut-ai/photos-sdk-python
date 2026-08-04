@@ -99,6 +99,7 @@ class EventsResource(SyncAPIResource):
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
         - `metadata_updated`
+        - `stack_created`, `stack_updated`, `stack_deleted`
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
@@ -113,7 +114,7 @@ class EventsResource(SyncAPIResource):
               window.
 
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
-              `album`, `person`, `face`, `album_asset`, `metadata`. Accepts multiple
+              `album`, `person`, `face`, `album_asset`, `metadata`, `stack`. Accepts multiple
               `entity_types=` query params or a single comma-delimited value (e.g.,
               `entity_types=asset,album`). Omit to receive events for all types.
 
@@ -228,6 +229,7 @@ class AsyncEventsResource(AsyncAPIResource):
         - `face_created`, `face_updated`, `face_deleted`
         - `album_asset_added`, `album_asset_removed`
         - `metadata_updated`
+        - `stack_created`, `stack_updated`, `stack_deleted`
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
@@ -242,7 +244,7 @@ class AsyncEventsResource(AsyncAPIResource):
               window.
 
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
-              `album`, `person`, `face`, `album_asset`, `metadata`. Accepts multiple
+              `album`, `person`, `face`, `album_asset`, `metadata`, `stack`. Accepts multiple
               `entity_types=` query params or a single comma-delimited value (e.g.,
               `entity_types=asset,album`). Omit to receive events for all types.
 
