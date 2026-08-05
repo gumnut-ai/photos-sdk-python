@@ -36,7 +36,10 @@ class FileDataResponse(BaseModel):
     """When the file was last modified on the uploading device."""
 
     file_size_bytes: int
-    """File size of the asset in bytes."""
+    """Size of the uploaded file in bytes.
+
+    Each rendering's own size is on its row in the asset's version listing.
+    """
 
     checksum_sha1: Optional[str] = None
     """Base64-encoded SHA-1 hash for Immich client compatibility.
