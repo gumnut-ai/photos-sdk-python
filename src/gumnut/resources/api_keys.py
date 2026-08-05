@@ -28,6 +28,11 @@ __all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
 
 
 class APIKeysResource(SyncAPIResource):
+    """Create and manage Gumnut API keys.
+
+    Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
+    """
+
     @cached_property
     def with_raw_response(self) -> APIKeysResourceWithRawResponse:
         """
@@ -188,6 +193,11 @@ class APIKeysResource(SyncAPIResource):
 
 
 class AsyncAPIKeysResource(AsyncAPIResource):
+    """Create and manage Gumnut API keys.
+
+    Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAPIKeysResourceWithRawResponse:
         """

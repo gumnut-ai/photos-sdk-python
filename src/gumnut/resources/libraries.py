@@ -28,6 +28,8 @@ __all__ = ["LibrariesResource", "AsyncLibrariesResource"]
 
 
 class LibrariesResource(SyncAPIResource):
+    """Top-level containers that own assets, albums, people, and everything else."""
+
     @cached_property
     def with_raw_response(self) -> LibrariesResourceWithRawResponse:
         """
@@ -355,6 +357,8 @@ class LibrariesResource(SyncAPIResource):
 
 
 class AsyncLibrariesResource(AsyncAPIResource):
+    """Top-level containers that own assets, albums, people, and everything else."""
+
     @cached_property
     def with_raw_response(self) -> AsyncLibrariesResourceWithRawResponse:
         """
