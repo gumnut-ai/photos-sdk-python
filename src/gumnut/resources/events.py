@@ -25,6 +25,8 @@ __all__ = ["EventsResource", "AsyncEventsResource"]
 
 
 class EventsResource(SyncAPIResource):
+    """Change-event feed for keeping client state in sync."""
+
     @cached_property
     def with_raw_response(self) -> EventsResourceWithRawResponse:
         """
@@ -155,6 +157,8 @@ class EventsResource(SyncAPIResource):
 
 
 class AsyncEventsResource(AsyncAPIResource):
+    """Change-event feed for keeping client state in sync."""
+
     @cached_property
     def with_raw_response(self) -> AsyncEventsResourceWithRawResponse:
         """

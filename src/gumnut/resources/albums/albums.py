@@ -34,8 +34,11 @@ __all__ = ["AlbumsResource", "AsyncAlbumsResource"]
 
 
 class AlbumsResource(SyncAPIResource):
+    """User-curated collections of assets."""
+
     @cached_property
     def assets_associations(self) -> AssetsAssociationsResource:
+        """User-curated collections of assets."""
         return AssetsAssociationsResource(self._client)
 
     @cached_property
@@ -320,8 +323,11 @@ class AlbumsResource(SyncAPIResource):
 
 
 class AsyncAlbumsResource(AsyncAPIResource):
+    """User-curated collections of assets."""
+
     @cached_property
     def assets_associations(self) -> AsyncAssetsAssociationsResource:
+        """User-curated collections of assets."""
         return AsyncAssetsAssociationsResource(self._client)
 
     @cached_property
@@ -627,6 +633,7 @@ class AlbumsResourceWithRawResponse:
 
     @cached_property
     def assets_associations(self) -> AssetsAssociationsResourceWithRawResponse:
+        """User-curated collections of assets."""
         return AssetsAssociationsResourceWithRawResponse(self._albums.assets_associations)
 
 
@@ -652,6 +659,7 @@ class AsyncAlbumsResourceWithRawResponse:
 
     @cached_property
     def assets_associations(self) -> AsyncAssetsAssociationsResourceWithRawResponse:
+        """User-curated collections of assets."""
         return AsyncAssetsAssociationsResourceWithRawResponse(self._albums.assets_associations)
 
 
@@ -677,6 +685,7 @@ class AlbumsResourceWithStreamingResponse:
 
     @cached_property
     def assets_associations(self) -> AssetsAssociationsResourceWithStreamingResponse:
+        """User-curated collections of assets."""
         return AssetsAssociationsResourceWithStreamingResponse(self._albums.assets_associations)
 
 
@@ -702,4 +711,5 @@ class AsyncAlbumsResourceWithStreamingResponse:
 
     @cached_property
     def assets_associations(self) -> AsyncAssetsAssociationsResourceWithStreamingResponse:
+        """User-curated collections of assets."""
         return AsyncAssetsAssociationsResourceWithStreamingResponse(self._albums.assets_associations)

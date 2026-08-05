@@ -26,6 +26,8 @@ __all__ = ["FacesResource", "AsyncFacesResource"]
 
 
 class FacesResource(SyncAPIResource):
+    """Detected faces and their assignment to people."""
+
     @cached_property
     def with_raw_response(self) -> FacesResourceWithRawResponse:
         """
@@ -352,6 +354,8 @@ class FacesResource(SyncAPIResource):
 
 
 class AsyncFacesResource(AsyncAPIResource):
+    """Detected faces and their assignment to people."""
+
     @cached_property
     def with_raw_response(self) -> AsyncFacesResourceWithRawResponse:
         """

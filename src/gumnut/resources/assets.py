@@ -50,6 +50,10 @@ __all__ = ["AssetsResource", "AsyncAssetsResource"]
 
 
 class AssetsResource(SyncAPIResource):
+    """
+    Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+    """
+
     @cached_property
     def with_raw_response(self) -> AssetsResourceWithRawResponse:
         """
@@ -1015,6 +1019,10 @@ class AssetsResource(SyncAPIResource):
 
 
 class AsyncAssetsResource(AsyncAPIResource):
+    """
+    Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAssetsResourceWithRawResponse:
         """

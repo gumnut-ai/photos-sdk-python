@@ -25,6 +25,8 @@ __all__ = ["AlbumAssetsResource", "AsyncAlbumAssetsResource"]
 
 
 class AlbumAssetsResource(SyncAPIResource):
+    """Link records connecting albums to their member assets."""
+
     @cached_property
     def with_raw_response(self) -> AlbumAssetsResourceWithRawResponse:
         """
@@ -166,6 +168,8 @@ class AlbumAssetsResource(SyncAPIResource):
 
 
 class AsyncAlbumAssetsResource(AsyncAPIResource):
+    """Link records connecting albums to their member assets."""
+
     @cached_property
     def with_raw_response(self) -> AsyncAlbumAssetsResourceWithRawResponse:
         """

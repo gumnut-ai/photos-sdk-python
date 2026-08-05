@@ -19,6 +19,8 @@ __all__ = ["PingResource", "AsyncPingResource"]
 
 
 class PingResource(SyncAPIResource):
+    """Service health."""
+
     @cached_property
     def with_raw_response(self) -> PingResourceWithRawResponse:
         """
@@ -60,6 +62,8 @@ class PingResource(SyncAPIResource):
 
 
 class AsyncPingResource(AsyncAPIResource):
+    """Service health."""
+
     @cached_property
     def with_raw_response(self) -> AsyncPingResourceWithRawResponse:
         """

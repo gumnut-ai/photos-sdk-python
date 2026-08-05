@@ -34,6 +34,8 @@ __all__ = ["PeopleResource", "AsyncPeopleResource"]
 
 
 class PeopleResource(SyncAPIResource):
+    """Named people, each built from clustered faces."""
+
     @cached_property
     def with_raw_response(self) -> PeopleResourceWithRawResponse:
         """
@@ -443,6 +445,8 @@ class PeopleResource(SyncAPIResource):
 
 
 class AsyncPeopleResource(AsyncAPIResource):
+    """Named people, each built from clustered faces."""
+
     @cached_property
     def with_raw_response(self) -> AsyncPeopleResourceWithRawResponse:
         """

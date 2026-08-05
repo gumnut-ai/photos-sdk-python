@@ -23,6 +23,8 @@ __all__ = ["AssetsAssociationsResource", "AsyncAssetsAssociationsResource"]
 
 
 class AssetsAssociationsResource(SyncAPIResource):
+    """User-curated collections of assets."""
+
     @cached_property
     def with_raw_response(self) -> AssetsAssociationsResourceWithRawResponse:
         """
@@ -141,6 +143,8 @@ class AssetsAssociationsResource(SyncAPIResource):
 
 
 class AsyncAssetsAssociationsResource(AsyncAPIResource):
+    """User-curated collections of assets."""
+
     @cached_property
     def with_raw_response(self) -> AsyncAssetsAssociationsResourceWithRawResponse:
         """
