@@ -14,7 +14,12 @@ __all__ = ["AssetResponse"]
 
 
 class AssetResponse(BaseModel):
-    """Represents a photo or video asset with metadata and access URLs."""
+    """Represents a photo or video asset with metadata and access URLs.
+
+    Top-level fields describe the asset's current rendering (the version
+    identified by `current_version_id`) unless they explicitly name the
+    original upload, like `original_file_name` and the `file_data` group.
+    """
 
     id: str
     """Unique asset identifier with 'asset\\__' prefix"""
@@ -22,14 +27,28 @@ class AssetResponse(BaseModel):
     created_at: datetime
     """When this asset record was created in the database"""
 
+    current_version_id: str
+    """
+    ID (`asset_version_` prefix) of the current version, which the top-level
+    rendering fields describe. Pass it as the expected current version on version
+    writes so a racing write is rejected.
+    """
+
+    kind: str
+    """
+    What produced the current rendering: `original` (the upload), `edit` (a
+    client-baked edit), or `external:<service>`. The namespace is open — derive
+    edited-ness as `kind != "original"`.
+    """
+
     local_datetime: datetime
     """When the photo/video was taken, in the device's local timezone"""
 
     mime_type: str
-    """MIME type of the file (e.g., 'image/jpeg', 'video/mp4')"""
+    """MIME type of the current rendering (e.g., 'image/jpeg', 'video/mp4')."""
 
     original_file_name: str
-    """Original filename when the asset was uploaded"""
+    """Filename the asset was uploaded under."""
 
     updated_at: datetime
     """When this asset record was last updated"""
@@ -77,7 +96,7 @@ class AssetResponse(BaseModel):
     """
 
     height: Optional[int] = None
-    """Height of the asset in pixels"""
+    """Height of the current rendering in pixels."""
 
     metadata: Optional[MetadataResponse] = None
     """Metadata for an asset — camera/EXIF fields, GPS, and location names."""
@@ -121,4 +140,4 @@ class AssetResponse(BaseModel):
     """
 
     width: Optional[int] = None
-    """Width of the asset in pixels"""
+    """Width of the current rendering in pixels."""
