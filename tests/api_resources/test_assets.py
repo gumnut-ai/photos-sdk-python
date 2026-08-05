@@ -35,10 +35,10 @@ class TestAssets:
     def test_method_create(self, client: Gumnut) -> None:
         asset = client.assets.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -47,11 +47,11 @@ class TestAssets:
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            library_id="library_id",
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            library_id="lib_2c6ihMLYJUt3vctZWi9SNP",
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -60,10 +60,10 @@ class TestAssets:
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.assets.with_raw_response.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         )
 
         assert response.is_closed is True
@@ -76,10 +76,10 @@ class TestAssets:
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -648,10 +648,10 @@ class TestAsyncAssets:
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -660,11 +660,11 @@ class TestAsyncAssets:
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            library_id="library_id",
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            library_id="lib_2c6ihMLYJUt3vctZWi9SNP",
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -673,10 +673,10 @@ class TestAsyncAssets:
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.with_raw_response.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         )
 
         assert response.is_closed is True
@@ -689,10 +689,10 @@ class TestAsyncAssets:
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.create(
             asset_data=b"Example data",
-            device_asset_id="device_asset_id",
-            device_id="device_id",
-            file_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            file_modified_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            device_asset_id="IMG_0421",
+            device_id="teds-iphone",
+            file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+            file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
