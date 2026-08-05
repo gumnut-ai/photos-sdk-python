@@ -86,10 +86,41 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
-        Uploads a new asset file (image or video) and its metadata.
+        Uploads a new asset (image or video) and its metadata as multipart form data,
+        returning the created asset with 201. Uploads are deduplicated per library by
+        the file's SHA-256 checksum: re-uploading a file whose bytes already exist in
+        the target library stores nothing and returns the existing asset with 200.
+        Storage caps are checked before the duplicate lookup, so an upload is refused
+        with 507 whenever the account or the target library is already at its storage
+        cap — even when the bytes would have deduplicated to an existing asset. A
+        transient upstream storage error returns 502 — retryable after the `Retry-After`
+        interval. When `library_id` is omitted and no default library can be chosen (the
+        account has multiple live libraries), the request is refused with 400. Image
+        metadata is extracted before the response returns; the rest of processing
+        (thumbnails, search indexing, face detection, and video metadata extraction)
+        continues asynchronously after the response.
 
         Args:
-          asset_data: The asset file to upload
+          asset_data: The image or video file, sent as a binary multipart part with a filename. The
+              file's MIME type is derived from the filename extension and must be an image or
+              video type; files with an unrecognized or non-media extension are rejected
+              with 422. The filename is stored as the asset's original file name (maximum 1024
+              characters). The API imposes no fixed per-file size limit; uploads are
+              constrained only by the storage caps.
+
+          device_asset_id: Identifier of this asset on the uploading device, chosen by the client (for
+              example, the device's local asset ID). Stored verbatim and usable for
+              device-based existence checks; plays no part in upload-time duplicate detection.
+
+          device_id: Identifier of the uploading device or client, chosen by the client. Paired with
+              `device_asset_id` for device-based existence checks.
+
+          file_created_at: When the file was created on the uploading device, as an ISO 8601 datetime. Also
+              serves as the fallback for the asset's local capture time when the file's
+              embedded metadata carries no usable timestamp.
+
+          file_modified_at: When the file was last modified on the uploading device, as an ISO 8601
+              datetime.
 
           library_id: Library to upload into. For an all-library credential, omit to use the account's
               sole live library or create a fresh default when there are no live libraries;
@@ -1020,10 +1051,41 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetResponse:
         """
-        Uploads a new asset file (image or video) and its metadata.
+        Uploads a new asset (image or video) and its metadata as multipart form data,
+        returning the created asset with 201. Uploads are deduplicated per library by
+        the file's SHA-256 checksum: re-uploading a file whose bytes already exist in
+        the target library stores nothing and returns the existing asset with 200.
+        Storage caps are checked before the duplicate lookup, so an upload is refused
+        with 507 whenever the account or the target library is already at its storage
+        cap — even when the bytes would have deduplicated to an existing asset. A
+        transient upstream storage error returns 502 — retryable after the `Retry-After`
+        interval. When `library_id` is omitted and no default library can be chosen (the
+        account has multiple live libraries), the request is refused with 400. Image
+        metadata is extracted before the response returns; the rest of processing
+        (thumbnails, search indexing, face detection, and video metadata extraction)
+        continues asynchronously after the response.
 
         Args:
-          asset_data: The asset file to upload
+          asset_data: The image or video file, sent as a binary multipart part with a filename. The
+              file's MIME type is derived from the filename extension and must be an image or
+              video type; files with an unrecognized or non-media extension are rejected
+              with 422. The filename is stored as the asset's original file name (maximum 1024
+              characters). The API imposes no fixed per-file size limit; uploads are
+              constrained only by the storage caps.
+
+          device_asset_id: Identifier of this asset on the uploading device, chosen by the client (for
+              example, the device's local asset ID). Stored verbatim and usable for
+              device-based existence checks; plays no part in upload-time duplicate detection.
+
+          device_id: Identifier of the uploading device or client, chosen by the client. Paired with
+              `device_asset_id` for device-based existence checks.
+
+          file_created_at: When the file was created on the uploading device, as an ISO 8601 datetime. Also
+              serves as the fallback for the asset's local capture time when the file's
+              embedded metadata carries no usable timestamp.
+
+          file_modified_at: When the file was last modified on the uploading device, as an ISO 8601
+              datetime.
 
           library_id: Library to upload into. For an all-library credential, omit to use the account's
               sole live library or create a fresh default when there are no live libraries;
