@@ -212,10 +212,10 @@ client = Gumnut()
 
 client.assets.create(
     asset_data=Path("/path/to/file"),
-    device_asset_id="device_asset_id",
-    device_id="device_id",
-    file_created_at=datetime.fromisoformat("2019-12-27T18:11:19.117"),
-    file_modified_at=datetime.fromisoformat("2019-12-27T18:11:19.117"),
+    device_asset_id="IMG_0421",
+    device_id="teds-iphone",
+    file_created_at=datetime.fromisoformat("2026-05-04T10:30:00+10:00"),
+    file_modified_at=datetime.fromisoformat("2026-05-04T10:30:00+10:00"),
 )
 ```
 
