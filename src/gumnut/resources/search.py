@@ -26,6 +26,10 @@ __all__ = ["SearchResource", "AsyncSearchResource"]
 
 
 class SearchResource(SyncAPIResource):
+    """
+    Content-based search over a library's assets, with the same filters as asset listing.
+    """
+
     @cached_property
     def with_raw_response(self) -> SearchResourceWithRawResponse:
         """
@@ -354,6 +358,10 @@ class SearchResource(SyncAPIResource):
 
 
 class AsyncSearchResource(AsyncAPIResource):
+    """
+    Content-based search over a library's assets, with the same filters as asset listing.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncSearchResourceWithRawResponse:
         """

@@ -38,6 +38,10 @@ __all__ = ["StacksResource", "AsyncStacksResource"]
 
 
 class StacksResource(SyncAPIResource):
+    """
+    Groups of related shots of the same moment, presented as a single unit with a cover asset.
+    """
+
     @cached_property
     def with_raw_response(self) -> StacksResourceWithRawResponse:
         """
@@ -429,6 +433,10 @@ class StacksResource(SyncAPIResource):
 
 
 class AsyncStacksResource(AsyncAPIResource):
+    """
+    Groups of related shots of the same moment, presented as a single unit with a cover asset.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncStacksResourceWithRawResponse:
         """
