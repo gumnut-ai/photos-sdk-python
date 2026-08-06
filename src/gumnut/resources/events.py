@@ -120,8 +120,8 @@ class EventsResource(SyncAPIResource):
               `entity_types=` query params or a single comma-delimited value (e.g.,
               `entity_types=asset,album`). Omit to receive events for all types.
 
-          library_id: Library to stream events from. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to stream events from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of events to return per page (1–200). Defaults to 20.
 
@@ -252,8 +252,8 @@ class AsyncEventsResource(AsyncAPIResource):
               `entity_types=` query params or a single comma-delimited value (e.g.,
               `entity_types=asset,album`). Omit to receive events for all types.
 
-          library_id: Library to stream events from. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to stream events from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of events to return per page (1–200). Defaults to 20.
 

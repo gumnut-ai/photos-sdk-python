@@ -36,7 +36,8 @@ class AlbumAssetListParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to list from.
 
-    Optional if the user has a single library; required when they have multiple.
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
     """
 
     limit: int

@@ -88,8 +88,8 @@ class PeopleResource(SyncAPIResource):
 
           is_hidden: If true, the person is hidden from default listings. Defaults to false.
 
-          library_id: Library to create the person in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the person in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
               be named later via `update_person`.
@@ -297,8 +297,8 @@ class PeopleResource(SyncAPIResource):
               each Person with a populated centroid). Accepts multiple `include=` query params
               or a single comma-delimited value. Unknown values return 422.
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of people to return per page (1–200). Defaults to 20.
 
@@ -499,8 +499,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           is_hidden: If true, the person is hidden from default listings. Defaults to false.
 
-          library_id: Library to create the person in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the person in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
               be named later via `update_person`.
@@ -708,8 +708,8 @@ class AsyncPeopleResource(AsyncAPIResource):
               each Person with a populated centroid). Accepts multiple `include=` query params
               or a single comma-delimited value. Unknown values return 422.
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of people to return per page (1–200). Defaults to 20.
 

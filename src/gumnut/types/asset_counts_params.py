@@ -22,10 +22,14 @@ class AssetCountsParams(TypedDict, total=False):
     """
 
     library_id: Optional[str]
-    """Library to count assets in (optional)"""
+    """Library to count assets in.
+
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
+    """
 
     limit: int
-    """Maximum number of time buckets to return (1-200)"""
+    """Maximum number of time buckets to return per page (1–200). Defaults to 20."""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets captured strictly after this instant (ISO 8601; exclusive).
@@ -46,7 +50,7 @@ class AssetCountsParams(TypedDict, total=False):
     """
 
     person_id: Optional[str]
-    """Filter by assets associated with a specific person ID"""
+    """Count only assets containing a face belonging to this person."""
 
     state: Literal["live", "trashed", "all"]
     """

@@ -74,8 +74,8 @@ class FacesResource(SyncAPIResource):
           bounding_box: Where the face is, as a box in display-space pixels matching the asset's
               reported `width`/`height`. The box must fit inside those dimensions.
 
-          library_id: Library to create the face in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the face in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
               Omit to leave it unassigned; assign it later via `update_face`. Use
@@ -130,8 +130,8 @@ class FacesResource(SyncAPIResource):
           include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
               `include=` query params or a single comma-delimited value.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -186,8 +186,8 @@ class FacesResource(SyncAPIResource):
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to update.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
               detach the face from its current person without deleting either. Use
@@ -260,8 +260,8 @@ class FacesResource(SyncAPIResource):
               of nearby Persons). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g., `include=cluster_assignment`).
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of faces per page (1–200). Defaults to 20.
 
@@ -327,8 +327,8 @@ class FacesResource(SyncAPIResource):
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -402,8 +402,8 @@ class AsyncFacesResource(AsyncAPIResource):
           bounding_box: Where the face is, as a box in display-space pixels matching the asset's
               reported `width`/`height`. The box must fit inside those dimensions.
 
-          library_id: Library to create the face in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the face in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           person_id: Optional person ID (with `person_` prefix) to assign this face to at creation.
               Omit to leave it unassigned; assign it later via `update_face`. Use
@@ -458,8 +458,8 @@ class AsyncFacesResource(AsyncAPIResource):
           include: Opt-in expansion fields. See `list_faces` for supported values. Accepts multiple
               `include=` query params or a single comma-delimited value.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -514,8 +514,8 @@ class AsyncFacesResource(AsyncAPIResource):
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to update.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           person_id: Target person ID (with `person_` prefix) to assign this face to. Pass `null` to
               detach the face from its current person without deleting either. Use
@@ -588,8 +588,8 @@ class AsyncFacesResource(AsyncAPIResource):
               of nearby Persons). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g., `include=cluster_assignment`).
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of faces per page (1–200). Defaults to 20.
 
@@ -655,8 +655,8 @@ class AsyncFacesResource(AsyncAPIResource):
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
 
-          library_id: Library the face belongs to. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library the face belongs to. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 

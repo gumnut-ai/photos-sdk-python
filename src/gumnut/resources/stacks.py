@@ -183,8 +183,8 @@ class StacksResource(SyncAPIResource):
           asset_ids: Asset IDs (with `asset_` prefix) to group into the new stack — at least 2
               distinct ids, all in the target library.
 
-          library_id: Library to create the stack in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the stack in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           primary_asset_id: Asset ID (with `asset_` prefix) to pin as the stack's cover; must be one of
               `asset_ids`. Omit to leave the cover unpinned — there is no automatic pick, and
@@ -246,8 +246,8 @@ class StacksResource(SyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_stack_1,asset_stack_2`).
 
-          library_id: Library to list stacks from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list stacks from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of stacks to return per page (1–200). Defaults to 20.
 
@@ -578,8 +578,8 @@ class AsyncStacksResource(AsyncAPIResource):
           asset_ids: Asset IDs (with `asset_` prefix) to group into the new stack — at least 2
               distinct ids, all in the target library.
 
-          library_id: Library to create the stack in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the stack in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           primary_asset_id: Asset ID (with `asset_` prefix) to pin as the stack's cover; must be one of
               `asset_ids`. Omit to leave the cover unpinned — there is no automatic pick, and
@@ -641,8 +641,8 @@ class AsyncStacksResource(AsyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_stack_1,asset_stack_2`).
 
-          library_id: Library to list stacks from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list stacks from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of stacks to return per page (1–200). Defaults to 20.
 
