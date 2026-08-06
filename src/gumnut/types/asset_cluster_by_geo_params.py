@@ -39,7 +39,8 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library to cluster assets from.
 
-    Optional if the user has a single library; required when they have multiple.
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
     """
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]

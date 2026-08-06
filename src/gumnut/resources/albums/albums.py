@@ -82,8 +82,8 @@ class AlbumsResource(SyncAPIResource):
         Args:
           description: Optional free-form description shown alongside the album name.
 
-          library_id: Library to create the album in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the album in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
               set it here or via `update_album` after creation.
@@ -244,8 +244,8 @@ class AlbumsResource(SyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=album_1,album_2`).
 
-          library_id: Library to list albums from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list albums from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 
@@ -371,8 +371,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
         Args:
           description: Optional free-form description shown alongside the album name.
 
-          library_id: Library to create the album in. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to create the album in. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
               set it here or via `update_album` after creation.
@@ -533,8 +533,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=album_1,album_2`).
 
-          library_id: Library to list albums from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list albums from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
 

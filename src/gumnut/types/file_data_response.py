@@ -42,7 +42,7 @@ class FileDataResponse(BaseModel):
     """
 
     checksum_sha1: Optional[str] = None
-    """Base64-encoded SHA-1 hash for Immich client compatibility.
+    """Base64-encoded SHA-1 hash of the asset contents.
 
     `null` for older assets that have no SHA-1.
     """

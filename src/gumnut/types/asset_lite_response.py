@@ -26,7 +26,4 @@ class AssetLiteResponse(BaseModel):
     """Identifier of the device that uploaded this asset"""
 
     checksum_sha1: Optional[str] = None
-    """Base64-encoded SHA-1 hash for Immich client compatibility.
-
-    May be null for older assets.
-    """
+    """Base64-encoded SHA-1 hash of the asset contents. May be null for older assets."""

@@ -20,5 +20,6 @@ class AssetRestoreParams(TypedDict, total=False):
     library_id: Optional[str]
     """Library that owns the assets.
 
-    Optional if the user has a single library; required when they have multiple.
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
     """

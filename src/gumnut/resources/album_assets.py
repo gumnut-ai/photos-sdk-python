@@ -89,8 +89,8 @@ class AlbumAssetsResource(SyncAPIResource):
               `album_asset_` prefix. Accepts multiple `ids=` query params or a single
               comma-delimited value (e.g., `ids=album_asset_1,album_asset_2`).
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of link records per page (1–200). Defaults to 20.
 
@@ -232,8 +232,8 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
               `album_asset_` prefix. Accepts multiple `ids=` query params or a single
               comma-delimited value (e.g., `ids=album_asset_1,album_asset_2`).
 
-          library_id: Library to list from. Optional if the user has a single library; required when
-              they have multiple.
+          library_id: Library to list from. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
           limit: Maximum number of link records per page (1–200). Defaults to 20.
 
