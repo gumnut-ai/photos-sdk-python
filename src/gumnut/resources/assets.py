@@ -323,8 +323,8 @@ class AssetsResource(SyncAPIResource):
               `current_version_id`) and each data field above is null/absent until you request
               it.
 
-          library_id: Library to list assets from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list assets from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
@@ -516,10 +516,10 @@ class AssetsResource(SyncAPIResource):
         deviceAssetIds). List parameters are limited to 5000 items.
 
         Args:
-          library_id: Library to check assets in (optional)
+          library_id: Library to check assets in. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
-          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence (for Immich
-              compatibility)
+          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence
 
           checksums: List of base64-encoded SHA-256 checksums to check for existence
 
@@ -607,8 +607,8 @@ class AssetsResource(SyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          library_id: Library to cluster assets from. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to cluster assets from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -703,9 +703,10 @@ class AssetsResource(SyncAPIResource):
           group_by: Time period to group counts by. Only `month` is supported; other values
               return 422.
 
-          library_id: Library to count assets in (optional)
+          library_id: Library to count assets in. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
-          limit: Maximum number of time buckets to return (1-200)
+          limit: Maximum number of time buckets to return per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -719,7 +720,7 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Filter by assets associated with a specific person ID
+          person_id: Count only assets containing a face belonging to this person.
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -780,8 +781,8 @@ class AssetsResource(SyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -822,7 +823,7 @@ class AssetsResource(SyncAPIResource):
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
-              single library; required when they have multiple.
+              single live (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -868,8 +869,8 @@ class AssetsResource(SyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -918,8 +919,8 @@ class AssetsResource(SyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -1294,8 +1295,8 @@ class AsyncAssetsResource(AsyncAPIResource):
               `current_version_id`) and each data field above is null/absent until you request
               it.
 
-          library_id: Library to list assets from. Optional if the user has a single library; required
-              when they have multiple.
+          library_id: Library to list assets from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of assets to return per page (1–200). Defaults to 20.
 
@@ -1489,10 +1490,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         deviceAssetIds). List parameters are limited to 5000 items.
 
         Args:
-          library_id: Library to check assets in (optional)
+          library_id: Library to check assets in. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
-          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence (for Immich
-              compatibility)
+          checksum_sha1s: List of base64-encoded SHA-1 checksums to check for existence
 
           checksums: List of base64-encoded SHA-256 checksums to check for existence
 
@@ -1580,8 +1581,8 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          library_id: Library to cluster assets from. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library to cluster assets from. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -1676,9 +1677,10 @@ class AsyncAssetsResource(AsyncAPIResource):
           group_by: Time period to group counts by. Only `month` is supported; other values
               return 422.
 
-          library_id: Library to count assets in (optional)
+          library_id: Library to count assets in. Optional if the user has a single live (non-trashed)
+              library; required when they have multiple.
 
-          limit: Maximum number of time buckets to return (1-200)
+          limit: Maximum number of time buckets to return per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -1692,7 +1694,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Filter by assets associated with a specific person ID
+          person_id: Count only assets containing a face belonging to this person.
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -1753,8 +1755,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -1797,7 +1799,7 @@ class AsyncAssetsResource(AsyncAPIResource):
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
-              single library; required when they have multiple.
+              single live (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -1845,8 +1847,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 
@@ -1895,8 +1897,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
 
-          library_id: Library that owns the assets. Optional if the user has a single library;
-              required when they have multiple.
+          library_id: Library that owns the assets. Optional if the user has a single live
+              (non-trashed) library; required when they have multiple.
 
           extra_headers: Send extra headers
 

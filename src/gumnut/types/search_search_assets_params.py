@@ -62,10 +62,14 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     library_id: Optional[str]
-    """Library to search assets from (optional)"""
+    """Library to search.
+
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
+    """
 
     limit: int
-    """Number of results per page (1-200)"""
+    """Maximum number of results per page (1–200). Defaults to 20."""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only include assets captured strictly after this instant (ISO 8601; exclusive).
@@ -86,7 +90,14 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     page: int
-    """Page number"""
+    """1-indexed page number; increment it to fetch subsequent pages.
+
+    `search_assets` pages by number rather than by cursor. A search with a content
+    criterion ranks a fixed top-200 candidate population by relevance, so pages
+    beyond that population are empty. A structured-filter-only search (album,
+    people, date range — no content criterion) returns the full matching set
+    newest-first, paginated without that cap.
+    """
 
     person_ids: Optional[SequenceNotStr[str]]
     """Filter to assets containing ALL of these person IDs (intersection, not union).
@@ -112,6 +123,6 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     threshold: float
     """Deprecated compatibility parameter.
 
-    Accepted and validated but ignored because rank-fused results have no meaningful
-    cosine-distance cutoff.
+    Accepted and validated during the transition window but ignored:
+    relevance-ranked results have no similarity-distance cutoff.
     """

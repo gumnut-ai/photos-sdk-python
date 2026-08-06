@@ -73,11 +73,12 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using rank fusion across dense visual retrieval and
-        authoritative-metadata full-text retrieval, with typed structured filters on
-        albums, people, and date range. Use this tool when the user describes _what's
-        in_ the photos they want — subjects, scenes, places, activities, moods, objects
-        — optionally narrowed by album, person, date, or location.
+        Searches for assets by content, by typed structured filters on albums, people,
+        date range, and location, or both. Content searches are ranked by relevance;
+        filter-only searches return matches newest-first. Use this tool when the user
+        describes _what's in_ the photos they want — subjects, scenes, places,
+        activities, moods, objects — optionally narrowed by album, person, date, or
+        location.
 
         Prefer typed filters for anything the request states exactly: `album_id` for
         album membership, `person_ids` for people,
@@ -131,8 +132,8 @@ class SearchResource(SyncAPIResource):
               `current_version_id`) and each data field above is null/absent until you request
               it.
 
-          library_id: Library to search. Optional if the user has a single library; required when they
-              have multiple.
+          library_id: Library to search. Optional if the user has a single live (non-trashed) library;
+              required when they have multiple.
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
@@ -149,10 +150,11 @@ class SearchResource(SyncAPIResource):
               `local_datetime_after`.
 
           page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor because it ranks a fixed top-200 fused
-              candidate population by relevance, so pages beyond that population are empty.
-              The sibling `list_assets` cursors with `starting_after_id` over a stable
-              capture-time ordering.
+              pages by number rather than by cursor. A search with a content criterion ranks a
+              fixed top-200 candidate population by relevance, so pages beyond that population
+              are empty. A structured-filter-only search (album, people, date range — no
+              content criterion) returns the full matching set newest-first, paginated without
+              that cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -173,8 +175,7 @@ class SearchResource(SyncAPIResource):
               50,000).
 
           threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored because rank-fused results do not have one meaningful
-              cosine-distance cutoff.
+              window but ignored: relevance-ranked results have no similarity-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -238,13 +239,16 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using Reciprocal Rank Fusion across independent dense-text,
-        dense-image, and authoritative-metadata full-text stages plus structured
-        filters. Results include asset metadata, faces, and people. At least one search
-        criterion must be provided. Text and uploaded-image signals stay independent
-        when both are provided. Location filtering is by coordinate in two
-        mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
-        (`bbox`); it narrows candidates and is not a search criterion on its own.
+        Searches for assets by content, by typed structured filters on albums, people,
+        date range, and location, or both. Content searches are ranked by relevance;
+        filter-only searches return matches newest-first. An uploaded `image` adds
+        visual-similarity search; text and uploaded-image signals stay independent when
+        both are provided.
+
+        At least one search criterion must be provided. Location filtering is by
+        coordinate in two mutually-exclusive modes: a radius (`center` + `radius`) or a
+        bounding box (`bbox`); it narrows candidates and is not a search criterion on
+        its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -280,9 +284,10 @@ class SearchResource(SyncAPIResource):
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
 
-          library_id: Library to search assets from (optional)
+          library_id: Library to search. Optional if the user has a single live (non-trashed) library;
+              required when they have multiple.
 
-          limit: Number of results per page (1-200)
+          limit: Maximum number of results per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -296,7 +301,12 @@ class SearchResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: Page number
+          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
+              pages by number rather than by cursor. A search with a content criterion ranks a
+              fixed top-200 candidate population by relevance, so pages beyond that population
+              are empty. A structured-filter-only search (album, people, date range — no
+              content criterion) returns the full matching set newest-first, paginated without
+              that cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
@@ -310,8 +320,8 @@ class SearchResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated but ignored because
-              rank-fused results have no meaningful cosine-distance cutoff.
+          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
+              window but ignored: relevance-ranked results have no similarity-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -407,11 +417,12 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using rank fusion across dense visual retrieval and
-        authoritative-metadata full-text retrieval, with typed structured filters on
-        albums, people, and date range. Use this tool when the user describes _what's
-        in_ the photos they want — subjects, scenes, places, activities, moods, objects
-        — optionally narrowed by album, person, date, or location.
+        Searches for assets by content, by typed structured filters on albums, people,
+        date range, and location, or both. Content searches are ranked by relevance;
+        filter-only searches return matches newest-first. Use this tool when the user
+        describes _what's in_ the photos they want — subjects, scenes, places,
+        activities, moods, objects — optionally narrowed by album, person, date, or
+        location.
 
         Prefer typed filters for anything the request states exactly: `album_id` for
         album membership, `person_ids` for people,
@@ -465,8 +476,8 @@ class AsyncSearchResource(AsyncAPIResource):
               `current_version_id`) and each data field above is null/absent until you request
               it.
 
-          library_id: Library to search. Optional if the user has a single library; required when they
-              have multiple.
+          library_id: Library to search. Optional if the user has a single live (non-trashed) library;
+              required when they have multiple.
 
           limit: Maximum number of results per page (1–200). Defaults to 20.
 
@@ -483,10 +494,11 @@ class AsyncSearchResource(AsyncAPIResource):
               `local_datetime_after`.
 
           page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor because it ranks a fixed top-200 fused
-              candidate population by relevance, so pages beyond that population are empty.
-              The sibling `list_assets` cursors with `starting_after_id` over a stable
-              capture-time ordering.
+              pages by number rather than by cursor. A search with a content criterion ranks a
+              fixed top-200 candidate population by relevance, so pages beyond that population
+              are empty. A structured-filter-only search (album, people, date range — no
+              content criterion) returns the full matching set newest-first, paginated without
+              that cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -507,8 +519,7 @@ class AsyncSearchResource(AsyncAPIResource):
               50,000).
 
           threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored because rank-fused results do not have one meaningful
-              cosine-distance cutoff.
+              window but ignored: relevance-ranked results have no similarity-distance cutoff.
 
           extra_headers: Send extra headers
 
@@ -572,13 +583,16 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
         """
-        Searches for assets using Reciprocal Rank Fusion across independent dense-text,
-        dense-image, and authoritative-metadata full-text stages plus structured
-        filters. Results include asset metadata, faces, and people. At least one search
-        criterion must be provided. Text and uploaded-image signals stay independent
-        when both are provided. Location filtering is by coordinate in two
-        mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
-        (`bbox`); it narrows candidates and is not a search criterion on its own.
+        Searches for assets by content, by typed structured filters on albums, people,
+        date range, and location, or both. Content searches are ranked by relevance;
+        filter-only searches return matches newest-first. An uploaded `image` adds
+        visual-similarity search; text and uploaded-image signals stay independent when
+        both are provided.
+
+        At least one search criterion must be provided. Location filtering is by
+        coordinate in two mutually-exclusive modes: a radius (`center` + `radius`) or a
+        bounding box (`bbox`); it narrows candidates and is not a search criterion on
+        its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -614,9 +628,10 @@ class AsyncSearchResource(AsyncAPIResource):
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
 
-          library_id: Library to search assets from (optional)
+          library_id: Library to search. Optional if the user has a single live (non-trashed) library;
+              required when they have multiple.
 
-          limit: Number of results per page (1-200)
+          limit: Maximum number of results per page (1–200). Defaults to 20.
 
           local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
               Convert a relative or natural-language date phrase ('in 2023') into an explicit
@@ -630,7 +645,12 @@ class AsyncSearchResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: Page number
+          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
+              pages by number rather than by cursor. A search with a content criterion ranks a
+              fixed top-200 candidate population by relevance, so pages beyond that population
+              are empty. A structured-filter-only search (album, people, date range — no
+              content criterion) returns the full matching set newest-first, paginated without
+              that cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
@@ -644,8 +664,8 @@ class AsyncSearchResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated but ignored because
-              rank-fused results have no meaningful cosine-distance cutoff.
+          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
+              window but ignored: relevance-ranked results have no similarity-distance cutoff.
 
           extra_headers: Send extra headers
 

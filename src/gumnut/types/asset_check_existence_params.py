@@ -13,13 +13,14 @@ __all__ = ["AssetCheckExistenceParams"]
 
 class AssetCheckExistenceParams(TypedDict, total=False):
     library_id: Optional[str]
-    """Library to check assets in (optional)"""
+    """Library to check assets in.
+
+    Optional if the user has a single live (non-trashed) library; required when they
+    have multiple.
+    """
 
     checksum_sha1s: Optional[SequenceNotStr[str]]
-    """
-    List of base64-encoded SHA-1 checksums to check for existence (for Immich
-    compatibility)
-    """
+    """List of base64-encoded SHA-1 checksums to check for existence"""
 
     checksums: Optional[SequenceNotStr[str]]
     """List of base64-encoded SHA-256 checksums to check for existence"""
