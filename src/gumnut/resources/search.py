@@ -64,7 +64,6 @@ class SearchResource(SyncAPIResource):
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
-        threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -174,9 +173,6 @@ class SearchResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored: relevance-ranked results have no similarity-distance cutoff.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -206,7 +202,6 @@ class SearchResource(SyncAPIResource):
                         "person_ids": person_ids,
                         "query": query,
                         "radius": radius,
-                        "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
                 ),
@@ -230,7 +225,6 @@ class SearchResource(SyncAPIResource):
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
-        threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,9 +314,6 @@ class SearchResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored: relevance-ranked results have no similarity-distance cutoff.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -345,7 +336,6 @@ class SearchResource(SyncAPIResource):
                 "person_ids": person_ids,
                 "query": query,
                 "radius": radius,
-                "threshold": threshold,
             },
             [["image"]],
         )
@@ -408,7 +398,6 @@ class AsyncSearchResource(AsyncAPIResource):
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
-        threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -518,9 +507,6 @@ class AsyncSearchResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored: relevance-ranked results have no similarity-distance cutoff.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -550,7 +536,6 @@ class AsyncSearchResource(AsyncAPIResource):
                         "person_ids": person_ids,
                         "query": query,
                         "radius": radius,
-                        "threshold": threshold,
                     },
                     search_search_params.SearchSearchParams,
                 ),
@@ -574,7 +559,6 @@ class AsyncSearchResource(AsyncAPIResource):
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
-        threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -664,9 +648,6 @@ class AsyncSearchResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000).
 
-          threshold: Deprecated compatibility parameter. Accepted and validated during the transition
-              window but ignored: relevance-ranked results have no similarity-distance cutoff.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -689,7 +670,6 @@ class AsyncSearchResource(AsyncAPIResource):
                 "person_ids": person_ids,
                 "query": query,
                 "radius": radius,
-                "threshold": threshold,
             },
             [["image"]],
         )

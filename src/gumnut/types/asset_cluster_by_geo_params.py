@@ -61,9 +61,6 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     `local_datetime_after`.
     """
 
-    person_id: Optional[str]
-    """Deprecated compatibility alias for a single `person_ids` value."""
-
     person_ids: Optional[SequenceNotStr[str]]
     """
     Cluster only assets containing faces belonging to ALL of these people

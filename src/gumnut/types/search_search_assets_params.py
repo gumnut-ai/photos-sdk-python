@@ -119,10 +119,3 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     Radius of the `center` location filter, in meters (greater than 0, at most
     50,000).
     """
-
-    threshold: float
-    """Deprecated compatibility parameter.
-
-    Accepted and validated during the transition window but ignored:
-    relevance-ranked results have no similarity-distance cutoff.
-    """

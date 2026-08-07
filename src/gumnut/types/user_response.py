@@ -24,7 +24,11 @@ class UserResponse(BaseModel):
     """Whether this user has superuser/admin privileges"""
 
     is_verified: bool
-    """Whether this user's email is verified"""
+    """Whether the account is marked verified.
+
+    An internal account flag, not proof of email verification — it can be true even
+    when `email` is null
+    """
 
     storage_limit_bytes: int
     """Maximum bytes of assets the user may store"""

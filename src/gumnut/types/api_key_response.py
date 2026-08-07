@@ -28,11 +28,11 @@ class APIKeyResponse(BaseModel):
     """When this API key was last used for authentication"""
 
     library_scope_mode: Optional[Literal["all_libraries", "selected_libraries"]] = None
-    """Which of the owner's libraries a grant covers.
+    """Which of the owner's libraries a credential covers.
 
-    `all_libraries` means all current and future live libraries owned by the grant's
-    user. `selected_libraries` means only the libraries listed in
-    `access_grant_libraries`, with no automatic expansion.
+    `all_libraries` means all current and future live libraries owned by the user.
+    `selected_libraries` means only explicitly selected libraries, with no automatic
+    expansion.
     """
 
     name: Optional[str] = None

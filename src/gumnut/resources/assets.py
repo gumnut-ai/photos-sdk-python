@@ -240,7 +240,6 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
@@ -267,8 +266,7 @@ class AssetsResource(SyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
-        Album and person filters compose using AND; do not supply both `person_id` and
-        `person_ids`.
+        Album and person filters compose using AND.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
@@ -344,8 +342,6 @@ class AssetsResource(SyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_id: Deprecated compatibility alias for a single `person_ids` value.
-
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -396,7 +392,6 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "order": order,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "radius": radius,
                         "stack_id": stack_id,
@@ -567,7 +562,6 @@ class AssetsResource(SyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -587,8 +581,7 @@ class AssetsResource(SyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND. `person_id` is a deprecated alias for one `person_ids` value; do not
-        supply both person parameters.
+        using AND.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -622,8 +615,6 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Deprecated compatibility alias for a single `person_ids` value.
-
           person_ids: Cluster only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -655,7 +646,6 @@ class AssetsResource(SyncAPIResource):
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "state": state,
                     },
@@ -1212,7 +1202,6 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
@@ -1239,8 +1228,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         viewport (how many photos fall in each area) rather than list them, use
         `get_geo_clusters`.
 
-        Album and person filters compose using AND; do not supply both `person_id` and
-        `person_ids`.
+        Album and person filters compose using AND.
 
         **Use `search_assets` instead** when the request involves natural-language image
         content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
@@ -1316,8 +1304,6 @@ class AsyncAssetsResource(AsyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_id: Deprecated compatibility alias for a single `person_ids` value.
-
           person_ids: Return only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -1368,7 +1354,6 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "order": order,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "radius": radius,
                         "stack_id": stack_id,
@@ -1541,7 +1526,6 @@ class AsyncAssetsResource(AsyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1561,8 +1545,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND. `person_id` is a deprecated alias for one `person_ids` value; do not
-        supply both person parameters.
+        using AND.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -1596,8 +1579,6 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Deprecated compatibility alias for a single `person_ids` value.
-
           person_ids: Cluster only assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -1629,7 +1610,6 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "state": state,
                     },
