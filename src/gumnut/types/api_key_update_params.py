@@ -9,3 +9,4 @@ __all__ = ["APIKeyUpdateParams"]
 
 class APIKeyUpdateParams(TypedDict, total=False):
     name: Required[str]
+    """New name for the API key"""

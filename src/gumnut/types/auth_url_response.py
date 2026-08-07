@@ -9,3 +9,4 @@ class AuthURLResponse(BaseModel):
     """Response containing OAuth authorization URL"""
 
     url: str
+    """OAuth provider authorization URL to redirect the user to for consent"""

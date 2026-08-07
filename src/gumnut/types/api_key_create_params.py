@@ -25,6 +25,7 @@ class APIKeyCreateParams(TypedDict, total=False):
     """
 
     name: Required[str]
+    """Descriptive name identifying this API key"""
 
     library_ids: Optional[SequenceNotStr[str]]
     """Libraries the key covers.

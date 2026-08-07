@@ -9,3 +9,6 @@ class LogoutEndpointResponse(BaseModel):
     """Response containing OAuth provider logout endpoint"""
 
     logout_endpoint: str
+    """
+    OAuth provider logout URL to redirect the user to after ending the local session
+    """

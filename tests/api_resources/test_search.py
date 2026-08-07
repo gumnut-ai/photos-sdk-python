@@ -40,7 +40,6 @@ class TestSearch:
             person_ids=["string", "string"],
             query="query",
             radius=0,
-            threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -89,7 +88,6 @@ class TestSearch:
             person_ids=["string"],
             query="query",
             radius=0,
-            threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -143,7 +141,6 @@ class TestAsyncSearch:
             person_ids=["string", "string"],
             query="query",
             radius=0,
-            threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -192,7 +189,6 @@ class TestAsyncSearch:
             person_ids=["string"],
             query="query",
             radius=0,
-            threshold=0,
         )
         assert_matches_type(SearchResponse, search, path=["response"])
 

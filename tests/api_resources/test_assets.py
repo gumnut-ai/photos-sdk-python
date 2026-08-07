@@ -160,7 +160,6 @@ class TestAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             order="asc",
-            person_id="person_id",
             person_ids=["string", "string"],
             radius=0,
             stack_id="stack_id",
@@ -341,7 +340,6 @@ class TestAssets:
             library_id="library_id",
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            person_id="person_id",
             person_ids=["string", "string"],
             state="live",
         )
@@ -773,7 +771,6 @@ class TestAsyncAssets:
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             order="asc",
-            person_id="person_id",
             person_ids=["string", "string"],
             radius=0,
             stack_id="stack_id",
@@ -954,7 +951,6 @@ class TestAsyncAssets:
             library_id="library_id",
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            person_id="person_id",
             person_ids=["string", "string"],
             state="live",
         )
