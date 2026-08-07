@@ -102,9 +102,6 @@ class AssetListParams(TypedDict, total=False):
     same direction.
     """
 
-    person_id: Optional[str]
-    """Deprecated compatibility alias for a single `person_ids` value."""
-
     person_ids: Optional[SequenceNotStr[str]]
     """
     Return only assets containing faces belonging to ALL of these people

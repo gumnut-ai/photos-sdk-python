@@ -76,6 +76,8 @@ class APIKeysResource(SyncAPIResource):
           library_scope_mode: Which libraries the key covers: `all_libraries` (all current and future
               libraries) or `selected_libraries`.
 
+          name: Descriptive name identifying this API key
+
           library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
               `selected_libraries`; not allowed otherwise. Up to 200 ids.
 
@@ -120,6 +122,10 @@ class APIKeysResource(SyncAPIResource):
         Updates the name of a specific API key
 
         Args:
+          key_id: ID of the API key to update
+
+          name: New name for the API key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -169,10 +175,14 @@ class APIKeysResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKeyDeleteResponse:
-        """
-        Deletes a specific API key
+        """Revokes an API key so it can no longer authenticate.
+
+        The key remains visible as
+        inactive.
 
         Args:
+          key_id: ID of the API key to revoke
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -241,6 +251,8 @@ class AsyncAPIKeysResource(AsyncAPIResource):
           library_scope_mode: Which libraries the key covers: `all_libraries` (all current and future
               libraries) or `selected_libraries`.
 
+          name: Descriptive name identifying this API key
+
           library_ids: Libraries the key covers. Required (at least one) when `library_scope_mode` is
               `selected_libraries`; not allowed otherwise. Up to 200 ids.
 
@@ -285,6 +297,10 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         Updates the name of a specific API key
 
         Args:
+          key_id: ID of the API key to update
+
+          name: New name for the API key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -334,10 +350,14 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKeyDeleteResponse:
-        """
-        Deletes a specific API key
+        """Revokes an API key so it can no longer authenticate.
+
+        The key remains visible as
+        inactive.
 
         Args:
+          key_id: ID of the API key to revoke
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
