@@ -65,8 +65,6 @@ class AssetsAssociationsResource(SyncAPIResource):
         `not_found_assets`. Idempotent: calling with the same IDs twice leaves the album
         in the same state.
 
-        Up to 200 ids per request; over-cap requests return 422.
-
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
@@ -111,8 +109,6 @@ class AssetsAssociationsResource(SyncAPIResource):
         soft-delete the asset entirely. To empty an album completely, call
         `list_album_assets` to get the links and then remove them, or delete the album
         itself with `delete_album`.
-
-        Up to 200 ids per request; over-cap requests return 422.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
@@ -185,8 +181,6 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         `not_found_assets`. Idempotent: calling with the same IDs twice leaves the album
         in the same state.
 
-        Up to 200 ids per request; over-cap requests return 422.
-
         Args:
           album_id: Album ID (with `album_` prefix) of the album to add the assets to.
 
@@ -233,8 +227,6 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         soft-delete the asset entirely. To empty an album completely, call
         `list_album_assets` to get the links and then remove them, or delete the album
         itself with `delete_album`.
-
-        Up to 200 ids per request; over-cap requests return 422.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.

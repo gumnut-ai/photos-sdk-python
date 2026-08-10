@@ -8,11 +8,7 @@ __all__ = ["ClusterAssignmentResponse", "Candidate"]
 
 
 class Candidate(BaseModel):
-    """
-    A Person whose centroid is close enough to a given face's embedding
-    that it would be considered for assignment — surfaced under
-    ``ClusterAssignmentResponse.candidates``.
-    """
+    """A nearby Person returned under `ClusterAssignmentResponse.candidates`."""
 
     distance: float
     """
@@ -24,29 +20,22 @@ class Candidate(BaseModel):
     """Person ID (with 'person\\__' prefix) of the candidate."""
 
     name: Optional[str] = None
-    """Display name of the candidate Person, or null for unnamed clusters.
-
-    Candidates surface the same Persons production assignment considers, which
-    includes unnamed clusters.
-    """
+    """Display name of the candidate Person, or null for an unnamed Person."""
 
 
 class ClusterAssignmentResponse(BaseModel):
     """
     Per-face cluster-assignment diagnostics: how well the face fits its
     currently-assigned Person, and which other Persons are nearby in
-    embedding space. Surfaced via ``include=cluster_assignment`` on the
-    faces endpoints — used by the operator-facing face cleanup dashboard
-    to triage mis-clustered faces.
+    embedding space. Surfaced via `include=cluster_assignment` on the
+    faces endpoints.
     """
 
     candidates: Optional[List[Candidate]] = None
-    """
-    Persons in the same library that pass the same gate shape as production face
-    assignment, surfaced with deliberately relaxed thresholds so the list is a
-    superset of what the automated path would admit. Sorted ascending by distance.
+    """Eligible nearby Persons in the same library, sorted ascending by distance.
+
     Excludes the face's currently-assigned Person (its distance is in
-    `distance_to_person`). Empty when no eligible Persons pass the gate.
+    `distance_to_person`). Empty when there are no eligible nearby Persons.
     """
 
     distance_to_person: Optional[float] = None

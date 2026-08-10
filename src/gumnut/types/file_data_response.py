@@ -11,9 +11,9 @@ __all__ = ["FileDataResponse"]
 class FileDataResponse(BaseModel):
     """File/provenance scalars describing the uploaded *file* (not its content).
 
-    Returned only when requested via ``include=file_data``; the whole object is
-    ``null`` otherwise. When present, every field carries its real value —
-    ``checksum_sha1`` is the lone exception (``null`` for legacy rows that never
+    Returned only when requested via `include=file_data`; the whole object is
+    `null` otherwise. When present, every field carries its real value —
+    `checksum_sha1` is the lone exception (`null` for legacy rows that never
     had a SHA-1). This nested object is the home for the file/provenance group.
     """
 

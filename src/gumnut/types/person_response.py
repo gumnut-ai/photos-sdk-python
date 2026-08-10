@@ -45,9 +45,7 @@ class PersonResponse(BaseModel):
     """
     Cohesion metrics for a Person's face cluster — surfaced via
     `include=cluster_metrics` on the people endpoints. These describe how tight the
-    cluster is in embedding space (lower = more cohesive) and drive both the
-    production face-assignment cohesion gate and the operator-facing face cleanup
-    dashboard.
+    cluster is in embedding space (lower = more cohesive).
     """
 
     name: Optional[str] = None
