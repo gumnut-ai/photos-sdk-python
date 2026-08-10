@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
+from ...types import (
     asset_list_params,
     asset_trash_params,
     asset_counts_params,
@@ -22,29 +22,47 @@ from ..types import (
     asset_check_existence_params,
     asset_bulk_update_assets_params,
 )
-from .._files import deepcopy_with_paths
-from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._files import deepcopy_with_paths
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
+from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
+from .versions import (
+    VersionsResource,
+    AsyncVersionsResource,
+    VersionsResourceWithRawResponse,
+    AsyncVersionsResourceWithRawResponse,
+    VersionsResourceWithStreamingResponse,
+    AsyncVersionsResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.asset_response import AssetResponse
-from ..types.asset_count_response import AssetCountResponse
-from ..types.asset_trash_response import AssetTrashResponse
-from ..types.asset_delete_response import AssetDeleteResponse
-from ..types.asset_restore_response import AssetRestoreResponse
-from ..types.asset_existence_response import AssetExistenceResponse
-from ..types.asset_delete_list_response import AssetDeleteListResponse
-from ..types.asset_empty_trash_response import AssetEmptyTrashResponse
-from ..types.asset_cluster_by_geo_response import AssetClusterByGeoResponse
-from ..types.asset_bulk_update_assets_response import AssetBulkUpdateAssetsResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.asset_response import AssetResponse
+from ...types.asset_count_response import AssetCountResponse
+from ...types.asset_trash_response import AssetTrashResponse
+from ...types.asset_delete_response import AssetDeleteResponse
+from ...types.asset_restore_response import AssetRestoreResponse
+from ...types.asset_existence_response import AssetExistenceResponse
+from ...types.asset_delete_list_response import AssetDeleteListResponse
+from ...types.asset_empty_trash_response import AssetEmptyTrashResponse
+from ...types.asset_cluster_by_geo_response import AssetClusterByGeoResponse
+from ...types.asset_bulk_update_assets_response import AssetBulkUpdateAssetsResponse
 
 __all__ = ["AssetsResource", "AsyncAssetsResource"]
 
@@ -53,6 +71,13 @@ class AssetsResource(SyncAPIResource):
     """
     Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
     """
+
+    @cached_property
+    def versions(self) -> VersionsResource:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return VersionsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AssetsResourceWithRawResponse:
@@ -1015,6 +1040,13 @@ class AsyncAssetsResource(AsyncAPIResource):
     """
     Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
     """
+
+    @cached_property
+    def versions(self) -> AsyncVersionsResource:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return AsyncVersionsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAssetsResourceWithRawResponse:
@@ -2023,6 +2055,13 @@ class AssetsResourceWithRawResponse:
             assets.update_asset,
         )
 
+    @cached_property
+    def versions(self) -> VersionsResourceWithRawResponse:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return VersionsResourceWithRawResponse(self._assets.versions)
+
 
 class AsyncAssetsResourceWithRawResponse:
     def __init__(self, assets: AsyncAssetsResource) -> None:
@@ -2067,6 +2106,13 @@ class AsyncAssetsResourceWithRawResponse:
         self.update_asset = async_to_raw_response_wrapper(
             assets.update_asset,
         )
+
+    @cached_property
+    def versions(self) -> AsyncVersionsResourceWithRawResponse:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return AsyncVersionsResourceWithRawResponse(self._assets.versions)
 
 
 class AssetsResourceWithStreamingResponse:
@@ -2113,6 +2159,13 @@ class AssetsResourceWithStreamingResponse:
             assets.update_asset,
         )
 
+    @cached_property
+    def versions(self) -> VersionsResourceWithStreamingResponse:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return VersionsResourceWithStreamingResponse(self._assets.versions)
+
 
 class AsyncAssetsResourceWithStreamingResponse:
     def __init__(self, assets: AsyncAssetsResource) -> None:
@@ -2157,3 +2210,10 @@ class AsyncAssetsResourceWithStreamingResponse:
         self.update_asset = async_to_streamed_response_wrapper(
             assets.update_asset,
         )
+
+    @cached_property
+    def versions(self) -> AsyncVersionsResourceWithStreamingResponse:
+        """
+        Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
+        """
+        return AsyncVersionsResourceWithStreamingResponse(self._assets.versions)
