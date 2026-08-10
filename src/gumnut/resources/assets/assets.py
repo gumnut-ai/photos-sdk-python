@@ -489,9 +489,8 @@ class AssetsResource(SyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        Up to 200 items per request; over-cap requests return 422. For a single-asset
-        edit, prefer `update_asset` — semantically identical but slightly more concise
-        at the call site.
+        For a single-asset edit, prefer `update_asset` — semantically identical but
+        slightly more concise at the call site.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
@@ -790,8 +789,6 @@ class AssetsResource(SyncAPIResource):
         `trash_assets` for the user's standard delete action so accidents can be
         recovered.
 
-        Up to 200 ids per request; over-cap requests return 422.
-
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
@@ -832,9 +829,8 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetEmptyTrashResponse:
         """
-        Permanently deletes every trashed asset in the caller's library in one shot —
-        storage and CDN are cleaned up via the same outbox path as the scheduled purge
-        task. **Irreversible**. Deliberately not exposed as an MCP tool.
+        Permanently deletes every trashed asset and its associated stored data from the
+        caller's library. **Irreversible**.
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
@@ -926,9 +922,8 @@ class AssetsResource(SyncAPIResource):
         list/search results and are purged after the configured retention window.
         **Reversible** via `restore_assets` until purge.
 
-        Use this for the user's standard 'delete' action — there is no MCP-exposed
-        permanent-delete tool, so trash is the only path. To trash an entire library at
-        once instead of enumerating asset IDs, use `trash_library`.
+        To trash an entire library at once instead of enumerating asset IDs, use
+        `trash_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -977,22 +972,22 @@ class AssetsResource(SyncAPIResource):
         Edits the user-editable metadata for a single asset — description, GPS
         coordinates, and original capture datetime. Only fields included in the request
         body are changed; others are left untouched. Passing `null` for a field removes
-        a previously-set value; the response then falls back to the value embedded in
-        the file when present. `latitude` and `longitude` must be set together (both
+        a previously-set value; the effective response may still contain a value from
+        another metadata source. `latitude` and `longitude` must be set together (both
         written or both cleared).
 
-        Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
-        names refresh against the new effective coordinates.
+        Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
+        location names.
 
         For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.
 
-          description: User-set description for the asset. Pass `null` to remove a previously-set value
-              (the response then falls back to the description embedded in the file, if any).
-              Omit to leave unchanged. Distinct from the AI-generated `description` field on
-              the response — this writes to `metadata.description`.
+          description: User-set description for the asset. Pass `null` to remove a previously-set
+              value; the effective response may still contain a description from another
+              metadata source. Omit to leave unchanged. Distinct from the AI-generated
+              `description` field on the response — this writes to `metadata.description`.
 
           latitude: GPS latitude in decimal degrees, `[-90, 90]`. Must be set together with
               `longitude`. Pass `null` (along with `longitude=null`) to remove a
@@ -1002,11 +997,10 @@ class AssetsResource(SyncAPIResource):
               `latitude`. Pass `null` (along with `latitude=null`) to remove a previously-set
               value; omit to leave unchanged.
 
-          original_datetime: When the asset was originally captured. Aware values store the offset from
-              `utcoffset()` alongside; naive values store NULL offset. Pass `null` to remove a
-              previously-set value — the response then falls back to the datetime embedded in
-              the file when present, otherwise to the file's upload timestamp. Omit to leave
-              unchanged.
+          original_datetime: When the asset was originally captured. Timezone-aware values preserve their UTC
+              offset; timezone-naive values have no offset. Pass `null` to remove a
+              previously-set value; the effective response may still contain a datetime from
+              another metadata source. Omit to leave unchanged.
 
           extra_headers: Send extra headers
 
@@ -1458,9 +1452,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        Up to 200 items per request; over-cap requests return 422. For a single-asset
-        edit, prefer `update_asset` — semantically identical but slightly more concise
-        at the call site.
+        For a single-asset edit, prefer `update_asset` — semantically identical but
+        slightly more concise at the call site.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
@@ -1761,8 +1754,6 @@ class AsyncAssetsResource(AsyncAPIResource):
         `trash_assets` for the user's standard delete action so accidents can be
         recovered.
 
-        Up to 200 ids per request; over-cap requests return 422.
-
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
               request.
@@ -1805,9 +1796,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetEmptyTrashResponse:
         """
-        Permanently deletes every trashed asset in the caller's library in one shot —
-        storage and CDN are cleaned up via the same outbox path as the scheduled purge
-        task. **Irreversible**. Deliberately not exposed as an MCP tool.
+        Permanently deletes every trashed asset and its associated stored data from the
+        caller's library. **Irreversible**.
 
         Args:
           library_id: Library whose trashed assets to permanently delete. Optional if the user has a
@@ -1901,9 +1891,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         list/search results and are purged after the configured retention window.
         **Reversible** via `restore_assets` until purge.
 
-        Use this for the user's standard 'delete' action — there is no MCP-exposed
-        permanent-delete tool, so trash is the only path. To trash an entire library at
-        once instead of enumerating asset IDs, use `trash_library`.
+        To trash an entire library at once instead of enumerating asset IDs, use
+        `trash_library`.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -1952,22 +1941,22 @@ class AsyncAssetsResource(AsyncAPIResource):
         Edits the user-editable metadata for a single asset — description, GPS
         coordinates, and original capture datetime. Only fields included in the request
         body are changed; others are left untouched. Passing `null` for a field removes
-        a previously-set value; the response then falls back to the value embedded in
-        the file when present. `latitude` and `longitude` must be set together (both
+        a previously-set value; the effective response may still contain a value from
+        another metadata source. `latitude` and `longitude` must be set together (both
         written or both cleared).
 
-        Setting or clearing GPS coordinates re-enqueues reverse geocoding so location
-        names refresh against the new effective coordinates.
+        Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
+        location names.
 
         For editing multiple assets in one round trip, prefer `bulk_update_assets`.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.
 
-          description: User-set description for the asset. Pass `null` to remove a previously-set value
-              (the response then falls back to the description embedded in the file, if any).
-              Omit to leave unchanged. Distinct from the AI-generated `description` field on
-              the response — this writes to `metadata.description`.
+          description: User-set description for the asset. Pass `null` to remove a previously-set
+              value; the effective response may still contain a description from another
+              metadata source. Omit to leave unchanged. Distinct from the AI-generated
+              `description` field on the response — this writes to `metadata.description`.
 
           latitude: GPS latitude in decimal degrees, `[-90, 90]`. Must be set together with
               `longitude`. Pass `null` (along with `longitude=null`) to remove a
@@ -1977,11 +1966,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               `latitude`. Pass `null` (along with `latitude=null`) to remove a previously-set
               value; omit to leave unchanged.
 
-          original_datetime: When the asset was originally captured. Aware values store the offset from
-              `utcoffset()` alongside; naive values store NULL offset. Pass `null` to remove a
-              previously-set value — the response then falls back to the datetime embedded in
-              the file when present, otherwise to the file's upload timestamp. Omit to leave
-              unchanged.
+          original_datetime: When the asset was originally captured. Timezone-aware values preserve their UTC
+              offset; timezone-naive values have no offset. Pass `null` to remove a
+              previously-set value; the effective response may still contain a datetime from
+              another metadata source. Omit to leave unchanged.
 
           extra_headers: Send extra headers
 

@@ -42,8 +42,7 @@ class FaceResponse(BaseModel):
     """
     Per-face cluster-assignment diagnostics: how well the face fits its
     currently-assigned Person, and which other Persons are nearby in embedding
-    space. Surfaced via `include=cluster_assignment` on the faces endpoints — used
-    by the operator-facing face cleanup dashboard to triage mis-clustered faces.
+    space. Surfaced via `include=cluster_assignment` on the faces endpoints.
     """
 
     confidence: Optional[float] = None

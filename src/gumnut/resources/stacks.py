@@ -316,8 +316,6 @@ class StacksResource(SyncAPIResource):
         as members for that threshold (unlike `asset_count`, which excludes them), so a
         stack can survive with `asset_count` below 2.
 
-        Up to 200 ids per request; over-cap requests return 422.
-
         Args:
           stack_id: Stack ID (with `asset_stack_` prefix) of the stack to pull frames out of.
 
@@ -710,8 +708,6 @@ class AsyncStacksResource(AsyncAPIResource):
         returning its remaining frames to loose display too. Trashed frames still count
         as members for that threshold (unlike `asset_count`, which excludes them), so a
         stack can survive with `asset_count` below 2.
-
-        Up to 200 ids per request; over-cap requests return 422.
 
         Args:
           stack_id: Stack ID (with `asset_stack_` prefix) of the stack to pull frames out of.
