@@ -55,7 +55,6 @@ if TYPE_CHECKING:
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
     from .resources.users import UsersResource, AsyncUsersResource
-    from .resources.assets import AssetsResource, AsyncAssetsResource
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
@@ -64,6 +63,7 @@ if TYPE_CHECKING:
     from .resources.libraries import LibrariesResource, AsyncLibrariesResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
+    from .resources.assets.assets import AssetsResource, AsyncAssetsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
 
