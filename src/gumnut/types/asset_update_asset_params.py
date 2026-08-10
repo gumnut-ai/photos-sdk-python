@@ -15,10 +15,10 @@ class AssetUpdateAssetParams(TypedDict, total=False):
     description: Optional[str]
     """User-set description for the asset.
 
-    Pass `null` to remove a previously-set value (the response then falls back to
-    the description embedded in the file, if any). Omit to leave unchanged. Distinct
-    from the AI-generated `description` field on the response — this writes to
-    `metadata.description`.
+    Pass `null` to remove a previously-set value; the effective response may still
+    contain a description from another metadata source. Omit to leave unchanged.
+    Distinct from the AI-generated `description` field on the response — this writes
+    to `metadata.description`.
     """
 
     latitude: Optional[float]
@@ -38,8 +38,7 @@ class AssetUpdateAssetParams(TypedDict, total=False):
     original_datetime: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """When the asset was originally captured.
 
-    Aware values store the offset from `utcoffset()` alongside; naive values store
-    NULL offset. Pass `null` to remove a previously-set value — the response then
-    falls back to the datetime embedded in the file when present, otherwise to the
-    file's upload timestamp. Omit to leave unchanged.
+    Timezone-aware values preserve their UTC offset; timezone-naive values have no
+    offset. Pass `null` to remove a previously-set value; the effective response may
+    still contain a datetime from another metadata source. Omit to leave unchanged.
     """

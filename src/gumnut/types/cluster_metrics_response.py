@@ -8,10 +8,8 @@ __all__ = ["ClusterMetricsResponse"]
 class ClusterMetricsResponse(BaseModel):
     """
     Cohesion metrics for a Person's face cluster — surfaced via
-    ``include=cluster_metrics`` on the people endpoints. These describe how
-    tight the cluster is in embedding space (lower = more cohesive) and
-    drive both the production face-assignment cohesion gate and the
-    operator-facing face cleanup dashboard.
+    `include=cluster_metrics` on the people endpoints. These describe how
+    tight the cluster is in embedding space (lower = more cohesive).
     """
 
     face_count: int
@@ -28,6 +26,5 @@ class ClusterMetricsResponse(BaseModel):
     pairwise_p90: float
     """90th-percentile pairwise cosine distance between faces in this person's cluster.
 
-    Lower = more cohesive cluster; loose clusters (higher pairwise_p90) are gated
-    out of the face-assignment path to prevent further drift.
+    Lower = more cohesive cluster.
     """
