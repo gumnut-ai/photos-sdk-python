@@ -14,12 +14,14 @@ from .api_key_response import APIKeyResponse as APIKeyResponse
 from .event_get_params import EventGetParams as EventGetParams
 from .face_list_params import FaceListParams as FaceListParams
 from .library_response import LibraryResponse as LibraryResponse
+from .task_list_params import TaskListParams as TaskListParams
 from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
+from .task_get_response import TaskGetResponse as TaskGetResponse
 from .asset_trash_params import AssetTrashParams as AssetTrashParams
 from .face_create_params import FaceCreateParams as FaceCreateParams
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
@@ -27,6 +29,7 @@ from .face_update_params import FaceUpdateParams as FaceUpdateParams
 from .file_data_response import FileDataResponse as FileDataResponse
 from .person_list_params import PersonListParams as PersonListParams
 from .search_result_item import SearchResultItem as SearchResultItem
+from .task_list_response import TaskListResponse as TaskListResponse
 from .album_create_params import AlbumCreateParams as AlbumCreateParams
 from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
@@ -83,6 +86,7 @@ from .search_search_assets_params import SearchSearchAssetsParams as SearchSearc
 from .stack_create_stack_response import StackCreateStackResponse as StackCreateStackResponse
 from .asset_check_existence_params import AssetCheckExistenceParams as AssetCheckExistenceParams
 from .stack_remove_assets_response import StackRemoveAssetsResponse as StackRemoveAssetsResponse
+from .task_list_for_asset_response import TaskListForAssetResponse as TaskListForAssetResponse
 from .asset_cluster_by_geo_response import AssetClusterByGeoResponse as AssetClusterByGeoResponse
 from .stack_retrieve_stack_response import StackRetrieveStackResponse as StackRetrieveStackResponse
 from .asset_bulk_update_assets_params import AssetBulkUpdateAssetsParams as AssetBulkUpdateAssetsParams

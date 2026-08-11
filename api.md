@@ -255,6 +255,20 @@ Methods:
 - <code title="get /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">retrieve_stack</a>(stack_id) -> <a href="./src/gumnut/types/stack_retrieve_stack_response.py">StackRetrieveStackResponse</a></code>
 - <code title="patch /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">set_cover</a>(stack_id, \*\*<a href="src/gumnut/types/stack_set_cover_params.py">params</a>) -> <a href="./src/gumnut/types/stack_set_cover_response.py">StackSetCoverResponse</a></code>
 
+# Tasks
+
+Types:
+
+```python
+from gumnut.types import TaskListResponse, TaskGetResponse, TaskListForAssetResponse
+```
+
+Methods:
+
+- <code title="get /api/tasks/">client.tasks.<a href="./src/gumnut/resources/tasks.py">list</a>(\*\*<a href="src/gumnut/types/task_list_params.py">params</a>) -> <a href="./src/gumnut/types/task_list_response.py">TaskListResponse</a></code>
+- <code title="get /api/tasks/{task_id}">client.tasks.<a href="./src/gumnut/resources/tasks.py">get</a>(task_id) -> <a href="./src/gumnut/types/task_get_response.py">TaskGetResponse</a></code>
+- <code title="get /api/tasks/asset/{asset_id}">client.tasks.<a href="./src/gumnut/resources/tasks.py">list_for_asset</a>(asset_id) -> <a href="./src/gumnut/types/task_list_for_asset_response.py">TaskListForAssetResponse</a></code>
+
 # Users
 
 Types:
