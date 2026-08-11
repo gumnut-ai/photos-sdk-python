@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.151.0 (2026-08-11)
+
+Full Changelog: [v0.150.0...v0.151.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.150.0...v0.151.0)
+
+### Features
+
+* **api:** add task response model ([b4785a1](https://github.com/gumnut-ai/photos-sdk-python/commit/b4785a1237a37053f74c196efe8fb674bf7ca7c4))
+* **api:** task endpoints ([6155367](https://github.com/gumnut-ai/photos-sdk-python/commit/6155367f5aacbc9c89a8bf12ef2f03834bba15a7))
+
 ## 0.150.0 (2026-08-10)
 
 Full Changelog: [v0.149.0...v0.150.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.149.0...v0.150.0)
