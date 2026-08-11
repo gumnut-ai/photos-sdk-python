@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .shared import AssetVariant as AssetVariant
 from .face_response import FaceResponse as FaceResponse
+from .task_response import TaskResponse as TaskResponse
 from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
 from .asset_response import AssetResponse as AssetResponse
@@ -21,7 +22,6 @@ from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
-from .task_get_response import TaskGetResponse as TaskGetResponse
 from .asset_trash_params import AssetTrashParams as AssetTrashParams
 from .face_create_params import FaceCreateParams as FaceCreateParams
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams

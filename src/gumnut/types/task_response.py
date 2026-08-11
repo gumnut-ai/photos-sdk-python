@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["TaskGetResponse"]
+__all__ = ["TaskResponse"]
 
 
-class TaskGetResponse(BaseModel):
+class TaskResponse(BaseModel):
     """A background processing task and its current execution state."""
 
     id: str
