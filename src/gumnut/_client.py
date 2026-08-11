@@ -40,6 +40,7 @@ if TYPE_CHECKING:
         ping,
         faces,
         oauth,
+        tasks,
         users,
         albums,
         assets,
@@ -54,6 +55,7 @@ if TYPE_CHECKING:
     from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
     from .resources.oauth import OAuthResource, AsyncOAuthResource
+    from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
@@ -220,6 +222,13 @@ class Gumnut(SyncAPIClient):
         from .resources.stacks import StacksResource
 
         return StacksResource(self)
+
+    @cached_property
+    def tasks(self) -> TasksResource:
+        """Status of background processing tasks."""
+        from .resources.tasks import TasksResource
+
+        return TasksResource(self)
 
     @cached_property
     def users(self) -> UsersResource:
@@ -506,6 +515,13 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncStacksResource(self)
 
     @cached_property
+    def tasks(self) -> AsyncTasksResource:
+        """Status of background processing tasks."""
+        from .resources.tasks import AsyncTasksResource
+
+        return AsyncTasksResource(self)
+
+    @cached_property
     def users(self) -> AsyncUsersResource:
         """The authenticated user's profile."""
         from .resources.users import AsyncUsersResource
@@ -736,6 +752,13 @@ class GumnutWithRawResponse:
         return StacksResourceWithRawResponse(self._client.stacks)
 
     @cached_property
+    def tasks(self) -> tasks.TasksResourceWithRawResponse:
+        """Status of background processing tasks."""
+        from .resources.tasks import TasksResourceWithRawResponse
+
+        return TasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
         """The authenticated user's profile."""
         from .resources.users import UsersResourceWithRawResponse
@@ -841,6 +864,13 @@ class AsyncGumnutWithRawResponse:
         from .resources.stacks import AsyncStacksResourceWithRawResponse
 
         return AsyncStacksResourceWithRawResponse(self._client.stacks)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+        """Status of background processing tasks."""
+        from .resources.tasks import AsyncTasksResourceWithRawResponse
+
+        return AsyncTasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
@@ -950,6 +980,13 @@ class GumnutWithStreamedResponse:
         return StacksResourceWithStreamingResponse(self._client.stacks)
 
     @cached_property
+    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+        """Status of background processing tasks."""
+        from .resources.tasks import TasksResourceWithStreamingResponse
+
+        return TasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
         """The authenticated user's profile."""
         from .resources.users import UsersResourceWithStreamingResponse
@@ -1055,6 +1092,13 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.stacks import AsyncStacksResourceWithStreamingResponse
 
         return AsyncStacksResourceWithStreamingResponse(self._client.stacks)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+        """Status of background processing tasks."""
+        from .resources.tasks import AsyncTasksResourceWithStreamingResponse
+
+        return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
