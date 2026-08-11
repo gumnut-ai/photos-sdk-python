@@ -9,7 +9,7 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import TaskGetResponse, TaskListResponse, TaskListForAssetResponse
+from gumnut.types import TaskResponse, TaskListResponse, TaskListForAssetResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -62,7 +62,7 @@ class TestTasks:
         task = client.tasks.get(
             "task_id",
         )
-        assert_matches_type(TaskGetResponse, task, path=["response"])
+        assert_matches_type(TaskResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -74,7 +74,7 @@ class TestTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = response.parse()
-        assert_matches_type(TaskGetResponse, task, path=["response"])
+        assert_matches_type(TaskResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -86,7 +86,7 @@ class TestTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = response.parse()
-            assert_matches_type(TaskGetResponse, task, path=["response"])
+            assert_matches_type(TaskResponse, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -191,7 +191,7 @@ class TestAsyncTasks:
         task = await async_client.tasks.get(
             "task_id",
         )
-        assert_matches_type(TaskGetResponse, task, path=["response"])
+        assert_matches_type(TaskResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -203,7 +203,7 @@ class TestAsyncTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = await response.parse()
-        assert_matches_type(TaskGetResponse, task, path=["response"])
+        assert_matches_type(TaskResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -215,7 +215,7 @@ class TestAsyncTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = await response.parse()
-            assert_matches_type(TaskGetResponse, task, path=["response"])
+            assert_matches_type(TaskResponse, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
