@@ -19,7 +19,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.task_get_response import TaskGetResponse
+from ..types.task_response import TaskResponse
 from ..types.task_list_response import TaskListResponse
 from ..types.task_list_for_asset_response import TaskListForAssetResponse
 
@@ -133,7 +133,7 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskGetResponse:
+    ) -> TaskResponse:
         """
         Get the status of a background task by its ID.
 
@@ -159,7 +159,7 @@ class TasksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskGetResponse,
+            cast_to=TaskResponse,
         )
 
     def list_for_asset(
@@ -306,7 +306,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskGetResponse:
+    ) -> TaskResponse:
         """
         Get the status of a background task by its ID.
 
@@ -332,7 +332,7 @@ class AsyncTasksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskGetResponse,
+            cast_to=TaskResponse,
         )
 
     async def list_for_asset(
