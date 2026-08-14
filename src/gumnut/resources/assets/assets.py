@@ -255,6 +255,7 @@ class AssetsResource(SyncAPIResource):
     def list(
         self,
         *,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -308,6 +309,10 @@ class AssetsResource(SyncAPIResource):
         `starting_after_id`.
 
         Args:
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name. To
               browse one album's full asset metadata, prefer this filter over
               `list_album_assets`, which returns link records.
@@ -407,6 +412,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "bbox": bbox,
                         "center": center,
@@ -682,6 +688,7 @@ class AssetsResource(SyncAPIResource):
     def counts(
         self,
         *,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         group_by: Literal["month"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
@@ -700,8 +707,8 @@ class AssetsResource(SyncAPIResource):
         """
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
-        bucket, ordered most-recent-first, with optional filtering by album, person,
-        date range, or trash state.
+        bucket, ordered most-recent-first, with optional filtering by album, album
+        membership, person, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -712,6 +719,10 @@ class AssetsResource(SyncAPIResource):
         `data` as `local_datetime_before` to fetch the next page.
 
         Args:
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           group_by: Time period to group counts by. Only `month` is supported; other values
@@ -756,6 +767,7 @@ class AssetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "group_by": group_by,
                         "library_id": library_id,
@@ -1218,6 +1230,7 @@ class AsyncAssetsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
@@ -1271,6 +1284,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         `starting_after_id`.
 
         Args:
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name. To
               browse one album's full asset metadata, prefer this filter over
               `list_album_assets`, which returns link records.
@@ -1370,6 +1387,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "bbox": bbox,
                         "center": center,
@@ -1647,6 +1665,7 @@ class AsyncAssetsResource(AsyncAPIResource):
     async def counts(
         self,
         *,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         group_by: Literal["month"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
@@ -1665,8 +1684,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
-        bucket, ordered most-recent-first, with optional filtering by album, person,
-        date range, or trash state.
+        bucket, ordered most-recent-first, with optional filtering by album, album
+        membership, person, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -1677,6 +1696,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         `data` as `local_datetime_before` to fetch the next page.
 
         Args:
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           group_by: Time period to group counts by. Only `month` is supported; other values
@@ -1721,6 +1744,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "group_by": group_by,
                         "library_id": library_id,
