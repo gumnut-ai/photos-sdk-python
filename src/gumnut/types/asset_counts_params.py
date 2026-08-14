@@ -12,6 +12,13 @@ __all__ = ["AssetCountsParams"]
 
 
 class AssetCountsParams(TypedDict, total=False):
+    album_filter: Literal["all", "in_album", "not_in_album"]
+    """
+    Filter by album membership in general, rather than by membership of one specific
+    album. This filter is independent of `album_id`, but combining `not_in_album`
+    with `album_id` is contradictory and returns 422. Defaults to `all`.
+    """
+
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 

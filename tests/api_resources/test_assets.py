@@ -150,6 +150,7 @@ class TestAssets:
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.list(
+            album_filter="all",
             album_id="album_id",
             bbox="bbox",
             center="center",
@@ -383,6 +384,7 @@ class TestAssets:
     @parametrize
     def test_method_counts_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.counts(
+            album_filter="all",
             album_id="album_id",
             group_by="month",
             library_id="library_id",
@@ -761,6 +763,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.list(
+            album_filter="all",
             album_id="album_id",
             bbox="bbox",
             center="center",
@@ -994,6 +997,7 @@ class TestAsyncAssets:
     @parametrize
     async def test_method_counts_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.counts(
+            album_filter="all",
             album_id="album_id",
             group_by="month",
             library_id="library_id",
