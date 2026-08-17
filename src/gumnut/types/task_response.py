@@ -83,6 +83,7 @@ class TaskResponse(BaseModel):
         "thumbhash",
         "display_proxy_generation",
         "burst_detection",
+        "product_update_subscription",
     ]
     """
     Kind of background processing a task performs: `image_quality` (historical only
@@ -100,6 +101,7 @@ class TaskResponse(BaseModel):
     (compute the blurred placeholder shown while a thumbnail loads),
     `display_proxy_generation` (generate a browser-displayable rendition of an
     original the image CDN cannot transform, such as an oversized or
-    over-dimensioned file), or `burst_detection` (detect rapid-fire shots of the
-    same moment and stack them).
+    over-dimensioned file), `burst_detection` (detect rapid-fire shots of the same
+    moment and stack them), or `product_update_subscription` (enroll an explicitly
+    opted-in new user in product-update email delivery).
     """
