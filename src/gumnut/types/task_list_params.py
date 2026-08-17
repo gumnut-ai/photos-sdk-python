@@ -36,6 +36,7 @@ class TaskListParams(TypedDict, total=False):
             "thumbhash",
             "display_proxy_generation",
             "burst_detection",
+            "product_update_subscription",
         ]
     ]
     """Return only tasks of this type."""
