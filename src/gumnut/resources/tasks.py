@@ -69,6 +69,7 @@ class TasksResource(SyncAPIResource):
                 "thumbhash",
                 "display_proxy_generation",
                 "burst_detection",
+                "product_update_subscription",
             ]
         ]
         | Omit = omit,
@@ -242,6 +243,7 @@ class AsyncTasksResource(AsyncAPIResource):
                 "thumbhash",
                 "display_proxy_generation",
                 "burst_detection",
+                "product_update_subscription",
             ]
         ]
         | Omit = omit,
