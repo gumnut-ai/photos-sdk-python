@@ -17,7 +17,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.assets import version_list_params, version_delete_params, version_revert_params
+from ...types.assets import version_list_params
 from ...types.asset_response import AssetResponse
 from ...types.assets.version_list_response import VersionListResponse
 
@@ -102,7 +102,6 @@ class VersionsResource(SyncAPIResource):
         version_id: str,
         *,
         asset_id: str,
-        expected_current_version_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -112,17 +111,13 @@ class VersionsResource(SyncAPIResource):
     ) -> AssetResponse:
         """
         Irreversibly deletes the current non-original version and restores its
-        predecessor. The original returns 422; a buried version or stale
-        expected-current token returns 409.
+        predecessor. The original returns 422; a buried version returns 409.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) whose version to delete.
 
           version_id: Version ID (with `asset_version_` prefix) to delete. Must be the asset's current
               non-original version.
-
-          expected_current_version_id: Current version ID observed by the client. If stale, returns 409 without
-              changes; refetch the asset before retrying.
 
           extra_headers: Send extra headers
 
@@ -139,14 +134,7 @@ class VersionsResource(SyncAPIResource):
         return self._delete(
             path_template("/api/assets/{asset_id}/versions/{version_id}", asset_id=asset_id, version_id=version_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"expected_current_version_id": expected_current_version_id},
-                    version_delete_params.VersionDeleteParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AssetResponse,
         )
@@ -156,7 +144,6 @@ class VersionsResource(SyncAPIResource):
         version_id: str,
         *,
         asset_id: str,
-        expected_current_version_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,17 +153,13 @@ class VersionsResource(SyncAPIResource):
     ) -> AssetResponse:
         """
         Makes a retained version current and irreversibly deletes its descendants.
-        Reverting to the current version is a no-op; a stale expected-current token
-        returns 409.
+        Reverting to the current version is a no-op.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) to revert.
 
           version_id: Version ID (with `asset_version_` prefix) to make current. Every version at a
               later position is deleted.
-
-          expected_current_version_id: Current version ID observed by the client. If stale, returns 409 without
-              changes; refetch the asset before retrying.
 
           extra_headers: Send extra headers
 
@@ -195,14 +178,7 @@ class VersionsResource(SyncAPIResource):
                 "/api/assets/{asset_id}/versions/{version_id}/revert", asset_id=asset_id, version_id=version_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"expected_current_version_id": expected_current_version_id},
-                    version_revert_params.VersionRevertParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AssetResponse,
         )
@@ -286,7 +262,6 @@ class AsyncVersionsResource(AsyncAPIResource):
         version_id: str,
         *,
         asset_id: str,
-        expected_current_version_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -296,17 +271,13 @@ class AsyncVersionsResource(AsyncAPIResource):
     ) -> AssetResponse:
         """
         Irreversibly deletes the current non-original version and restores its
-        predecessor. The original returns 422; a buried version or stale
-        expected-current token returns 409.
+        predecessor. The original returns 422; a buried version returns 409.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) whose version to delete.
 
           version_id: Version ID (with `asset_version_` prefix) to delete. Must be the asset's current
               non-original version.
-
-          expected_current_version_id: Current version ID observed by the client. If stale, returns 409 without
-              changes; refetch the asset before retrying.
 
           extra_headers: Send extra headers
 
@@ -323,14 +294,7 @@ class AsyncVersionsResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/assets/{asset_id}/versions/{version_id}", asset_id=asset_id, version_id=version_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"expected_current_version_id": expected_current_version_id},
-                    version_delete_params.VersionDeleteParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AssetResponse,
         )
@@ -340,7 +304,6 @@ class AsyncVersionsResource(AsyncAPIResource):
         version_id: str,
         *,
         asset_id: str,
-        expected_current_version_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -350,17 +313,13 @@ class AsyncVersionsResource(AsyncAPIResource):
     ) -> AssetResponse:
         """
         Makes a retained version current and irreversibly deletes its descendants.
-        Reverting to the current version is a no-op; a stale expected-current token
-        returns 409.
+        Reverting to the current version is a no-op.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) to revert.
 
           version_id: Version ID (with `asset_version_` prefix) to make current. Every version at a
               later position is deleted.
-
-          expected_current_version_id: Current version ID observed by the client. If stale, returns 409 without
-              changes; refetch the asset before retrying.
 
           extra_headers: Send extra headers
 
@@ -379,14 +338,7 @@ class AsyncVersionsResource(AsyncAPIResource):
                 "/api/assets/{asset_id}/versions/{version_id}/revert", asset_id=asset_id, version_id=version_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"expected_current_version_id": expected_current_version_id},
-                    version_revert_params.VersionRevertParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AssetResponse,
         )

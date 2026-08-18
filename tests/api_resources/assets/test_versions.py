@@ -75,7 +75,6 @@ class TestVersions:
         version = client.assets.versions.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -85,7 +84,6 @@ class TestVersions:
         response = client.assets.versions.with_raw_response.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
 
         assert response.is_closed is True
@@ -99,7 +97,6 @@ class TestVersions:
         with client.assets.versions.with_streaming_response.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -116,14 +113,12 @@ class TestVersions:
             client.assets.versions.with_raw_response.delete(
                 version_id="version_id",
                 asset_id="",
-                expected_current_version_id="expected_current_version_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `version_id` but received ''"):
             client.assets.versions.with_raw_response.delete(
                 version_id="",
                 asset_id="asset_id",
-                expected_current_version_id="expected_current_version_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -132,7 +127,6 @@ class TestVersions:
         version = client.assets.versions.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -142,7 +136,6 @@ class TestVersions:
         response = client.assets.versions.with_raw_response.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
 
         assert response.is_closed is True
@@ -156,7 +149,6 @@ class TestVersions:
         with client.assets.versions.with_streaming_response.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -173,14 +165,12 @@ class TestVersions:
             client.assets.versions.with_raw_response.revert(
                 version_id="version_id",
                 asset_id="",
-                expected_current_version_id="expected_current_version_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `version_id` but received ''"):
             client.assets.versions.with_raw_response.revert(
                 version_id="",
                 asset_id="asset_id",
-                expected_current_version_id="expected_current_version_id",
             )
 
 
@@ -246,7 +236,6 @@ class TestAsyncVersions:
         version = await async_client.assets.versions.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -256,7 +245,6 @@ class TestAsyncVersions:
         response = await async_client.assets.versions.with_raw_response.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
 
         assert response.is_closed is True
@@ -270,7 +258,6 @@ class TestAsyncVersions:
         async with async_client.assets.versions.with_streaming_response.delete(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -287,14 +274,12 @@ class TestAsyncVersions:
             await async_client.assets.versions.with_raw_response.delete(
                 version_id="version_id",
                 asset_id="",
-                expected_current_version_id="expected_current_version_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `version_id` but received ''"):
             await async_client.assets.versions.with_raw_response.delete(
                 version_id="",
                 asset_id="asset_id",
-                expected_current_version_id="expected_current_version_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -303,7 +288,6 @@ class TestAsyncVersions:
         version = await async_client.assets.versions.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -313,7 +297,6 @@ class TestAsyncVersions:
         response = await async_client.assets.versions.with_raw_response.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         )
 
         assert response.is_closed is True
@@ -327,7 +310,6 @@ class TestAsyncVersions:
         async with async_client.assets.versions.with_streaming_response.revert(
             version_id="version_id",
             asset_id="asset_id",
-            expected_current_version_id="expected_current_version_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -344,12 +326,10 @@ class TestAsyncVersions:
             await async_client.assets.versions.with_raw_response.revert(
                 version_id="version_id",
                 asset_id="",
-                expected_current_version_id="expected_current_version_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `version_id` but received ''"):
             await async_client.assets.versions.with_raw_response.revert(
                 version_id="",
                 asset_id="asset_id",
-                expected_current_version_id="expected_current_version_id",
             )

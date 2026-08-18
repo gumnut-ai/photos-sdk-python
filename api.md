@@ -73,8 +73,8 @@ from gumnut.types.assets import VersionListResponse
 Methods:
 
 - <code title="get /api/assets/{asset_id}/versions">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">list</a>(asset_id, \*\*<a href="src/gumnut/types/assets/version_list_params.py">params</a>) -> <a href="./src/gumnut/types/assets/version_list_response.py">VersionListResponse</a></code>
-- <code title="delete /api/assets/{asset_id}/versions/{version_id}">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">delete</a>(version_id, \*, asset_id, \*\*<a href="src/gumnut/types/assets/version_delete_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
-- <code title="post /api/assets/{asset_id}/versions/{version_id}/revert">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">revert</a>(version_id, \*, asset_id, \*\*<a href="src/gumnut/types/assets/version_revert_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
+- <code title="delete /api/assets/{asset_id}/versions/{version_id}">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">delete</a>(version_id, \*, asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
+- <code title="post /api/assets/{asset_id}/versions/{version_id}/revert">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">revert</a>(version_id, \*, asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 
 # Albums
 
