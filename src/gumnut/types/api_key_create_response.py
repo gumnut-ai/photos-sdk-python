@@ -26,10 +26,13 @@ class APIKeyCreateResponse(BaseModel):
     """When this API key was created"""
 
     is_active: bool
-    """Whether this API key is currently valid and can be used"""
+    """
+    Whether this API-key row is enabled rather than explicitly disabled; effective
+    usability also requires a linked, active, unexpired grant
+    """
 
     actions: Optional[List[Literal["read", "write", "delete", "delete_permanently"]]] = None
-    """Action verbs this key's grant allows; null for legacy keys"""
+    """Action verbs this key's grant allows; null when the key has no usable grant"""
 
     last_used_at: Optional[datetime] = None
     """When this API key was last used for authentication"""

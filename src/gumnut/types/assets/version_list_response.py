@@ -32,9 +32,9 @@ class VersionListResponseItem(BaseModel):
 
     kind: str
     """
-    What produced this rendering: `original` (the upload), `edit` (a client-baked
-    edit), or `external:<service>`. The namespace is open — treat an unrecognized
-    kind as opaque rather than failing.
+    What produced this rendering: `original` (the upload), `edit` (an edit rendered
+    by the client), or `external:<service>`. The namespace is open — treat an
+    unrecognized kind as opaque rather than failing.
     """
 
     mime_type: str

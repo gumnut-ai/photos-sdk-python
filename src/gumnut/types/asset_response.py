@@ -30,14 +30,14 @@ class AssetResponse(BaseModel):
     current_version_id: str
     """
     ID (`asset_version_` prefix) of the current version, which the top-level
-    rendering fields describe. Pass it as the expected current version on version
-    writes so a racing write is rejected.
+    rendering fields describe. For a current derived version, this ID supplies the
+    path target for replacement or deletion.
     """
 
     kind: str
     """
-    What produced the current rendering: `original` (the upload), `edit` (a
-    client-baked edit), or `external:<service>`. The namespace is open — derive
+    What produced the current rendering: `original` (the upload), `edit` (an edit
+    rendered by the client), or `external:<service>`. The namespace is open — derive
     edited-ness as `kind != "original"`.
     """
 
