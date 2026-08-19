@@ -6,6 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["AssetCountsParams"]
@@ -57,7 +58,18 @@ class AssetCountsParams(TypedDict, total=False):
     """
 
     person_id: Optional[str]
-    """Count only assets containing a face belonging to this person."""
+    """Deprecated compatibility alias for one `person_ids` value.
+
+    Do not combine it with `person_ids`.
+    """
+
+    person_ids: Optional[SequenceNotStr[str]]
+    """
+    Filter to assets containing faces belonging to ALL of these people
+    (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+    query params or comma-delimited values. Person IDs are carried by the entries of
+    an asset's `people` field (returned with `include=people`).
+    """
 
     state: Literal["live", "trashed", "all"]
     """

@@ -33,6 +33,13 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     Must be at least 0.0001 (~11 m).
     """
 
+    album_filter: Literal["all", "in_album", "not_in_album"]
+    """
+    Filter by album membership in general, rather than by membership of one specific
+    album. This filter is independent of `album_id`, but combining `not_in_album`
+    with `album_id` is contradictory and returns 422. Defaults to `all`.
+    """
+
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
@@ -63,7 +70,7 @@ class AssetClusterByGeoParams(TypedDict, total=False):
 
     person_ids: Optional[SequenceNotStr[str]]
     """
-    Cluster only assets containing faces belonging to ALL of these people
+    Filter to assets containing faces belonging to ALL of these people
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
     query params or comma-delimited values. Person IDs are carried by the entries of
     an asset's `people` field (returned with `include=people`).

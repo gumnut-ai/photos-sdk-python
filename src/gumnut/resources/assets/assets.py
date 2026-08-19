@@ -372,7 +372,7 @@ class AssetsResource(SyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_ids: Return only assets containing faces belonging to ALL of these people
+          person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
@@ -588,6 +588,7 @@ class AssetsResource(SyncAPIResource):
         *,
         bbox: str,
         cell_size: float,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -628,6 +629,10 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           library_id: Library to cluster assets from. Optional if the user has a single live
@@ -645,7 +650,7 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_ids: Cluster only assets containing faces belonging to ALL of these people
+          person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
@@ -672,6 +677,7 @@ class AssetsResource(SyncAPIResource):
                     {
                         "bbox": bbox,
                         "cell_size": cell_size,
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
@@ -696,6 +702,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -708,7 +715,7 @@ class AssetsResource(SyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, person, date range, or trash state.
+        membership, people, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -745,7 +752,13 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Count only assets containing a face belonging to this person.
+          person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
+              with `person_ids`.
+
+          person_ids: Filter to assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -775,6 +788,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
@@ -1347,7 +1361,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_ids: Return only assets containing faces belonging to ALL of these people
+          person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
@@ -1565,6 +1579,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         *,
         bbox: str,
         cell_size: float,
+        album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -1605,6 +1620,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
+
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
           library_id: Library to cluster assets from. Optional if the user has a single live
@@ -1622,7 +1641,7 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_ids: Cluster only assets containing faces belonging to ALL of these people
+          person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
@@ -1649,6 +1668,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                     {
                         "bbox": bbox,
                         "cell_size": cell_size,
+                        "album_filter": album_filter,
                         "album_id": album_id,
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
@@ -1673,6 +1693,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
+        person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1685,7 +1706,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, person, date range, or trash state.
+        membership, people, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -1722,7 +1743,13 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          person_id: Count only assets containing a face belonging to this person.
+          person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
+              with `person_ids`.
+
+          person_ids: Filter to assets containing faces belonging to ALL of these people
+              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
+              query params or comma-delimited values. Person IDs are carried by the entries of
+              an asset's `people` field (returned with `include=people`).
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -1752,6 +1779,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "person_id": person_id,
+                        "person_ids": person_ids,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
