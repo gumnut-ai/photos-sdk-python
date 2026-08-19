@@ -111,7 +111,7 @@ class AssetListParams(TypedDict, total=False):
 
     person_ids: Optional[SequenceNotStr[str]]
     """
-    Return only assets containing faces belonging to ALL of these people
+    Filter to assets containing faces belonging to ALL of these people
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
     query params or comma-delimited values. Person IDs are carried by the entries of
     an asset's `people` field (returned with `include=people`).
