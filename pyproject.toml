@@ -1,6 +1,6 @@
 [project]
 name = "gumnut-sdk"
-version = "0.156.0"
+version = "0.157.0"
 description = "The official Python library for the Gumnut API"
 dynamic = ["readme"]
 license = "Apache-2.0"

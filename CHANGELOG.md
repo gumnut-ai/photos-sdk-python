@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.157.0 (2026-08-20)
+
+Full Changelog: [v0.156.0...v0.157.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.156.0...v0.157.0)
+
+### Features
+
+* add promote, sync and release-please workflows ([e29955d](https://github.com/gumnut-ai/photos-sdk-python/commit/e29955d7e81bc4c359c54aa74de7640d81616a68))
+* configure release-please ([419fda4](https://github.com/gumnut-ai/photos-sdk-python/commit/419fda45b82be2c42cb5f0aede502d3b718142f8))
+* initial stlc build ([48192c7](https://github.com/gumnut-ai/photos-sdk-python/commit/48192c7fca378e967970bc91c9970cb908500893))
+
+
+### Styles
+
+* quote workflow step names the way prettier wants ([82f6a59](https://github.com/gumnut-ai/photos-sdk-python/commit/82f6a59de35c98441b90d42ca52bbed0348dbe0e))
+
 ## 0.156.0 (2026-08-20)
 
 Full Changelog: [v0.155.0...v0.156.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.155.0...v0.156.0)
