@@ -25,7 +25,9 @@ __all__ = ["EventsResource", "AsyncEventsResource"]
 
 
 class EventsResource(SyncAPIResource):
-    """Change-event feed for keeping client state in sync."""
+    """
+    Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+    """
 
     @cached_property
     def with_raw_response(self) -> EventsResourceWithRawResponse:
@@ -157,7 +159,9 @@ class EventsResource(SyncAPIResource):
 
 
 class AsyncEventsResource(AsyncAPIResource):
-    """Change-event feed for keeping client state in sync."""
+    """
+    Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncEventsResourceWithRawResponse:

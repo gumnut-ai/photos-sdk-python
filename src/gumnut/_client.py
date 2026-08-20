@@ -165,7 +165,9 @@ class Gumnut(SyncAPIClient):
 
     @cached_property
     def events(self) -> EventsResource:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import EventsResource
 
         return EventsResource(self)
@@ -456,7 +458,9 @@ class AsyncGumnut(AsyncAPIClient):
 
     @cached_property
     def events(self) -> AsyncEventsResource:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import AsyncEventsResource
 
         return AsyncEventsResource(self)
@@ -693,7 +697,9 @@ class GumnutWithRawResponse:
 
     @cached_property
     def events(self) -> events.EventsResourceWithRawResponse:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import EventsResourceWithRawResponse
 
         return EventsResourceWithRawResponse(self._client.events)
@@ -807,7 +813,9 @@ class AsyncGumnutWithRawResponse:
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithRawResponse:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import AsyncEventsResourceWithRawResponse
 
         return AsyncEventsResourceWithRawResponse(self._client.events)
@@ -921,7 +929,9 @@ class GumnutWithStreamedResponse:
 
     @cached_property
     def events(self) -> events.EventsResourceWithStreamingResponse:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import EventsResourceWithStreamingResponse
 
         return EventsResourceWithStreamingResponse(self._client.events)
@@ -1035,7 +1045,9 @@ class AsyncGumnutWithStreamedResponse:
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
-        """Change-event feed for keeping client state in sync."""
+        """
+        Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
+        """
         from .resources.events import AsyncEventsResourceWithStreamingResponse
 
         return AsyncEventsResourceWithStreamingResponse(self._client.events)
