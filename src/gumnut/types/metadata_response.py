@@ -109,10 +109,20 @@ class MetadataResponse(BaseModel):
     """User or camera rating (typically 1-5 stars)"""
 
     raw_height: Optional[int] = None
-    """Pre-rotation raw height; null when not available"""
+    """
+    Height in pixels of the original encoded image, before the EXIF `orientation` is
+    applied. When both raw dimensions are positive, combine them with `orientation`
+    to derive the original upload's display dimensions. Null or zero means
+    unavailable; videos do not have raw dimensions.
+    """
 
     raw_width: Optional[int] = None
-    """Pre-rotation raw width; null when not available"""
+    """
+    Width in pixels of the original encoded image, before the EXIF `orientation` is
+    applied. When both raw dimensions are positive, combine them with `orientation`
+    to derive the original upload's display dimensions. Null or zero means
+    unavailable; videos do not have raw dimensions.
+    """
 
     state: Optional[str] = None
     """State/province name"""
