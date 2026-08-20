@@ -265,6 +265,7 @@ class AssetsResource(SyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -281,10 +282,10 @@ class AssetsResource(SyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, date range, geographic area, or asset ID. Use this tool for structured
-        browsing and filtering — when the request can be expressed as exact filters on
-        album membership, people, date range, geographic coordinates, or specific asset
-        IDs.
+        person, media type, date range, geographic area, or asset ID. Use this tool for
+        structured browsing and filtering — when the request can be expressed as exact
+        filters on album membership, people, media type, date range, geographic
+        coordinates, or specific asset IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -334,7 +335,8 @@ class AssetsResource(SyncAPIResource):
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-              stack_id, datetime range) using AND logic — the result is the intersection.
+              stack_id, media_type, datetime range) using AND logic — the result is the
+              intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -367,6 +369,8 @@ class AssetsResource(SyncAPIResource):
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
+
+          media_type: Return only assets of this media class. Omit to return both.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -422,6 +426,7 @@ class AssetsResource(SyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "order": order,
                         "person_ids": person_ids,
                         "radius": radius,
@@ -1254,6 +1259,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -1270,10 +1276,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, date range, geographic area, or asset ID. Use this tool for structured
-        browsing and filtering — when the request can be expressed as exact filters on
-        album membership, people, date range, geographic coordinates, or specific asset
-        IDs.
+        person, media type, date range, geographic area, or asset ID. Use this tool for
+        structured browsing and filtering — when the request can be expressed as exact
+        filters on album membership, people, media type, date range, geographic
+        coordinates, or specific asset IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -1323,7 +1329,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-              stack_id, datetime range) using AND logic — the result is the intersection.
+              stack_id, media_type, datetime range) using AND logic — the result is the
+              intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -1356,6 +1363,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
+
+          media_type: Return only assets of this media class. Omit to return both.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -1411,6 +1420,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "order": order,
                         "person_ids": person_ids,
                         "radius": radius,

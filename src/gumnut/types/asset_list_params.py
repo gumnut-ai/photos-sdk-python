@@ -52,7 +52,8 @@ class AssetListParams(TypedDict, total=False):
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
     `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-    stack_id, datetime range) using AND logic — the result is the intersection.
+    stack_id, media_type, datetime range) using AND logic — the result is the
+    intersection.
     """
 
     include: Optional[SequenceNotStr[str]]
@@ -101,6 +102,9 @@ class AssetListParams(TypedDict, total=False):
     Same conversion requirement and awareness/offset semantics as
     `local_datetime_after`.
     """
+
+    media_type: Optional[Literal["image", "video"]]
+    """Return only assets of this media class. Omit to return both."""
 
     order: Literal["asc", "desc"]
     """
