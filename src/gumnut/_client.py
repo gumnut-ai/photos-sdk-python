@@ -208,7 +208,7 @@ class Gumnut(SyncAPIClient):
     @cached_property
     def search(self) -> SearchResource:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import SearchResource
 
@@ -499,7 +499,7 @@ class AsyncGumnut(AsyncAPIClient):
     @cached_property
     def search(self) -> AsyncSearchResource:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import AsyncSearchResource
 
@@ -736,7 +736,7 @@ class GumnutWithRawResponse:
     @cached_property
     def search(self) -> search.SearchResourceWithRawResponse:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import SearchResourceWithRawResponse
 
@@ -850,7 +850,7 @@ class AsyncGumnutWithRawResponse:
     @cached_property
     def search(self) -> search.AsyncSearchResourceWithRawResponse:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import AsyncSearchResourceWithRawResponse
 
@@ -964,7 +964,7 @@ class GumnutWithStreamedResponse:
     @cached_property
     def search(self) -> search.SearchResourceWithStreamingResponse:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import SearchResourceWithStreamingResponse
 
@@ -1078,7 +1078,7 @@ class AsyncGumnutWithStreamedResponse:
     @cached_property
     def search(self) -> search.AsyncSearchResourceWithStreamingResponse:
         """
-        Content-based search over a library's assets, with the same filters as asset listing.
+        Content-based search over a library's assets, with album, person, date, and location filters.
         """
         from .resources.search import AsyncSearchResourceWithStreamingResponse
 
