@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.159.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.158.0...v0.159.0) (2026-08-21)
+
+
+### Features
+
+* **api:** expose asset version append and replace ([2368eb6](https://github.com/gumnut-ai/photos-sdk-python/commit/2368eb6a6fb00025729aa4a8d55a5f14ff90f862))
+
 ## [0.158.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.157.0...v0.158.0) (2026-08-20)
 
 
