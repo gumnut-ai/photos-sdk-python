@@ -67,13 +67,15 @@ Methods:
 Types:
 
 ```python
-from gumnut.types.assets import VersionListResponse
+from gumnut.types.assets import AssetVersionResponse, VersionListResponse
 ```
 
 Methods:
 
 - <code title="get /api/assets/{asset_id}/versions">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">list</a>(asset_id, \*\*<a href="src/gumnut/types/assets/version_list_params.py">params</a>) -> <a href="./src/gumnut/types/assets/version_list_response.py">VersionListResponse</a></code>
 - <code title="delete /api/assets/{asset_id}/versions/{version_id}">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">delete</a>(version_id, \*, asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
+- <code title="post /api/assets/{asset_id}/versions">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">append</a>(asset_id, \*\*<a href="src/gumnut/types/assets/version_append_params.py">params</a>) -> <a href="./src/gumnut/types/assets/asset_version_response.py">AssetVersionResponse</a></code>
+- <code title="post /api/assets/{asset_id}/versions/{version_id}/replace">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">replace</a>(version_id, \*, asset_id, \*\*<a href="src/gumnut/types/assets/version_replace_params.py">params</a>) -> <a href="./src/gumnut/types/assets/asset_version_response.py">AssetVersionResponse</a></code>
 - <code title="post /api/assets/{asset_id}/versions/{version_id}/revert">client.assets.versions.<a href="./src/gumnut/resources/assets/versions.py">revert</a>(version_id, \*, asset_id) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 
 # Albums
