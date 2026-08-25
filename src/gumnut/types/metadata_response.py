@@ -106,7 +106,10 @@ class MetadataResponse(BaseModel):
     """Projection type (e.g., for 360° photos)"""
 
     rating: Optional[int] = None
-    """User or camera rating (typically 1-5 stars)"""
+    """Effective user-or-camera rating from `0` to `5` stars.
+
+    `0` means unrated; values outside this range are normalized to `0`.
+    """
 
     raw_height: Optional[int] = None
     """

@@ -603,6 +603,7 @@ class TestAssets:
             latitude=0,
             longitude=0,
             original_datetime=parse_datetime("2019-12-27T18:11:19.117Z"),
+            rating=0,
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -1219,6 +1220,7 @@ class TestAsyncAssets:
             latitude=0,
             longitude=0,
             original_datetime=parse_datetime("2019-12-27T18:11:19.117Z"),
+            rating=0,
         )
         assert_matches_type(AssetResponse, asset, path=["response"])
 

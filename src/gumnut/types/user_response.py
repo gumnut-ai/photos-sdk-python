@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -16,6 +17,12 @@ class UserResponse(BaseModel):
 
     created_at: datetime
     """When this user account was created"""
+
+    favorite_display_mode: Literal["favorite", "rating"]
+    """
+    The user's effective favorite/rating display mode, defaulting to `favorite` when
+    they have never selected one.
+    """
 
     is_active: bool
     """Whether this user account is currently active"""

@@ -42,3 +42,12 @@ class AssetUpdateAssetParams(TypedDict, total=False):
     offset. Pass `null` to remove a previously-set value; the effective response may
     still contain a datetime from another metadata source. Omit to leave unchanged.
     """
+
+    rating: Optional[int]
+    """Star rating, `0`-`5`.
+
+    `5` is the value a favorite carries. `0` explicitly marks the asset unrated,
+    masking any rating embedded in the file. Pass `null` to remove a previously-set
+    value and let the file's embedded rating (if any) show through; omit to leave
+    unchanged. Values outside `0`-`5` are rejected.
+    """
