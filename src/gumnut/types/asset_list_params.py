@@ -104,7 +104,10 @@ class AssetListParams(TypedDict, total=False):
     """
 
     media_type: Optional[Literal["image", "video"]]
-    """Return only assets of this media class. Omit to return both."""
+    """Filter to one media class (`image` or `video`).
+
+    Omit to include both images and videos.
+    """
 
     order: Literal["asc", "desc"]
     """

@@ -68,6 +68,12 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     `local_datetime_after`.
     """
 
+    media_type: Optional[Literal["image", "video"]]
+    """Filter to one media class (`image` or `video`).
+
+    Omit to include both images and videos.
+    """
+
     person_ids: Optional[SequenceNotStr[str]]
     """
     Filter to assets containing faces belonging to ALL of these people

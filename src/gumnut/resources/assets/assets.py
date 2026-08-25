@@ -370,7 +370,8 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          media_type: Return only assets of this media class. Omit to return both.
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -598,6 +599,7 @@ class AssetsResource(SyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -617,7 +619,7 @@ class AssetsResource(SyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND.
+        using AND. Media type can further restrict the cluster to images or videos.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -655,6 +657,9 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
+
           person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -687,6 +692,7 @@ class AssetsResource(SyncAPIResource):
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "person_ids": person_ids,
                         "state": state,
                     },
@@ -706,6 +712,7 @@ class AssetsResource(SyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
@@ -720,7 +727,7 @@ class AssetsResource(SyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, date range, or trash state.
+        membership, people, media type, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -757,6 +764,9 @@ class AssetsResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
+
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
 
@@ -792,6 +802,7 @@ class AssetsResource(SyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "state": state,
@@ -1372,7 +1383,8 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          media_type: Return only assets of this media class. Omit to return both.
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
 
           order: Sort direction for the selected state's timestamp: capture time for
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
@@ -1602,6 +1614,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         library_id: Optional[str] | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1621,7 +1634,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND.
+        using AND. Media type can further restrict the cluster to images or videos.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -1659,6 +1672,9 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
+
           person_ids: Filter to assets containing faces belonging to ALL of these people
               (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
               query params or comma-delimited values. Person IDs are carried by the entries of
@@ -1691,6 +1707,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "library_id": library_id,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "person_ids": person_ids,
                         "state": state,
                     },
@@ -1710,6 +1727,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
+        media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
@@ -1724,7 +1742,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, date range, or trash state.
+        membership, people, media type, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -1761,6 +1779,9 @@ class AsyncAssetsResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
+          media_type: Filter to one media class (`image` or `video`). Omit to include both images and
+              videos.
+
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
 
@@ -1796,6 +1817,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "limit": limit,
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
+                        "media_type": media_type,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "state": state,
