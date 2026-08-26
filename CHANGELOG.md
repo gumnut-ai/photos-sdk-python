@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.160.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.159.0...v0.160.0) (2026-08-25)
+
+
+### Features
+
+* **api:** add media-type filtering to asset listing, counts, and geo clusters ([1fd7001](https://github.com/gumnut-ai/photos-sdk-python/commit/1fd70010ba08a6622df23595756e814d38c96a9f))
+* **api:** add favorite/rating writes and rating metadata responses ([edbdf7c](https://github.com/gumnut-ai/photos-sdk-python/commit/edbdf7cf85f27826118e2a41de7ef49124ab88b1))
+
 ## [0.159.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.158.0...v0.159.0) (2026-08-21)
 
 
