@@ -164,6 +164,7 @@ class TestAssets:
             order="asc",
             person_ids=["string", "string"],
             radius=0,
+            ratings=[0, 0],
             stack_id="stack_id",
             starting_after_id="starting_after_id",
             state="live",
@@ -345,6 +346,7 @@ class TestAssets:
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             media_type="image",
             person_ids=["string", "string"],
+            ratings=[0, 0],
             state="live",
         )
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
@@ -397,6 +399,7 @@ class TestAssets:
             media_type="image",
             person_id="person_id",
             person_ids=["string", "string"],
+            ratings=[0, 0],
             state="live",
         )
         assert_matches_type(AssetCountResponse, asset, path=["response"])
@@ -783,6 +786,7 @@ class TestAsyncAssets:
             order="asc",
             person_ids=["string", "string"],
             radius=0,
+            ratings=[0, 0],
             stack_id="stack_id",
             starting_after_id="starting_after_id",
             state="live",
@@ -964,6 +968,7 @@ class TestAsyncAssets:
             local_datetime_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             media_type="image",
             person_ids=["string", "string"],
+            ratings=[0, 0],
             state="live",
         )
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
@@ -1016,6 +1021,7 @@ class TestAsyncAssets:
             media_type="image",
             person_id="person_id",
             person_ids=["string", "string"],
+            ratings=[0, 0],
             state="live",
         )
         assert_matches_type(AssetCountResponse, asset, path=["response"])

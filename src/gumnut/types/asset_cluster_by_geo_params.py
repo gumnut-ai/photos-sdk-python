@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -80,6 +80,15 @@ class AssetClusterByGeoParams(TypedDict, total=False):
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
     query params or comma-delimited values. Person IDs are carried by the entries of
     an asset's `people` field (returned with `include=people`).
+    """
+
+    ratings: Optional[Iterable[int]]
+    """Return assets whose effective rating is one of these exact values.
+
+    Values must be integers from `0` through `5`; `5` is a favorite. `0` matches
+    every unrated form: an explicit zero, a null or legacy out-of-range effective
+    rating, or an asset with no metadata. Accepts repeated `ratings=` parameters or
+    one comma-delimited value. Omit the parameter for no rating filter.
     """
 
     state: Literal["live", "trashed", "all"]

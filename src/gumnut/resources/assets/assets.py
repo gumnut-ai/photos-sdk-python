@@ -269,6 +269,7 @@ class AssetsResource(SyncAPIResource):
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
@@ -282,10 +283,10 @@ class AssetsResource(SyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, media type, date range, geographic area, or asset ID. Use this tool for
-        structured browsing and filtering — when the request can be expressed as exact
-        filters on album membership, people, media type, date range, geographic
-        coordinates, or specific asset IDs.
+        person, rating, media type, date range, geographic area, or asset ID. Use this
+        tool for structured browsing and filtering — when the request can be expressed
+        as exact filters on album membership, people, rating, media type, date range,
+        geographic coordinates, or specific asset IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -335,8 +336,8 @@ class AssetsResource(SyncAPIResource):
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-              stack_id, media_type, datetime range) using AND logic — the result is the
-              intersection.
+              stack_id, media_type, ratings, datetime range) using AND logic — the result is
+              the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -385,6 +386,12 @@ class AssetsResource(SyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           stack_id: Return only assets belonging to this stack (the `asset_stack_` ID carried by the
               `stack_id` field on every asset).
 
@@ -431,6 +438,7 @@ class AssetsResource(SyncAPIResource):
                         "order": order,
                         "person_ids": person_ids,
                         "radius": radius,
+                        "ratings": ratings,
                         "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
                         "state": state,
@@ -601,6 +609,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -619,7 +628,7 @@ class AssetsResource(SyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND. Media type can further restrict the cluster to images or videos.
+        using AND. Rating and media type can further restrict the cluster.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -665,6 +674,12 @@ class AssetsResource(SyncAPIResource):
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
 
@@ -694,6 +709,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "person_ids": person_ids,
+                        "ratings": ratings,
                         "state": state,
                     },
                     asset_cluster_by_geo_params.AssetClusterByGeoParams,
@@ -715,6 +731,7 @@ class AssetsResource(SyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -727,7 +744,7 @@ class AssetsResource(SyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, media type, date range, or trash state.
+        membership, people, rating, media type, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -774,6 +791,12 @@ class AssetsResource(SyncAPIResource):
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
 
@@ -804,6 +827,7 @@ class AssetsResource(SyncAPIResource):
                         "media_type": media_type,
                         "person_id": person_id,
                         "person_ids": person_ids,
+                        "ratings": ratings,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
@@ -1281,6 +1305,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         radius: Optional[float] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
@@ -1294,10 +1319,10 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, media type, date range, geographic area, or asset ID. Use this tool for
-        structured browsing and filtering — when the request can be expressed as exact
-        filters on album membership, people, media type, date range, geographic
-        coordinates, or specific asset IDs.
+        person, rating, media type, date range, geographic area, or asset ID. Use this
+        tool for structured browsing and filtering — when the request can be expressed
+        as exact filters on album membership, people, rating, media type, date range,
+        geographic coordinates, or specific asset IDs.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
@@ -1347,8 +1372,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           ids: Look up specific assets by ID (max 200; each ID has the `asset_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-              stack_id, media_type, datetime range) using AND logic — the result is the
-              intersection.
+              stack_id, media_type, ratings, datetime range) using AND logic — the result is
+              the intersection.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -1397,6 +1422,12 @@ class AsyncAssetsResource(AsyncAPIResource):
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50000).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           stack_id: Return only assets belonging to this stack (the `asset_stack_` ID carried by the
               `stack_id` field on every asset).
 
@@ -1443,6 +1474,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "order": order,
                         "person_ids": person_ids,
                         "radius": radius,
+                        "ratings": ratings,
                         "stack_id": stack_id,
                         "starting_after_id": starting_after_id,
                         "state": state,
@@ -1615,6 +1647,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1633,7 +1666,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
         in). To list the individual assets behind a cell, call `list_assets` with a
         tighter bounding box over the same filters. Album and person filters compose
-        using AND. Media type can further restrict the cluster to images or videos.
+        using AND. Rating and media type can further restrict the cluster.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -1679,6 +1712,12 @@ class AsyncAssetsResource(AsyncAPIResource):
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           state: Which set of assets to cluster: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both).
 
@@ -1708,6 +1747,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "person_ids": person_ids,
+                        "ratings": ratings,
                         "state": state,
                     },
                     asset_cluster_by_geo_params.AssetClusterByGeoParams,
@@ -1729,6 +1769,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1741,7 +1782,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
         bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, media type, date range, or trash state.
+        membership, people, rating, media type, date range, or trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
@@ -1788,6 +1829,12 @@ class AsyncAssetsResource(AsyncAPIResource):
               query params or comma-delimited values. Person IDs are carried by the entries of
               an asset's `people` field (returned with `include=people`).
 
+          ratings: Return assets whose effective rating is one of these exact values. Values must
+              be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
+              form: an explicit zero, a null or legacy out-of-range effective rating, or an
+              asset with no metadata. Accepts repeated `ratings=` parameters or one
+              comma-delimited value. Omit the parameter for no rating filter.
+
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
 
@@ -1818,6 +1865,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "media_type": media_type,
                         "person_id": person_id,
                         "person_ids": person_ids,
+                        "ratings": ratings,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,

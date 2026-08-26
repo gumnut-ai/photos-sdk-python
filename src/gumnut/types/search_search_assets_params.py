@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
@@ -118,4 +118,13 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
     Radius of the `center` location filter, in meters (greater than 0, at most
     50,000).
+    """
+
+    ratings: Optional[Iterable[int]]
+    """Return assets whose effective rating is one of these exact values.
+
+    Values must be integers from `0` through `5`; `5` is a favorite. `0` matches
+    every unrated form: an explicit zero, a null or legacy out-of-range effective
+    rating, or an asset with no metadata. Accepts repeated `ratings=` parameters or
+    one comma-delimited value. Omit the parameter for no rating filter.
     """

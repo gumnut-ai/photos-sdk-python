@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -52,8 +52,8 @@ class AssetListParams(TypedDict, total=False):
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
     `ids=asset_1,asset_2`). Combines with other filters (album_id, person_ids,
-    stack_id, media_type, datetime range) using AND logic — the result is the
-    intersection.
+    stack_id, media_type, ratings, datetime range) using AND logic — the result is
+    the intersection.
     """
 
     include: Optional[SequenceNotStr[str]]
@@ -128,6 +128,15 @@ class AssetListParams(TypedDict, total=False):
     """
     Radius of the `center` location filter, in meters (greater than 0, at most
     50000).
+    """
+
+    ratings: Optional[Iterable[int]]
+    """Return assets whose effective rating is one of these exact values.
+
+    Values must be integers from `0` through `5`; `5` is a favorite. `0` matches
+    every unrated form: an explicit zero, a null or legacy out-of-range effective
+    rating, or an asset with no metadata. Accepts repeated `ratings=` parameters or
+    one comma-delimited value. Omit the parameter for no rating filter.
     """
 
     stack_id: Optional[str]
