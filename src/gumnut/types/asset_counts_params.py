@@ -23,11 +23,8 @@ class AssetCountsParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
-    group_by: Literal["month"]
-    """Time period to group counts by.
-
-    Only `month` is supported; other values return 422.
-    """
+    group_by: Literal["day", "week", "month", "year"]
+    """Calendar period to use for each count bucket."""
 
     library_id: Optional[str]
     """Library to count assets in.
@@ -40,21 +37,19 @@ class AssetCountsParams(TypedDict, total=False):
     """Maximum number of time buckets to return per page (1–200). Defaults to 20."""
 
     local_datetime_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets captured strictly after this instant (ISO 8601; exclusive).
-
-    Convert a relative or natural-language date phrase ('in 2023') into an explicit
-    bound before sending. `local_datetime` is the photo's wall-clock time in the
-    device's own timezone. Naive values compare directly against `local_datetime`.
-    Timezone-aware values: assets with a known offset are compared in UTC
-    (`local_datetime - offset`); assets without an offset fall back to wall-clock
-    comparison against `local_datetime`.
+    """
+    Only include assets captured strictly after this local wall-clock datetime (ISO
+    8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+    or timezone offset returns 422. Repeat this bound unchanged on every pagination
+    page.
     """
 
     local_datetime_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only include assets captured strictly before this instant (ISO 8601; exclusive).
-
-    Same conversion requirement and awareness/offset semantics as
-    `local_datetime_after`.
+    """
+    Only include assets captured strictly before this local wall-clock datetime (ISO
+    8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+    or timezone offset returns 422. When `has_more` is true, replace this bound with
+    the last returned `time_bucket` to fetch the next page.
     """
 
     media_type: Optional[Literal["image", "video"]]

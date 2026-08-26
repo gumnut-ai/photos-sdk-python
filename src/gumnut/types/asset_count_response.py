@@ -25,5 +25,6 @@ class AssetCountResponse(BaseModel):
 
     To fetch the next page, pass the last `time_bucket` value as
     `local_datetime_before` (exclusive — buckets starting before that value are
-    returned).
+    returned). Repeat the same `group_by`, `local_datetime_after`, and non-date
+    filters.
     """

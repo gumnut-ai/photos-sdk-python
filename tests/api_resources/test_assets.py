@@ -389,7 +389,7 @@ class TestAssets:
         asset = client.assets.counts(
             album_filter="all",
             album_id="album_id",
-            group_by="month",
+            group_by="day",
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1008,7 +1008,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.counts(
             album_filter="all",
             album_id="album_id",
-            group_by="month",
+            group_by="day",
             library_id="library_id",
             limit=1,
             local_datetime_after=parse_datetime("2019-12-27T18:11:19.117Z"),

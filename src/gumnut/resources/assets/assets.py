@@ -707,7 +707,7 @@ class AssetsResource(SyncAPIResource):
         *,
         album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
-        group_by: Literal["month"] | Omit = omit,
+        group_by: Literal["day", "week", "month", "year"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -735,7 +735,9 @@ class AssetsResource(SyncAPIResource):
         search use `search_assets`.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
-        `data` as `local_datetime_before` to fetch the next page.
+        `data` as `local_datetime_before`. Repeat the same `group_by`,
+        `local_datetime_after`, and non-date filters. Count bounds and returned bucket
+        starts are timezone-naive local-calendar values.
 
         Args:
           album_filter: Filter by album membership in general, rather than by membership of one specific
@@ -744,25 +746,22 @@ class AssetsResource(SyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          group_by: Time period to group counts by. Only `month` is supported; other values
-              return 422.
+          group_by: Calendar period to use for each count bucket.
 
           library_id: Library to count assets in. Optional if the user has a single live (non-trashed)
               library; required when they have multiple.
 
           limit: Maximum number of time buckets to return per page (1–200). Defaults to 20.
 
-          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Convert a relative or natural-language date phrase ('in 2023') into an explicit
-              bound before sending. `local_datetime` is the photo's wall-clock time in the
-              device's own timezone. Naive values compare directly against `local_datetime`.
-              Timezone-aware values: assets with a known offset are compared in UTC
-              (`local_datetime - offset`); assets without an offset fall back to wall-clock
-              comparison against `local_datetime`.
+          local_datetime_after: Only include assets captured strictly after this local wall-clock datetime (ISO
+              8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+              or timezone offset returns 422. Repeat this bound unchanged on every pagination
+              page.
 
-          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same conversion requirement and awareness/offset semantics as
-              `local_datetime_after`.
+          local_datetime_before: Only include assets captured strictly before this local wall-clock datetime (ISO
+              8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+              or timezone offset returns 422. When `has_more` is true, replace this bound with
+              the last returned `time_bucket` to fetch the next page.
 
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
@@ -1722,7 +1721,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         *,
         album_filter: Literal["all", "in_album", "not_in_album"] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
-        group_by: Literal["month"] | Omit = omit,
+        group_by: Literal["day", "week", "month", "year"] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
@@ -1750,7 +1749,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         search use `search_assets`.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
-        `data` as `local_datetime_before` to fetch the next page.
+        `data` as `local_datetime_before`. Repeat the same `group_by`,
+        `local_datetime_after`, and non-date filters. Count bounds and returned bucket
+        starts are timezone-naive local-calendar values.
 
         Args:
           album_filter: Filter by album membership in general, rather than by membership of one specific
@@ -1759,25 +1760,22 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
-          group_by: Time period to group counts by. Only `month` is supported; other values
-              return 422.
+          group_by: Calendar period to use for each count bucket.
 
           library_id: Library to count assets in. Optional if the user has a single live (non-trashed)
               library; required when they have multiple.
 
           limit: Maximum number of time buckets to return per page (1–200). Defaults to 20.
 
-          local_datetime_after: Only include assets captured strictly after this instant (ISO 8601; exclusive).
-              Convert a relative or natural-language date phrase ('in 2023') into an explicit
-              bound before sending. `local_datetime` is the photo's wall-clock time in the
-              device's own timezone. Naive values compare directly against `local_datetime`.
-              Timezone-aware values: assets with a known offset are compared in UTC
-              (`local_datetime - offset`); assets without an offset fall back to wall-clock
-              comparison against `local_datetime`.
+          local_datetime_after: Only include assets captured strictly after this local wall-clock datetime (ISO
+              8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+              or timezone offset returns 422. Repeat this bound unchanged on every pagination
+              page.
 
-          local_datetime_before: Only include assets captured strictly before this instant (ISO 8601; exclusive).
-              Same conversion requirement and awareness/offset semantics as
-              `local_datetime_after`.
+          local_datetime_before: Only include assets captured strictly before this local wall-clock datetime (ISO
+              8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
+              or timezone offset returns 422. When `has_more` is true, replace this bound with
+              the last returned `time_bucket` to fetch the next page.
 
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
