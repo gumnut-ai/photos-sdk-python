@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.161.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.160.0...v0.161.0) (2026-08-26)
+
+
+### Features
+
+* **assets:** add day, week, month, and year count buckets with timezone-naive bounds ([4bf4563](https://github.com/gumnut-ai/photos-sdk-python/commit/4bf456324efb42b70c0aa01ac36d69b62a9af382))
+
 ## [0.160.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.159.0...v0.160.0) (2026-08-25)
 
 
