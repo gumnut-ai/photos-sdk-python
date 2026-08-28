@@ -5,7 +5,7 @@
 
 ### Features
 
-* **api:** api update ([9ee0c0f](https://github.com/gumnut-ai/photos-sdk-python/commit/9ee0c0f0087e9c87c1c8617ba7f01e29263f891e))
+* **assets:** add `bbox` and `center`/`radius` location filters to time-bucket counts ([9ee0c0f](https://github.com/gumnut-ai/photos-sdk-python/commit/9ee0c0f0087e9c87c1c8617ba7f01e29263f891e))
 
 ## [0.162.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.161.0...v0.162.0) (2026-08-28)
 
