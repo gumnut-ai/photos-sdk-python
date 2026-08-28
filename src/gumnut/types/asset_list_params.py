@@ -127,7 +127,7 @@ class AssetListParams(TypedDict, total=False):
     radius: Optional[float]
     """
     Radius of the `center` location filter, in meters (greater than 0, at most
-    50000).
+    50,000). Supply with `center`. Mutually exclusive with `bbox`.
     """
 
     ratings: Optional[Iterable[int]]

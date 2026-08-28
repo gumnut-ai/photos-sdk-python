@@ -23,6 +23,26 @@ class AssetCountsParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
+    bbox: Optional[str]
+    """
+    Bounding-box (map viewport) location filter: four comma-separated decimal-degree
+    numbers `min_longitude,min_latitude,max_longitude,max_latitude`
+    (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
+    `min_longitude` exceeds `max_longitude` crosses the antimeridian: it selects the
+    band running east from `min_longitude` over ±180° to `max_longitude`, so there
+    is no need to split it client-side. Longitude order is therefore significant —
+    transposed corners read as a crossing viewport, not as an error. A viewport 360°
+    or wider must be sent as the full range `-180,...,180,...`, which the wrapped
+    form cannot express. Mutually exclusive with `center`/`radius`.
+    """
+
+    center: Optional[str]
+    """
+    Center point of a radius location filter: two comma-separated decimal-degree
+    numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+    Mutually exclusive with `bbox`.
+    """
+
     group_by: Literal["day", "week", "month", "year"]
     """Calendar period to use for each count bucket."""
 
@@ -76,6 +96,12 @@ class AssetCountsParams(TypedDict, total=False):
     (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
     query params or comma-delimited values. Person IDs are carried by the entries of
     an asset's `people` field (returned with `include=people`).
+    """
+
+    radius: Optional[float]
+    """
+    Radius of the `center` location filter, in meters (greater than 0, at most
+    50,000). Supply with `center`. Mutually exclusive with `bbox`.
     """
 
     ratings: Optional[Iterable[int]]

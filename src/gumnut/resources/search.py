@@ -118,6 +118,7 @@ class SearchResource(SyncAPIResource):
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -174,7 +175,7 @@ class SearchResource(SyncAPIResource):
               `2024-01-01`). None of those belong in `query`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
-              50,000).
+              50,000). Supply with `center`. Mutually exclusive with `bbox`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
@@ -285,6 +286,7 @@ class SearchResource(SyncAPIResource):
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
@@ -323,7 +325,7 @@ class SearchResource(SyncAPIResource):
               ranges in `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
-              50,000).
+              50,000). Supply with `center`. Mutually exclusive with `bbox`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
@@ -470,6 +472,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
               location names), `faces`, `people`, `metrics` (ML quality scores), `file_data`
@@ -526,7 +529,7 @@ class AsyncSearchResource(AsyncAPIResource):
               `2024-01-01`). None of those belong in `query`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
-              50,000).
+              50,000). Supply with `center`. Mutually exclusive with `bbox`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
@@ -637,6 +640,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           center: Center point of a radius location filter: two comma-separated decimal-degree
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+              Mutually exclusive with `bbox`.
 
           image: Image file for an independent dense-image retrieval stage. When text is also
               provided, the stage ranks are fused rather than blending their embeddings.
@@ -675,7 +679,7 @@ class AsyncSearchResource(AsyncAPIResource):
               ranges in `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
-              50,000).
+              50,000). Supply with `center`. Mutually exclusive with `bbox`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated

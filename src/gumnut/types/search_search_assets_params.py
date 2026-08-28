@@ -52,6 +52,7 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
     Center point of a radius location filter: two comma-separated decimal-degree
     numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
+    Mutually exclusive with `bbox`.
     """
 
     image: Optional[FileTypes]
@@ -117,7 +118,7 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     radius: Optional[float]
     """
     Radius of the `center` location filter, in meters (greater than 0, at most
-    50,000).
+    50,000). Supply with `center`. Mutually exclusive with `bbox`.
     """
 
     ratings: Optional[Iterable[int]]
