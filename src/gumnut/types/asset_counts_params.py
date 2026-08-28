@@ -48,14 +48,20 @@ class AssetCountsParams(TypedDict, total=False):
     """
     Only include assets captured strictly before this local wall-clock datetime (ISO
     8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
-    or timezone offset returns 422. When `has_more` is true, replace this bound with
-    the last returned `time_bucket` to fetch the next page.
+    or timezone offset returns 422. Repeat this bound unchanged on every pagination
+    page.
     """
 
     media_type: Optional[Literal["image", "video"]]
     """Filter to one media class (`image` or `video`).
 
     Omit to include both images and videos.
+    """
+
+    order: Literal["asc", "desc"]
+    """
+    Sort direction for capture-date buckets: `desc` returns newest buckets first;
+    `asc` returns oldest buckets first.
     """
 
     person_id: Optional[str]
@@ -79,6 +85,13 @@ class AssetCountsParams(TypedDict, total=False):
     every unrated form: an explicit zero, a null or legacy out-of-range effective
     rating, or an asset with no metadata. Accepts repeated `ratings=` parameters or
     one comma-delimited value. Omit the parameter for no rating filter.
+    """
+
+    starting_after_bucket: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Cursor for time-bucket pagination.
+
+    Pass the last returned `time_bucket` unchanged; buckets after it in the
+    requested `order` are returned. Omit for the first page.
     """
 
     state: Literal["live", "trashed", "all"]

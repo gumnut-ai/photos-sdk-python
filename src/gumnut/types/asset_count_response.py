@@ -18,13 +18,12 @@ class Data(BaseModel):
 
 class AssetCountResponse(BaseModel):
     data: List[Data]
-    """Time bucket and count pairs, ordered by time bucket descending"""
+    """Time bucket and count pairs in the requested direction"""
 
     has_more: bool
     """True if there are more time buckets.
 
-    To fetch the next page, pass the last `time_bucket` value as
-    `local_datetime_before` (exclusive — buckets starting before that value are
-    returned). Repeat the same `group_by`, `local_datetime_after`, and non-date
-    filters.
+    To fetch the next page, pass the last `time_bucket` as `starting_after_bucket`.
+    Keep the library scope, `group_by`, `order`, `state`, date bounds, and every
+    population filter unchanged.
     """

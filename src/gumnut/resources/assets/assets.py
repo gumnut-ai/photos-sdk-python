@@ -729,9 +729,11 @@ class AssetsResource(SyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
+        starting_after_bucket: Union[str, datetime, None] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -743,18 +745,19 @@ class AssetsResource(SyncAPIResource):
         """
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
-        bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, rating, media type, date range, or trash state.
+        bucket, newest-first by default or oldest-first when `order=asc`, with optional
+        filtering by album, album membership, people, rating, media type, date range, or
+        trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
         the bucket. Does not filter by image content or location; for content-based
         search use `search_assets`.
 
-        **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
-        `data` as `local_datetime_before`. Repeat the same `group_by`,
-        `local_datetime_after`, and non-date filters. Count bounds and returned bucket
-        starts are timezone-naive local-calendar values.
+        **Pagination:** When `has_more` is true, pass the last `time_bucket` from `data`
+        as `starting_after_bucket`. Repeat the same `group_by`, `order`, date bounds,
+        and non-date filters. Count bounds, the cursor, and returned bucket starts are
+        timezone-naive local-calendar values.
 
         Args:
           album_filter: Filter by album membership in general, rather than by membership of one specific
@@ -777,11 +780,14 @@ class AssetsResource(SyncAPIResource):
 
           local_datetime_before: Only include assets captured strictly before this local wall-clock datetime (ISO
               8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
-              or timezone offset returns 422. When `has_more` is true, replace this bound with
-              the last returned `time_bucket` to fetch the next page.
+              or timezone offset returns 422. Repeat this bound unchanged on every pagination
+              page.
 
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
+
+          order: Sort direction for capture-date buckets: `desc` returns newest buckets first;
+              `asc` returns oldest buckets first.
 
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
@@ -796,6 +802,10 @@ class AssetsResource(SyncAPIResource):
               form: an explicit zero, a null or legacy out-of-range effective rating, or an
               asset with no metadata. Accepts repeated `ratings=` parameters or one
               comma-delimited value. Omit the parameter for no rating filter.
+
+          starting_after_bucket: Cursor for time-bucket pagination. Pass the last returned `time_bucket`
+              unchanged; buckets after it in the requested `order` are returned. Omit for the
+              first page.
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -825,9 +835,11 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
+                        "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "ratings": ratings,
+                        "starting_after_bucket": starting_after_bucket,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
@@ -1767,9 +1779,11 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_after: Union[str, datetime, None] | Omit = omit,
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
+        starting_after_bucket: Union[str, datetime, None] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1781,18 +1795,19 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Counts assets bucketed by time period — use this to summarize a library (or a
         filtered slice) without paging through the full timeline. Returns one row per
-        bucket, ordered most-recent-first, with optional filtering by album, album
-        membership, people, rating, media type, date range, or trash state.
+        bucket, newest-first by default or oldest-first when `order=asc`, with optional
+        filtering by album, album membership, people, rating, media type, date range, or
+        trash state.
 
         To list the actual assets within a bucket, call `list_assets` with the same
         filters and a `local_datetime_after` / `local_datetime_before` window matching
         the bucket. Does not filter by image content or location; for content-based
         search use `search_assets`.
 
-        **Pagination:** When `has_more` is true, pass the last `time_bucket` value from
-        `data` as `local_datetime_before`. Repeat the same `group_by`,
-        `local_datetime_after`, and non-date filters. Count bounds and returned bucket
-        starts are timezone-naive local-calendar values.
+        **Pagination:** When `has_more` is true, pass the last `time_bucket` from `data`
+        as `starting_after_bucket`. Repeat the same `group_by`, `order`, date bounds,
+        and non-date filters. Count bounds, the cursor, and returned bucket starts are
+        timezone-naive local-calendar values.
 
         Args:
           album_filter: Filter by album membership in general, rather than by membership of one specific
@@ -1815,11 +1830,14 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           local_datetime_before: Only include assets captured strictly before this local wall-clock datetime (ISO
               8601; exclusive). Asset counts accept timezone-naive values only; a `Z` suffix
-              or timezone offset returns 422. When `has_more` is true, replace this bound with
-              the last returned `time_bucket` to fetch the next page.
+              or timezone offset returns 422. Repeat this bound unchanged on every pagination
+              page.
 
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
+
+          order: Sort direction for capture-date buckets: `desc` returns newest buckets first;
+              `asc` returns oldest buckets first.
 
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
@@ -1834,6 +1852,10 @@ class AsyncAssetsResource(AsyncAPIResource):
               form: an explicit zero, a null or legacy out-of-range effective rating, or an
               asset with no metadata. Accepts repeated `ratings=` parameters or one
               comma-delimited value. Omit the parameter for no rating filter.
+
+          starting_after_bucket: Cursor for time-bucket pagination. Pass the last returned `time_bucket`
+              unchanged; buckets after it in the requested `order` are returned. Omit for the
+              first page.
 
           state: Which set of assets to count: `live` (default — excludes trashed assets),
               `trashed` (only trashed assets), or `all` (both live and trashed).
@@ -1863,9 +1885,11 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_after": local_datetime_after,
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
+                        "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
                         "ratings": ratings,
+                        "starting_after_bucket": starting_after_bucket,
                         "state": state,
                     },
                     asset_counts_params.AssetCountsParams,
