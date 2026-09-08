@@ -18,6 +18,9 @@ class UserResponse(BaseModel):
     created_at: datetime
     """When this user account was created"""
 
+    demo_mode_enabled: bool
+    """Whether demo-mode person-name presentation is enabled. Defaults to false."""
+
     favorite_display_mode: Literal["favorite", "rating"]
     """
     The user's effective favorite/rating display mode, defaulting to `favorite` when
