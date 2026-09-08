@@ -131,9 +131,9 @@ class SearchResource(SyncAPIResource):
               must pass it). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
               When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`, `kind`,
-              `current_version_id`) and each data field above is null/absent until you request
-              it.
+              `local_datetime`, dimensions, `file_size_bytes`, `description`, `thumbhash`,
+              `asset_urls`, `kind`, `current_version_id`) and each data field above is
+              null/absent until you request it.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -268,9 +268,9 @@ class SearchResource(SyncAPIResource):
               must pass it). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
               When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`, `kind`,
-              `current_version_id`) and each data field above is null/absent until you request
-              it.
+              `local_datetime`, dimensions, `file_size_bytes`, `description`, `thumbhash`,
+              `asset_urls`, `kind`, `current_version_id`) and each data field above is
+              null/absent until you request it.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
@@ -485,9 +485,9 @@ class AsyncSearchResource(AsyncAPIResource):
               must pass it). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
               When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`, `kind`,
-              `current_version_id`) and each data field above is null/absent until you request
-              it.
+              `local_datetime`, dimensions, `file_size_bytes`, `description`, `thumbhash`,
+              `asset_urls`, `kind`, `current_version_id`) and each data field above is
+              null/absent until you request it.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -622,9 +622,9 @@ class AsyncSearchResource(AsyncAPIResource):
               must pass it). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
               When omitted, only the lean core is returned (`id`, `mime_type`,
-              `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`, `kind`,
-              `current_version_id`) and each data field above is null/absent until you request
-              it.
+              `local_datetime`, dimensions, `file_size_bytes`, `description`, `thumbhash`,
+              `asset_urls`, `kind`, `current_version_id`) and each data field above is
+              null/absent until you request it.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 

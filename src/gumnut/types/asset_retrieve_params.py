@@ -25,7 +25,7 @@ class AssetRetrieveParams(TypedDict, total=False):
     must pass it). Accepts multiple `include=` query params or a single
     comma-delimited value (e.g. `include=faces,people`). Unknown values return 422.
     When omitted, only the lean core is returned (`id`, `mime_type`,
-    `local_datetime`, dimensions, `description`, `thumbhash`, `asset_urls`, `kind`,
-    `current_version_id`) and each data field above is null/absent until you request
-    it.
+    `local_datetime`, dimensions, `file_size_bytes`, `description`, `thumbhash`,
+    `asset_urls`, `kind`, `current_version_id`) and each data field above is
+    null/absent until you request it.
     """

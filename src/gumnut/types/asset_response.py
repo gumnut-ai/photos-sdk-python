@@ -34,6 +34,14 @@ class AssetResponse(BaseModel):
     path target for replacement or deletion.
     """
 
+    file_size_bytes: int
+    """
+    Size of the current rendering in bytes: the exact byte count the
+    `asset_urls.original` download serves. For an unedited asset this equals the
+    upload's `file_data.file_size_bytes`; for an edited asset it is the derived
+    rendering's size.
+    """
+
     kind: str
     """
     What produced the current rendering: `original` (the upload), `edit` (an edit

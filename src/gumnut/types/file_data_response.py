@@ -38,7 +38,8 @@ class FileDataResponse(BaseModel):
     file_size_bytes: int
     """Size of the uploaded file in bytes.
 
-    Each rendering's own size is on its row in the asset's version listing.
+    The current rendering's size is the top-level `file_size_bytes`; the two differ
+    once the asset is edited.
     """
 
     checksum_sha1: Optional[str] = None
