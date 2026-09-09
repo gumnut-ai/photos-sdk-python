@@ -281,4 +281,5 @@ from gumnut.types import UserResponse
 
 Methods:
 
+- <code title="patch /api/users/me">client.users.<a href="./src/gumnut/resources/users.py">update</a>(\*\*<a href="src/gumnut/types/user_update_params.py">params</a>) -> <a href="./src/gumnut/types/user_response.py">UserResponse</a></code>
 - <code title="get /api/users/me">client.users.<a href="./src/gumnut/resources/users.py">me</a>() -> <a href="./src/gumnut/types/user_response.py">UserResponse</a></code>

@@ -30,6 +30,7 @@ from .file_data_response import FileDataResponse as FileDataResponse
 from .person_list_params import PersonListParams as PersonListParams
 from .search_result_item import SearchResultItem as SearchResultItem
 from .task_list_response import TaskListResponse as TaskListResponse
+from .user_update_params import UserUpdateParams as UserUpdateParams
 from .album_create_params import AlbumCreateParams as AlbumCreateParams
 from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
