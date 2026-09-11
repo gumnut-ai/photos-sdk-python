@@ -152,12 +152,13 @@ class SearchResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor. A search with a content criterion ranks a
-              fixed top-200 candidate population by relevance, so pages beyond that population
-              are empty. A structured-filter-only search (album, people, date range — no
-              content criterion) returns the full matching set newest-first, paginated without
-              that cap.
+          page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
+              `has_more` is false, even if the current page is full. `search_assets` pages by
+              number rather than by cursor. A search with a content criterion ranks a fixed
+              top-200 candidate population by relevance, so pages beyond that population are
+              empty. A structured-filter-only search (album, people, date range — no content
+              criterion) returns the full matching set newest-first, paginated without that
+              cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -308,12 +309,13 @@ class SearchResource(SyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor. A search with a content criterion ranks a
-              fixed top-200 candidate population by relevance, so pages beyond that population
-              are empty. A structured-filter-only search (album, people, date range — no
-              content criterion) returns the full matching set newest-first, paginated without
-              that cap.
+          page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
+              `has_more` is false, even if the current page is full. `search_assets` pages by
+              number rather than by cursor. A search with a content criterion ranks a fixed
+              top-200 candidate population by relevance, so pages beyond that population are
+              empty. A structured-filter-only search (album, people, date range — no content
+              criterion) returns the full matching set newest-first, paginated without that
+              cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
@@ -506,12 +508,13 @@ class AsyncSearchResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor. A search with a content criterion ranks a
-              fixed top-200 candidate population by relevance, so pages beyond that population
-              are empty. A structured-filter-only search (album, people, date range — no
-              content criterion) returns the full matching set newest-first, paginated without
-              that cap.
+          page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
+              `has_more` is false, even if the current page is full. `search_assets` pages by
+              number rather than by cursor. A search with a content criterion ranks a fixed
+              top-200 candidate population by relevance, so pages beyond that population are
+              empty. A structured-filter-only search (album, people, date range — no content
+              criterion) returns the full matching set newest-first, paginated without that
+              cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
@@ -662,12 +665,13 @@ class AsyncSearchResource(AsyncAPIResource):
               Same conversion requirement and awareness/offset semantics as
               `local_datetime_after`.
 
-          page: 1-indexed page number; increment it to fetch subsequent pages. `search_assets`
-              pages by number rather than by cursor. A search with a content criterion ranks a
-              fixed top-200 candidate population by relevance, so pages beyond that population
-              are empty. A structured-filter-only search (album, people, date range — no
-              content criterion) returns the full matching set newest-first, paginated without
-              that cap.
+          page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
+              `has_more` is false, even if the current page is full. `search_assets` pages by
+              number rather than by cursor. A search with a content criterion ranks a fixed
+              top-200 candidate population by relevance, so pages beyond that population are
+              empty. A structured-filter-only search (album, people, date range — no content
+              criterion) returns the full matching set newest-first, paginated without that
+              cap.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value

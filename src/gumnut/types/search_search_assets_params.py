@@ -93,11 +93,12 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     page: int
     """1-indexed page number; increment it to fetch subsequent pages.
 
-    `search_assets` pages by number rather than by cursor. A search with a content
-    criterion ranks a fixed top-200 candidate population by relevance, so pages
-    beyond that population are empty. A structured-filter-only search (album,
-    people, date range — no content criterion) returns the full matching set
-    newest-first, paginated without that cap.
+    Stop when `has_more` is false, even if the current page is full. `search_assets`
+    pages by number rather than by cursor. A search with a content criterion ranks a
+    fixed top-200 candidate population by relevance, so pages beyond that population
+    are empty. A structured-filter-only search (album, people, date range — no
+    content criterion) returns the full matching set newest-first, paginated without
+    that cap.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
