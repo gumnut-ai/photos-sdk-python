@@ -88,7 +88,7 @@ class TasksResource(SyncAPIResource):
 
         Args:
           library_id: Restrict results to tasks owned by this library. When omitted, returns tasks
-              across every library the authenticated user owns.
+              across every library the authenticated user can access.
 
           limit: Maximum number of tasks to return.
 
@@ -262,7 +262,7 @@ class AsyncTasksResource(AsyncAPIResource):
 
         Args:
           library_id: Restrict results to tasks owned by this library. When omitted, returns tasks
-              across every library the authenticated user owns.
+              across every library the authenticated user can access.
 
           limit: Maximum number of tasks to return.
 

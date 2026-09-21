@@ -110,7 +110,7 @@ class LibrariesResource(SyncAPIResource):
         """Fetches one library's metadata by ID.
 
         Returns the library regardless of trash
-        state.
+        state for owners; members can only access live libraries.
 
         Args:
           library_id: Library ID (with `lib_` prefix) to fetch.
@@ -196,10 +196,11 @@ class LibrariesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
         """
-        Returns libraries owned by the authenticated user (no pagination — users
-        typically have one or a handful). Call this when another tool's `library_id`
-        parameter is required but you don't yet know which libraries exist. A
-        single-library user can usually omit `library_id` on other tools entirely.
+        Returns owned and joined libraries accessible to the authenticated user (no
+        pagination — users typically have one or a handful). Call this when another
+        tool's `library_id` parameter is required but you don't yet know which libraries
+        exist. A single-library user can usually omit `library_id` on other tools
+        entirely.
 
         By default trashed libraries are excluded. Pass `state=trashed` to list the
         trash drawer (ordered by most recently trashed) or `state=all` for both.
@@ -442,7 +443,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         """Fetches one library's metadata by ID.
 
         Returns the library regardless of trash
-        state.
+        state for owners; members can only access live libraries.
 
         Args:
           library_id: Library ID (with `lib_` prefix) to fetch.
@@ -528,10 +529,11 @@ class AsyncLibrariesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryListResponse:
         """
-        Returns libraries owned by the authenticated user (no pagination — users
-        typically have one or a handful). Call this when another tool's `library_id`
-        parameter is required but you don't yet know which libraries exist. A
-        single-library user can usually omit `library_id` on other tools entirely.
+        Returns owned and joined libraries accessible to the authenticated user (no
+        pagination — users typically have one or a handful). Call this when another
+        tool's `library_id` parameter is required but you don't yet know which libraries
+        exist. A single-library user can usually omit `library_id` on other tools
+        entirely.
 
         By default trashed libraries are excluded. Pass `state=trashed` to list the
         trash drawer (ordered by most recently trashed) or `state=all` for both.

@@ -2,10 +2,19 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["LibraryResponse"]
+__all__ = ["LibraryResponse", "Owner"]
+
+
+class Owner(BaseModel):
+    id: str
+    """User identifier"""
+
+    display_name: Optional[str] = None
+    """Public display name, when available"""
 
 
 class LibraryResponse(BaseModel):
@@ -22,6 +31,10 @@ class LibraryResponse(BaseModel):
 
     name: str
     """Display name of the library"""
+
+    owner: Owner
+
+    role: Literal["owner", "viewer", "collaborator"]
 
     storage_used_bytes: int
     """Bytes of assets currently stored in this library"""

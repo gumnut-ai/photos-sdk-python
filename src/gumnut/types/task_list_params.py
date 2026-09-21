@@ -12,7 +12,8 @@ class TaskListParams(TypedDict, total=False):
     library_id: Optional[str]
     """Restrict results to tasks owned by this library.
 
-    When omitted, returns tasks across every library the authenticated user owns.
+    When omitted, returns tasks across every library the authenticated user can
+    access.
     """
 
     limit: int
