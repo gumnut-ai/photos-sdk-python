@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -83,15 +83,20 @@ class SearchSearchParams(TypedDict, total=False):
     `local_datetime_after`.
     """
 
+    media_type: Optional[Literal["image", "video"]]
+    """Filter to one media class (`image` or `video`).
+
+    Omit to include both images and videos.
+    """
+
     page: int
     """1-indexed page number; increment it to fetch subsequent pages.
 
     Stop when `has_more` is false, even if the current page is full. `search_assets`
     pages by number rather than by cursor. A search with a content criterion ranks a
     fixed top-200 candidate population by relevance, so pages beyond that population
-    are empty. A structured-filter-only search (album, people, date range — no
-    content criterion) returns the full matching set newest-first, paginated without
-    that cap.
+    are empty. A structured-filter-only search (no content criterion) returns the
+    full matching set newest-first, paginated without that cap.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
