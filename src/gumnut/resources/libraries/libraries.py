@@ -7,28 +7,60 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import library_list_params, library_create_params, library_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import library_list_params, library_create_params, library_update_params
+from .members import (
+    MembersResource,
+    AsyncMembersResource,
+    MembersResourceWithRawResponse,
+    AsyncMembersResourceWithRawResponse,
+    MembersResourceWithStreamingResponse,
+    AsyncMembersResourceWithStreamingResponse,
+)
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.library_response import LibraryResponse
-from ..types.library_list_response import LibraryListResponse
-from ..types.library_trash_response import LibraryTrashResponse
-from ..types.library_delete_response import LibraryDeleteResponse
+from .invitations import (
+    InvitationsResource,
+    AsyncInvitationsResource,
+    InvitationsResourceWithRawResponse,
+    AsyncInvitationsResourceWithRawResponse,
+    InvitationsResourceWithStreamingResponse,
+    AsyncInvitationsResourceWithStreamingResponse,
+)
+from ..._base_client import make_request_options
+from ...types.library_response import LibraryResponse
+from ...types.library_list_response import LibraryListResponse
+from ...types.library_trash_response import LibraryTrashResponse
+from ...types.library_delete_response import LibraryDeleteResponse
 
 __all__ = ["LibrariesResource", "AsyncLibrariesResource"]
 
 
 class LibrariesResource(SyncAPIResource):
     """Top-level containers that own assets, albums, people, and everything else."""
+
+    @cached_property
+    def members(self) -> MembersResource:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return MembersResource(self._client)
+
+    @cached_property
+    def invitations(self) -> InvitationsResource:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return InvitationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> LibrariesResourceWithRawResponse:
@@ -362,6 +394,22 @@ class LibrariesResource(SyncAPIResource):
 
 class AsyncLibrariesResource(AsyncAPIResource):
     """Top-level containers that own assets, albums, people, and everything else."""
+
+    @cached_property
+    def members(self) -> AsyncMembersResource:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncMembersResource(self._client)
+
+    @cached_property
+    def invitations(self) -> AsyncInvitationsResource:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncInvitationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncLibrariesResourceWithRawResponse:
@@ -719,6 +767,22 @@ class LibrariesResourceWithRawResponse:
             libraries.trash,
         )
 
+    @cached_property
+    def members(self) -> MembersResourceWithRawResponse:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return MembersResourceWithRawResponse(self._libraries.members)
+
+    @cached_property
+    def invitations(self) -> InvitationsResourceWithRawResponse:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return InvitationsResourceWithRawResponse(self._libraries.invitations)
+
 
 class AsyncLibrariesResourceWithRawResponse:
     def __init__(self, libraries: AsyncLibrariesResource) -> None:
@@ -745,6 +809,22 @@ class AsyncLibrariesResourceWithRawResponse:
         self.trash = async_to_raw_response_wrapper(
             libraries.trash,
         )
+
+    @cached_property
+    def members(self) -> AsyncMembersResourceWithRawResponse:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncMembersResourceWithRawResponse(self._libraries.members)
+
+    @cached_property
+    def invitations(self) -> AsyncInvitationsResourceWithRawResponse:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncInvitationsResourceWithRawResponse(self._libraries.invitations)
 
 
 class LibrariesResourceWithStreamingResponse:
@@ -773,6 +853,22 @@ class LibrariesResourceWithStreamingResponse:
             libraries.trash,
         )
 
+    @cached_property
+    def members(self) -> MembersResourceWithStreamingResponse:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return MembersResourceWithStreamingResponse(self._libraries.members)
+
+    @cached_property
+    def invitations(self) -> InvitationsResourceWithStreamingResponse:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return InvitationsResourceWithStreamingResponse(self._libraries.invitations)
+
 
 class AsyncLibrariesResourceWithStreamingResponse:
     def __init__(self, libraries: AsyncLibrariesResource) -> None:
@@ -799,3 +895,19 @@ class AsyncLibrariesResourceWithStreamingResponse:
         self.trash = async_to_streamed_response_wrapper(
             libraries.trash,
         )
+
+    @cached_property
+    def members(self) -> AsyncMembersResourceWithStreamingResponse:
+        """First-party session only.
+
+        Manage membership in a library owned by the signed-in account, or leave a joined library. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncMembersResourceWithStreamingResponse(self._libraries.members)
+
+    @cached_property
+    def invitations(self) -> AsyncInvitationsResourceWithStreamingResponse:
+        """First-party session only.
+
+        Owners manage links; signed-in recipients preview and join with the secret in the POST body. API keys and delegated OAuth credentials cannot call these methods.
+        """
+        return AsyncInvitationsResourceWithStreamingResponse(self._libraries.invitations)

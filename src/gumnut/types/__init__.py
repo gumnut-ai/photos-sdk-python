@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .shared import AssetVariant as AssetVariant
+from .shared import UserSummary as UserSummary, AssetVariant as AssetVariant
 from .face_response import FaceResponse as FaceResponse
 from .task_response import TaskResponse as TaskResponse
 from .user_response import UserResponse as UserResponse

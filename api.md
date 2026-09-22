@@ -1,7 +1,7 @@
 # Shared Types
 
 ```python
-from gumnut.types import AssetVariant
+from gumnut.types import AssetVariant, UserSummary
 ```
 
 # APIKeys
@@ -167,13 +167,51 @@ from gumnut.types import (
 
 Methods:
 
-- <code title="post /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">create</a>(\*\*<a href="src/gumnut/types/library_create_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="get /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">retrieve</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries.py">list</a>(\*\*<a href="src/gumnut/types/library_list_params.py">params</a>) -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
-- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries.py">delete</a>(library_id) -> <a href="./src/gumnut/types/library_delete_response.py">LibraryDeleteResponse</a></code>
-- <code title="post /api/libraries/{library_id}/restore">client.libraries.<a href="./src/gumnut/resources/libraries.py">restore</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries.py">trash</a>(library_id) -> <a href="./src/gumnut/types/library_trash_response.py">LibraryTrashResponse</a></code>
+- <code title="post /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">create</a>(\*\*<a href="src/gumnut/types/library_create_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="get /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">retrieve</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">list</a>(\*\*<a href="src/gumnut/types/library_list_params.py">params</a>) -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
+- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">delete</a>(library_id) -> <a href="./src/gumnut/types/library_delete_response.py">LibraryDeleteResponse</a></code>
+- <code title="post /api/libraries/{library_id}/restore">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">restore</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
+- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">trash</a>(library_id) -> <a href="./src/gumnut/types/library_trash_response.py">LibraryTrashResponse</a></code>
+
+## Members
+
+Types:
+
+```python
+from gumnut.types.libraries import MembershipPage, MembershipResponse
+```
+
+Methods:
+
+- <code title="patch /api/libraries/{library_id}/members/{user_id}">client.libraries.members.<a href="./src/gumnut/resources/libraries/members.py">update</a>(user_id, \*, library_id, \*\*<a href="src/gumnut/types/libraries/member_update_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/membership_response.py">MembershipResponse</a></code>
+- <code title="get /api/libraries/{library_id}/members">client.libraries.members.<a href="./src/gumnut/resources/libraries/members.py">list</a>(library_id, \*\*<a href="src/gumnut/types/libraries/member_list_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/membership_response.py">SyncCursorPage[MembershipResponse]</a></code>
+- <code title="post /api/libraries/{library_id}/leave">client.libraries.members.<a href="./src/gumnut/resources/libraries/members.py">leave</a>(library_id) -> <a href="./src/gumnut/types/libraries/membership_response.py">MembershipResponse</a></code>
+- <code title="delete /api/libraries/{library_id}/members/{user_id}">client.libraries.members.<a href="./src/gumnut/resources/libraries/members.py">remove</a>(user_id, \*, library_id) -> <a href="./src/gumnut/types/libraries/membership_response.py">MembershipResponse</a></code>
+
+## Invitations
+
+Types:
+
+```python
+from gumnut.types.libraries import (
+    InvitationJoinResponse,
+    InvitationLinkResponse,
+    InvitationPage,
+    InvitationPreviewResponse,
+    InvitationResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/libraries/invitations">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">create</a>(\*\*<a href="src/gumnut/types/libraries/invitation_create_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/invitation_link_response.py">InvitationLinkResponse</a></code>
+- <code title="get /api/libraries/invitations">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">list</a>(\*\*<a href="src/gumnut/types/libraries/invitation_list_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/invitation_response.py">SyncCursorPage[InvitationResponse]</a></code>
+- <code title="post /api/libraries/invitations/{invitation_id}/disable">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">disable</a>(invitation_id) -> <a href="./src/gumnut/types/libraries/invitation_response.py">InvitationResponse</a></code>
+- <code title="post /api/libraries/invitations/{invitation_id}/join">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">join</a>(invitation_id, \*\*<a href="src/gumnut/types/libraries/invitation_join_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/invitation_join_response.py">InvitationJoinResponse</a></code>
+- <code title="get /api/libraries/invitations/{invitation_id}/link">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">link</a>(invitation_id) -> <a href="./src/gumnut/types/libraries/invitation_link_response.py">InvitationLinkResponse</a></code>
+- <code title="post /api/libraries/invitations/{invitation_id}/preview">client.libraries.invitations.<a href="./src/gumnut/resources/libraries/invitations.py">preview</a>(invitation_id, \*\*<a href="src/gumnut/types/libraries/invitation_preview_params.py">params</a>) -> <a href="./src/gumnut/types/libraries/invitation_preview_response.py">InvitationPreviewResponse</a></code>
 
 # OAuth
 

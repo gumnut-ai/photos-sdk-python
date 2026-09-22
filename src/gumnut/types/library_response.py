@@ -5,16 +5,9 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .shared.user_summary import UserSummary
 
-__all__ = ["LibraryResponse", "Owner"]
-
-
-class Owner(BaseModel):
-    id: str
-    """User identifier"""
-
-    display_name: Optional[str] = None
-    """Public display name, when available"""
+__all__ = ["LibraryResponse"]
 
 
 class LibraryResponse(BaseModel):
@@ -32,7 +25,7 @@ class LibraryResponse(BaseModel):
     name: str
     """Display name of the library"""
 
-    owner: Owner
+    owner: UserSummary
 
     role: Literal["owner", "viewer", "collaborator"]
 

@@ -62,10 +62,10 @@ if TYPE_CHECKING:
     from .resources.search import SearchResource, AsyncSearchResource
     from .resources.stacks import StacksResource, AsyncStacksResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
-    from .resources.libraries import LibrariesResource, AsyncLibrariesResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
     from .resources.assets.assets import AssetsResource, AsyncAssetsResource
+    from .resources.libraries.libraries import LibrariesResource, AsyncLibrariesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Gumnut", "AsyncGumnut", "Client", "AsyncClient"]
 
