@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.165.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.164.0...v0.165.0) (2026-09-22)
+
+
+### Features
+
+* **libraries:** add generated synchronous and asynchronous member and invitation methods, including invitation preview and join, member role changes, and cursor-paginated lists. Sharing management, preview, join, and leave require a first-party Gumnut session; an API key does not authorize these methods. ([4864287](https://github.com/gumnut-ai/photos-sdk-python/commit/48642872e5e77447c1e22885155dc3844c2376b7))
+* **libraries:** add `owner` and the caller's `role` to `LibraryResponse`; document that `all_libraries` credentials include active joined libraries while `selected_libraries` stays fixed. ([f46de35](https://github.com/gumnut-ai/photos-sdk-python/commit/f46de350ea6eb07da9853de9af96a32e8e1514f0), [4864287](https://github.com/gumnut-ai/photos-sdk-python/commit/48642872e5e77447c1e22885155dc3844c2376b7))
+* **search:** add an `image`/`video` `media_type` filter and `SearchResponse.has_more` for page navigation. ([d4aecad](https://github.com/gumnut-ai/photos-sdk-python/commit/d4aecad3ceb5b99a95c7095b0ae599adb2534a31), [bdb6841](https://github.com/gumnut-ai/photos-sdk-python/commit/bdb684197fe6bf372ee4b4a7c0eab646f3d49b3d))
+* **users:** add synchronous and asynchronous `users.update` for the authenticated user's `demo_mode_enabled` and `favorite_display_mode` preferences, and include `demo_mode_enabled` in `UserResponse`. ([628ab5d](https://github.com/gumnut-ai/photos-sdk-python/commit/628ab5d41cb6e48bef6d8156c7651e659ade4e6b), [d8090e5](https://github.com/gumnut-ai/photos-sdk-python/commit/d8090e54a4c70ef1906c17269463519f1c285f0f))
+
+### Documentation
+
+* **api:** clarify owner storage-cap accounting for uploads, OAuth first-time provisioning errors, and the `409` when trashing a user's last live library. ([f19708a](https://github.com/gumnut-ai/photos-sdk-python/commit/f19708a4aa8012e99ca9ee143f22c975d5149186), [151fc86](https://github.com/gumnut-ai/photos-sdk-python/commit/151fc86faaf04f4e048f6ed2cd1be76f6b3e4709), [63cf2ad](https://github.com/gumnut-ai/photos-sdk-python/commit/63cf2ad7a91586420948bb64a1885d85c877c2e4), [acdc39f](https://github.com/gumnut-ai/photos-sdk-python/commit/acdc39f680d2d25019809613b742bf862c7a3595))
+
 ## [0.164.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.163.0...v0.164.0) (2026-09-08)
 
 
