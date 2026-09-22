@@ -21,3 +21,11 @@ class UserUpdateParams(TypedDict, total=False):
     - `favorite`: a heart — filled at the top rating, empty otherwise.
     - `rating`: a 0-5 star control.
     """
+
+    immich_library_id: Optional[str]
+    """Preferred library.
+
+    Must be a live library the caller owns or has the collaborator role in, and that
+    the request's credential can access; any other id returns 404. Omit to leave
+    unchanged; send `null` to clear the preference and use the default.
+    """

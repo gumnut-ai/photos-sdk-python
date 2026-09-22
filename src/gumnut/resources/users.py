@@ -51,6 +51,7 @@ class UsersResource(SyncAPIResource):
         *,
         demo_mode_enabled: bool | Omit = omit,
         favorite_display_mode: Optional[Literal["favorite", "rating"]] | Omit = omit,
+        immich_library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,7 +63,9 @@ class UsersResource(SyncAPIResource):
 
         Only the fields
         included in the request body are changed. This endpoint does not accept a user
-        ID; it always updates the authenticated caller.
+        ID; it always updates the authenticated caller. Returns 404, without changing
+        anything, when `immich_library_id` names a library the caller cannot choose; the
+        response is the same whether or not that library exists.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
@@ -72,6 +75,11 @@ class UsersResource(SyncAPIResource):
 
               - `favorite`: a heart — filled at the top rating, empty otherwise.
               - `rating`: a 0-5 star control.
+
+          immich_library_id: Preferred library. Must be a live library the caller owns or has the
+              collaborator role in, and that the request's credential can access; any other id
+              returns 404. Omit to leave unchanged; send `null` to clear the preference and
+              use the default.
 
           extra_headers: Send extra headers
 
@@ -87,6 +95,7 @@ class UsersResource(SyncAPIResource):
                 {
                     "demo_mode_enabled": demo_mode_enabled,
                     "favorite_display_mode": favorite_display_mode,
+                    "immich_library_id": immich_library_id,
                 },
                 user_update_params.UserUpdateParams,
             ),
@@ -149,6 +158,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         demo_mode_enabled: bool | Omit = omit,
         favorite_display_mode: Optional[Literal["favorite", "rating"]] | Omit = omit,
+        immich_library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -160,7 +170,9 @@ class AsyncUsersResource(AsyncAPIResource):
 
         Only the fields
         included in the request body are changed. This endpoint does not accept a user
-        ID; it always updates the authenticated caller.
+        ID; it always updates the authenticated caller. Returns 404, without changing
+        anything, when `immich_library_id` names a library the caller cannot choose; the
+        response is the same whether or not that library exists.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
@@ -170,6 +182,11 @@ class AsyncUsersResource(AsyncAPIResource):
 
               - `favorite`: a heart — filled at the top rating, empty otherwise.
               - `rating`: a 0-5 star control.
+
+          immich_library_id: Preferred library. Must be a live library the caller owns or has the
+              collaborator role in, and that the request's credential can access; any other id
+              returns 404. Omit to leave unchanged; send `null` to clear the preference and
+              use the default.
 
           extra_headers: Send extra headers
 
@@ -185,6 +202,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 {
                     "demo_mode_enabled": demo_mode_enabled,
                     "favorite_display_mode": favorite_display_mode,
+                    "immich_library_id": immich_library_id,
                 },
                 user_update_params.UserUpdateParams,
             ),

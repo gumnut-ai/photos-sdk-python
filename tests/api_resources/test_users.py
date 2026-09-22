@@ -29,6 +29,7 @@ class TestUsers:
         user = client.users.update(
             demo_mode_enabled=True,
             favorite_display_mode="favorite",
+            immich_library_id="immich_library_id",
         )
         assert_matches_type(UserResponse, user, path=["response"])
 
@@ -100,6 +101,7 @@ class TestAsyncUsers:
         user = await async_client.users.update(
             demo_mode_enabled=True,
             favorite_display_mode="favorite",
+            immich_library_id="immich_library_id",
         )
         assert_matches_type(UserResponse, user, path=["response"])
 

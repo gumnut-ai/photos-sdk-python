@@ -55,6 +55,13 @@ class UserResponse(BaseModel):
     first_name: Optional[str] = None
     """User's first name"""
 
+    immich_library_id: Optional[str] = None
+    """The user's stored preferred library, or null to use the default.
+
+    Reported as stored: the library may since have been trashed, or the user's
+    access to it may have changed.
+    """
+
     last_name: Optional[str] = None
     """User's last name"""
 
