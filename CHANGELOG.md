@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.165.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.164.0...v0.165.0) (2026-09-22)
+
+
+### Features
+
+* **api:** api update ([f19708a](https://github.com/gumnut-ai/photos-sdk-python/commit/f19708a4aa8012e99ca9ee143f22c975d5149186))
+* **api:** api update ([f46de35](https://github.com/gumnut-ai/photos-sdk-python/commit/f46de350ea6eb07da9853de9af96a32e8e1514f0))
+* **api:** api update ([bdb6841](https://github.com/gumnut-ai/photos-sdk-python/commit/bdb684197fe6bf372ee4b4a7c0eab646f3d49b3d))
+* **api:** api update ([151fc86](https://github.com/gumnut-ai/photos-sdk-python/commit/151fc86faaf04f4e048f6ed2cd1be76f6b3e4709))
+* **api:** api update ([63cf2ad](https://github.com/gumnut-ai/photos-sdk-python/commit/63cf2ad7a91586420948bb64a1885d85c877c2e4))
+* **api:** api update ([acdc39f](https://github.com/gumnut-ai/photos-sdk-python/commit/acdc39f680d2d25019809613b742bf862c7a3595))
+* **api:** api update ([d4aecad](https://github.com/gumnut-ai/photos-sdk-python/commit/d4aecad3ceb5b99a95c7095b0ae599adb2534a31))
+* **api:** api update ([628ab5d](https://github.com/gumnut-ai/photos-sdk-python/commit/628ab5d41cb6e48bef6d8156c7651e659ade4e6b))
+* **api:** map current-user preference updates ([d8090e5](https://github.com/gumnut-ai/photos-sdk-python/commit/d8090e54a4c70ef1906c17269463519f1c285f0f))
+
 ## [0.164.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.163.0...v0.164.0) (2026-09-08)
 
 
