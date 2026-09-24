@@ -86,7 +86,8 @@ class AlbumsResource(SyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
-              set it here or via `update_album` after creation.
+              set it here or via `update_album` after creation. If supplied, it must not be
+              blank; surrounding whitespace is trimmed.
 
           extra_headers: Send extra headers
 
@@ -182,7 +183,8 @@ class AlbumsResource(SyncAPIResource):
           description: New free-form description for the album. Pass `null` to clear the description.
               Omit to leave unchanged.
 
-          name: New display name for the album. Omit to leave unchanged.
+          name: New display name for the album; must not be blank. Surrounding whitespace is
+              trimmed. Omit or pass `null` to leave unchanged.
 
           extra_headers: Send extra headers
 
@@ -375,7 +377,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new album. Optional; callers that need to name an album can
-              set it here or via `update_album` after creation.
+              set it here or via `update_album` after creation. If supplied, it must not be
+              blank; surrounding whitespace is trimmed.
 
           extra_headers: Send extra headers
 
@@ -471,7 +474,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
           description: New free-form description for the album. Pass `null` to clear the description.
               Omit to leave unchanged.
 
-          name: New display name for the album. Omit to leave unchanged.
+          name: New display name for the album; must not be blank. Surrounding whitespace is
+              trimmed. Omit or pass `null` to leave unchanged.
 
           extra_headers: Send extra headers
 

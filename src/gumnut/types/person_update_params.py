@@ -22,7 +22,11 @@ class PersonUpdateParams(TypedDict, total=False):
     """Hide or unhide this person. Omit to leave unchanged."""
 
     name: Optional[str]
-    """New display name. Omit to leave unchanged."""
+    """New display name; must not be blank.
+
+    Surrounding whitespace is trimmed. Omit to leave unchanged; pass `null` to clear
+    the name.
+    """
 
     thumbnail_face_id: Optional[str]
     """New thumbnail face ID for this person.

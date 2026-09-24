@@ -23,5 +23,6 @@ class AlbumCreateParams(TypedDict, total=False):
     """Display name for the new album.
 
     Optional; callers that need to name an album can set it here or via
-    `update_album` after creation.
+    `update_album` after creation. If supplied, it must not be blank; surrounding
+    whitespace is trimmed.
     """

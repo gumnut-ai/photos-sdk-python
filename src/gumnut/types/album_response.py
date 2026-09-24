@@ -22,7 +22,10 @@ class AlbumResponse(BaseModel):
     """When this album was created"""
 
     name: str
-    """Display name of the album"""
+    """Display name of the album.
+
+    Names supplied as text on create or update are trimmed and must not be blank.
+    """
 
     updated_at: datetime
     """When this album was last updated"""

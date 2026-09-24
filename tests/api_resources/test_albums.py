@@ -30,7 +30,7 @@ class TestAlbums:
         album = client.albums.create(
             description="description",
             library_id="library_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -113,7 +113,7 @@ class TestAlbums:
             album_id="album_id",
             album_cover_asset_id="album_cover_asset_id",
             description="description",
-            name="name",
+            name="x",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -251,7 +251,7 @@ class TestAsyncAlbums:
         album = await async_client.albums.create(
             description="description",
             library_id="library_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -334,7 +334,7 @@ class TestAsyncAlbums:
             album_id="album_id",
             album_cover_asset_id="album_cover_asset_id",
             description="description",
-            name="name",
+            name="x",
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 

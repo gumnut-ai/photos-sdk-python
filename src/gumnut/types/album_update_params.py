@@ -23,4 +23,7 @@ class AlbumUpdateParams(TypedDict, total=False):
     """
 
     name: Optional[str]
-    """New display name for the album. Omit to leave unchanged."""
+    """New display name for the album; must not be blank.
+
+    Surrounding whitespace is trimmed. Omit or pass `null` to leave unchanged.
+    """

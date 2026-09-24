@@ -49,7 +49,10 @@ class PersonResponse(BaseModel):
     """
 
     name: Optional[str] = None
-    """Optional name assigned to this person"""
+    """Name assigned to this person, or null when unnamed.
+
+    Names supplied as text on create or update are trimmed and must not be blank.
+    """
 
     thumbnail_face_id: Optional[str] = None
     """ID of the face resource used as this person's thumbnail"""

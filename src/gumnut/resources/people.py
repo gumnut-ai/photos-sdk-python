@@ -90,7 +90,8 @@ class PeopleResource(SyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
-              be named later via `update_person`.
+              be named later via `update_person`. If supplied, it must not be blank;
+              surrounding whitespace is trimmed.
 
           thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
               by the entries of an asset's `faces` field (returned with `include=faces`). The
@@ -206,7 +207,8 @@ class PeopleResource(SyncAPIResource):
 
           is_hidden: Hide or unhide this person. Omit to leave unchanged.
 
-          name: New display name. Omit to leave unchanged.
+          name: New display name; must not be blank. Surrounding whitespace is trimmed. Omit to
+              leave unchanged; pass `null` to clear the name.
 
           thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
               person's faces with `list_faces` and `person_id`.
@@ -500,7 +502,8 @@ class AsyncPeopleResource(AsyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
-              be named later via `update_person`.
+              be named later via `update_person`. If supplied, it must not be blank;
+              surrounding whitespace is trimmed.
 
           thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
               by the entries of an asset's `faces` field (returned with `include=faces`). The
@@ -616,7 +619,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           is_hidden: Hide or unhide this person. Omit to leave unchanged.
 
-          name: New display name. Omit to leave unchanged.
+          name: New display name; must not be blank. Surrounding whitespace is trimmed. Omit to
+              leave unchanged; pass `null` to clear the name.
 
           thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
               person's faces with `list_faces` and `person_id`.

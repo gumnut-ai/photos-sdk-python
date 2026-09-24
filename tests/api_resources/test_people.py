@@ -36,7 +36,7 @@ class TestPeople:
             is_favorite=True,
             is_hidden=True,
             library_id="library_id",
-            name="name",
+            name="x",
             thumbnail_face_id="thumbnail_face_id",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
@@ -130,7 +130,7 @@ class TestPeople:
             birth_date=parse_date("2019-12-27"),
             is_favorite=True,
             is_hidden=True,
-            name="name",
+            name="x",
             thumbnail_face_id="thumbnail_face_id",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
@@ -322,7 +322,7 @@ class TestAsyncPeople:
             is_favorite=True,
             is_hidden=True,
             library_id="library_id",
-            name="name",
+            name="x",
             thumbnail_face_id="thumbnail_face_id",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
@@ -416,7 +416,7 @@ class TestAsyncPeople:
             birth_date=parse_date("2019-12-27"),
             is_favorite=True,
             is_hidden=True,
-            name="name",
+            name="x",
             thumbnail_face_id="thumbnail_face_id",
         )
         assert_matches_type(PersonResponse, person, path=["response"])
