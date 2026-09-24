@@ -101,7 +101,8 @@ class LibrariesResource(SyncAPIResource):
         separate container.
 
         Args:
-          name: Display name for the new library. Required.
+          name: Display name for the new library. Required; must not be blank. Surrounding
+              whitespace is trimmed.
 
           description: Optional free-form description shown alongside the library name.
 
@@ -189,7 +190,8 @@ class LibrariesResource(SyncAPIResource):
 
           description: New free-form description for the library. Omit to leave unchanged.
 
-          name: New display name for the library. Omit to leave unchanged.
+          name: New display name for the library; must not be blank. Surrounding whitespace is
+              trimmed. Omit or send `null` to leave unchanged.
 
           extra_headers: Send extra headers
 
@@ -450,7 +452,8 @@ class AsyncLibrariesResource(AsyncAPIResource):
         separate container.
 
         Args:
-          name: Display name for the new library. Required.
+          name: Display name for the new library. Required; must not be blank. Surrounding
+              whitespace is trimmed.
 
           description: Optional free-form description shown alongside the library name.
 
@@ -538,7 +541,8 @@ class AsyncLibrariesResource(AsyncAPIResource):
 
           description: New free-form description for the library. Omit to leave unchanged.
 
-          name: New display name for the library. Omit to leave unchanged.
+          name: New display name for the library; must not be blank. Surrounding whitespace is
+              trimmed. Omit or send `null` to leave unchanged.
 
           extra_headers: Send extra headers
 

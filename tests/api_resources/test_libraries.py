@@ -26,7 +26,7 @@ class TestLibraries:
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         library = client.libraries.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -34,7 +34,7 @@ class TestLibraries:
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         library = client.libraries.create(
-            name="name",
+            name="x",
             description="description",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
@@ -43,7 +43,7 @@ class TestLibraries:
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.libraries.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -55,7 +55,7 @@ class TestLibraries:
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.libraries.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -121,7 +121,7 @@ class TestLibraries:
         library = client.libraries.update(
             library_id="library_id",
             description="description",
-            name="name",
+            name="x",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -331,7 +331,7 @@ class TestAsyncLibraries:
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         library = await async_client.libraries.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -339,7 +339,7 @@ class TestAsyncLibraries:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         library = await async_client.libraries.create(
-            name="name",
+            name="x",
             description="description",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
@@ -348,7 +348,7 @@ class TestAsyncLibraries:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -360,7 +360,7 @@ class TestAsyncLibraries:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -426,7 +426,7 @@ class TestAsyncLibraries:
         library = await async_client.libraries.update(
             library_id="library_id",
             description="description",
-            name="name",
+            name="x",
         )
         assert_matches_type(LibraryResponse, library, path=["response"])
 

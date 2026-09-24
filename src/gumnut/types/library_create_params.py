@@ -10,7 +10,10 @@ __all__ = ["LibraryCreateParams"]
 
 class LibraryCreateParams(TypedDict, total=False):
     name: Required[str]
-    """Display name for the new library. Required."""
+    """Display name for the new library.
+
+    Required; must not be blank. Surrounding whitespace is trimmed.
+    """
 
     description: Optional[str]
     """Optional free-form description shown alongside the library name."""
