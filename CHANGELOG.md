@@ -3,9 +3,9 @@
 ## [0.167.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.166.0...v0.167.0) (2026-09-24)
 
 
-### Features
+### Documentation
 
-* **api:** api update ([2b83388](https://github.com/gumnut-ai/photos-sdk-python/commit/2b83388fec20e52ca402eb15ccdca3ffcc877160))
+* **libraries:** document that synchronous and asynchronous `libraries.create()` and `libraries.update()` reject a blank or whitespace-only `name` — the API now returns `422` — and trim surrounding whitespace from it. `update()` still leaves the name unchanged when `name` is omitted or `None`. ([2b83388](https://github.com/gumnut-ai/photos-sdk-python/commit/2b83388fec20e52ca402eb15ccdca3ffcc877160))
 
 ## [0.166.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.165.0...v0.166.0) (2026-09-22)
 
