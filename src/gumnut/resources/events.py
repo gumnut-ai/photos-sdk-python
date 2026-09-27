@@ -105,6 +105,11 @@ class EventsResource(SyncAPIResource):
         - `metadata_updated`
         - `stack_created`, `stack_updated`, `stack_deleted`
 
+        **People and faces:** `person_updated` fires only when a person's own fields
+        change — name, birth date, hidden, favorite, or thumbnail face. A person's face
+        count, asset count, and cluster metrics follow its faces, so their changes
+        arrive as `face_*` events only; refetch the person when a face event names it.
+
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
               from the last event to fetch the next page. Omit for the first page.
@@ -238,6 +243,11 @@ class AsyncEventsResource(AsyncAPIResource):
         - `album_asset_added`, `album_asset_removed`
         - `metadata_updated`
         - `stack_created`, `stack_updated`, `stack_deleted`
+
+        **People and faces:** `person_updated` fires only when a person's own fields
+        change — name, birth date, hidden, favorite, or thumbnail face. A person's face
+        count, asset count, and cluster metrics follow its faces, so their changes
+        arrive as `face_*` events only; refetch the person when a face event names it.
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
