@@ -93,12 +93,16 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Creates a new, empty photo library for the authenticated user.
-
-        A library is the
-        top-level container for assets, albums, people, and faces — most users have
-        exactly one. Only create a new library when the user explicitly asks for a
-        separate container.
+        """
+        The API checks names within the owning user's account, including trashed
+        libraries, ignoring case and surrounding whitespace. Returns 201 for a new
+        record or 200 for an existing matching name. Only supplied create fields must
+        match; omitted fields leave existing values intact. A different supplied value
+        returns 409 without changing the record; repeating that request does not resolve
+        the conflict. Trashed names are reserved and return 409 until their library is
+        purged. A new library starts empty. A library is the top-level container for
+        assets, albums, people, and faces — most users have exactly one. Only create a
+        new library when the user explicitly asks for a separate container.
 
         Args:
           name: Display name for the new library. Required; must not be blank. Surrounding
@@ -179,11 +183,12 @@ class LibrariesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Renames a library or changes its description.
-
-        Only the fields included in the
-        request body are changed. Library contents (assets, albums, people, faces) are
-        not affected.
+        """
+        Renaming to another record's name in the same owning user, including trashed
+        libraries returns 409. Names ignore case and surrounding whitespace; retrying
+        the same collision does not resolve it. Renames a library or changes its
+        description. Only the fields included in the request body are changed. Library
+        contents (assets, albums, people, faces) are not affected.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to update.
@@ -444,12 +449,16 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Creates a new, empty photo library for the authenticated user.
-
-        A library is the
-        top-level container for assets, albums, people, and faces — most users have
-        exactly one. Only create a new library when the user explicitly asks for a
-        separate container.
+        """
+        The API checks names within the owning user's account, including trashed
+        libraries, ignoring case and surrounding whitespace. Returns 201 for a new
+        record or 200 for an existing matching name. Only supplied create fields must
+        match; omitted fields leave existing values intact. A different supplied value
+        returns 409 without changing the record; repeating that request does not resolve
+        the conflict. Trashed names are reserved and return 409 until their library is
+        purged. A new library starts empty. A library is the top-level container for
+        assets, albums, people, and faces — most users have exactly one. Only create a
+        new library when the user explicitly asks for a separate container.
 
         Args:
           name: Display name for the new library. Required; must not be blank. Surrounding
@@ -530,11 +539,12 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LibraryResponse:
-        """Renames a library or changes its description.
-
-        Only the fields included in the
-        request body are changed. Library contents (assets, albums, people, faces) are
-        not affected.
+        """
+        Renaming to another record's name in the same owning user, including trashed
+        libraries returns 409. Names ignore case and surrounding whitespace; retrying
+        the same collision does not resolve it. Renames a library or changes its
+        description. Only the fields included in the request body are changed. Library
+        contents (assets, albums, people, faces) are not affected.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the library to update.
