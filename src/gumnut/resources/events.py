@@ -108,7 +108,12 @@ class EventsResource(SyncAPIResource):
         **People and faces:** `person_updated` fires only when a person's own fields
         change — name, birth date, hidden, favorite, or thumbnail face. A person's face
         count, asset count, and cluster metrics follow its faces, so their changes
-        arrive as `face_*` events only; refetch the person when a face event names it.
+        arrive as `face_*` events only; refetch the person when a face event names it. A
+        `face_updated` payload names the face's new `person_id` and its
+        `previous_person_id`; a `face_deleted` payload carries `previous_person_id`.
+        Refetch both persons when they're non-null. A `previous_person_id` may name a
+        person that was deleted in the same change (a merge or a person deletion), so
+        handle a 404 on the refetch.
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
@@ -247,7 +252,12 @@ class AsyncEventsResource(AsyncAPIResource):
         **People and faces:** `person_updated` fires only when a person's own fields
         change — name, birth date, hidden, favorite, or thumbnail face. A person's face
         count, asset count, and cluster metrics follow its faces, so their changes
-        arrive as `face_*` events only; refetch the person when a face event names it.
+        arrive as `face_*` events only; refetch the person when a face event names it. A
+        `face_updated` payload names the face's new `person_id` and its
+        `previous_person_id`; a `face_deleted` payload carries `previous_person_id`.
+        Refetch both persons when they're non-null. A `previous_person_id` may name a
+        person that was deleted in the same change (a merge or a person deletion), so
+        handle a 404 on the refetch.
 
         Args:
           after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
