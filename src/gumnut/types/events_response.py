@@ -43,6 +43,13 @@ class Data(BaseModel):
 class EventsResponse(BaseModel):
     """Response containing a page of events."""
 
+    as_of: str
+    """Opaque bound this read stopped at.
+
+    Pass as `as_of` to the other reads in the same sync, such as other entity types,
+    so they all stop at the same point.
+    """
+
     data: List[Data]
     """Events in feed order, which is not commit order."""
 

@@ -29,6 +29,7 @@ class TestEvents:
     def test_method_get_with_all_params(self, client: Gumnut) -> None:
         event = client.events.get(
             after_cursor="after_cursor",
+            as_of="as_of",
             created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
             entity_types=["string", "string"],
@@ -76,6 +77,7 @@ class TestAsyncEvents:
     async def test_method_get_with_all_params(self, async_client: AsyncGumnut) -> None:
         event = await async_client.events.get(
             after_cursor="after_cursor",
+            as_of="as_of",
             created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_lt=parse_datetime("2019-12-27T18:11:19.117Z"),
             entity_types=["string", "string"],

@@ -52,6 +52,7 @@ class EventsResource(SyncAPIResource):
         self,
         *,
         after_cursor: Optional[str] | Omit = omit,
+        as_of: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
         created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -95,9 +96,9 @@ class EventsResource(SyncAPIResource):
         so it can trail its commit. Events are not in commit order: two changes to one
         entity can arrive out of order, which is why step 3 re-reads state.
 
-        Returns 400 for an unknown entity type or a malformed cursor, and for a cursor
-        ahead of the database, as after a restore that went back in time. None clears on
-        retry; after a cursor error, resync from no cursor.
+        Returns 400 for an unknown entity type, a malformed cursor or `as_of`, and for a
+        cursor or `as_of` ahead of the database, as after a restore that went back in
+        time. None clears on retry; after a cursor error, resync from no cursor.
 
         **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
         the entity no longer exists — remove it from the local cache. Some deletion
@@ -127,6 +128,11 @@ class EventsResource(SyncAPIResource):
         Args:
           after_cursor: Opaque cursor to resume after: the previous page's `next_cursor`. Omit for a
               first sync.
+
+          as_of: Opaque bound from an earlier response's `as_of` in the same sync. Returns only
+              events that were ready at that point, so several reads share one bound, such as
+              one feed per entity type. A row can still precede the row it refers to when its
+              transaction began writing first. Use it for one sync only; never store it.
 
           created_at_gte: Only return events created at or after this timestamp (ISO 8601). A display
               filter, not a sync checkpoint: `created_at` is when the writer's transaction
@@ -163,6 +169,7 @@ class EventsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after_cursor": after_cursor,
+                        "as_of": as_of,
                         "created_at_gte": created_at_gte,
                         "created_at_lt": created_at_lt,
                         "entity_types": entity_types,
@@ -204,6 +211,7 @@ class AsyncEventsResource(AsyncAPIResource):
         self,
         *,
         after_cursor: Optional[str] | Omit = omit,
+        as_of: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
         created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -247,9 +255,9 @@ class AsyncEventsResource(AsyncAPIResource):
         so it can trail its commit. Events are not in commit order: two changes to one
         entity can arrive out of order, which is why step 3 re-reads state.
 
-        Returns 400 for an unknown entity type or a malformed cursor, and for a cursor
-        ahead of the database, as after a restore that went back in time. None clears on
-        retry; after a cursor error, resync from no cursor.
+        Returns 400 for an unknown entity type, a malformed cursor or `as_of`, and for a
+        cursor or `as_of` ahead of the database, as after a restore that went back in
+        time. None clears on retry; after a cursor error, resync from no cursor.
 
         **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
         the entity no longer exists — remove it from the local cache. Some deletion
@@ -279,6 +287,11 @@ class AsyncEventsResource(AsyncAPIResource):
         Args:
           after_cursor: Opaque cursor to resume after: the previous page's `next_cursor`. Omit for a
               first sync.
+
+          as_of: Opaque bound from an earlier response's `as_of` in the same sync. Returns only
+              events that were ready at that point, so several reads share one bound, such as
+              one feed per entity type. A row can still precede the row it refers to when its
+              transaction began writing first. Use it for one sync only; never store it.
 
           created_at_gte: Only return events created at or after this timestamp (ISO 8601). A display
               filter, not a sync checkpoint: `created_at` is when the writer's transaction
@@ -315,6 +328,7 @@ class AsyncEventsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after_cursor": after_cursor,
+                        "as_of": as_of,
                         "created_at_gte": created_at_gte,
                         "created_at_lt": created_at_lt,
                         "entity_types": entity_types,

@@ -19,6 +19,15 @@ class EventGetParams(TypedDict, total=False):
     Omit for a first sync.
     """
 
+    as_of: Optional[str]
+    """Opaque bound from an earlier response's `as_of` in the same sync.
+
+    Returns only events that were ready at that point, so several reads share one
+    bound, such as one feed per entity type. A row can still precede the row it
+    refers to when its transaction began writing first. Use it for one sync only;
+    never store it.
+    """
+
     created_at_gte: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return events created at or after this timestamp (ISO 8601).
 
