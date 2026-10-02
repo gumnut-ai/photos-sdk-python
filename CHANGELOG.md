@@ -5,12 +5,14 @@
 
 ### Features
 
-* **api:** api update ([45b8b2e](https://github.com/gumnut-ai/photos-sdk-python/commit/45b8b2eabc0bfae18f3f492e1ae7c26d584a47df))
-* **api:** api update ([3801d36](https://github.com/gumnut-ai/photos-sdk-python/commit/3801d36fcf9856601d8a1e070f806e01435472cf))
-* **api:** api update ([5ac2c4e](https://github.com/gumnut-ai/photos-sdk-python/commit/5ac2c4ee652285caf066e21548e6186e71964076))
-* **api:** api update ([cb8ae52](https://github.com/gumnut-ai/photos-sdk-python/commit/cb8ae5229fff9a5d0e92c550d53e56137129710e))
-* **api:** api update ([1030c68](https://github.com/gumnut-ai/photos-sdk-python/commit/1030c68b727bb2cd40dbccf357076ca40e0b78f4))
-* **api:** api update ([d21191b](https://github.com/gumnut-ai/photos-sdk-python/commit/d21191b467008d0d5f151481cc40787c80f4e8d2))
+* **events:** add `EventsResponse.next_cursor`; store it after applying a page and pass it as `after_cursor` to continue. The feed is now commit-safe: reading forward from a stored cursor returns every committed event after it, each once, in feed order rather than commit order. `created_at_lt` is deprecated and ignored, and `created_at` is for display only, not a sync checkpoint. ([3801d36](https://github.com/gumnut-ai/photos-sdk-python/commit/3801d36fcf9856601d8a1e070f806e01435472cf))
+* **events:** add `EventsResponse.as_of` and an `as_of` parameter to synchronous and asynchronous `events.get()`, so several reads in one sync, such as one per entity type, stop at the same point. Use it for one sync only; never store it. ([45b8b2e](https://github.com/gumnut-ai/photos-sdk-python/commit/45b8b2eabc0bfae18f3f492e1ae7c26d584a47df))
+
+### Documentation
+
+* **albums, people, libraries:** document that `create()` reuses an existing record whose name matches, ignoring case and surrounding whitespace (`200` instead of `201`), returns `409` when another supplied field differs, and that renaming onto another record's name returns `409`; trashed library names stay reserved until purged. ([5ac2c4e](https://github.com/gumnut-ai/photos-sdk-python/commit/5ac2c4ee652285caf066e21548e6186e71964076))
+* **albums, people:** document that a supplied `name` must not be blank and is trimmed of surrounding whitespace. ([d21191b](https://github.com/gumnut-ai/photos-sdk-python/commit/d21191b467008d0d5f151481cc40787c80f4e8d2))
+* **events:** document that `person_updated` fires only for a person's own fields, and that `face_updated` and `face_deleted` payloads carry `previous_person_id`; refetch both persons and handle a `404` for one deleted in the same change. ([1030c68](https://github.com/gumnut-ai/photos-sdk-python/commit/1030c68b727bb2cd40dbccf357076ca40e0b78f4), [cb8ae52](https://github.com/gumnut-ai/photos-sdk-python/commit/cb8ae5229fff9a5d0e92c550d53e56137129710e))
 
 ## [0.167.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.166.0...v0.167.0) (2026-09-24)
 
