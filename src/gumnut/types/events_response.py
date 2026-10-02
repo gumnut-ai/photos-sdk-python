@@ -12,10 +12,17 @@ class Data(BaseModel):
     """Lightweight event record for sync endpoint."""
 
     created_at: datetime
-    """When the event was recorded"""
+    """When the writer's transaction started.
+
+    For display only: it is not the feed order and not a sync checkpoint.
+    """
 
     cursor: str
-    """Opaque cursor for pagination. Pass as after_cursor to get the next page."""
+    """Opaque position of this event.
+
+    Resuming with it as `after_cursor` returns the events after it; prefer the
+    page's `next_cursor`.
+    """
 
     entity_id: str
     """ID of the entity that changed"""
@@ -37,10 +44,18 @@ class EventsResponse(BaseModel):
     """Response containing a page of events."""
 
     data: List[Data]
-    """List of events, ordered by event ID (monotonically increasing)"""
+    """Events in feed order, which is not commit order."""
 
     has_more: bool
-    """True if there are more events after this page.
+    """
+    True if more events are ready now: pass `next_cursor` as `after_cursor`,
+    repeating `library_id`, `entity_types`, and `created_at_gte`, to fetch the next
+    page. False means the client is caught up, not that the feed is closed.
+    """
 
-    Pass the last event's `cursor` value as `after_cursor` to fetch the next page.
+    next_cursor: Optional[str] = None
+    """Store after applying this page and pass as `after_cursor` to continue.
+
+    While `has_more` is true it also bounds the read to events ready when it began.
+    Null only when the request had no cursor and returned no events.
     """

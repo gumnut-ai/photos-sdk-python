@@ -76,19 +76,28 @@ class EventsResource(SyncAPIResource):
         content queries — use `search_assets` or `list_assets` instead. Events cannot be
         filtered by content or asset metadata.
 
-        **Pagination:** cursor-based via `after_cursor`. When `has_more` is true, pass
-        the last event's `cursor` value into `after_cursor` to fetch the next page.
+        **Sync pattern:**
 
-        **Recommended sync pattern:**
+        1. Load the stored cursor, or start with none for a first sync.
+        2. Request a page with `after_cursor` set to that cursor.
+        3. Treat each event as "this changed": re-read the current state of the entity
+           it names and upsert it, or drop it when the read returns not-found. For
+           `album_asset_*` events, re-read that album's membership rather than applying
+           the add or remove directly.
+        4. After applying the page, store its `next_cursor`.
+        5. Repeat until `has_more` is false. The client is then caught up; the next sync
+           resumes at step 1.
 
-        1. Capture current time as `sync_end`.
-        2. Fetch events with `created_at_lt=sync_end`.
-        3. For subsequent pages, use
-           `after_cursor={last.cursor}&created_at_lt=sync_end`.
-        4. Continue until `has_more=false`.
-        5. For each event, fetch the entity data from the appropriate endpoint if
-           needed.
-        6. Store `sync_end` as checkpoint for next sync.
+        Reading forward from a stored cursor returns every committed event after it,
+        each once, so a cursor is the only checkpoint a client needs; never store a
+        timestamp. Processing must be idempotent: a crash before step 4 replays the
+        page. An event appears once every transaction older than its own has finished,
+        so it can trail its commit. Events are not in commit order: two changes to one
+        entity can arrive out of order, which is why step 3 re-reads state.
+
+        Returns 400 for an unknown entity type or a malformed cursor, and for a cursor
+        ahead of the database, as after a restore that went back in time. None clears on
+        retry; after a cursor error, resync from no cursor.
 
         **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
         the entity no longer exists — remove it from the local cache. Some deletion
@@ -116,16 +125,15 @@ class EventsResource(SyncAPIResource):
         handle a 404 on the refetch.
 
         Args:
-          after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
-              from the last event to fetch the next page. Omit for the first page.
+          after_cursor: Opaque cursor to resume after: the previous page's `next_cursor`. Omit for a
+              first sync.
 
-          created_at_gte: Only return events created at or after this timestamp (ISO 8601). Set this to
-              the previous sync's checkpoint when doing incremental sync.
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601). A display
+              filter, not a sync checkpoint: `created_at` is when the writer's transaction
+              started, so a later-committing event can carry an earlier timestamp.
 
-          created_at_lt: Only return events created strictly before this timestamp (ISO 8601).
-              Recommended for bounding a sync operation — capture `now` once and reuse it as
-              `created_at_lt` across all pages so newly arriving events don't shift the
-              window.
+          created_at_lt: Ignored. Reads are bounded by `next_cursor`; a timestamp bound could skip
+              events.
 
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
               `album`, `person`, `face`, `album_asset`, `metadata`, `stack`. Accepts multiple
@@ -220,19 +228,28 @@ class AsyncEventsResource(AsyncAPIResource):
         content queries — use `search_assets` or `list_assets` instead. Events cannot be
         filtered by content or asset metadata.
 
-        **Pagination:** cursor-based via `after_cursor`. When `has_more` is true, pass
-        the last event's `cursor` value into `after_cursor` to fetch the next page.
+        **Sync pattern:**
 
-        **Recommended sync pattern:**
+        1. Load the stored cursor, or start with none for a first sync.
+        2. Request a page with `after_cursor` set to that cursor.
+        3. Treat each event as "this changed": re-read the current state of the entity
+           it names and upsert it, or drop it when the read returns not-found. For
+           `album_asset_*` events, re-read that album's membership rather than applying
+           the add or remove directly.
+        4. After applying the page, store its `next_cursor`.
+        5. Repeat until `has_more` is false. The client is then caught up; the next sync
+           resumes at step 1.
 
-        1. Capture current time as `sync_end`.
-        2. Fetch events with `created_at_lt=sync_end`.
-        3. For subsequent pages, use
-           `after_cursor={last.cursor}&created_at_lt=sync_end`.
-        4. Continue until `has_more=false`.
-        5. For each event, fetch the entity data from the appropriate endpoint if
-           needed.
-        6. Store `sync_end` as checkpoint for next sync.
+        Reading forward from a stored cursor returns every committed event after it,
+        each once, so a cursor is the only checkpoint a client needs; never store a
+        timestamp. Processing must be idempotent: a crash before step 4 replays the
+        page. An event appears once every transaction older than its own has finished,
+        so it can trail its commit. Events are not in commit order: two changes to one
+        entity can arrive out of order, which is why step 3 re-reads state.
+
+        Returns 400 for an unknown entity type or a malformed cursor, and for a cursor
+        ahead of the database, as after a restore that went back in time. None clears on
+        retry; after a cursor error, resync from no cursor.
 
         **Handling deletions:** when `event_type` ends with `_deleted` or `_removed`,
         the entity no longer exists — remove it from the local cache. Some deletion
@@ -260,16 +277,15 @@ class AsyncEventsResource(AsyncAPIResource):
         handle a 404 on the refetch.
 
         Args:
-          after_cursor: Opaque cursor from the last event of the previous page. Pass the `cursor` field
-              from the last event to fetch the next page. Omit for the first page.
+          after_cursor: Opaque cursor to resume after: the previous page's `next_cursor`. Omit for a
+              first sync.
 
-          created_at_gte: Only return events created at or after this timestamp (ISO 8601). Set this to
-              the previous sync's checkpoint when doing incremental sync.
+          created_at_gte: Only return events created at or after this timestamp (ISO 8601). A display
+              filter, not a sync checkpoint: `created_at` is when the writer's transaction
+              started, so a later-committing event can carry an earlier timestamp.
 
-          created_at_lt: Only return events created strictly before this timestamp (ISO 8601).
-              Recommended for bounding a sync operation — capture `now` once and reuse it as
-              `created_at_lt` across all pages so newly arriving events don't shift the
-              window.
+          created_at_lt: Ignored. Reads are bounded by `next_cursor`; a timestamp bound could skip
+              events.
 
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
               `album`, `person`, `face`, `album_asset`, `metadata`, `stack`. Accepts multiple

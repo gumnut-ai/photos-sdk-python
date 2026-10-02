@@ -14,24 +14,22 @@ __all__ = ["EventGetParams"]
 
 class EventGetParams(TypedDict, total=False):
     after_cursor: Optional[str]
-    """Opaque cursor from the last event of the previous page.
+    """Opaque cursor to resume after: the previous page's `next_cursor`.
 
-    Pass the `cursor` field from the last event to fetch the next page. Omit for the
-    first page.
+    Omit for a first sync.
     """
 
     created_at_gte: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return events created at or after this timestamp (ISO 8601).
 
-    Set this to the previous sync's checkpoint when doing incremental sync.
+    A display filter, not a sync checkpoint: `created_at` is when the writer's
+    transaction started, so a later-committing event can carry an earlier timestamp.
     """
 
     created_at_lt: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return events created strictly before this timestamp (ISO 8601).
+    """Ignored.
 
-    Recommended for bounding a sync operation — capture `now` once and reuse it as
-    `created_at_lt` across all pages so newly arriving events don't shift the
-    window.
+    Reads are bounded by `next_cursor`; a timestamp bound could skip events.
     """
 
     entity_types: Optional[SequenceNotStr[str]]
