@@ -218,6 +218,7 @@ class StacksResource(SyncAPIResource):
         self,
         *,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         origin: Optional[Literal["auto_burst", "user"]] | Omit = omit,
@@ -245,6 +246,10 @@ class StacksResource(SyncAPIResource):
           ids: Look up specific stacks by ID (max 200; each ID has the `asset_stack_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_stack_1,asset_stack_2`).
+
+          include: Opt-in expansion fields. Supported values: `asset_ids` (each stack's live member
+              IDs). Accepts multiple `include=` query params or a single comma-delimited
+              value. Unknown values return 422.
 
           library_id: Library to list stacks from. Optional if the user has a single live
               (non-trashed) library; required when they have multiple.
@@ -277,6 +282,7 @@ class StacksResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "origin": origin,
@@ -611,6 +617,7 @@ class AsyncStacksResource(AsyncAPIResource):
         self,
         *,
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         origin: Optional[Literal["auto_burst", "user"]] | Omit = omit,
@@ -638,6 +645,10 @@ class AsyncStacksResource(AsyncAPIResource):
           ids: Look up specific stacks by ID (max 200; each ID has the `asset_stack_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
               `ids=asset_stack_1,asset_stack_2`).
+
+          include: Opt-in expansion fields. Supported values: `asset_ids` (each stack's live member
+              IDs). Accepts multiple `include=` query params or a single comma-delimited
+              value. Unknown values return 422.
 
           library_id: Library to list stacks from. Optional if the user has a single live
               (non-trashed) library; required when they have multiple.
@@ -670,6 +681,7 @@ class AsyncStacksResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "ids": ids,
+                        "include": include,
                         "library_id": library_id,
                         "limit": limit,
                         "origin": origin,

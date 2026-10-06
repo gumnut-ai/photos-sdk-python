@@ -169,6 +169,7 @@ class TestStacks:
     def test_method_list_stacks_with_all_params(self, client: Gumnut) -> None:
         stack = client.stacks.list_stacks(
             ids=["string", "string"],
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             origin="auto_burst",
@@ -482,6 +483,7 @@ class TestAsyncStacks:
     async def test_method_list_stacks_with_all_params(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.list_stacks(
             ids=["string", "string"],
+            include=["string", "string"],
             library_id="library_id",
             limit=1,
             origin="auto_burst",

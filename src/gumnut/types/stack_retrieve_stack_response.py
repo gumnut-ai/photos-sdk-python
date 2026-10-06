@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -37,6 +37,14 @@ class StackRetrieveStackResponse(BaseModel):
 
     updated_at: datetime
     """When this stack was last updated"""
+
+    asset_ids: Optional[List[str]] = None
+    """
+    IDs of the stack's live members, earliest capture time first — the order
+    `list_assets` returns for this `stack_id` with `order=asc`. Excludes trashed
+    members, like `asset_count`. Only populated by `list_stacks` with
+    `include=asset_ids`; null otherwise.
+    """
 
     primary_asset_id: Optional[str] = None
     """ID of the asset the user pinned as the stack's cover, or null if none is pinned.

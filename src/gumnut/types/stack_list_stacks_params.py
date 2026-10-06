@@ -18,6 +18,14 @@ class StackListStacksParams(TypedDict, total=False):
     `ids=asset_stack_1,asset_stack_2`).
     """
 
+    include: Optional[SequenceNotStr[str]]
+    """Opt-in expansion fields.
+
+    Supported values: `asset_ids` (each stack's live member IDs). Accepts multiple
+    `include=` query params or a single comma-delimited value. Unknown values
+    return 422.
+    """
+
     library_id: Optional[str]
     """Library to list stacks from.
 
