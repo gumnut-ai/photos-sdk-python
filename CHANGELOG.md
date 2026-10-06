@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.169.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.168.0...v0.169.0) (2026-10-06)
+
+
+### Features
+
+* **stacks:** add an `include` parameter to synchronous and asynchronous `stacks.list_stacks()` and an `asset_ids` field to its rows. With `include=["asset_ids"]`, each stack carries the IDs of its live members, earliest capture time first, so a client can pick a representative frame without one member read per stack. The field is `None` unless requested; an unknown `include` value returns `422`. ([6c16f3c](https://github.com/gumnut-ai/photos-sdk-python/commit/6c16f3cfcb5db99e2e767ba3e4a542573f2e5278))
+
+### Documentation
+
+* **events:** document `asset_trashed`, `asset_restored`, `library_trashed` and `library_restored`. Trashing or restoring an asset changes its faces, album memberships and its people's and stack's counts without separate events, so re-read them on either event. Permanently deleting an asset records an `album_asset_removed` per membership; `album_deleted` does not, so drop the album's memberships with it. ([43fe964](https://github.com/gumnut-ai/photos-sdk-python/commit/43fe964bf971b21e05befc60705ba47e890cc054))
+
 ## [0.168.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.167.0...v0.168.0) (2026-10-02)
 
 
