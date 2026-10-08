@@ -10,6 +10,7 @@ import httpx
 
 from ...types import (
     asset_list_params,
+    asset_move_params,
     asset_trash_params,
     asset_counts_params,
     asset_create_params,
@@ -54,6 +55,7 @@ from ..._response import (
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.asset_response import AssetResponse
+from ...types.asset_move_response import AssetMoveResponse
 from ...types.asset_count_response import AssetCountResponse
 from ...types.asset_trash_response import AssetTrashResponse
 from ...types.asset_delete_response import AssetDeleteResponse
@@ -954,6 +956,67 @@ class AssetsResource(SyncAPIResource):
                 query=maybe_transform({"library_id": library_id}, asset_empty_trash_params.AssetEmptyTrashParams),
             ),
             cast_to=AssetEmptyTrashResponse,
+        )
+
+    def move(
+        self,
+        *,
+        asset_ids: SequenceNotStr[str],
+        destination_library_id: str,
+        source_library_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetMoveResponse:
+        """
+        Moves the given assets from one library to another, keeping their IDs and stored
+        files. The caller must own the source library and either own the destination
+        library or be a collaborator on it. A scoped credential must cover both
+        libraries and allow both `delete_permanently` and `write`. Moved assets leave
+        the source library's albums, people, and stacks.
+
+        Returns 200 with one result per asset even when some assets could not be moved.
+        Each result describes the asset's state when the request ran, so repeating a
+        request is safe: an asset already in the destination library is reported as a
+        success.
+
+        Returns 409 when a concurrent change interrupted the request; nothing was moved,
+        so retry it unchanged. Returns 503 while moving assets is turned off; retry
+        later.
+
+        Args:
+          asset_ids: Asset IDs (each with the `asset_` prefix) to move.
+
+          destination_library_id: Library to move the assets into. The caller must own it or be a collaborator on
+              it. Must differ from `source_library_id`.
+
+          source_library_id: Library the assets are in now. The caller must own it.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/assets/move",
+            body=maybe_transform(
+                {
+                    "asset_ids": asset_ids,
+                    "destination_library_id": destination_library_id,
+                    "source_library_id": source_library_id,
+                },
+                asset_move_params.AssetMoveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AssetMoveResponse,
         )
 
     def restore(
@@ -2033,6 +2096,67 @@ class AsyncAssetsResource(AsyncAPIResource):
             cast_to=AssetEmptyTrashResponse,
         )
 
+    async def move(
+        self,
+        *,
+        asset_ids: SequenceNotStr[str],
+        destination_library_id: str,
+        source_library_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AssetMoveResponse:
+        """
+        Moves the given assets from one library to another, keeping their IDs and stored
+        files. The caller must own the source library and either own the destination
+        library or be a collaborator on it. A scoped credential must cover both
+        libraries and allow both `delete_permanently` and `write`. Moved assets leave
+        the source library's albums, people, and stacks.
+
+        Returns 200 with one result per asset even when some assets could not be moved.
+        Each result describes the asset's state when the request ran, so repeating a
+        request is safe: an asset already in the destination library is reported as a
+        success.
+
+        Returns 409 when a concurrent change interrupted the request; nothing was moved,
+        so retry it unchanged. Returns 503 while moving assets is turned off; retry
+        later.
+
+        Args:
+          asset_ids: Asset IDs (each with the `asset_` prefix) to move.
+
+          destination_library_id: Library to move the assets into. The caller must own it or be a collaborator on
+              it. Must differ from `source_library_id`.
+
+          source_library_id: Library the assets are in now. The caller must own it.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/assets/move",
+            body=await async_maybe_transform(
+                {
+                    "asset_ids": asset_ids,
+                    "destination_library_id": destination_library_id,
+                    "source_library_id": source_library_id,
+                },
+                asset_move_params.AssetMoveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AssetMoveResponse,
+        )
+
     async def restore(
         self,
         *,
@@ -2249,6 +2373,9 @@ class AssetsResourceWithRawResponse:
         self.empty_trash = to_raw_response_wrapper(
             assets.empty_trash,
         )
+        self.move = to_raw_response_wrapper(
+            assets.move,
+        )
         self.restore = to_raw_response_wrapper(
             assets.restore,
         )
@@ -2300,6 +2427,9 @@ class AsyncAssetsResourceWithRawResponse:
         )
         self.empty_trash = async_to_raw_response_wrapper(
             assets.empty_trash,
+        )
+        self.move = async_to_raw_response_wrapper(
+            assets.move,
         )
         self.restore = async_to_raw_response_wrapper(
             assets.restore,
@@ -2353,6 +2483,9 @@ class AssetsResourceWithStreamingResponse:
         self.empty_trash = to_streamed_response_wrapper(
             assets.empty_trash,
         )
+        self.move = to_streamed_response_wrapper(
+            assets.move,
+        )
         self.restore = to_streamed_response_wrapper(
             assets.restore,
         )
@@ -2404,6 +2537,9 @@ class AsyncAssetsResourceWithStreamingResponse:
         )
         self.empty_trash = async_to_streamed_response_wrapper(
             assets.empty_trash,
+        )
+        self.move = async_to_streamed_response_wrapper(
+            assets.move,
         )
         self.restore = async_to_streamed_response_wrapper(
             assets.restore,

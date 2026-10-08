@@ -11,6 +11,7 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import (
     AssetResponse,
+    AssetMoveResponse,
     AssetCountResponse,
     AssetTrashResponse,
     AssetDeleteResponse,
@@ -507,6 +508,46 @@ class TestAssets:
 
             asset = response.parse()
             assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_move(self, client: Gumnut) -> None:
+        asset = client.assets.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        )
+        assert_matches_type(AssetMoveResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_move(self, client: Gumnut) -> None:
+        response = client.assets.with_raw_response.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = response.parse()
+        assert_matches_type(AssetMoveResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_move(self, client: Gumnut) -> None:
+        with client.assets.with_streaming_response.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = response.parse()
+            assert_matches_type(AssetMoveResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1134,6 +1175,46 @@ class TestAsyncAssets:
 
             asset = await response.parse()
             assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_move(self, async_client: AsyncGumnut) -> None:
+        asset = await async_client.assets.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        )
+        assert_matches_type(AssetMoveResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_move(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.assets.with_raw_response.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        asset = await response.parse()
+        assert_matches_type(AssetMoveResponse, asset, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_move(self, async_client: AsyncGumnut) -> None:
+        async with async_client.assets.with_streaming_response.move(
+            asset_ids=["string"],
+            destination_library_id="destination_library_id",
+            source_library_id="source_library_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            asset = await response.parse()
+            assert_matches_type(AssetMoveResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

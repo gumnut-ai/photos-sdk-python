@@ -18,6 +18,7 @@ from .library_response import LibraryResponse as LibraryResponse
 from .task_list_params import TaskListParams as TaskListParams
 from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
+from .asset_move_params import AssetMoveParams as AssetMoveParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
@@ -36,6 +37,7 @@ from .album_update_params import AlbumUpdateParams as AlbumUpdateParams
 from .asset_counts_params import AssetCountsParams as AssetCountsParams
 from .asset_create_params import AssetCreateParams as AssetCreateParams
 from .asset_lite_response import AssetLiteResponse as AssetLiteResponse
+from .asset_move_response import AssetMoveResponse as AssetMoveResponse
 from .library_list_params import LibraryListParams as LibraryListParams
 from .person_merge_params import PersonMergeParams as PersonMergeParams
 from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
