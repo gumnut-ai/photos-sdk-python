@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.170.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.169.0...v0.170.0) (2026-10-08)
+
+
+### Features
+
+* **api:** api update ([d900b5a](https://github.com/gumnut-ai/photos-sdk-python/commit/d900b5a91c1428e23ae7a61ea740558dac878f37))
+* **api:** map asset move endpoint ([370fbb0](https://github.com/gumnut-ai/photos-sdk-python/commit/370fbb00a674c4f40f5e095d6341461a6dae3263))
+
 ## [0.169.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.168.0...v0.169.0) (2026-10-06)
 
 
