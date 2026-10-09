@@ -38,6 +38,7 @@ class TaskListParams(TypedDict, total=False):
             "display_proxy_generation",
             "burst_detection",
             "product_update_subscription",
+            "person_metrics_refresh",
         ]
     ]
     """Return only tasks of this type."""

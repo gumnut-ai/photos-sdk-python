@@ -84,6 +84,7 @@ class TaskResponse(BaseModel):
         "display_proxy_generation",
         "burst_detection",
         "product_update_subscription",
+        "person_metrics_refresh",
     ]
     """
     Kind of background processing a task performs: `image_quality` (historical only
@@ -102,6 +103,7 @@ class TaskResponse(BaseModel):
     `display_proxy_generation` (generate a browser-displayable rendition of an
     original the image CDN cannot transform, such as an oversized or
     over-dimensioned file), `burst_detection` (detect rapid-fire shots of the same
-    moment and stack them), or `product_update_subscription` (enroll an explicitly
-    opted-in new user in product-update email delivery).
+    moment and stack them), `product_update_subscription` (enroll an explicitly
+    opted-in new user in product-update email delivery), or `person_metrics_refresh`
+    (recompute the face-matching summary of one person after their faces change).
     """

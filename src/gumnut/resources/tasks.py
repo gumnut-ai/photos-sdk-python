@@ -70,6 +70,7 @@ class TasksResource(SyncAPIResource):
                 "display_proxy_generation",
                 "burst_detection",
                 "product_update_subscription",
+                "person_metrics_refresh",
             ]
         ]
         | Omit = omit,
@@ -244,6 +245,7 @@ class AsyncTasksResource(AsyncAPIResource):
                 "display_proxy_generation",
                 "burst_detection",
                 "product_update_subscription",
+                "person_metrics_refresh",
             ]
         ]
         | Omit = omit,
