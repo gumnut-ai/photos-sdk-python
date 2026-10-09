@@ -72,8 +72,10 @@ class PeopleResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
-        The API checks names within the library, including hidden people, ignoring case
-        and surrounding whitespace. Returns 201 for a new record or 200 for an existing
+        Creates a person record to group faces, or reuses a matching named person
+        without changing it. Does not delete existing records or move faces. The API
+        checks names within the library, including hidden people, ignoring case and
+        surrounding whitespace. Returns 201 for a new record or 200 for an existing
         matching name. Only supplied create fields must match; omitted fields leave
         existing values intact. A different supplied value returns 409 without changing
         the record; repeating that request does not resolve the conflict. Unnamed
@@ -194,12 +196,13 @@ class PeopleResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
-        Renaming to another record's name in the same library, including hidden people
-        returns 409. Names ignore case and surrounding whitespace; retrying the same
-        collision does not resolve it. Updates a person's name, birth date, visibility,
-        or thumbnail. Only the fields included in the request body are changed. Typical
-        use: assigning a name ('name this face cluster "Alice"') or choosing a better
-        thumbnail.
+        Updates a person's name, birth date, visibility, favorite status, or thumbnail.
+        Supplied values overwrite current metadata; there is no automatic undo. Omitted
+        fields are unchanged. Does not delete the person or face detections. Renaming to
+        another record's name in the same library, including hidden people returns 409.
+        Names ignore case and surrounding whitespace; retrying the same collision does
+        not resolve it. Typical use: assigning a name ('name this face cluster "Alice"')
+        or choosing a better thumbnail.
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.
@@ -490,8 +493,10 @@ class AsyncPeopleResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
-        The API checks names within the library, including hidden people, ignoring case
-        and surrounding whitespace. Returns 201 for a new record or 200 for an existing
+        Creates a person record to group faces, or reuses a matching named person
+        without changing it. Does not delete existing records or move faces. The API
+        checks names within the library, including hidden people, ignoring case and
+        surrounding whitespace. Returns 201 for a new record or 200 for an existing
         matching name. Only supplied create fields must match; omitted fields leave
         existing values intact. A different supplied value returns 409 without changing
         the record; repeating that request does not resolve the conflict. Unnamed
@@ -612,12 +617,13 @@ class AsyncPeopleResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonResponse:
         """
-        Renaming to another record's name in the same library, including hidden people
-        returns 409. Names ignore case and surrounding whitespace; retrying the same
-        collision does not resolve it. Updates a person's name, birth date, visibility,
-        or thumbnail. Only the fields included in the request body are changed. Typical
-        use: assigning a name ('name this face cluster "Alice"') or choosing a better
-        thumbnail.
+        Updates a person's name, birth date, visibility, favorite status, or thumbnail.
+        Supplied values overwrite current metadata; there is no automatic undo. Omitted
+        fields are unchanged. Does not delete the person or face detections. Renaming to
+        another record's name in the same library, including hidden people returns 409.
+        Names ignore case and surrounding whitespace; retrying the same collision does
+        not resolve it. Typical use: assigning a name ('name this face cluster "Alice"')
+        or choosing a better thumbnail.
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.

@@ -73,15 +73,18 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        The API checks names within the library, ignoring case and surrounding
-        whitespace. Returns 201 for a new record or 200 for an existing matching name.
-        Only supplied create fields must match; omitted fields leave existing values
-        intact. A different supplied value returns 409 without changing the record;
-        repeating that request does not resolve the conflict. Omitting the name uses the
-        default name New Album. A new album starts empty; follow up with
-        `add_assets_to_album` to populate it. A reused album may already contain assets.
-        To rename an existing album, use `update_album` instead of creating a new one.
+        """Creates an empty album, or reuses a matching album without changing it.
+
+        The API
+        checks names within the library, ignoring case and surrounding whitespace.
+        Returns 201 for a new record or 200 for an existing matching name. Only supplied
+        create fields must match; omitted fields leave existing values intact. A
+        different supplied value returns 409 without changing the record; repeating that
+        request does not resolve the conflict. Omitting the name uses the default name
+        New Album. A new album starts empty; follow up with `add_assets_to_album` to
+        populate it. A reused album may already contain assets. Does not delete existing
+        records. To rename an existing album, use `update_album` instead of creating a
+        new one.
 
         Args:
           description: Optional free-form description shown alongside the album name.
@@ -170,13 +173,15 @@ class AlbumsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Renaming to another record's name in the same library returns 409.
+        """Updates album metadata (name, description, and/or cover).
 
-        Names ignore
-        case and surrounding whitespace; retrying the same collision does not resolve
-        it. Updates album metadata (name, description, and/or cover). Only the fields
-        included in the request body are changed. To modify the contents of an album,
-        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Changes overwrite
+        current metadata; there is no automatic undo. Omitted fields and a null name are
+        unchanged; a null description or cover clears that field. Does not delete the
+        album or its assets. Renaming to another record's name in the same library
+        returns 409. Names ignore case and surrounding whitespace; retrying the same
+        collision does not resolve it. To modify the contents of an album, use
+        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
@@ -370,15 +375,18 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """
-        The API checks names within the library, ignoring case and surrounding
-        whitespace. Returns 201 for a new record or 200 for an existing matching name.
-        Only supplied create fields must match; omitted fields leave existing values
-        intact. A different supplied value returns 409 without changing the record;
-        repeating that request does not resolve the conflict. Omitting the name uses the
-        default name New Album. A new album starts empty; follow up with
-        `add_assets_to_album` to populate it. A reused album may already contain assets.
-        To rename an existing album, use `update_album` instead of creating a new one.
+        """Creates an empty album, or reuses a matching album without changing it.
+
+        The API
+        checks names within the library, ignoring case and surrounding whitespace.
+        Returns 201 for a new record or 200 for an existing matching name. Only supplied
+        create fields must match; omitted fields leave existing values intact. A
+        different supplied value returns 409 without changing the record; repeating that
+        request does not resolve the conflict. Omitting the name uses the default name
+        New Album. A new album starts empty; follow up with `add_assets_to_album` to
+        populate it. A reused album may already contain assets. Does not delete existing
+        records. To rename an existing album, use `update_album` instead of creating a
+        new one.
 
         Args:
           description: Optional free-form description shown alongside the album name.
@@ -467,13 +475,15 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlbumResponse:
-        """Renaming to another record's name in the same library returns 409.
+        """Updates album metadata (name, description, and/or cover).
 
-        Names ignore
-        case and surrounding whitespace; retrying the same collision does not resolve
-        it. Updates album metadata (name, description, and/or cover). Only the fields
-        included in the request body are changed. To modify the contents of an album,
-        use `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
+        Changes overwrite
+        current metadata; there is no automatic undo. Omitted fields and a null name are
+        unchanged; a null description or cover clears that field. Does not delete the
+        album or its assets. Renaming to another record's name in the same library
+        returns 409. Names ignore case and surrounding whitespace; retrying the same
+        collision does not resolve it. To modify the contents of an album, use
+        `add_assets_to_album` / `remove_assets_from_album` instead — this tool only
         changes album metadata.
 
         Args:
