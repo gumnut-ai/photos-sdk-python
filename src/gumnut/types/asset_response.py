@@ -110,7 +110,7 @@ class AssetResponse(BaseModel):
     """Metadata for an asset — camera/EXIF fields, GPS, and location names."""
 
     metrics: Optional[Dict[str, Optional[float]]] = None
-    """ML-generated quality scores and other metrics.
+    """Deprecated and will be removed: use the top-level `quality_score` instead.
 
     `null` when not requested via `include=metrics`.
     """
@@ -120,6 +120,15 @@ class AssetResponse(BaseModel):
 
     `null` when not requested via `include=people`; `[]` when requested but none are
     identified.
+    """
+
+    quality_score: Optional[float] = None
+    """
+    Photographic quality judged from the image alone (focus, exposure, noise,
+    composition, capture flaws), from 0 (worst) to 1 (best) on a fixed scale that is
+    comparable across photos and libraries. Scores take a few distinct values, so
+    photos of similar quality tie. It does not reflect who is pictured. `null` means
+    the asset has no score.
     """
 
     stack_id: Optional[str] = None
