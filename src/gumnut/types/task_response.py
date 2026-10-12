@@ -85,6 +85,7 @@ class TaskResponse(BaseModel):
         "burst_detection",
         "product_update_subscription",
         "person_metrics_refresh",
+        "quality_scoring",
     ]
     """
     Kind of background processing a task performs: `image_quality` (historical only
@@ -104,6 +105,7 @@ class TaskResponse(BaseModel):
     original the image CDN cannot transform, such as an oversized or
     over-dimensioned file), `burst_detection` (detect rapid-fire shots of the same
     moment and stack them), `product_update_subscription` (enroll an explicitly
-    opted-in new user in product-update email delivery), or `person_metrics_refresh`
-    (recompute the face-matching summary of one person after their faces change).
+    opted-in new user in product-update email delivery), `person_metrics_refresh`
+    (recompute the face-matching summary of one person after their faces change), or
+    `quality_scoring` (rate an image's photographic quality).
     """

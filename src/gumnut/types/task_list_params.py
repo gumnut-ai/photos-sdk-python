@@ -39,6 +39,7 @@ class TaskListParams(TypedDict, total=False):
             "burst_detection",
             "product_update_subscription",
             "person_metrics_refresh",
+            "quality_scoring",
         ]
     ]
     """Return only tasks of this type."""

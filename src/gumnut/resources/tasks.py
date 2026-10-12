@@ -71,6 +71,7 @@ class TasksResource(SyncAPIResource):
                 "burst_detection",
                 "product_update_subscription",
                 "person_metrics_refresh",
+                "quality_scoring",
             ]
         ]
         | Omit = omit,
@@ -246,6 +247,7 @@ class AsyncTasksResource(AsyncAPIResource):
                 "burst_detection",
                 "product_update_subscription",
                 "person_metrics_refresh",
+                "quality_scoring",
             ]
         ]
         | Omit = omit,
