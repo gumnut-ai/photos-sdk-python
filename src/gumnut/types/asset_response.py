@@ -109,12 +109,6 @@ class AssetResponse(BaseModel):
     metadata: Optional[MetadataResponse] = None
     """Metadata for an asset — camera/EXIF fields, GPS, and location names."""
 
-    metrics: Optional[Dict[str, Optional[float]]] = None
-    """Deprecated and will be removed: use the top-level `quality_score` instead.
-
-    `null` when not requested via `include=metrics`.
-    """
-
     people: Optional[List[PersonResponse]] = None
     """All unique people identified in this asset (deduplicated from faces).
 

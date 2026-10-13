@@ -17,10 +17,9 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Opt-in expansion fields.
 
     Supported values: `metadata` (camera/EXIF/GPS and location names), `faces`,
-    `people`, `metrics` (deprecated and will be removed: use the default
-    `quality_score` field instead), `file_data` (a group token populating the nested
-    `file_data` object with the file/provenance scalars `device_asset_id`,
-    `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+    `people`, `file_data` (a group token populating the nested `file_data` object
+    with the file/provenance scalars `device_asset_id`, `device_id`,
+    `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
     `file_size_bytes`), and `variants` (every `asset_urls` rung beyond the lean one.
     Without it `asset_urls` carries only its lean rung — `thumbnail` for an image,
     or `thumbnail_image` for a video — so callers that render non-thumbnail variants
