@@ -35,7 +35,8 @@ class ClusterAssignmentResponse(BaseModel):
     """Eligible nearby Persons in the same library, sorted ascending by distance.
 
     Excludes the face's currently-assigned Person (its distance is in
-    `distance_to_person`). Empty when there are no eligible nearby Persons.
+    `distance_to_person`) and people marked hidden (`is_hidden`). Empty when there
+    are no eligible nearby Persons.
     """
 
     distance_to_person: Optional[float] = None

@@ -27,8 +27,9 @@ class PersonListParams(TypedDict, total=False):
     """Look up specific people by ID (max 200; each ID has the `person_` prefix).
 
     Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
-    `ids=person_1,person_2`). When set, `name_filter` defaults to `all` so unnamed
-    people are included in the lookup.
+    `ids=person_1,person_2`). When set, `name_filter` defaults to `all` and
+    `include_hidden` defaults to `true` so unnamed and hidden people are included in
+    the lookup.
     """
 
     include: Optional[SequenceNotStr[str]]
@@ -38,6 +39,13 @@ class PersonListParams(TypedDict, total=False):
     `pairwise_p90`, `pairwise_mean`, `face_count` — for each Person with a populated
     centroid). Accepts multiple `include=` query params or a single comma-delimited
     value. Unknown values return 422.
+    """
+
+    include_hidden: Optional[bool]
+    """Include people marked hidden (`is_hidden`).
+
+    Defaults to `false`, or to `true` when `ids` is provided, so lookups by ID still
+    return hidden people.
     """
 
     library_id: Optional[str]
