@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.171.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.170.0...v0.171.0) (2026-10-13)
+
+
+### Features
+
+* **assets:** add `AssetResponse.quality_score`, a photographic quality score from 0 (worst) to 1 (best), judged from the image alone: focus, exposure, noise, composition and capture flaws. It is returned by default from `assets.retrieve()`, `assets.list()` and both search methods, with no `include` value needed. The scale is fixed, so scores are comparable across photos and libraries. Scores take a few distinct values, so photos of similar quality tie. It does not reflect who is pictured, and it is `None` when the asset has no score. `AssetResponse.metrics` and `include=["metrics"]` are deprecated and will be removed; use `quality_score` instead. ([5c24287](https://github.com/gumnut-ai/photos-sdk-python/commit/5c2428767dc4e4aa35288cb6b43a6a3b2cf3c99c))
+* **tasks:** add the task types `quality_scoring` (rate an image's photographic quality) and `person_metrics_refresh` (recompute one person's face-matching summary after their faces change) to `TaskResponse.task_type` and the `task_type` parameter of `tasks.list()`. ([928fe60](https://github.com/gumnut-ai/photos-sdk-python/commit/928fe609c31246f5c12cb208092c5f4678ab4dff)), ([6931778](https://github.com/gumnut-ai/photos-sdk-python/commit/6931778883021f342653d47a0e49133ba9d33ba7))
+
+### Documentation
+
+* **albums, libraries, people:** document on `create()` and `update()` that creating reuses a matching record without changing it and never deletes existing records, and that an update overwrites the supplied fields with no automatic undo while leaving omitted fields unchanged. ([72ac683](https://github.com/gumnut-ai/photos-sdk-python/commit/72ac6838d3f9017d2a3fa88643ff33b135b47fcc))
+
 ## [0.170.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.169.0...v0.170.0) (2026-10-08)
 
 
