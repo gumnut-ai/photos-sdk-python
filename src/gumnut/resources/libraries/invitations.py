@@ -77,8 +77,8 @@ class InvitationsResource(SyncAPIResource):
 
         An identical active policy returns the same
         link with 200; a new policy returns 201. A matching inactive invitation returns
-        409 without a link; retry with a new policy. Admission disabled returns 503;
-        retry after it becomes available.
+        409 without a link; retry with a new policy. Authentication provider outages
+        return 503; retry sign-in later.
 
         Args:
           expires_at: Absolute expiration instant with a timezone offset; must be in the future.
@@ -225,8 +225,8 @@ class InvitationsResource(SyncAPIResource):
         an uncertain join unchanged consumes no additional place. Invalid secrets or
         unavailable libraries return a generic 404; retry with a valid, available link.
         Expired, disabled, exhausted, or removal-cutoff invitations return 409; request
-        a new invitation. Admission disabled returns 503; retry after it becomes
-        available.
+        a new invitation. Authentication provider outages return 503; retry sign-in
+        later.
 
         Args:
           invitation_id: Invitation identifier.
@@ -375,8 +375,8 @@ class AsyncInvitationsResource(AsyncAPIResource):
 
         An identical active policy returns the same
         link with 200; a new policy returns 201. A matching inactive invitation returns
-        409 without a link; retry with a new policy. Admission disabled returns 503;
-        retry after it becomes available.
+        409 without a link; retry with a new policy. Authentication provider outages
+        return 503; retry sign-in later.
 
         Args:
           expires_at: Absolute expiration instant with a timezone offset; must be in the future.
@@ -523,8 +523,8 @@ class AsyncInvitationsResource(AsyncAPIResource):
         an uncertain join unchanged consumes no additional place. Invalid secrets or
         unavailable libraries return a generic 404; retry with a valid, available link.
         Expired, disabled, exhausted, or removal-cutoff invitations return 409; request
-        a new invitation. Admission disabled returns 503; retry after it becomes
-        available.
+        a new invitation. Authentication provider outages return 503; retry sign-in
+        later.
 
         Args:
           invitation_id: Invitation identifier.
