@@ -5,7 +5,11 @@
 
 ### Features
 
-* **api:** api update ([6af5fdc](https://github.com/gumnut-ai/photos-sdk-python/commit/6af5fdc2202a2255a8785b41e59d05f224a37809))
+* **people:** add `include_hidden` to `people.list()`. Listings now leave out people marked hidden (`is_hidden`) by default; pass `include_hidden=True` to include them. When you pass `ids`, `include_hidden` defaults to `True` (as `name_filter` defaults to `"all"`), so lookups by ID still return hidden people. `people.retrieve()` and people embedded in asset responses are unchanged. ([6af5fdc](https://github.com/gumnut-ai/photos-sdk-python/commit/6af5fdc2202a2255a8785b41e59d05f224a37809))
+
+### Documentation
+
+* **faces:** document that `ClusterAssignmentResponse.candidates` leaves out hidden people. ([6af5fdc](https://github.com/gumnut-ai/photos-sdk-python/commit/6af5fdc2202a2255a8785b41e59d05f224a37809))
 
 ## [0.171.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.170.0...v0.171.0) (2026-10-13)
 
