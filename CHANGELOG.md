@@ -3,9 +3,9 @@
 ## [0.173.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.172.0...v0.173.0) (2026-10-13)
 
 
-### Features
+### ⚠ BREAKING CHANGES
 
-* **api:** api update ([63011de](https://github.com/gumnut-ai/photos-sdk-python/commit/63011de182a649edaf3d2bca0e66f3df88feb026))
+* **assets:** remove `AssetResponse.metrics` and the `metrics` value of the `include` parameter on `assets.retrieve()`, `assets.list()` and both search methods. Both were deprecated in the previous release. The API now rejects `include=["metrics"]` with a `422`. Read `AssetResponse.quality_score` instead: it is returned by default, with no `include` value needed. ([63011de](https://github.com/gumnut-ai/photos-sdk-python/commit/63011de182a649edaf3d2bca0e66f3df88feb026))
 
 ## [0.172.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.171.0...v0.172.0) (2026-10-13)
 
