@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.175.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.174.0...v0.175.0) (2026-10-14)
+
+
+### Features
+
+* **users:** add `home_country`, `home_subdivision`, `face_detection_preference` and `face_detection_available` to `UserResponse`, returned by `users.me()` and `users.update()`. `home_country` is an ISO 3166-1 alpha-2 code (for example `US`) and `home_subdivision` an ISO 3166-2 state or province code without its country prefix (for example `CA` for US-CA); each is `None` until declared. `face_detection_preference` says whether automatic face detection is on for the libraries the user owns: `True` is on, `False` is off, and `None` means the user has not chosen yet. Faces are detected automatically only when it is `True`. `face_detection_available` is `False` when the declared home region is one where automatic face detection is not offered; the preference is then `False` and cannot be set to `True`. ([72a1d2e](https://github.com/gumnut-ai/photos-sdk-python/commit/72a1d2e53104fa609d393b00c66f2129f126c209))
+* **users:** add `home_country`, `home_subdivision` and `face_detection_preference` to `users.update()`. Omit a field to leave it unchanged. `home_country` and `face_detection_preference` do not accept `None`; send `None` for `home_subdivision` to clear it. `home_subdivision` is required when the home country is `US`, and changing the country clears it unless the same request sets it. These three fields can be changed only from a signed-in app session: an API key or OAuth credential that sends any of them gets `403`, and nothing changes. Setting `face_detection_preference` to `True` returns `409`, which is not retryable, when automatic face detection is not available for the home region. Turning the preference off, or declaring a home region where face detection is not available, permanently removes the stored face recognition data of every library the user owns; detected face boxes and their people are kept. ([72a1d2e](https://github.com/gumnut-ai/photos-sdk-python/commit/72a1d2e53104fa609d393b00c66f2129f126c209))
+* **tasks:** add the task type `face_template_removal` (remove the stored face templates of every library an owner owns after automatic face detection is turned off) to `TaskResponse.task_type` and the `task_type` parameter of `tasks.list()`. ([72a1d2e](https://github.com/gumnut-ai/photos-sdk-python/commit/72a1d2e53104fa609d393b00c66f2129f126c209))
+
 ## [0.174.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.173.0...v0.174.0) (2026-10-14)
 
 
