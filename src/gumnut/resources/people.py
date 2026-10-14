@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import date
 from typing_extensions import Literal
 
@@ -14,6 +14,7 @@ from ..types import (
     person_create_params,
     person_update_params,
     person_retrieve_params,
+    person_bulk_update_people_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -29,6 +30,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.person_response import PersonResponse
 from ..types.person_delete_response import PersonDeleteResponse
+from ..types.person_bulk_update_people_response import PersonBulkUpdatePeopleResponse
 
 __all__ = ["PeopleResource", "AsyncPeopleResource"]
 
@@ -411,6 +413,54 @@ class PeopleResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=PersonDeleteResponse,
+        )
+
+    def bulk_update_people(
+        self,
+        *,
+        updates: Iterable[person_bulk_update_people_params.Update],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PersonBulkUpdatePeopleResponse:
+        """
+        Updates name, birth date, visibility, favorite status, or thumbnail on multiple
+        people in one transactional call. Each item carries the target person id and the
+        per-person change — different fields can be changed on different people in the
+        same request. Atomic: a duplicate id, an unknown or inaccessible id, or any
+        per-item failure rejects the whole batch and writes nothing.
+
+        Items apply in request order, and each rename is checked against the names left
+        by earlier items: swapping two people's names, or giving two people the same
+        name, returns 409. Renaming to another record's name in the same library,
+        including hidden people, also returns 409. Names ignore case and surrounding
+        whitespace; retrying the same collision does not resolve it.
+
+        `update_person` edits a single person.
+
+        Args:
+          updates: List of per-person updates. Each item carries the target person id and the
+              change to apply to it; different fields can be changed on different people in
+              the same request. Up to 200 items per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/people/bulk-update",
+            body=maybe_transform({"updates": updates}, person_bulk_update_people_params.PersonBulkUpdatePeopleParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PersonBulkUpdatePeopleResponse,
         )
 
     def merge(
@@ -843,6 +893,56 @@ class AsyncPeopleResource(AsyncAPIResource):
             cast_to=PersonDeleteResponse,
         )
 
+    async def bulk_update_people(
+        self,
+        *,
+        updates: Iterable[person_bulk_update_people_params.Update],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PersonBulkUpdatePeopleResponse:
+        """
+        Updates name, birth date, visibility, favorite status, or thumbnail on multiple
+        people in one transactional call. Each item carries the target person id and the
+        per-person change — different fields can be changed on different people in the
+        same request. Atomic: a duplicate id, an unknown or inaccessible id, or any
+        per-item failure rejects the whole batch and writes nothing.
+
+        Items apply in request order, and each rename is checked against the names left
+        by earlier items: swapping two people's names, or giving two people the same
+        name, returns 409. Renaming to another record's name in the same library,
+        including hidden people, also returns 409. Names ignore case and surrounding
+        whitespace; retrying the same collision does not resolve it.
+
+        `update_person` edits a single person.
+
+        Args:
+          updates: List of per-person updates. Each item carries the target person id and the
+              change to apply to it; different fields can be changed on different people in
+              the same request. Up to 200 items per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/people/bulk-update",
+            body=await async_maybe_transform(
+                {"updates": updates}, person_bulk_update_people_params.PersonBulkUpdatePeopleParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PersonBulkUpdatePeopleResponse,
+        )
+
     async def merge(
         self,
         person_id: str,
@@ -914,6 +1014,9 @@ class PeopleResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             people.delete,
         )
+        self.bulk_update_people = to_raw_response_wrapper(
+            people.bulk_update_people,
+        )
         self.merge = to_raw_response_wrapper(
             people.merge,
         )
@@ -937,6 +1040,9 @@ class AsyncPeopleResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             people.delete,
+        )
+        self.bulk_update_people = async_to_raw_response_wrapper(
+            people.bulk_update_people,
         )
         self.merge = async_to_raw_response_wrapper(
             people.merge,
@@ -962,6 +1068,9 @@ class PeopleResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             people.delete,
         )
+        self.bulk_update_people = to_streamed_response_wrapper(
+            people.bulk_update_people,
+        )
         self.merge = to_streamed_response_wrapper(
             people.merge,
         )
@@ -985,6 +1094,9 @@ class AsyncPeopleResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             people.delete,
+        )
+        self.bulk_update_people = async_to_streamed_response_wrapper(
+            people.bulk_update_people,
         )
         self.merge = async_to_streamed_response_wrapper(
             people.merge,
