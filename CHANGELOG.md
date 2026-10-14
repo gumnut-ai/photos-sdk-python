@@ -5,9 +5,15 @@
 
 ### Features
 
-* **api:** api update ([d1e3bcd](https://github.com/gumnut-ai/photos-sdk-python/commit/d1e3bcd3d14a9579c2338e985631b01e48ebcd86))
-* **api:** api update ([d51587e](https://github.com/gumnut-ai/photos-sdk-python/commit/d51587e78601d8fa22b2b0c741314db78041ca72))
-* **api:** map bulk people update endpoint ([2c0d6a1](https://github.com/gumnut-ai/photos-sdk-python/commit/2c0d6a1a4d19ef1dc3304e0f942014c2d0296e39))
+* **people:** add `people.bulk_update_people()`, which applies up to 200 per-person changes in one atomic request. Each item in `updates` has a person `id` and a `change` with the same fields as `people.update()` (name, birth date, `is_hidden`, `is_favorite`, thumbnail face), so different people can get different changes. A duplicate ID returns `422`. An unknown or inaccessible ID returns `404`. Any failing item rejects the whole batch, and nothing is written. Items apply in request order, and each rename is checked against the names left by earlier items, so swapping two people's names or giving two people the same name returns `409`. ([d1e3bcd](https://github.com/gumnut-ai/photos-sdk-python/commit/d1e3bcd3d14a9579c2338e985631b01e48ebcd86)), ([2c0d6a1](https://github.com/gumnut-ai/photos-sdk-python/commit/2c0d6a1a4d19ef1dc3304e0f942014c2d0296e39))
+
+### Bug Fixes
+
+* **people:** `is_hidden` and `is_favorite` on `people.update()` are now typed as `bool`; they no longer accept `None`. An explicit null previously caused a server error; the API now rejects it with a `422`. Omit a field to leave it unchanged. ([d1e3bcd](https://github.com/gumnut-ai/photos-sdk-python/commit/d1e3bcd3d14a9579c2338e985631b01e48ebcd86))
+
+### Documentation
+
+* **libraries:** on `libraries.invitations.create()` and `libraries.invitations.join()`, document `503` as an authentication-provider outage (retry sign-in later), not as invitations being turned off. ([d51587e](https://github.com/gumnut-ai/photos-sdk-python/commit/d51587e78601d8fa22b2b0c741314db78041ca72))
 
 ## [0.173.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.172.0...v0.173.0) (2026-10-13)
 
