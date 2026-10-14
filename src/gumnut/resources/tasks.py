@@ -72,6 +72,7 @@ class TasksResource(SyncAPIResource):
                 "product_update_subscription",
                 "person_metrics_refresh",
                 "quality_scoring",
+                "face_template_removal",
             ]
         ]
         | Omit = omit,
@@ -248,6 +249,7 @@ class AsyncTasksResource(AsyncAPIResource):
                 "product_update_subscription",
                 "person_metrics_refresh",
                 "quality_scoring",
+                "face_template_removal",
             ]
         ]
         | Omit = omit,

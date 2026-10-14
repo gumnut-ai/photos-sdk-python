@@ -50,7 +50,10 @@ class UsersResource(SyncAPIResource):
         self,
         *,
         demo_mode_enabled: bool | Omit = omit,
+        face_detection_preference: Optional[bool] | Omit = omit,
         favorite_display_mode: Optional[Literal["favorite", "rating"]] | Omit = omit,
+        home_country: Optional[str] | Omit = omit,
+        home_subdivision: Optional[str] | Omit = omit,
         immich_library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,16 +68,36 @@ class UsersResource(SyncAPIResource):
         included in the request body are changed. This endpoint does not accept a user
         ID; it always updates the authenticated caller. Returns 404, without changing
         anything, when `immich_library_id` names a library the caller cannot choose; the
-        response is the same whether or not that library exists.
+        response is the same whether or not that library exists. `home_country`,
+        `home_subdivision` and `face_detection_preference` can be changed only from a
+        signed-in app session: an API key or OAuth credential that sends any of them
+        gets 403 and nothing changes. Setting `face_detection_preference` to true
+        returns 409, which is not retryable, when automatic face detection is not
+        available for the home region. Declaring such a home region sets the preference
+        to false and, like turning it off, permanently removes the stored face
+        recognition data of every library the user owns.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
               to disable. Explicit null is not accepted.
 
+          face_detection_preference: Turn automatic face detection on (true) or off (false) for the libraries the
+              user owns. Omit to leave unchanged; explicit null is not accepted. Turning it
+              off permanently removes the stored face recognition data of every library the
+              user owns; detected face boxes and their people are kept.
+
           favorite_display_mode: Presentation a user prefers for the favorite/rating control.
 
               - `favorite`: a heart — filled at the top rating, empty otherwise.
               - `rating`: a 0-5 star control.
+
+          home_country: Home country as an uppercase ISO 3166-1 alpha-2 code (e.g. 'US'). Omit to leave
+              unchanged; explicit null is not accepted. Changing the country clears
+              `home_subdivision` unless the same request sets it.
+
+          home_subdivision: Home state or province: an ISO 3166-2 code without its country prefix (e.g. 'CA'
+              for US-CA). Required when the home country is 'US'. Omit to leave unchanged;
+              send `null` to clear it.
 
           immich_library_id: Preferred library. Must be a live library the caller owns or has the
               collaborator role in, and that the request's credential can access; any other id
@@ -94,7 +117,10 @@ class UsersResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "demo_mode_enabled": demo_mode_enabled,
+                    "face_detection_preference": face_detection_preference,
                     "favorite_display_mode": favorite_display_mode,
+                    "home_country": home_country,
+                    "home_subdivision": home_subdivision,
                     "immich_library_id": immich_library_id,
                 },
                 user_update_params.UserUpdateParams,
@@ -157,7 +183,10 @@ class AsyncUsersResource(AsyncAPIResource):
         self,
         *,
         demo_mode_enabled: bool | Omit = omit,
+        face_detection_preference: Optional[bool] | Omit = omit,
         favorite_display_mode: Optional[Literal["favorite", "rating"]] | Omit = omit,
+        home_country: Optional[str] | Omit = omit,
+        home_subdivision: Optional[str] | Omit = omit,
         immich_library_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -172,16 +201,36 @@ class AsyncUsersResource(AsyncAPIResource):
         included in the request body are changed. This endpoint does not accept a user
         ID; it always updates the authenticated caller. Returns 404, without changing
         anything, when `immich_library_id` names a library the caller cannot choose; the
-        response is the same whether or not that library exists.
+        response is the same whether or not that library exists. `home_country`,
+        `home_subdivision` and `face_detection_preference` can be changed only from a
+        signed-in app session: an API key or OAuth credential that sends any of them
+        gets 403 and nothing changes. Setting `face_detection_preference` to true
+        returns 409, which is not retryable, when automatic face detection is not
+        available for the home region. Declaring such a home region sets the preference
+        to false and, like turning it off, permanently removes the stored face
+        recognition data of every library the user owns.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
               to disable. Explicit null is not accepted.
 
+          face_detection_preference: Turn automatic face detection on (true) or off (false) for the libraries the
+              user owns. Omit to leave unchanged; explicit null is not accepted. Turning it
+              off permanently removes the stored face recognition data of every library the
+              user owns; detected face boxes and their people are kept.
+
           favorite_display_mode: Presentation a user prefers for the favorite/rating control.
 
               - `favorite`: a heart — filled at the top rating, empty otherwise.
               - `rating`: a 0-5 star control.
+
+          home_country: Home country as an uppercase ISO 3166-1 alpha-2 code (e.g. 'US'). Omit to leave
+              unchanged; explicit null is not accepted. Changing the country clears
+              `home_subdivision` unless the same request sets it.
+
+          home_subdivision: Home state or province: an ISO 3166-2 code without its country prefix (e.g. 'CA'
+              for US-CA). Required when the home country is 'US'. Omit to leave unchanged;
+              send `null` to clear it.
 
           immich_library_id: Preferred library. Must be a live library the caller owns or has the
               collaborator role in, and that the request's credential can access; any other id
@@ -201,7 +250,10 @@ class AsyncUsersResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "demo_mode_enabled": demo_mode_enabled,
+                    "face_detection_preference": face_detection_preference,
                     "favorite_display_mode": favorite_display_mode,
+                    "home_country": home_country,
+                    "home_subdivision": home_subdivision,
                     "immich_library_id": immich_library_id,
                 },
                 user_update_params.UserUpdateParams,

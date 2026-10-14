@@ -21,6 +21,20 @@ class UserResponse(BaseModel):
     demo_mode_enabled: bool
     """Whether demo-mode person-name presentation is enabled. Defaults to false."""
 
+    face_detection_available: bool
+    """Whether automatic face detection can be turned on for this user.
+
+    False when the declared home region is one where it is not offered;
+    `face_detection_preference` is then false and cannot be set to true.
+    """
+
+    face_detection_preference: Optional[bool] = None
+    """
+    Whether automatic face detection is on for the libraries this user owns: true is
+    on, false is off, null means the user has not chosen yet. Faces are detected
+    automatically only when this is true.
+    """
+
     favorite_display_mode: Literal["favorite", "rating"]
     """
     The user's effective favorite/rating display mode, defaulting to `favorite` when
@@ -54,6 +68,18 @@ class UserResponse(BaseModel):
 
     first_name: Optional[str] = None
     """User's first name"""
+
+    home_country: Optional[str] = None
+    """The user's declared home country as an ISO 3166-1 alpha-2 code (e.g.
+
+    'US'); null until declared
+    """
+
+    home_subdivision: Optional[str] = None
+    """
+    The user's declared home state or province: an ISO 3166-2 code without its
+    country prefix (e.g. 'CA' for US-CA); null when not declared
+    """
 
     immich_library_id: Optional[str] = None
     """The user's stored preferred library, or null to use the default.

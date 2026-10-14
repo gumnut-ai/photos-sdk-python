@@ -28,7 +28,10 @@ class TestUsers:
     def test_method_update_with_all_params(self, client: Gumnut) -> None:
         user = client.users.update(
             demo_mode_enabled=True,
+            face_detection_preference=True,
             favorite_display_mode="favorite",
+            home_country="SE",
+            home_subdivision="26F",
             immich_library_id="immich_library_id",
         )
         assert_matches_type(UserResponse, user, path=["response"])
@@ -100,7 +103,10 @@ class TestAsyncUsers:
     async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
         user = await async_client.users.update(
             demo_mode_enabled=True,
+            face_detection_preference=True,
             favorite_display_mode="favorite",
+            home_country="SE",
+            home_subdivision="26F",
             immich_library_id="immich_library_id",
         )
         assert_matches_type(UserResponse, user, path=["response"])

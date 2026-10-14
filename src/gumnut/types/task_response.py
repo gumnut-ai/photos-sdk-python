@@ -86,6 +86,7 @@ class TaskResponse(BaseModel):
         "product_update_subscription",
         "person_metrics_refresh",
         "quality_scoring",
+        "face_template_removal",
     ]
     """
     Kind of background processing a task performs: `image_quality` (historical only
@@ -106,6 +107,8 @@ class TaskResponse(BaseModel):
     over-dimensioned file), `burst_detection` (detect rapid-fire shots of the same
     moment and stack them), `product_update_subscription` (enroll an explicitly
     opted-in new user in product-update email delivery), `person_metrics_refresh`
-    (recompute the face-matching summary of one person after their faces change), or
-    `quality_scoring` (rate an image's photographic quality).
+    (recompute the face-matching summary of one person after their faces change),
+    `quality_scoring` (rate an image's photographic quality), or
+    `face_template_removal` (remove the stored face templates of every library an
+    owner owns after automatic face detection is turned off).
     """
