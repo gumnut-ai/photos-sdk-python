@@ -184,8 +184,8 @@ class PeopleResource(SyncAPIResource):
         person_id: str,
         *,
         birth_date: Union[str, date, None] | Omit = omit,
-        is_favorite: Optional[bool] | Omit = omit,
-        is_hidden: Optional[bool] | Omit = omit,
+        is_favorite: bool | Omit = omit,
+        is_hidden: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -206,6 +206,8 @@ class PeopleResource(SyncAPIResource):
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.
+
+        `bulk_update_people` applies changes to multiple people in one call.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the person to update.
@@ -612,8 +614,8 @@ class AsyncPeopleResource(AsyncAPIResource):
         person_id: str,
         *,
         birth_date: Union[str, date, None] | Omit = omit,
-        is_favorite: Optional[bool] | Omit = omit,
-        is_hidden: Optional[bool] | Omit = omit,
+        is_favorite: bool | Omit = omit,
+        is_hidden: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         thumbnail_face_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -634,6 +636,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
         This tool does not move faces between people — use `update_face` with a new
         `person_id` for that.
+
+        `bulk_update_people` applies changes to multiple people in one call.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the person to update.

@@ -15,10 +15,10 @@ class PersonUpdateParams(TypedDict, total=False):
     birth_date: Annotated[Union[str, date, None], PropertyInfo(format="iso8601")]
     """New birth date (ISO 8601 date). Omit to leave unchanged."""
 
-    is_favorite: Optional[bool]
+    is_favorite: bool
     """Mark or unmark this person as a favorite. Omit to leave unchanged."""
 
-    is_hidden: Optional[bool]
+    is_hidden: bool
     """Hide or unhide this person. Omit to leave unchanged."""
 
     name: Optional[str]
