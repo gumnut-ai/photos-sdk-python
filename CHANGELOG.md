@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.174.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.173.0...v0.174.0) (2026-10-14)
+
+
+### Features
+
+* **api:** api update ([d1e3bcd](https://github.com/gumnut-ai/photos-sdk-python/commit/d1e3bcd3d14a9579c2338e985631b01e48ebcd86))
+* **api:** api update ([d51587e](https://github.com/gumnut-ai/photos-sdk-python/commit/d51587e78601d8fa22b2b0c741314db78041ca72))
+* **api:** map bulk people update endpoint ([2c0d6a1](https://github.com/gumnut-ai/photos-sdk-python/commit/2c0d6a1a4d19ef1dc3304e0f942014c2d0296e39))
+
 ## [0.173.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.172.0...v0.173.0) (2026-10-13)
 
 
