@@ -9,6 +9,7 @@ from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
 from .asset_response import AssetResponse as AssetResponse
 from .events_response import EventsResponse as EventsResponse
+from .feedback_result import FeedbackResult as FeedbackResult
 from .person_response import PersonResponse as PersonResponse
 from .search_response import SearchResponse as SearchResponse
 from .api_key_response import APIKeyResponse as APIKeyResponse
@@ -62,6 +63,7 @@ from .oauth_auth_url_params import OAuthAuthURLParams as OAuthAuthURLParams
 from .oauth_exchange_params import OAuthExchangeParams as OAuthExchangeParams
 from .stack_delete_response import StackDeleteResponse as StackDeleteResponse
 from .asset_restore_response import AssetRestoreResponse as AssetRestoreResponse
+from .feedback_submit_params import FeedbackSubmitParams as FeedbackSubmitParams
 from .library_trash_response import LibraryTrashResponse as LibraryTrashResponse
 from .person_delete_response import PersonDeleteResponse as PersonDeleteResponse
 from .person_retrieve_params import PersonRetrieveParams as PersonRetrieveParams

@@ -494,6 +494,17 @@ class TestGumnut:
         data = json.loads(request.content.decode("utf-8"))
         assert data == {"foo": "bar", "baz": None}
 
+    def test_request_max_retries(self) -> None:
+        assert "max_retries" not in make_request_options()
+        for max_retries in (0, 3):
+            options = make_request_options(max_retries=max_retries)
+            assert options.get("max_retries") == max_retries
+            final_options = FinalRequestOptions.construct(method="get", url="/foo", **options)
+            assert final_options.get_max_retries(7) == max_retries
+
+        final_options = FinalRequestOptions.construct(method="get", url="/foo", **make_request_options())
+        assert final_options.get_max_retries(7) == 7
+
     def test_request_extra_headers(self, client: Gumnut) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -1417,6 +1428,17 @@ class TestAsyncGumnut:
         )
         data = json.loads(request.content.decode("utf-8"))
         assert data == {"foo": "bar", "baz": None}
+
+    def test_request_max_retries(self) -> None:
+        assert "max_retries" not in make_request_options()
+        for max_retries in (0, 3):
+            options = make_request_options(max_retries=max_retries)
+            assert options.get("max_retries") == max_retries
+            final_options = FinalRequestOptions.construct(method="get", url="/foo", **options)
+            assert final_options.get_max_retries(7) == max_retries
+
+        final_options = FinalRequestOptions.construct(method="get", url="/foo", **make_request_options())
+        assert final_options.get_max_retries(7) == 7
 
     def test_request_extra_headers(self, client: Gumnut) -> None:
         request = client._build_request(

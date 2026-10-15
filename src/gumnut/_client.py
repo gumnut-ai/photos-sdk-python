@@ -49,6 +49,7 @@ if TYPE_CHECKING:
         search,
         stacks,
         api_keys,
+        feedback,
         libraries,
         album_assets,
     )
@@ -62,6 +63,7 @@ if TYPE_CHECKING:
     from .resources.search import SearchResource, AsyncSearchResource
     from .resources.stacks import StacksResource, AsyncStacksResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
+    from .resources.feedback import FeedbackResource, AsyncFeedbackResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
     from .resources.assets.assets import AssetsResource, AsyncAssetsResource
@@ -129,6 +131,13 @@ class Gumnut(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def feedback(self) -> FeedbackResource:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import FeedbackResource
+
+        return FeedbackResource(self)
 
     @cached_property
     def api_keys(self) -> APIKeysResource:
@@ -424,6 +433,13 @@ class AsyncGumnut(AsyncAPIClient):
         )
 
     @cached_property
+    def feedback(self) -> AsyncFeedbackResource:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import AsyncFeedbackResource
+
+        return AsyncFeedbackResource(self)
+
+    @cached_property
     def api_keys(self) -> AsyncAPIKeysResource:
         """Create and manage Gumnut API keys.
 
@@ -663,6 +679,13 @@ class GumnutWithRawResponse:
         self._client = client
 
     @cached_property
+    def feedback(self) -> feedback.FeedbackResourceWithRawResponse:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import FeedbackResourceWithRawResponse
+
+        return FeedbackResourceWithRawResponse(self._client.feedback)
+
+    @cached_property
     def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
         """Create and manage Gumnut API keys.
 
@@ -777,6 +800,13 @@ class AsyncGumnutWithRawResponse:
 
     def __init__(self, client: AsyncGumnut) -> None:
         self._client = client
+
+    @cached_property
+    def feedback(self) -> feedback.AsyncFeedbackResourceWithRawResponse:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import AsyncFeedbackResourceWithRawResponse
+
+        return AsyncFeedbackResourceWithRawResponse(self._client.feedback)
 
     @cached_property
     def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
@@ -895,6 +925,13 @@ class GumnutWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def feedback(self) -> feedback.FeedbackResourceWithStreamingResponse:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import FeedbackResourceWithStreamingResponse
+
+        return FeedbackResourceWithStreamingResponse(self._client.feedback)
+
+    @cached_property
     def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
         """Create and manage Gumnut API keys.
 
@@ -1009,6 +1046,13 @@ class AsyncGumnutWithStreamedResponse:
 
     def __init__(self, client: AsyncGumnut) -> None:
         self._client = client
+
+    @cached_property
+    def feedback(self) -> feedback.AsyncFeedbackResourceWithStreamingResponse:
+        """Reports of friction using Gumnut."""
+        from .resources.feedback import AsyncFeedbackResourceWithStreamingResponse
+
+        return AsyncFeedbackResourceWithStreamingResponse(self._client.feedback)
 
     @cached_property
     def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:

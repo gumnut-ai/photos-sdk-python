@@ -96,6 +96,14 @@ from .api_keys import (
     APIKeysResourceWithStreamingResponse,
     AsyncAPIKeysResourceWithStreamingResponse,
 )
+from .feedback import (
+    FeedbackResource,
+    AsyncFeedbackResource,
+    FeedbackResourceWithRawResponse,
+    AsyncFeedbackResourceWithRawResponse,
+    FeedbackResourceWithStreamingResponse,
+    AsyncFeedbackResourceWithStreamingResponse,
+)
 from .libraries import (
     LibrariesResource,
     AsyncLibrariesResource,
@@ -114,6 +122,12 @@ from .album_assets import (
 )
 
 __all__ = [
+    "FeedbackResource",
+    "AsyncFeedbackResource",
+    "FeedbackResourceWithRawResponse",
+    "AsyncFeedbackResourceWithRawResponse",
+    "FeedbackResourceWithStreamingResponse",
+    "AsyncFeedbackResourceWithStreamingResponse",
     "APIKeysResource",
     "AsyncAPIKeysResource",
     "APIKeysResourceWithRawResponse",

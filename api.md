@@ -4,6 +4,18 @@
 from gumnut.types import AssetVariant, UserSummary
 ```
 
+# Feedback
+
+Types:
+
+```python
+from gumnut.types import FeedbackResult
+```
+
+Methods:
+
+- <code title="post /api/feedback">client.feedback.<a href="./src/gumnut/resources/feedback.py">submit</a>(\*\*<a href="src/gumnut/types/feedback_submit_params.py">params</a>) -> <a href="./src/gumnut/types/feedback_result.py">FeedbackResult</a></code>
+
 # APIKeys
 
 Types:
