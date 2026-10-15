@@ -109,11 +109,7 @@ class FeedbackResource(SyncAPIResource):
                 feedback_submit_params.FeedbackSubmitParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                max_retries=0,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=FeedbackResult,
         )
@@ -204,11 +200,7 @@ class AsyncFeedbackResource(AsyncAPIResource):
                 feedback_submit_params.FeedbackSubmitParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                max_retries=0,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=FeedbackResult,
         )
