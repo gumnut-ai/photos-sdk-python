@@ -18,9 +18,8 @@ class UserUpdateParams(TypedDict, total=False):
     face_detection_preference: Optional[bool]
     """
     Turn automatic face detection on (true) or off (false) for the libraries the
-    user owns. Omit to leave unchanged; explicit null is not accepted. Turning it
-    off permanently removes the stored face recognition data of every library the
-    user owns; detected face boxes and their people are kept.
+    user owns. Omit to leave unchanged; explicit null is not accepted. The setting
+    applies to photos processed from then on; face data already stored is kept.
     """
 
     favorite_display_mode: Optional[Literal["favorite", "rating"]]

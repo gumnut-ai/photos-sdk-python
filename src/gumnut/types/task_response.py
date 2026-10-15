@@ -110,5 +110,5 @@ class TaskResponse(BaseModel):
     (recompute the face-matching summary of one person after their faces change),
     `quality_scoring` (rate an image's photographic quality), or
     `face_template_removal` (remove the stored face templates of every library an
-    owner owns after automatic face detection is turned off).
+    owner owns).
     """

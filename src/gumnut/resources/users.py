@@ -74,17 +74,15 @@ class UsersResource(SyncAPIResource):
         gets 403 and nothing changes. Setting `face_detection_preference` to true
         returns 409, which is not retryable, when automatic face detection is not
         available for the home region. Declaring such a home region sets the preference
-        to false and, like turning it off, permanently removes the stored face
-        recognition data of every library the user owns.
+        to false. Changing these settings keeps face data already stored.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
               to disable. Explicit null is not accepted.
 
           face_detection_preference: Turn automatic face detection on (true) or off (false) for the libraries the
-              user owns. Omit to leave unchanged; explicit null is not accepted. Turning it
-              off permanently removes the stored face recognition data of every library the
-              user owns; detected face boxes and their people are kept.
+              user owns. Omit to leave unchanged; explicit null is not accepted. The setting
+              applies to photos processed from then on; face data already stored is kept.
 
           favorite_display_mode: Presentation a user prefers for the favorite/rating control.
 
@@ -207,17 +205,15 @@ class AsyncUsersResource(AsyncAPIResource):
         gets 403 and nothing changes. Setting `face_detection_preference` to true
         returns 409, which is not retryable, when automatic face detection is not
         available for the home region. Declaring such a home region sets the preference
-        to false and, like turning it off, permanently removes the stored face
-        recognition data of every library the user owns.
+        to false. Changing these settings keeps face data already stored.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
               to disable. Explicit null is not accepted.
 
           face_detection_preference: Turn automatic face detection on (true) or off (false) for the libraries the
-              user owns. Omit to leave unchanged; explicit null is not accepted. Turning it
-              off permanently removes the stored face recognition data of every library the
-              user owns; detected face boxes and their people are kept.
+              user owns. Omit to leave unchanged; explicit null is not accepted. The setting
+              applies to photos processed from then on; face data already stored is kept.
 
           favorite_display_mode: Presentation a user prefers for the favorite/rating control.
 
