@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.176.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.175.0...v0.176.0) (2026-10-15)
+
+
+### Features
+
+* **feedback:** add `feedback.submit()`, which reports friction met while using Gumnut: a blocked or failed task, a missing capability, confusing behavior or results, a workaround, or a suggestion, even when the task ultimately succeeds. `feedback_type` (`bug`, `missing_capability`, `confusing_behavior`, `suggestion` or `other`) and `message` (1 to 4,000 characters) are required; `task_completed` and `tool_names` are optional. It requires write access. The returned `FeedbackResult` has `status="submitted"`, which confirms intake only, not review or a fix. Leave credentials, photos, signed URLs, personal or library names, precise locations and other private content out of the report. The method does not retry automatically: a server error or a lost response may mean the report was already delivered, and resubmitting can create a duplicate. ([8dfb644](https://github.com/gumnut-ai/photos-sdk-python/commit/8dfb64497e8bf00527f59ac427c86772d74adfdf)), ([e6856b4](https://github.com/gumnut-ai/photos-sdk-python/commit/e6856b4dcf03ff2a19bddfc5ac08ab9e4cc299b3))
+
+### Documentation
+
+* **users:** `users.update()` now documents that changing `face_detection_preference`, `home_country` or `home_subdivision` keeps face data already stored. The API no longer removes the stored face recognition data of the user's libraries when the preference is turned off or a home region without face detection is declared; the preference applies to photos processed from then on. Declaring such a home region still sets the preference to `False`. The 0.175.0 notes describe the earlier behavior. ([677b830](https://github.com/gumnut-ai/photos-sdk-python/commit/677b830835e821b2ef24c7531d0a93551b6f8ad9))
+* **tasks:** the `face_template_removal` task type on `TaskResponse.task_type` is now described as removing the stored face templates of every library an owner owns, without tying it to turning face detection off. ([677b830](https://github.com/gumnut-ai/photos-sdk-python/commit/677b830835e821b2ef24c7531d0a93551b6f8ad9))
+
 ## [0.175.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.174.0...v0.175.0) (2026-10-14)
 
 
