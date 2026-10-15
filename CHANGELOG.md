@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.176.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.175.0...v0.176.0) (2026-10-15)
+
+
+### Features
+
+* **api:** add feedback submission ([8dfb644](https://github.com/gumnut-ai/photos-sdk-python/commit/8dfb64497e8bf00527f59ac427c86772d74adfdf))
+* **api:** api update ([e6856b4](https://github.com/gumnut-ai/photos-sdk-python/commit/e6856b4dcf03ff2a19bddfc5ac08ab9e4cc299b3))
+* **api:** api update ([677b830](https://github.com/gumnut-ai/photos-sdk-python/commit/677b830835e821b2ef24c7531d0a93551b6f8ad9))
+
 ## [0.175.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.174.0...v0.175.0) (2026-10-14)
 
 
