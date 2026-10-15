@@ -9,3 +9,7 @@ __all__ = ["FeedbackResult"]
 
 class FeedbackResult(BaseModel):
     status: Literal["submitted"]
+    """
+    Confirmed acceptance for intake only; does not confirm review, spam-filter
+    passage, follow-up, an issue, or a fix.
+    """
