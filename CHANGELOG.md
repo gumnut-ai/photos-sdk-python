@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.177.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.176.0...v0.177.0) (2026-10-16)
+
+
+### Bug Fixes
+
+* **feedback:** `feedback.submit()` now follows the client's retry settings instead of never retrying, so by default (`max_retries=2`) a submission that fails with a retryable error, such as a lost connection or a `5xx`, is retried up to twice. A server error or a lost response may mean the report was already delivered, so a retry can deliver the same report more than once. To keep the earlier single attempt, call `client.with_options(max_retries=0).feedback.submit(...)`. The 0.176.0 notes describe the earlier behavior. ([add1f67](https://github.com/gumnut-ai/photos-sdk-python/commit/add1f67d9396f8431d6aae9def452d6dcc4d778b))
+
+### Documentation
+
+* **feedback:** the `feedback.submit()` description no longer asks for one report per distinct problem or advises against retrying or resubmitting. It still says that a server error or a lost response may mean the report was already delivered. ([531b88c](https://github.com/gumnut-ai/photos-sdk-python/commit/531b88cd50aaa66c5dbac5ff1aa60559425c8930))
+* **faces:** document that `ClusterAssignmentResponse.distance_to_person` is `None` and `ClusterAssignmentResponse.candidates` is empty when the library owner's settings do not allow automatic face detection. ([a53aa4b](https://github.com/gumnut-ai/photos-sdk-python/commit/a53aa4b69e584317f6e052dc92f9f6b1f05ea56a))
+
 ## [0.176.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.175.0...v0.176.0) (2026-10-15)
 
 
