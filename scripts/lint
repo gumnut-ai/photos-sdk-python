@@ -12,11 +12,8 @@ else
   uv run ruff check .
 fi
 
-echo "==> Running pyright"
-uv run pyright -p .
-
-echo "==> Running mypy"
-uv run mypy .
+echo "==> Running ty"
+uv run ty check --exit-zero-on-warning
 
 echo "==> Making sure it imports"
 uv run python -c 'import gumnut'

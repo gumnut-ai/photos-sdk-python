@@ -265,7 +265,7 @@ def required_args(*variants: Sequence[str]) -> Callable[[CallableT], CallableT]:
                     given_params.add(positional[i])
                 except IndexError:
                     raise TypeError(
-                        f"{func.__name__}() takes {len(positional)} argument(s) but {len(args)} were given"
+                        f"{cast(Any, func).__name__}() takes {len(positional)} argument(s) but {len(args)} were given"
                     ) from None
 
             for key in kwargs.keys():

@@ -135,7 +135,7 @@ def assert_matches_type(
         raise AssertionError("Did not match any variants")
     elif issubclass(origin, BaseModel):
         assert isinstance(value, type_)
-        assert assert_matches_model(type_, cast(Any, value), path=path)
+        assert assert_matches_model(cast(type[BaseModel], type_), cast(Any, value), path=path)
     elif inspect.isclass(origin) and origin.__name__ == "HttpxBinaryResponseContent":
         assert value.__class__.__name__ == "HttpxBinaryResponseContent"
     else:

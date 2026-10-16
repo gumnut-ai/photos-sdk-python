@@ -108,7 +108,7 @@ def _get_open_connections(client: Gumnut | AsyncGumnut) -> int:
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
     pool = transport._pool
-    return len(pool._requests)
+    return len(cast(Any, pool)._requests)
 
 
 class TestGumnut:

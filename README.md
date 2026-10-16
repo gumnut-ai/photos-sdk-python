@@ -104,7 +104,7 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Serializing back into JSON, `model.to_json()`
 - Converting to a dictionary, `model.to_dict()`
 
-Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+Typed requests and responses provide autocomplete and documentation within your editor. Install the [ty extension for VS Code](https://marketplace.visualstudio.com/items?itemName=astral-sh.ty) to see type errors while editing.
 
 ## Pagination
 

@@ -245,7 +245,7 @@ class BaseAPIResponse(Generic[R]):
                 else:
                     return self._client._process_response_data(
                         data=data,
-                        cast_to=cast_to,  # type: ignore
+                        cast_to=cast("type[R] | type[_T]", cast_to),
                         response=response,
                     )
 
@@ -265,7 +265,7 @@ class BaseAPIResponse(Generic[R]):
 
         return self._client._process_response_data(
             data=data,
-            cast_to=cast_to,  # type: ignore
+            cast_to=cast("type[R] | type[_T]", cast_to),
             response=response,
         )
 
@@ -655,7 +655,8 @@ def to_streamed_response_wrapper(func: Callable[P, R]) -> Callable[P, ResponseCo
         extra_headers: dict[str, str] = {**(cast(Any, kwargs.get("extra_headers")) or {})}
         extra_headers[RAW_RESPONSE_HEADER] = "stream"
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         make_request = functools.partial(func, *args, **kwargs)
 
@@ -676,7 +677,8 @@ def async_to_streamed_response_wrapper(
         extra_headers: dict[str, str] = {**(cast(Any, kwargs.get("extra_headers")) or {})}
         extra_headers[RAW_RESPONSE_HEADER] = "stream"
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         make_request = func(*args, **kwargs)
 
@@ -701,7 +703,8 @@ def to_custom_streamed_response_wrapper(
         extra_headers[RAW_RESPONSE_HEADER] = "stream"
         extra_headers[OVERRIDE_CAST_TO_HEADER] = response_cls
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         make_request = functools.partial(func, *args, **kwargs)
 
@@ -726,7 +729,8 @@ def async_to_custom_streamed_response_wrapper(
         extra_headers[RAW_RESPONSE_HEADER] = "stream"
         extra_headers[OVERRIDE_CAST_TO_HEADER] = response_cls
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         make_request = func(*args, **kwargs)
 
@@ -745,7 +749,8 @@ def to_raw_response_wrapper(func: Callable[P, R]) -> Callable[P, APIResponse[R]]
         extra_headers: dict[str, str] = {**(cast(Any, kwargs.get("extra_headers")) or {})}
         extra_headers[RAW_RESPONSE_HEADER] = "raw"
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         return cast(APIResponse[R], func(*args, **kwargs))
 
@@ -762,7 +767,8 @@ def async_to_raw_response_wrapper(func: Callable[P, Awaitable[R]]) -> Callable[P
         extra_headers: dict[str, str] = {**(cast(Any, kwargs.get("extra_headers")) or {})}
         extra_headers[RAW_RESPONSE_HEADER] = "raw"
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         return cast(AsyncAPIResponse[R], await func(*args, **kwargs))
 
@@ -785,7 +791,8 @@ def to_custom_raw_response_wrapper(
         extra_headers[RAW_RESPONSE_HEADER] = "raw"
         extra_headers[OVERRIDE_CAST_TO_HEADER] = response_cls
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         return cast(_APIResponseT, func(*args, **kwargs))
 
@@ -808,7 +815,8 @@ def async_to_custom_raw_response_wrapper(
         extra_headers[RAW_RESPONSE_HEADER] = "raw"
         extra_headers[OVERRIDE_CAST_TO_HEADER] = response_cls
 
-        kwargs["extra_headers"] = extra_headers
+        # ParamSpec preserves the caller signature; API methods accept this injected header.
+        cast(dict[str, object], kwargs)["extra_headers"] = extra_headers
 
         return cast(Awaitable[_AsyncAPIResponseT], func(*args, **kwargs))
 

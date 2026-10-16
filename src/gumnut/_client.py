@@ -37,21 +37,21 @@ from ._base_client import (
 
 if TYPE_CHECKING:
     from .resources import (
-        ping,
-        faces,
-        oauth,
-        tasks,
-        users,
-        albums,
-        assets,
-        events,
-        people,
-        search,
-        stacks,
-        api_keys,
-        feedback,
-        libraries,
-        album_assets,
+        ping as ping_resources,
+        faces as faces_resources,
+        oauth as oauth_resources,
+        tasks as tasks_resources,
+        users as users_resources,
+        albums as albums_resources,
+        assets as assets_resources,
+        events as events_resources,
+        people as people_resources,
+        search as search_resources,
+        stacks as stacks_resources,
+        api_keys as api_keys_resources,
+        feedback as feedback_resources,
+        libraries as libraries_resources,
+        album_assets as album_assets_resources,
     )
     from .resources.ping import PingResource, AsyncPingResource
     from .resources.faces import FacesResource, AsyncFacesResource
@@ -679,14 +679,14 @@ class GumnutWithRawResponse:
         self._client = client
 
     @cached_property
-    def feedback(self) -> feedback.FeedbackResourceWithRawResponse:
+    def feedback(self) -> feedback_resources.FeedbackResourceWithRawResponse:
         """Reports of friction using Gumnut."""
         from .resources.feedback import FeedbackResourceWithRawResponse
 
         return FeedbackResourceWithRawResponse(self._client.feedback)
 
     @cached_property
-    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+    def api_keys(self) -> api_keys_resources.APIKeysResourceWithRawResponse:
         """Create and manage Gumnut API keys.
 
         Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
@@ -696,7 +696,7 @@ class GumnutWithRawResponse:
         return APIKeysResourceWithRawResponse(self._client.api_keys)
 
     @cached_property
-    def assets(self) -> assets.AssetsResourceWithRawResponse:
+    def assets(self) -> assets_resources.AssetsResourceWithRawResponse:
         """
         Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
         """
@@ -705,21 +705,21 @@ class GumnutWithRawResponse:
         return AssetsResourceWithRawResponse(self._client.assets)
 
     @cached_property
-    def albums(self) -> albums.AlbumsResourceWithRawResponse:
+    def albums(self) -> albums_resources.AlbumsResourceWithRawResponse:
         """User-curated collections of assets."""
         from .resources.albums import AlbumsResourceWithRawResponse
 
         return AlbumsResourceWithRawResponse(self._client.albums)
 
     @cached_property
-    def album_assets(self) -> album_assets.AlbumAssetsResourceWithRawResponse:
+    def album_assets(self) -> album_assets_resources.AlbumAssetsResourceWithRawResponse:
         """Link records connecting albums to their member assets."""
         from .resources.album_assets import AlbumAssetsResourceWithRawResponse
 
         return AlbumAssetsResourceWithRawResponse(self._client.album_assets)
 
     @cached_property
-    def events(self) -> events.EventsResourceWithRawResponse:
+    def events(self) -> events_resources.EventsResourceWithRawResponse:
         """
         Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
         """
@@ -728,42 +728,42 @@ class GumnutWithRawResponse:
         return EventsResourceWithRawResponse(self._client.events)
 
     @cached_property
-    def faces(self) -> faces.FacesResourceWithRawResponse:
+    def faces(self) -> faces_resources.FacesResourceWithRawResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import FacesResourceWithRawResponse
 
         return FacesResourceWithRawResponse(self._client.faces)
 
     @cached_property
-    def libraries(self) -> libraries.LibrariesResourceWithRawResponse:
+    def libraries(self) -> libraries_resources.LibrariesResourceWithRawResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import LibrariesResourceWithRawResponse
 
         return LibrariesResourceWithRawResponse(self._client.libraries)
 
     @cached_property
-    def oauth(self) -> oauth.OAuthResourceWithRawResponse:
+    def oauth(self) -> oauth_resources.OAuthResourceWithRawResponse:
         """OAuth flow endpoints for obtaining and refreshing access tokens."""
         from .resources.oauth import OAuthResourceWithRawResponse
 
         return OAuthResourceWithRawResponse(self._client.oauth)
 
     @cached_property
-    def people(self) -> people.PeopleResourceWithRawResponse:
+    def people(self) -> people_resources.PeopleResourceWithRawResponse:
         """Named people, each built from clustered faces."""
         from .resources.people import PeopleResourceWithRawResponse
 
         return PeopleResourceWithRawResponse(self._client.people)
 
     @cached_property
-    def ping(self) -> ping.PingResourceWithRawResponse:
+    def ping(self) -> ping_resources.PingResourceWithRawResponse:
         """Service health."""
         from .resources.ping import PingResourceWithRawResponse
 
         return PingResourceWithRawResponse(self._client.ping)
 
     @cached_property
-    def search(self) -> search.SearchResourceWithRawResponse:
+    def search(self) -> search_resources.SearchResourceWithRawResponse:
         """
         Content-based search over a library's assets, with album, person, date, and location filters.
         """
@@ -772,7 +772,7 @@ class GumnutWithRawResponse:
         return SearchResourceWithRawResponse(self._client.search)
 
     @cached_property
-    def stacks(self) -> stacks.StacksResourceWithRawResponse:
+    def stacks(self) -> stacks_resources.StacksResourceWithRawResponse:
         """
         Groups of related shots of the same moment, presented as a single unit with a cover asset.
         """
@@ -781,14 +781,14 @@ class GumnutWithRawResponse:
         return StacksResourceWithRawResponse(self._client.stacks)
 
     @cached_property
-    def tasks(self) -> tasks.TasksResourceWithRawResponse:
+    def tasks(self) -> tasks_resources.TasksResourceWithRawResponse:
         """Status of background processing tasks."""
         from .resources.tasks import TasksResourceWithRawResponse
 
         return TasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithRawResponse:
+    def users(self) -> users_resources.UsersResourceWithRawResponse:
         """The authenticated user's profile."""
         from .resources.users import UsersResourceWithRawResponse
 
@@ -802,14 +802,14 @@ class AsyncGumnutWithRawResponse:
         self._client = client
 
     @cached_property
-    def feedback(self) -> feedback.AsyncFeedbackResourceWithRawResponse:
+    def feedback(self) -> feedback_resources.AsyncFeedbackResourceWithRawResponse:
         """Reports of friction using Gumnut."""
         from .resources.feedback import AsyncFeedbackResourceWithRawResponse
 
         return AsyncFeedbackResourceWithRawResponse(self._client.feedback)
 
     @cached_property
-    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+    def api_keys(self) -> api_keys_resources.AsyncAPIKeysResourceWithRawResponse:
         """Create and manage Gumnut API keys.
 
         Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
@@ -819,7 +819,7 @@ class AsyncGumnutWithRawResponse:
         return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
 
     @cached_property
-    def assets(self) -> assets.AsyncAssetsResourceWithRawResponse:
+    def assets(self) -> assets_resources.AsyncAssetsResourceWithRawResponse:
         """
         Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
         """
@@ -828,21 +828,21 @@ class AsyncGumnutWithRawResponse:
         return AsyncAssetsResourceWithRawResponse(self._client.assets)
 
     @cached_property
-    def albums(self) -> albums.AsyncAlbumsResourceWithRawResponse:
+    def albums(self) -> albums_resources.AsyncAlbumsResourceWithRawResponse:
         """User-curated collections of assets."""
         from .resources.albums import AsyncAlbumsResourceWithRawResponse
 
         return AsyncAlbumsResourceWithRawResponse(self._client.albums)
 
     @cached_property
-    def album_assets(self) -> album_assets.AsyncAlbumAssetsResourceWithRawResponse:
+    def album_assets(self) -> album_assets_resources.AsyncAlbumAssetsResourceWithRawResponse:
         """Link records connecting albums to their member assets."""
         from .resources.album_assets import AsyncAlbumAssetsResourceWithRawResponse
 
         return AsyncAlbumAssetsResourceWithRawResponse(self._client.album_assets)
 
     @cached_property
-    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+    def events(self) -> events_resources.AsyncEventsResourceWithRawResponse:
         """
         Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
         """
@@ -851,42 +851,42 @@ class AsyncGumnutWithRawResponse:
         return AsyncEventsResourceWithRawResponse(self._client.events)
 
     @cached_property
-    def faces(self) -> faces.AsyncFacesResourceWithRawResponse:
+    def faces(self) -> faces_resources.AsyncFacesResourceWithRawResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import AsyncFacesResourceWithRawResponse
 
         return AsyncFacesResourceWithRawResponse(self._client.faces)
 
     @cached_property
-    def libraries(self) -> libraries.AsyncLibrariesResourceWithRawResponse:
+    def libraries(self) -> libraries_resources.AsyncLibrariesResourceWithRawResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import AsyncLibrariesResourceWithRawResponse
 
         return AsyncLibrariesResourceWithRawResponse(self._client.libraries)
 
     @cached_property
-    def oauth(self) -> oauth.AsyncOAuthResourceWithRawResponse:
+    def oauth(self) -> oauth_resources.AsyncOAuthResourceWithRawResponse:
         """OAuth flow endpoints for obtaining and refreshing access tokens."""
         from .resources.oauth import AsyncOAuthResourceWithRawResponse
 
         return AsyncOAuthResourceWithRawResponse(self._client.oauth)
 
     @cached_property
-    def people(self) -> people.AsyncPeopleResourceWithRawResponse:
+    def people(self) -> people_resources.AsyncPeopleResourceWithRawResponse:
         """Named people, each built from clustered faces."""
         from .resources.people import AsyncPeopleResourceWithRawResponse
 
         return AsyncPeopleResourceWithRawResponse(self._client.people)
 
     @cached_property
-    def ping(self) -> ping.AsyncPingResourceWithRawResponse:
+    def ping(self) -> ping_resources.AsyncPingResourceWithRawResponse:
         """Service health."""
         from .resources.ping import AsyncPingResourceWithRawResponse
 
         return AsyncPingResourceWithRawResponse(self._client.ping)
 
     @cached_property
-    def search(self) -> search.AsyncSearchResourceWithRawResponse:
+    def search(self) -> search_resources.AsyncSearchResourceWithRawResponse:
         """
         Content-based search over a library's assets, with album, person, date, and location filters.
         """
@@ -895,7 +895,7 @@ class AsyncGumnutWithRawResponse:
         return AsyncSearchResourceWithRawResponse(self._client.search)
 
     @cached_property
-    def stacks(self) -> stacks.AsyncStacksResourceWithRawResponse:
+    def stacks(self) -> stacks_resources.AsyncStacksResourceWithRawResponse:
         """
         Groups of related shots of the same moment, presented as a single unit with a cover asset.
         """
@@ -904,14 +904,14 @@ class AsyncGumnutWithRawResponse:
         return AsyncStacksResourceWithRawResponse(self._client.stacks)
 
     @cached_property
-    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+    def tasks(self) -> tasks_resources.AsyncTasksResourceWithRawResponse:
         """Status of background processing tasks."""
         from .resources.tasks import AsyncTasksResourceWithRawResponse
 
         return AsyncTasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
-    def users(self) -> users.AsyncUsersResourceWithRawResponse:
+    def users(self) -> users_resources.AsyncUsersResourceWithRawResponse:
         """The authenticated user's profile."""
         from .resources.users import AsyncUsersResourceWithRawResponse
 
@@ -925,14 +925,14 @@ class GumnutWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def feedback(self) -> feedback.FeedbackResourceWithStreamingResponse:
+    def feedback(self) -> feedback_resources.FeedbackResourceWithStreamingResponse:
         """Reports of friction using Gumnut."""
         from .resources.feedback import FeedbackResourceWithStreamingResponse
 
         return FeedbackResourceWithStreamingResponse(self._client.feedback)
 
     @cached_property
-    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+    def api_keys(self) -> api_keys_resources.APIKeysResourceWithStreamingResponse:
         """Create and manage Gumnut API keys.
 
         Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
@@ -942,7 +942,7 @@ class GumnutWithStreamedResponse:
         return APIKeysResourceWithStreamingResponse(self._client.api_keys)
 
     @cached_property
-    def assets(self) -> assets.AssetsResourceWithStreamingResponse:
+    def assets(self) -> assets_resources.AssetsResourceWithStreamingResponse:
         """
         Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
         """
@@ -951,21 +951,21 @@ class GumnutWithStreamedResponse:
         return AssetsResourceWithStreamingResponse(self._client.assets)
 
     @cached_property
-    def albums(self) -> albums.AlbumsResourceWithStreamingResponse:
+    def albums(self) -> albums_resources.AlbumsResourceWithStreamingResponse:
         """User-curated collections of assets."""
         from .resources.albums import AlbumsResourceWithStreamingResponse
 
         return AlbumsResourceWithStreamingResponse(self._client.albums)
 
     @cached_property
-    def album_assets(self) -> album_assets.AlbumAssetsResourceWithStreamingResponse:
+    def album_assets(self) -> album_assets_resources.AlbumAssetsResourceWithStreamingResponse:
         """Link records connecting albums to their member assets."""
         from .resources.album_assets import AlbumAssetsResourceWithStreamingResponse
 
         return AlbumAssetsResourceWithStreamingResponse(self._client.album_assets)
 
     @cached_property
-    def events(self) -> events.EventsResourceWithStreamingResponse:
+    def events(self) -> events_resources.EventsResourceWithStreamingResponse:
         """
         Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
         """
@@ -974,42 +974,42 @@ class GumnutWithStreamedResponse:
         return EventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
-    def faces(self) -> faces.FacesResourceWithStreamingResponse:
+    def faces(self) -> faces_resources.FacesResourceWithStreamingResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import FacesResourceWithStreamingResponse
 
         return FacesResourceWithStreamingResponse(self._client.faces)
 
     @cached_property
-    def libraries(self) -> libraries.LibrariesResourceWithStreamingResponse:
+    def libraries(self) -> libraries_resources.LibrariesResourceWithStreamingResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import LibrariesResourceWithStreamingResponse
 
         return LibrariesResourceWithStreamingResponse(self._client.libraries)
 
     @cached_property
-    def oauth(self) -> oauth.OAuthResourceWithStreamingResponse:
+    def oauth(self) -> oauth_resources.OAuthResourceWithStreamingResponse:
         """OAuth flow endpoints for obtaining and refreshing access tokens."""
         from .resources.oauth import OAuthResourceWithStreamingResponse
 
         return OAuthResourceWithStreamingResponse(self._client.oauth)
 
     @cached_property
-    def people(self) -> people.PeopleResourceWithStreamingResponse:
+    def people(self) -> people_resources.PeopleResourceWithStreamingResponse:
         """Named people, each built from clustered faces."""
         from .resources.people import PeopleResourceWithStreamingResponse
 
         return PeopleResourceWithStreamingResponse(self._client.people)
 
     @cached_property
-    def ping(self) -> ping.PingResourceWithStreamingResponse:
+    def ping(self) -> ping_resources.PingResourceWithStreamingResponse:
         """Service health."""
         from .resources.ping import PingResourceWithStreamingResponse
 
         return PingResourceWithStreamingResponse(self._client.ping)
 
     @cached_property
-    def search(self) -> search.SearchResourceWithStreamingResponse:
+    def search(self) -> search_resources.SearchResourceWithStreamingResponse:
         """
         Content-based search over a library's assets, with album, person, date, and location filters.
         """
@@ -1018,7 +1018,7 @@ class GumnutWithStreamedResponse:
         return SearchResourceWithStreamingResponse(self._client.search)
 
     @cached_property
-    def stacks(self) -> stacks.StacksResourceWithStreamingResponse:
+    def stacks(self) -> stacks_resources.StacksResourceWithStreamingResponse:
         """
         Groups of related shots of the same moment, presented as a single unit with a cover asset.
         """
@@ -1027,14 +1027,14 @@ class GumnutWithStreamedResponse:
         return StacksResourceWithStreamingResponse(self._client.stacks)
 
     @cached_property
-    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+    def tasks(self) -> tasks_resources.TasksResourceWithStreamingResponse:
         """Status of background processing tasks."""
         from .resources.tasks import TasksResourceWithStreamingResponse
 
         return TasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithStreamingResponse:
+    def users(self) -> users_resources.UsersResourceWithStreamingResponse:
         """The authenticated user's profile."""
         from .resources.users import UsersResourceWithStreamingResponse
 
@@ -1048,14 +1048,14 @@ class AsyncGumnutWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def feedback(self) -> feedback.AsyncFeedbackResourceWithStreamingResponse:
+    def feedback(self) -> feedback_resources.AsyncFeedbackResourceWithStreamingResponse:
         """Reports of friction using Gumnut."""
         from .resources.feedback import AsyncFeedbackResourceWithStreamingResponse
 
         return AsyncFeedbackResourceWithStreamingResponse(self._client.feedback)
 
     @cached_property
-    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+    def api_keys(self) -> api_keys_resources.AsyncAPIKeysResourceWithStreamingResponse:
         """Create and manage Gumnut API keys.
 
         Requires a first-party Gumnut app session — API keys and OAuth tokens cannot manage credentials.
@@ -1065,7 +1065,7 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
 
     @cached_property
-    def assets(self) -> assets.AsyncAssetsResourceWithStreamingResponse:
+    def assets(self) -> assets_resources.AsyncAssetsResourceWithStreamingResponse:
         """
         Photos and videos in a library: upload, list and filter, update metadata, trash and restore.
         """
@@ -1074,21 +1074,21 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncAssetsResourceWithStreamingResponse(self._client.assets)
 
     @cached_property
-    def albums(self) -> albums.AsyncAlbumsResourceWithStreamingResponse:
+    def albums(self) -> albums_resources.AsyncAlbumsResourceWithStreamingResponse:
         """User-curated collections of assets."""
         from .resources.albums import AsyncAlbumsResourceWithStreamingResponse
 
         return AsyncAlbumsResourceWithStreamingResponse(self._client.albums)
 
     @cached_property
-    def album_assets(self) -> album_assets.AsyncAlbumAssetsResourceWithStreamingResponse:
+    def album_assets(self) -> album_assets_resources.AsyncAlbumAssetsResourceWithStreamingResponse:
         """Link records connecting albums to their member assets."""
         from .resources.album_assets import AsyncAlbumAssetsResourceWithStreamingResponse
 
         return AsyncAlbumAssetsResourceWithStreamingResponse(self._client.album_assets)
 
     @cached_property
-    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+    def events(self) -> events_resources.AsyncEventsResourceWithStreamingResponse:
         """
         Change events (create/update/delete) for entities in a library, for synchronising a local copy or auditing recent activity. Events reference entities by type and ID; fetch full data with the corresponding resource.
         """
@@ -1097,42 +1097,42 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncEventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
-    def faces(self) -> faces.AsyncFacesResourceWithStreamingResponse:
+    def faces(self) -> faces_resources.AsyncFacesResourceWithStreamingResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import AsyncFacesResourceWithStreamingResponse
 
         return AsyncFacesResourceWithStreamingResponse(self._client.faces)
 
     @cached_property
-    def libraries(self) -> libraries.AsyncLibrariesResourceWithStreamingResponse:
+    def libraries(self) -> libraries_resources.AsyncLibrariesResourceWithStreamingResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import AsyncLibrariesResourceWithStreamingResponse
 
         return AsyncLibrariesResourceWithStreamingResponse(self._client.libraries)
 
     @cached_property
-    def oauth(self) -> oauth.AsyncOAuthResourceWithStreamingResponse:
+    def oauth(self) -> oauth_resources.AsyncOAuthResourceWithStreamingResponse:
         """OAuth flow endpoints for obtaining and refreshing access tokens."""
         from .resources.oauth import AsyncOAuthResourceWithStreamingResponse
 
         return AsyncOAuthResourceWithStreamingResponse(self._client.oauth)
 
     @cached_property
-    def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
+    def people(self) -> people_resources.AsyncPeopleResourceWithStreamingResponse:
         """Named people, each built from clustered faces."""
         from .resources.people import AsyncPeopleResourceWithStreamingResponse
 
         return AsyncPeopleResourceWithStreamingResponse(self._client.people)
 
     @cached_property
-    def ping(self) -> ping.AsyncPingResourceWithStreamingResponse:
+    def ping(self) -> ping_resources.AsyncPingResourceWithStreamingResponse:
         """Service health."""
         from .resources.ping import AsyncPingResourceWithStreamingResponse
 
         return AsyncPingResourceWithStreamingResponse(self._client.ping)
 
     @cached_property
-    def search(self) -> search.AsyncSearchResourceWithStreamingResponse:
+    def search(self) -> search_resources.AsyncSearchResourceWithStreamingResponse:
         """
         Content-based search over a library's assets, with album, person, date, and location filters.
         """
@@ -1141,7 +1141,7 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncSearchResourceWithStreamingResponse(self._client.search)
 
     @cached_property
-    def stacks(self) -> stacks.AsyncStacksResourceWithStreamingResponse:
+    def stacks(self) -> stacks_resources.AsyncStacksResourceWithStreamingResponse:
         """
         Groups of related shots of the same moment, presented as a single unit with a cover asset.
         """
@@ -1150,14 +1150,14 @@ class AsyncGumnutWithStreamedResponse:
         return AsyncStacksResourceWithStreamingResponse(self._client.stacks)
 
     @cached_property
-    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+    def tasks(self) -> tasks_resources.AsyncTasksResourceWithStreamingResponse:
         """Status of background processing tasks."""
         from .resources.tasks import AsyncTasksResourceWithStreamingResponse
 
         return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
-    def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
+    def users(self) -> users_resources.AsyncUsersResourceWithStreamingResponse:
         """The authenticated user's profile."""
         from .resources.users import AsyncUsersResourceWithStreamingResponse
 
