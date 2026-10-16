@@ -45,7 +45,7 @@ async def test_async_tuple_input() -> None:
 
 def test_string_not_allowed() -> None:
     with pytest.raises(TypeError, match="Expected file types input to be a FileContent type or to be a tuple"):
-        to_httpx_files(
+        to_httpx_files(  # ty: ignore[no-matching-overload]
             {
                 "file": "foo",  # type: ignore
             }

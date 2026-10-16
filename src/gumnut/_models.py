@@ -502,8 +502,8 @@ def _get_extra_fields_type(cls: type[pydantic.BaseModel]) -> type | None:
         if fields["type"] == "model-fields":
             extras = fields.get("extras_schema")
             if extras and "cls" in extras:
-                # mypy can't narrow the type
-                return extras["cls"]  # type: ignore[no-any-return]
+                # Pydantic's dynamic extras schema records a class for this branch.
+                return cast(type, extras["cls"])
 
     return None
 
@@ -644,7 +644,7 @@ def construct_type(*, value: object, type_: object, metadata: Optional[List[Any]
 
         if is_mapping(value):
             if issubclass(type_, BaseModel):
-                return type_.construct(**value)  # type: ignore[arg-type]
+                return type_.construct(**cast(Any, value))
 
             return cast(Any, type_).construct(**value)
 

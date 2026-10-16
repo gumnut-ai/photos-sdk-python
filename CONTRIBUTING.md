@@ -91,8 +91,10 @@ $ ./scripts/test
 
 ## Linting and formatting
 
-This repository uses [ruff](https://github.com/astral-sh/ruff) and
-[black](https://github.com/psf/black) to format the code in the repository.
+This repository uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting.
+The lint script checks source, tests, and examples with [ty](https://docs.astral.sh/ty/),
+targeting Python 3.9. ty errors fail the gate, while migration warnings remain visible.
+The ty development dependency is pinned to a release at least 14 days old.
 
 To lint:
 

@@ -127,7 +127,8 @@ def extract_type_var_from_base(
     # without using it.
     if isinstance(cls, InheritsGeneric):
         target_base_class: Any | None = None
-        for base in cls.__orig_bases__:
+        # Runtime protocol checks establish this internal typing attribute.
+        for base in cast(Any, cls).__orig_bases__:
             if base.__origin__ in generic_bases:
                 target_base_class = base
                 break
