@@ -6,14 +6,14 @@ cd "$(dirname "$0")/.."
 
 if [ "$1" = "--fix" ]; then
   echo "==> Running ruff with --fix"
-  uv run --locked ruff check . --fix
+  uv run ruff check . --fix
 else
   echo "==> Running ruff"
-  uv run --locked ruff check .
+  uv run ruff check .
 fi
 
 echo "==> Running ty"
-uv run --locked ty check --exit-zero-on-warning
+uv run ty check --exit-zero-on-warning
 
 echo "==> Making sure it imports"
-uv run --locked python -c 'import gumnut'
+uv run python -c 'import gumnut'

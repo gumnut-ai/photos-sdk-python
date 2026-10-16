@@ -45,8 +45,7 @@ aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
 [tool.uv]
 managed = true
-exclude-newer = "14 days"
-required-version = ">=0.10.2"
+required-version = ">=0.9"
 conflicts = [
     [
       { group = "pydantic-v1" },

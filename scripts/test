@@ -15,12 +15,12 @@ PY_VERSION_MAX=">=3.14.0"
 
 function run_tests() {
     echo "==> Running tests with Pydantic v2"
-    uv run --locked --isolated --all-extras pytest "$@"
+    uv run --isolated --all-extras pytest "$@"
 
     # Skip Pydantic v1 tests on latest Python (not supported)
     if [[ "$UV_PYTHON" != "$PY_VERSION_MAX" ]]; then
         echo "==> Running tests with Pydantic v1"
-        uv run --locked --isolated --all-extras --group=pydantic-v1 pytest "$@"
+        uv run --isolated --all-extras --group=pydantic-v1 pytest "$@"
     fi
 }
 

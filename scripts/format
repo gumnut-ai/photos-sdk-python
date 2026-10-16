@@ -5,10 +5,10 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Running ruff"
-uv run --locked ruff format
-uv run --locked ruff check --fix .
+uv run ruff format
+uv run ruff check --fix .
 # run formatting again to fix any inconsistencies when imports are stripped
-uv run --locked ruff format
+uv run ruff format
 
 echo "==> Formatting docs"
-uv run --locked python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md)
+uv run python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md)
