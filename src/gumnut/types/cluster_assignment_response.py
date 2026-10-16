@@ -36,12 +36,14 @@ class ClusterAssignmentResponse(BaseModel):
 
     Excludes the face's currently-assigned Person (its distance is in
     `distance_to_person`) and people marked hidden (`is_hidden`). Empty when there
-    are no eligible nearby Persons.
+    are no eligible nearby Persons, or when the library owner's settings do not
+    allow automatic face detection.
     """
 
     distance_to_person: Optional[float] = None
     """
     Cosine distance from the face's embedding to its currently-assigned Person's
-    centroid. Lower = better fit. Null when the face is unassigned or when the
-    assigned Person has no centroid.
+    centroid. Lower = better fit. Null when the face is unassigned, when the
+    assigned Person has no centroid, or when the library owner's settings do not
+    allow automatic face detection.
     """
