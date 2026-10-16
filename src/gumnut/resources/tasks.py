@@ -145,8 +145,8 @@ class TasksResource(SyncAPIResource):
         user's libraries.
 
         Args:
-          task_id: Task identifier — either the task's `id` or its `celery_task_id`; both are
-              accepted.
+          task_id: Task's public `id`. Legacy alternate identifiers remain accepted for
+              compatibility.
 
           extra_headers: Send extra headers
 
@@ -322,8 +322,8 @@ class AsyncTasksResource(AsyncAPIResource):
         user's libraries.
 
         Args:
-          task_id: Task identifier — either the task's `id` or its `celery_task_id`; both are
-              accepted.
+          task_id: Task's public `id`. Legacy alternate identifiers remain accepted for
+              compatibility.
 
           extra_headers: Send extra headers
 
