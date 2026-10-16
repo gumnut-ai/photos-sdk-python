@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.177.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.176.0...v0.177.0) (2026-10-16)
+
+
+### Features
+
+* **api:** api update ([a53aa4b](https://github.com/gumnut-ai/photos-sdk-python/commit/a53aa4b69e584317f6e052dc92f9f6b1f05ea56a))
+* **api:** api update ([531b88c](https://github.com/gumnut-ai/photos-sdk-python/commit/531b88cd50aaa66c5dbac5ff1aa60559425c8930))
+
+
+### Bug Fixes
+
+* inherit client retry settings for feedback submissions ([add1f67](https://github.com/gumnut-ai/photos-sdk-python/commit/add1f67d9396f8431d6aae9def452d6dcc4d778b))
+
 ## [0.176.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.175.0...v0.176.0) (2026-10-15)
 
 
