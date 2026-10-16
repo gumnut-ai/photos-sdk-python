@@ -1,8 +1,6 @@
 ## Setting up the environment
 
-### With `uv`
-
-We use [uv](https://docs.astral.sh/uv/) to manage dependencies because it will automatically provision a Python environment with the expected Python version. To set it up, run:
+We use [uv](https://docs.astral.sh/uv/) 0.10.2 or newer to manage dependencies because it will automatically provision a Python environment with the expected Python version. To set it up, run:
 
 ```sh
 $ ./scripts/bootstrap
@@ -11,10 +9,10 @@ $ ./scripts/bootstrap
 Or [install uv manually](https://docs.astral.sh/uv/getting-started/installation/) and run:
 
 ```sh
-$ uv sync --all-extras
+$ uv sync --locked --all-extras
 ```
 
-You can then run scripts using `uv run python script.py` or by manually activating the virtual environment:
+You can then run scripts using `uv run --locked python script.py` or by manually activating the virtual environment:
 
 ```sh
 # manually activate - https://docs.python.org/3/library/venv.html#how-venvs-work
@@ -22,14 +20,6 @@ $ source .venv/bin/activate
 
 # now you can omit the `uv run` prefix
 $ python script.py
-```
-
-### Without `uv`
-
-Alternatively if you don't want to install `uv`, you can stick with the standard `pip` setup by ensuring you have the Python version specified in `.python-version`, create a virtual environment however you desire and then install dependencies using this command:
-
-```sh
-$ pip install -r requirements-dev.lock
 ```
 
 ## Modifying/Adding code
@@ -73,8 +63,6 @@ To create a distributable version of the library, all you have to do is run this
 
 ```sh
 $ uv build
-# or
-$ python -m build
 ```
 
 Then to install:
@@ -95,6 +83,7 @@ This repository uses [Ruff](https://docs.astral.sh/ruff/) for linting and format
 The lint script checks source, tests, and examples with [ty](https://docs.astral.sh/ty/),
 targeting Python 3.9. ty errors fail the gate, while migration warnings remain visible.
 The ty development dependency is pinned to a release at least 14 days old.
+uv also excludes releases newer than 14 days when resolving dependencies.
 
 To lint:
 
