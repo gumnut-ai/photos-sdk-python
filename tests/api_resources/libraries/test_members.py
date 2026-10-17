@@ -18,7 +18,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestMembers:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Gumnut) -> None:
         member = client.libraries.members.update(
@@ -28,7 +27,6 @@ class TestMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Gumnut) -> None:
         response = client.libraries.members.with_raw_response.update(
@@ -42,7 +40,6 @@ class TestMembers:
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Gumnut) -> None:
         with client.libraries.members.with_streaming_response.update(
@@ -58,7 +55,6 @@ class TestMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -75,7 +71,6 @@ class TestMembers:
                 role="viewer",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         member = client.libraries.members.list(
@@ -83,7 +78,6 @@ class TestMembers:
         )
         assert_matches_type(SyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         member = client.libraries.members.list(
@@ -94,7 +88,6 @@ class TestMembers:
         )
         assert_matches_type(SyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.libraries.members.with_raw_response.list(
@@ -106,7 +99,6 @@ class TestMembers:
         member = response.parse()
         assert_matches_type(SyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.libraries.members.with_streaming_response.list(
@@ -120,7 +112,6 @@ class TestMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -128,7 +119,6 @@ class TestMembers:
                 library_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_leave(self, client: Gumnut) -> None:
         member = client.libraries.members.leave(
@@ -136,7 +126,6 @@ class TestMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_leave(self, client: Gumnut) -> None:
         response = client.libraries.members.with_raw_response.leave(
@@ -148,7 +137,6 @@ class TestMembers:
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_leave(self, client: Gumnut) -> None:
         with client.libraries.members.with_streaming_response.leave(
@@ -162,7 +150,6 @@ class TestMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_leave(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -170,7 +157,6 @@ class TestMembers:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_remove(self, client: Gumnut) -> None:
         member = client.libraries.members.remove(
@@ -179,7 +165,6 @@ class TestMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_remove(self, client: Gumnut) -> None:
         response = client.libraries.members.with_raw_response.remove(
@@ -192,7 +177,6 @@ class TestMembers:
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_remove(self, client: Gumnut) -> None:
         with client.libraries.members.with_streaming_response.remove(
@@ -207,7 +191,6 @@ class TestMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_remove(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -228,7 +211,6 @@ class TestAsyncMembers:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncGumnut) -> None:
         member = await async_client.libraries.members.update(
@@ -238,7 +220,6 @@ class TestAsyncMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.members.with_raw_response.update(
@@ -252,7 +233,6 @@ class TestAsyncMembers:
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.members.with_streaming_response.update(
@@ -268,7 +248,6 @@ class TestAsyncMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -285,7 +264,6 @@ class TestAsyncMembers:
                 role="viewer",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         member = await async_client.libraries.members.list(
@@ -293,7 +271,6 @@ class TestAsyncMembers:
         )
         assert_matches_type(AsyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         member = await async_client.libraries.members.list(
@@ -304,7 +281,6 @@ class TestAsyncMembers:
         )
         assert_matches_type(AsyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.members.with_raw_response.list(
@@ -316,7 +292,6 @@ class TestAsyncMembers:
         member = await response.parse()
         assert_matches_type(AsyncCursorPage[MembershipResponse], member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.members.with_streaming_response.list(
@@ -330,7 +305,6 @@ class TestAsyncMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -338,7 +312,6 @@ class TestAsyncMembers:
                 library_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_leave(self, async_client: AsyncGumnut) -> None:
         member = await async_client.libraries.members.leave(
@@ -346,7 +319,6 @@ class TestAsyncMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_leave(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.members.with_raw_response.leave(
@@ -358,7 +330,6 @@ class TestAsyncMembers:
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_leave(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.members.with_streaming_response.leave(
@@ -372,7 +343,6 @@ class TestAsyncMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_leave(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):
@@ -380,7 +350,6 @@ class TestAsyncMembers:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_remove(self, async_client: AsyncGumnut) -> None:
         member = await async_client.libraries.members.remove(
@@ -389,7 +358,6 @@ class TestAsyncMembers:
         )
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_remove(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.members.with_raw_response.remove(
@@ -402,7 +370,6 @@ class TestAsyncMembers:
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_remove(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.members.with_streaming_response.remove(
@@ -417,7 +384,6 @@ class TestAsyncMembers:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_remove(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `library_id` but received ''"):

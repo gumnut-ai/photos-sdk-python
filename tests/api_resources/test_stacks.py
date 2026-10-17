@@ -26,7 +26,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestStacks:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Gumnut) -> None:
         stack = client.stacks.delete(
@@ -34,7 +33,6 @@ class TestStacks:
         )
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.delete(
@@ -46,7 +44,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.delete(
@@ -60,7 +57,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -68,7 +64,6 @@ class TestStacks:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_add_assets_to_stack(self, client: Gumnut) -> None:
         stack = client.stacks.add_assets_to_stack(
@@ -77,7 +72,6 @@ class TestStacks:
         )
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_add_assets_to_stack(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.add_assets_to_stack(
@@ -90,7 +84,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_add_assets_to_stack(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.add_assets_to_stack(
@@ -105,7 +98,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_add_assets_to_stack(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -114,7 +106,6 @@ class TestStacks:
                 asset_ids=["string"],
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_stack(self, client: Gumnut) -> None:
         stack = client.stacks.create_stack(
@@ -122,7 +113,6 @@ class TestStacks:
         )
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_stack_with_all_params(self, client: Gumnut) -> None:
         stack = client.stacks.create_stack(
@@ -132,7 +122,6 @@ class TestStacks:
         )
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_stack(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.create_stack(
@@ -144,7 +133,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_stack(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.create_stack(
@@ -158,13 +146,11 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_stacks(self, client: Gumnut) -> None:
         stack = client.stacks.list_stacks()
         assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_stacks_with_all_params(self, client: Gumnut) -> None:
         stack = client.stacks.list_stacks(
@@ -178,7 +164,6 @@ class TestStacks:
         )
         assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_stacks(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.list_stacks()
@@ -188,7 +173,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_stacks(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.list_stacks() as response:
@@ -200,7 +184,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_remove_assets(self, client: Gumnut) -> None:
         stack = client.stacks.remove_assets(
@@ -209,7 +192,6 @@ class TestStacks:
         )
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_remove_assets(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.remove_assets(
@@ -222,7 +204,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_remove_assets(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.remove_assets(
@@ -237,7 +218,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_remove_assets(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -246,7 +226,6 @@ class TestStacks:
                 asset_ids=["string"],
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_stack(self, client: Gumnut) -> None:
         stack = client.stacks.retrieve_stack(
@@ -254,7 +233,6 @@ class TestStacks:
         )
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_stack(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.retrieve_stack(
@@ -266,7 +244,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_stack(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.retrieve_stack(
@@ -280,7 +257,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve_stack(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -288,7 +264,6 @@ class TestStacks:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_set_cover(self, client: Gumnut) -> None:
         stack = client.stacks.set_cover(
@@ -297,7 +272,6 @@ class TestStacks:
         )
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_set_cover(self, client: Gumnut) -> None:
         response = client.stacks.with_raw_response.set_cover(
@@ -310,7 +284,6 @@ class TestStacks:
         stack = response.parse()
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_set_cover(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.set_cover(
@@ -325,7 +298,6 @@ class TestStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_set_cover(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -340,7 +312,6 @@ class TestAsyncStacks:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.delete(
@@ -348,7 +319,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.delete(
@@ -360,7 +330,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.delete(
@@ -374,7 +343,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -382,7 +350,6 @@ class TestAsyncStacks:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.add_assets_to_stack(
@@ -391,7 +358,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.add_assets_to_stack(
@@ -404,7 +370,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.add_assets_to_stack(
@@ -419,7 +384,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -428,7 +392,6 @@ class TestAsyncStacks:
                 asset_ids=["string"],
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_stack(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.create_stack(
@@ -436,7 +399,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_stack_with_all_params(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.create_stack(
@@ -446,7 +408,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_stack(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.create_stack(
@@ -458,7 +419,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_stack(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.create_stack(
@@ -472,13 +432,11 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_stacks(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.list_stacks()
         assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_stacks_with_all_params(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.list_stacks(
@@ -492,7 +450,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_stacks(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.list_stacks()
@@ -502,7 +459,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_stacks(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.list_stacks() as response:
@@ -514,7 +470,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_remove_assets(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.remove_assets(
@@ -523,7 +478,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_remove_assets(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.remove_assets(
@@ -536,7 +490,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_remove_assets(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.remove_assets(
@@ -551,7 +504,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_remove_assets(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -560,7 +512,6 @@ class TestAsyncStacks:
                 asset_ids=["string"],
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_stack(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.retrieve_stack(
@@ -568,7 +519,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_stack(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.retrieve_stack(
@@ -580,7 +530,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_stack(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.retrieve_stack(
@@ -594,7 +543,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve_stack(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):
@@ -602,7 +550,6 @@ class TestAsyncStacks:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_set_cover(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.set_cover(
@@ -611,7 +558,6 @@ class TestAsyncStacks:
         )
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_set_cover(self, async_client: AsyncGumnut) -> None:
         response = await async_client.stacks.with_raw_response.set_cover(
@@ -624,7 +570,6 @@ class TestAsyncStacks:
         stack = await response.parse()
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_set_cover(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.set_cover(
@@ -639,7 +584,6 @@ class TestAsyncStacks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_set_cover(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `stack_id` but received ''"):

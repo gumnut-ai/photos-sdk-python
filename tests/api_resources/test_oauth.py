@@ -21,7 +21,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestOAuth:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_auth_url(self, client: Gumnut) -> None:
         oauth = client.oauth.auth_url(
@@ -29,7 +28,6 @@ class TestOAuth:
         )
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_auth_url_with_all_params(self, client: Gumnut) -> None:
         oauth = client.oauth.auth_url(
@@ -39,7 +37,6 @@ class TestOAuth:
         )
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_auth_url(self, client: Gumnut) -> None:
         response = client.oauth.with_raw_response.auth_url(
@@ -51,7 +48,6 @@ class TestOAuth:
         oauth = response.parse()
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_auth_url(self, client: Gumnut) -> None:
         with client.oauth.with_streaming_response.auth_url(
@@ -65,13 +61,11 @@ class TestOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_exchange(self, client: Gumnut) -> None:
         oauth = client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_exchange_with_all_params(self, client: Gumnut) -> None:
         oauth = client.oauth.exchange(
@@ -82,7 +76,6 @@ class TestOAuth:
         )
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_exchange(self, client: Gumnut) -> None:
         response = client.oauth.with_raw_response.exchange()
@@ -92,7 +85,6 @@ class TestOAuth:
         oauth = response.parse()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_exchange(self, client: Gumnut) -> None:
         with client.oauth.with_streaming_response.exchange() as response:
@@ -104,13 +96,11 @@ class TestOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_logout_endpoint(self, client: Gumnut) -> None:
         oauth = client.oauth.logout_endpoint()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_logout_endpoint(self, client: Gumnut) -> None:
         response = client.oauth.with_raw_response.logout_endpoint()
@@ -120,7 +110,6 @@ class TestOAuth:
         oauth = response.parse()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_logout_endpoint(self, client: Gumnut) -> None:
         with client.oauth.with_streaming_response.logout_endpoint() as response:
@@ -138,7 +127,6 @@ class TestAsyncOAuth:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_auth_url(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.auth_url(
@@ -146,7 +134,6 @@ class TestAsyncOAuth:
         )
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_auth_url_with_all_params(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.auth_url(
@@ -156,7 +143,6 @@ class TestAsyncOAuth:
         )
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_auth_url(self, async_client: AsyncGumnut) -> None:
         response = await async_client.oauth.with_raw_response.auth_url(
@@ -168,7 +154,6 @@ class TestAsyncOAuth:
         oauth = await response.parse()
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_auth_url(self, async_client: AsyncGumnut) -> None:
         async with async_client.oauth.with_streaming_response.auth_url(
@@ -182,13 +167,11 @@ class TestAsyncOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_exchange(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.exchange()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_exchange_with_all_params(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.exchange(
@@ -199,7 +182,6 @@ class TestAsyncOAuth:
         )
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_exchange(self, async_client: AsyncGumnut) -> None:
         response = await async_client.oauth.with_raw_response.exchange()
@@ -209,7 +191,6 @@ class TestAsyncOAuth:
         oauth = await response.parse()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_exchange(self, async_client: AsyncGumnut) -> None:
         async with async_client.oauth.with_streaming_response.exchange() as response:
@@ -221,13 +202,11 @@ class TestAsyncOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_logout_endpoint(self, async_client: AsyncGumnut) -> None:
         oauth = await async_client.oauth.logout_endpoint()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_logout_endpoint(self, async_client: AsyncGumnut) -> None:
         response = await async_client.oauth.with_raw_response.logout_endpoint()
@@ -237,7 +216,6 @@ class TestAsyncOAuth:
         oauth = await response.parse()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_logout_endpoint(self, async_client: AsyncGumnut) -> None:
         async with async_client.oauth.with_streaming_response.logout_endpoint() as response:
