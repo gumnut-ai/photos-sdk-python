@@ -27,7 +27,7 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" }
   }
 
   // Features to add to the dev container. More info: https://containers.dev/features.
