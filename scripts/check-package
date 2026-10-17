@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+repo_root="$PWD"
+artifact_dir="${1:-dist}"
+shopt -s nullglob
+wheels=("$artifact_dir"/*.whl)
+sdists=("$artifact_dir"/*.tar.gz)
+if [ "${#wheels[@]}" -ne 1 ] || [ "${#sdists[@]}" -ne 1 ]; then
+  echo "Expected exactly one wheel and one source archive in $artifact_dir; run uv build --out-dir <empty-directory>." >&2
+  exit 1
+fi
+
+# Resolve paths before leaving the checkout. Neither installation nor imports may
+# inherit the editable development environment or a caller's source search path.
+python="$(uv python find)"
+unset PYTHONPATH PYTHONHOME
+work_dir="$(mktemp -d /tmp/gumnut-package-check.XXXXXXXX)"
+trap 'rm -rf "$work_dir"' EXIT
+for artifact in "${wheels[0]}" "${sdists[0]}"; do
+  artifact="$(cd "$(dirname "$artifact")" && pwd)/$(basename "$artifact")"
+  env_dir="$work_dir/$(basename "$artifact").venv"
+  uv venv --python "$python" "$env_dir"
+  (
+    cd "$work_dir"
+    # Only the artifact's base runtime dependencies, with the repository's
+    # 14-day resolution policy also applied outside its configuration scope.
+    uv pip install --no-config --exclude-newer '14 days' --python "$env_dir/bin/python" "$artifact"
+    "$env_dir/bin/python" -I "$repo_root/scripts/utils/check-installed-package.py"
+  )
+done

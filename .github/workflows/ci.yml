@@ -59,6 +59,9 @@ jobs:
       - name: Run build
         run: uv build
 
+      - name: Check installed packages
+        run: ./scripts/check-package
+
       - name: Get GitHub OIDC Token
         if: |-
           github.repository == 'stainless-sdks/photos-python' &&

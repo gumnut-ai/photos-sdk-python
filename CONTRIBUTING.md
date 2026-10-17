@@ -63,7 +63,15 @@ To create a distributable version of the library, all you have to do is run this
 
 ```sh
 $ uv build
+$ ./scripts/check-package
 ```
+
+The package check installs the wheel and source archive separately into clean temporary
+environments outside the checkout, using only base runtime dependencies. It checks installed
+imports, version metadata, `py.typed`, and synchronous/asynchronous client lifecycle without
+API requests. It requires exactly one of each artifact in `dist/`; use
+`uv build --out-dir <empty-directory>` and `./scripts/check-package <directory>` if older
+builds are present. Dependency resolution retains the 14-day release cutoff.
 
 Then to install:
 
