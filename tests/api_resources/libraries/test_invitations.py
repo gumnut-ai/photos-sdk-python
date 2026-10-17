@@ -24,7 +24,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestInvitations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.create(
@@ -35,7 +34,6 @@ class TestInvitations:
         )
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.create(
@@ -50,7 +48,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.create(
@@ -67,13 +64,11 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.list()
         assert_matches_type(SyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.list(
@@ -84,7 +79,6 @@ class TestInvitations:
         )
         assert_matches_type(SyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.list()
@@ -94,7 +88,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(SyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.list() as response:
@@ -106,7 +99,6 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_disable(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.disable(
@@ -114,7 +106,6 @@ class TestInvitations:
         )
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_disable(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.disable(
@@ -126,7 +117,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_disable(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.disable(
@@ -140,7 +130,6 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_disable(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -148,7 +137,6 @@ class TestInvitations:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_join(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.join(
@@ -157,7 +145,6 @@ class TestInvitations:
         )
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_join(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.join(
@@ -170,7 +157,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_join(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.join(
@@ -185,7 +171,6 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_join(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -194,7 +179,6 @@ class TestInvitations:
                 secret="x",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_link(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.link(
@@ -202,7 +186,6 @@ class TestInvitations:
         )
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_link(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.link(
@@ -214,7 +197,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_link(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.link(
@@ -228,7 +210,6 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_link(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -236,7 +217,6 @@ class TestInvitations:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_preview(self, client: Gumnut) -> None:
         invitation = client.libraries.invitations.preview(
@@ -245,7 +225,6 @@ class TestInvitations:
         )
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_preview(self, client: Gumnut) -> None:
         response = client.libraries.invitations.with_raw_response.preview(
@@ -258,7 +237,6 @@ class TestInvitations:
         invitation = response.parse()
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_preview(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.preview(
@@ -273,7 +251,6 @@ class TestInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_preview(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -288,7 +265,6 @@ class TestAsyncInvitations:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.create(
@@ -299,7 +275,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.create(
@@ -314,7 +289,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.create(
@@ -331,13 +305,11 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.list()
         assert_matches_type(AsyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.list(
@@ -348,7 +320,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(AsyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.list()
@@ -358,7 +329,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(AsyncCursorPage[InvitationResponse], invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.list() as response:
@@ -370,7 +340,6 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_disable(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.disable(
@@ -378,7 +347,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_disable(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.disable(
@@ -390,7 +358,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_disable(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.disable(
@@ -404,7 +371,6 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_disable(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -412,7 +378,6 @@ class TestAsyncInvitations:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_join(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.join(
@@ -421,7 +386,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_join(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.join(
@@ -434,7 +398,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_join(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.join(
@@ -449,7 +412,6 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_join(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -458,7 +420,6 @@ class TestAsyncInvitations:
                 secret="x",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_link(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.link(
@@ -466,7 +427,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_link(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.link(
@@ -478,7 +438,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_link(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.link(
@@ -492,7 +451,6 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_link(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):
@@ -500,7 +458,6 @@ class TestAsyncInvitations:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_preview(self, async_client: AsyncGumnut) -> None:
         invitation = await async_client.libraries.invitations.preview(
@@ -509,7 +466,6 @@ class TestAsyncInvitations:
         )
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_preview(self, async_client: AsyncGumnut) -> None:
         response = await async_client.libraries.invitations.with_raw_response.preview(
@@ -522,7 +478,6 @@ class TestAsyncInvitations:
         invitation = await response.parse()
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_preview(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.preview(
@@ -537,7 +492,6 @@ class TestAsyncInvitations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_preview(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invitation_id` but received ''"):

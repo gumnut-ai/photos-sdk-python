@@ -18,13 +18,11 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAlbums:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Gumnut) -> None:
         album = client.albums.create()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.create(
@@ -34,7 +32,6 @@ class TestAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Gumnut) -> None:
         response = client.albums.with_raw_response.create()
@@ -44,7 +41,6 @@ class TestAlbums:
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.create() as response:
@@ -56,7 +52,6 @@ class TestAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Gumnut) -> None:
         album = client.albums.retrieve(
@@ -64,7 +59,6 @@ class TestAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
         response = client.albums.with_raw_response.retrieve(
@@ -76,7 +70,6 @@ class TestAlbums:
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.retrieve(
@@ -90,7 +83,6 @@ class TestAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
@@ -98,7 +90,6 @@ class TestAlbums:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Gumnut) -> None:
         album = client.albums.update(
@@ -106,7 +97,6 @@ class TestAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.update(
@@ -117,7 +107,6 @@ class TestAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Gumnut) -> None:
         response = client.albums.with_raw_response.update(
@@ -129,7 +118,6 @@ class TestAlbums:
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.update(
@@ -143,7 +131,6 @@ class TestAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
@@ -151,13 +138,11 @@ class TestAlbums:
                 album_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         album = client.albums.list()
         assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         album = client.albums.list(
@@ -169,7 +154,6 @@ class TestAlbums:
         )
         assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.albums.with_raw_response.list()
@@ -179,7 +163,6 @@ class TestAlbums:
         album = response.parse()
         assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.list() as response:
@@ -191,7 +174,6 @@ class TestAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Gumnut) -> None:
         album = client.albums.delete(
@@ -199,7 +181,6 @@ class TestAlbums:
         )
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.albums.with_raw_response.delete(
@@ -211,7 +192,6 @@ class TestAlbums:
         album = response.parse()
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.delete(
@@ -225,7 +205,6 @@ class TestAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
@@ -239,13 +218,11 @@ class TestAsyncAlbums:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.create()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.create(
@@ -255,7 +232,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.with_raw_response.create()
@@ -265,7 +241,6 @@ class TestAsyncAlbums:
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.create() as response:
@@ -277,7 +252,6 @@ class TestAsyncAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.retrieve(
@@ -285,7 +259,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.with_raw_response.retrieve(
@@ -297,7 +270,6 @@ class TestAsyncAlbums:
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.retrieve(
@@ -311,7 +283,6 @@ class TestAsyncAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
@@ -319,7 +290,6 @@ class TestAsyncAlbums:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.update(
@@ -327,7 +297,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.update(
@@ -338,7 +307,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.with_raw_response.update(
@@ -350,7 +318,6 @@ class TestAsyncAlbums:
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.update(
@@ -364,7 +331,6 @@ class TestAsyncAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):
@@ -372,13 +338,11 @@ class TestAsyncAlbums:
                 album_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.list()
         assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.list(
@@ -390,7 +354,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.with_raw_response.list()
@@ -400,7 +363,6 @@ class TestAsyncAlbums:
         album = await response.parse()
         assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.list() as response:
@@ -412,7 +374,6 @@ class TestAsyncAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         album = await async_client.albums.delete(
@@ -420,7 +381,6 @@ class TestAsyncAlbums:
         )
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.albums.with_raw_response.delete(
@@ -432,7 +392,6 @@ class TestAsyncAlbums:
         album = await response.parse()
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.delete(
@@ -446,7 +405,6 @@ class TestAsyncAlbums:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `album_id` but received ''"):

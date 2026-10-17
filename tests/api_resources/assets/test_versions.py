@@ -21,7 +21,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestVersions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Gumnut) -> None:
         version = client.assets.versions.list(
@@ -29,7 +28,6 @@ class TestVersions:
         )
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Gumnut) -> None:
         version = client.assets.versions.list(
@@ -38,7 +36,6 @@ class TestVersions:
         )
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
         response = client.assets.versions.with_raw_response.list(
@@ -50,7 +47,6 @@ class TestVersions:
         version = response.parse()
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.assets.versions.with_streaming_response.list(
@@ -64,7 +60,6 @@ class TestVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -72,7 +67,6 @@ class TestVersions:
                 asset_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Gumnut) -> None:
         version = client.assets.versions.delete(
@@ -81,7 +75,6 @@ class TestVersions:
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
         response = client.assets.versions.with_raw_response.delete(
@@ -94,7 +87,6 @@ class TestVersions:
         version = response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
         with client.assets.versions.with_streaming_response.delete(
@@ -109,7 +101,6 @@ class TestVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -124,7 +115,6 @@ class TestVersions:
                 asset_id="asset_id",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_append(self, client: Gumnut) -> None:
         version = client.assets.versions.append(
@@ -135,7 +125,6 @@ class TestVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_append_with_all_params(self, client: Gumnut) -> None:
         version = client.assets.versions.append(
@@ -147,7 +136,6 @@ class TestVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_append(self, client: Gumnut) -> None:
         response = client.assets.versions.with_raw_response.append(
@@ -162,7 +150,6 @@ class TestVersions:
         version = response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_append(self, client: Gumnut) -> None:
         with client.assets.versions.with_streaming_response.append(
@@ -179,7 +166,6 @@ class TestVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_append(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -190,7 +176,6 @@ class TestVersions:
                 params="params",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_replace(self, client: Gumnut) -> None:
         version = client.assets.versions.replace(
@@ -202,7 +187,6 @@ class TestVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_replace_with_all_params(self, client: Gumnut) -> None:
         version = client.assets.versions.replace(
@@ -215,7 +199,6 @@ class TestVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_replace(self, client: Gumnut) -> None:
         response = client.assets.versions.with_raw_response.replace(
@@ -231,7 +214,6 @@ class TestVersions:
         version = response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_replace(self, client: Gumnut) -> None:
         with client.assets.versions.with_streaming_response.replace(
@@ -249,7 +231,6 @@ class TestVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_replace(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -270,7 +251,6 @@ class TestVersions:
                 params="params",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_revert(self, client: Gumnut) -> None:
         version = client.assets.versions.revert(
@@ -279,7 +259,6 @@ class TestVersions:
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_revert(self, client: Gumnut) -> None:
         response = client.assets.versions.with_raw_response.revert(
@@ -292,7 +271,6 @@ class TestVersions:
         version = response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_revert(self, client: Gumnut) -> None:
         with client.assets.versions.with_streaming_response.revert(
@@ -307,7 +285,6 @@ class TestVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_revert(self, client: Gumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -328,7 +305,6 @@ class TestAsyncVersions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.list(
@@ -336,7 +312,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.list(
@@ -345,7 +320,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.versions.with_raw_response.list(
@@ -357,7 +331,6 @@ class TestAsyncVersions:
         version = await response.parse()
         assert_matches_type(VersionListResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.versions.with_streaming_response.list(
@@ -371,7 +344,6 @@ class TestAsyncVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -379,7 +351,6 @@ class TestAsyncVersions:
                 asset_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.delete(
@@ -388,7 +359,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.versions.with_raw_response.delete(
@@ -401,7 +371,6 @@ class TestAsyncVersions:
         version = await response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.versions.with_streaming_response.delete(
@@ -416,7 +385,6 @@ class TestAsyncVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -431,7 +399,6 @@ class TestAsyncVersions:
                 asset_id="asset_id",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_append(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.append(
@@ -442,7 +409,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_append_with_all_params(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.append(
@@ -454,7 +420,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_append(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.versions.with_raw_response.append(
@@ -469,7 +434,6 @@ class TestAsyncVersions:
         version = await response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_append(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.versions.with_streaming_response.append(
@@ -486,7 +450,6 @@ class TestAsyncVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_append(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -497,7 +460,6 @@ class TestAsyncVersions:
                 params="params",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_replace(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.replace(
@@ -509,7 +471,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.replace(
@@ -522,7 +483,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.versions.with_raw_response.replace(
@@ -538,7 +498,6 @@ class TestAsyncVersions:
         version = await response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.versions.with_streaming_response.replace(
@@ -556,7 +515,6 @@ class TestAsyncVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_replace(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):
@@ -577,7 +535,6 @@ class TestAsyncVersions:
                 params="params",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_revert(self, async_client: AsyncGumnut) -> None:
         version = await async_client.assets.versions.revert(
@@ -586,7 +543,6 @@ class TestAsyncVersions:
         )
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_revert(self, async_client: AsyncGumnut) -> None:
         response = await async_client.assets.versions.with_raw_response.revert(
@@ -599,7 +555,6 @@ class TestAsyncVersions:
         version = await response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_revert(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.versions.with_streaming_response.revert(
@@ -614,7 +569,6 @@ class TestAsyncVersions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_revert(self, async_client: AsyncGumnut) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `asset_id` but received ''"):

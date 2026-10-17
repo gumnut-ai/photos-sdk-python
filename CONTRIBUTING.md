@@ -73,6 +73,13 @@ $ pip install ./path-to-wheel-file.whl
 
 ## Running tests
 
+Tests require Node.js 24 and npm for [Steady](https://github.com/dgellow/steady),
+the pinned local mock server. `scripts/test` starts an isolated server using the
+embedded OpenAPI specification, runs the Python/Pydantic matrix, and stops the
+server when testing finishes. It overrides `TEST_API_BASE_URL` and
+`STAINLESS_OPENAPI_SPEC_URL` so the suite uses only its owned loopback server.
+The first run downloads the pinned mock CLI; Python dependencies remain managed by uv.
+
 ```sh
 $ ./scripts/test
 ```
