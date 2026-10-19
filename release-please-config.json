@@ -61,6 +61,11 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/gumnut/_version.py"
+    "src/gumnut/_version.py",
+    {
+      "type": "toml",
+      "path": "uv.lock",
+      "jsonpath": "$.package[?(@.name.value==\"gumnut-sdk\")].version"
+    }
   ]
 }
