@@ -6,7 +6,9 @@ We use [uv](https://docs.astral.sh/uv/) 0.10.2 or newer to manage dependencies b
 $ ./scripts/bootstrap
 ```
 
-Or [install uv manually](https://docs.astral.sh/uv/getting-started/installation/) and run:
+Bootstrap creates `uv.lock` only for a fresh SDK. Commit that lockfile; subsequent installs enforce it with `--locked`. Dependencies must satisfy the project's 14-day release cutoff.
+
+With a committed lockfile, [install uv manually](https://docs.astral.sh/uv/getting-started/installation/) and run:
 
 ```sh
 $ uv sync --locked --all-extras
@@ -35,7 +37,7 @@ All files in the `examples/` directory are not modified by the generator and can
 ```py
 # add an example to examples/<your-example>.py
 
-#!/usr/bin/env -S uv run python
+#!/usr/bin/env -S uv run --locked python
 …
 ```
 
