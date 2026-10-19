@@ -230,6 +230,7 @@ class AlbumsResource(SyncAPIResource):
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        name: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -240,8 +241,8 @@ class AlbumsResource(SyncAPIResource):
     ) -> SyncCursorPage[AlbumResponse]:
         """
         Returns a paginated list of albums ordered by creation time (newest first),
-        optionally filtered by asset membership or ID. Use this to enumerate a user's
-        albums or to find which albums contain a specific asset (via `asset_id`).
+        optionally filtered by name, asset membership or ID. Use this to enumerate a
+        user's albums or to find which albums contain a specific asset (via `asset_id`).
 
         `list_albums` returns album metadata only — to list the assets inside a
         particular album, use `list_album_assets` or `list_assets` with `album_id`.
@@ -261,6 +262,10 @@ class AlbumsResource(SyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
+
+          name: Filter by name using case-insensitive substring matching. Surrounding whitespace
+              is trimmed; blank values apply no name filter. Characters such as `%` and `_`
+              are matched literally.
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last album in the previous
               response's `data` to fetch the next page. Omit for the first page.
@@ -287,6 +292,7 @@ class AlbumsResource(SyncAPIResource):
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
+                        "name": name,
                         "starting_after_id": starting_after_id,
                     },
                     album_list_params.AlbumListParams,
@@ -532,6 +538,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         ids: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        name: Optional[str] | Omit = omit,
         starting_after_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -542,8 +549,8 @@ class AsyncAlbumsResource(AsyncAPIResource):
     ) -> AsyncPaginator[AlbumResponse, AsyncCursorPage[AlbumResponse]]:
         """
         Returns a paginated list of albums ordered by creation time (newest first),
-        optionally filtered by asset membership or ID. Use this to enumerate a user's
-        albums or to find which albums contain a specific asset (via `asset_id`).
+        optionally filtered by name, asset membership or ID. Use this to enumerate a
+        user's albums or to find which albums contain a specific asset (via `asset_id`).
 
         `list_albums` returns album metadata only — to list the assets inside a
         particular album, use `list_album_assets` or `list_assets` with `album_id`.
@@ -563,6 +570,10 @@ class AsyncAlbumsResource(AsyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           limit: Maximum number of albums to return per page (1–200). Defaults to 20.
+
+          name: Filter by name using case-insensitive substring matching. Surrounding whitespace
+              is trimmed; blank values apply no name filter. Characters such as `%` and `_`
+              are matched literally.
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last album in the previous
               response's `data` to fetch the next page. Omit for the first page.
@@ -589,6 +600,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
                         "ids": ids,
                         "library_id": library_id,
                         "limit": limit,
+                        "name": name,
                         "starting_after_id": starting_after_id,
                     },
                     album_list_params.AlbumListParams,

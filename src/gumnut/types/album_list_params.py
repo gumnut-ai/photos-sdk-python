@@ -35,6 +35,13 @@ class AlbumListParams(TypedDict, total=False):
     limit: int
     """Maximum number of albums to return per page (1–200). Defaults to 20."""
 
+    name: Optional[str]
+    """Filter by name using case-insensitive substring matching.
+
+    Surrounding whitespace is trimmed; blank values apply no name filter. Characters
+    such as `%` and `_` are matched literally.
+    """
+
     starting_after_id: Optional[str]
     """Cursor for pagination.
 

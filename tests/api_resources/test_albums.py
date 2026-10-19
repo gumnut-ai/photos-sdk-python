@@ -150,6 +150,7 @@ class TestAlbums:
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
+            name="name",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
@@ -350,6 +351,7 @@ class TestAsyncAlbums:
             ids=["string", "string"],
             library_id="library_id",
             limit=1,
+            name="name",
             starting_after_id="starting_after_id",
         )
         assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
