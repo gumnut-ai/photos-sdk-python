@@ -31,8 +31,8 @@ class UserResponse(BaseModel):
     face_detection_preference: Optional[bool] = None
     """
     Whether automatic face detection is on for the libraries this user owns: true is
-    on, false is off, null means the user has not chosen yet. Faces are detected
-    automatically only when this is true.
+    on, false is off, null means the user has not chosen yet. Faces are currently
+    detected automatically when this is true or null.
     """
 
     favorite_display_mode: Literal["favorite", "rating"]
