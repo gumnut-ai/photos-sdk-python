@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.178.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.177.0...v0.178.0) (2026-10-20)
+
+
+### Features
+
+* **api:** api update ([b89fa5b](https://github.com/gumnut-ai/photos-sdk-python/commit/b89fa5b1af0ed682335cf6db29be7191a05f5c96))
+* **api:** api update ([64fcb94](https://github.com/gumnut-ai/photos-sdk-python/commit/64fcb9473470828e4d10547aa65499f19bcfd73f))
+* **api:** api update ([8b09475](https://github.com/gumnut-ai/photos-sdk-python/commit/8b09475e8a092c37ed34395305f31cc4fe0193aa))
+* **api:** api update ([23963fd](https://github.com/gumnut-ai/photos-sdk-python/commit/23963fde6fdab946b85f02507be17862ba3f0058))
+
+
+### Bug Fixes
+
+* match dependency export header to bootstrap (GUM-3248) ([7fa518d](https://github.com/gumnut-ai/photos-sdk-python/commit/7fa518d7682648fc96542dc81d84b5252c89facd))
+* **release:** synchronize the SDK version in uv.lock (GUM-3293) ([a9e8cfc](https://github.com/gumnut-ai/photos-sdk-python/commit/a9e8cfcb65fd6c407cef4c20559408d04c850004))
+
+
+### Chores
+
+* **deps:** refresh Python SDK dependencies ([ca282ee](https://github.com/gumnut-ai/photos-sdk-python/commit/ca282ee0fbbfe0da3f78f3babf3ef1143d476240))
+* replace legacy Python type checkers with ty (GUM-3248) ([fbcaa52](https://github.com/gumnut-ai/photos-sdk-python/commit/fbcaa52452d990cb69d54243121c64a5e71faece))
+
 ## [0.177.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.176.0...v0.177.0) (2026-10-16)
 
 
