@@ -3,24 +3,22 @@
 ## [0.178.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.177.0...v0.178.0) (2026-10-20)
 
 
+### ⚠ BREAKING CHANGES
+
+* **tasks:** remove `image_quality` and `face_template_removal` from `TaskResponse.task_type` and the `task_type` parameter of `tasks.list()`. Both task types were retired and no longer ran, and the API has deleted their old task records, so no task returns either value. Filtering `tasks.list()` on either value now returns `422`. ([b89fa5b](https://github.com/gumnut-ai/photos-sdk-python/commit/b89fa5b1af0ed682335cf6db29be7191a05f5c96))
+
 ### Features
 
-* **api:** api update ([b89fa5b](https://github.com/gumnut-ai/photos-sdk-python/commit/b89fa5b1af0ed682335cf6db29be7191a05f5c96))
-* **api:** api update ([64fcb94](https://github.com/gumnut-ai/photos-sdk-python/commit/64fcb9473470828e4d10547aa65499f19bcfd73f))
-* **api:** api update ([8b09475](https://github.com/gumnut-ai/photos-sdk-python/commit/8b09475e8a092c37ed34395305f31cc4fe0193aa))
-* **api:** api update ([23963fd](https://github.com/gumnut-ai/photos-sdk-python/commit/23963fde6fdab946b85f02507be17862ba3f0058))
+* **albums:** add a `name` parameter to `albums.list()`, which filters albums by case-insensitive substring match on their name. Surrounding whitespace is trimmed, a blank value applies no name filter, and characters such as `%` and `_` are matched literally. ([64fcb94](https://github.com/gumnut-ai/photos-sdk-python/commit/64fcb9473470828e4d10547aa65499f19bcfd73f))
+* **tasks:** add `TaskResponse.outcome`, a stable outcome code whose meaning depends on `task_type`. For a successful `face_detection` task it is `ran` (detection ran, possibly finding no faces), `skipped_photo_location`, `skipped_location_unread`, `skipped_owner_off` or `skipped_owner_region`. It is `None` for other task types, for tasks that have not succeeded, and for skips with no explanation. More codes may be added for any task type; treat an unrecognized code as no explanation. ([23963fd](https://github.com/gumnut-ai/photos-sdk-python/commit/23963fde6fdab946b85f02507be17862ba3f0058))
 
+### Deprecations
 
-### Bug Fixes
+* **tasks:** `TaskResponse.celery_task_id` is deprecated; use `id`. `tasks.get()` documents `task_id` as the task's `id`, and still accepts the legacy identifier for compatibility. ([23963fd](https://github.com/gumnut-ai/photos-sdk-python/commit/23963fde6fdab946b85f02507be17862ba3f0058))
 
-* match dependency export header to bootstrap (GUM-3248) ([7fa518d](https://github.com/gumnut-ai/photos-sdk-python/commit/7fa518d7682648fc96542dc81d84b5252c89facd))
-* **release:** synchronize the SDK version in uv.lock (GUM-3293) ([a9e8cfc](https://github.com/gumnut-ai/photos-sdk-python/commit/a9e8cfcb65fd6c407cef4c20559408d04c850004))
+### Documentation
 
-
-### Chores
-
-* **deps:** refresh Python SDK dependencies ([ca282ee](https://github.com/gumnut-ai/photos-sdk-python/commit/ca282ee0fbbfe0da3f78f3babf3ef1143d476240))
-* replace legacy Python type checkers with ty (GUM-3248) ([fbcaa52](https://github.com/gumnut-ai/photos-sdk-python/commit/fbcaa52452d990cb69d54243121c64a5e71faece))
+* **tasks:** the `face_template_removal` task type was described as historical only before this release removed it. ([8b09475](https://github.com/gumnut-ai/photos-sdk-python/commit/8b09475e8a092c37ed34395305f31cc4fe0193aa))
 
 ## [0.177.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.176.0...v0.177.0) (2026-10-16)
 
