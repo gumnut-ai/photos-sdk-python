@@ -24,7 +24,6 @@ class TaskListParams(TypedDict, total=False):
 
     task_type: Optional[
         Literal[
-            "image_quality",
             "embedding",
             "face_detection",
             "face_clustering",
@@ -40,7 +39,6 @@ class TaskListParams(TypedDict, total=False):
             "product_update_subscription",
             "person_metrics_refresh",
             "quality_scoring",
-            "face_template_removal",
         ]
     ]
     """Return only tasks of this type."""

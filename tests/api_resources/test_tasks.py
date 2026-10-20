@@ -28,7 +28,7 @@ class TestTasks:
             library_id="library_id",
             limit=1,
             status="pending",
-            task_type="image_quality",
+            task_type="embedding",
         )
         assert_matches_type(TaskListResponse, task, path=["response"])
 
@@ -145,7 +145,7 @@ class TestAsyncTasks:
             library_id="library_id",
             limit=1,
             status="pending",
-            task_type="image_quality",
+            task_type="embedding",
         )
         assert_matches_type(TaskListResponse, task, path=["response"])
 

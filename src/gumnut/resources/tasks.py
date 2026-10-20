@@ -56,7 +56,6 @@ class TasksResource(SyncAPIResource):
         status: Optional[Literal["pending", "started", "success", "failure"]] | Omit = omit,
         task_type: Optional[
             Literal[
-                "image_quality",
                 "embedding",
                 "face_detection",
                 "face_clustering",
@@ -72,7 +71,6 @@ class TasksResource(SyncAPIResource):
                 "product_update_subscription",
                 "person_metrics_refresh",
                 "quality_scoring",
-                "face_template_removal",
             ]
         ]
         | Omit = omit,
@@ -233,7 +231,6 @@ class AsyncTasksResource(AsyncAPIResource):
         status: Optional[Literal["pending", "started", "success", "failure"]] | Omit = omit,
         task_type: Optional[
             Literal[
-                "image_quality",
                 "embedding",
                 "face_detection",
                 "face_clustering",
@@ -249,7 +246,6 @@ class AsyncTasksResource(AsyncAPIResource):
                 "product_update_subscription",
                 "person_metrics_refresh",
                 "quality_scoring",
-                "face_template_removal",
             ]
         ]
         | Omit = omit,
