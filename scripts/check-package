@@ -29,5 +29,6 @@ for artifact in "${wheels[0]}" "${sdists[0]}"; do
     # 14-day resolution policy also applied outside its configuration scope.
     uv pip install --no-config --exclude-newer '14 days' --python "$env_dir/bin/python" "$artifact"
     "$env_dir/bin/python" -I "$repo_root/scripts/utils/check-installed-package.py"
+    "$env_dir/bin/python" -I "$repo_root/scripts/utils/check-api-package.py"
   )
 done
