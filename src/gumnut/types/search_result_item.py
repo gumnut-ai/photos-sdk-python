@@ -15,8 +15,7 @@ class SearchResultItem(BaseModel):
     distance: Optional[float] = None
     """Best available dense-stage cosine distance (lower is more similar).
 
-    This is attribution only: text results use reranker order when reranking
-    succeeds and RRF order on fallback; image-only results use RRF. Results are
-    never ordered by this distance. Null for sparse-only and structured-filter-only
-    matches.
+    This is attribution only: text results use reranker order, or RRF order when no
+    reranker succeeds; image-only results use RRF. Results are never ordered by this
+    distance. Null for sparse-only and structured-filter-only matches.
     """

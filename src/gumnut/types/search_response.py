@@ -12,8 +12,9 @@ class SearchResponse(BaseModel):
     data: List[SearchResultItem]
     """
     Text-query matches use the configured reranker over the first 50 Reciprocal Rank
-    Fusion candidates, with fail-open RRF ordering. Image-only matches use RRF
-    across available stages. Structured-filter-only searches retain newest-first
+    Fusion candidates, falling back to a secondary reranker where one is configured
+    and to RRF ordering when none succeeds. Image-only matches use RRF across
+    available stages. Structured-filter-only searches retain newest-first
     capture-date ordering.
     """
 
