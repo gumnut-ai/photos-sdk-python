@@ -177,7 +177,8 @@ class FacesResource(SyncAPIResource):
         """
         Assigns a face to a specific person, or detaches it from its current person (set
         `person_id` to null). This is the right tool for 'this face is Alice' or 'this
-        face isn't Bob after all'.
+        face isn't Bob after all'. Sending the current person ID confirms the assignment
+        as manual without changing the person.
 
         Currently only the `person_id` field is mutable. To create a brand-new identity
         first, call `create_person`; to delete the face detection entirely, use
@@ -505,7 +506,8 @@ class AsyncFacesResource(AsyncAPIResource):
         """
         Assigns a face to a specific person, or detaches it from its current person (set
         `person_id` to null). This is the right tool for 'this face is Alice' or 'this
-        face isn't Bob after all'.
+        face isn't Bob after all'. Sending the current person ID confirms the assignment
+        as manual without changing the person.
 
         Currently only the `person_id` field is mutable. To create a brand-new identity
         first, call `create_person`; to delete the face detection entirely, use
