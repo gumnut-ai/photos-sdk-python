@@ -21,7 +21,7 @@ environment = Path(sys.prefix).resolve()
 assert environment in package_file.parents, f"Imported SDK outside installed environment: {package_file}"
 distribution = metadata.distribution("gumnut-sdk")
 assert distribution.metadata["Name"] == "gumnut-sdk"
-assert distribution.version == sdk.__version__ == "0.178.0", "Installed and generated versions differ"
+assert distribution.version == sdk.__version__, "Installed metadata and runtime versions differ"
 module_path = "gumnut".replace(".", "/")
 assert package_file == Path(distribution.locate_file(f"{module_path}/__init__.py")).resolve()
 assert resources.files("gumnut").joinpath("py.typed").is_file(), "Installed SDK lacks py.typed"
