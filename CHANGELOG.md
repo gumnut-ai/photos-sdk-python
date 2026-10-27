@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.179.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.0...v0.179.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* **build:** `scripts/check-package` no longer checks the installed package against the version the SDK was generated from, so it passes on release builds. It still fails when the installed package metadata and `gumnut.__version__` differ. The published package is unchanged. ([da373a4](https://github.com/gumnut-ai/photos-sdk-python/commit/da373a43c9061b4259323484d2b47eb19563669f))
+
 ## [0.179.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.178.0...v0.179.0) (2026-10-27)
 
 
