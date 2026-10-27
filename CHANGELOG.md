@@ -3,11 +3,11 @@
 ## [0.179.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.178.0...v0.179.0) (2026-10-27)
 
 
-### Features
+### Documentation
 
-* **api:** api update ([4a891e5](https://github.com/gumnut-ai/photos-sdk-python/commit/4a891e520906bd4a66f49620424dcd96c7960bd4))
-* **api:** api update ([c815289](https://github.com/gumnut-ai/photos-sdk-python/commit/c8152892f72230000ebc65e7bd3780cf732f0e1e))
-* **api:** api update ([3359d6a](https://github.com/gumnut-ai/photos-sdk-python/commit/3359d6a0f7743bc265cefc819570cd34ba5d421c))
+* **search:** the `search.search()` and `search.search_assets()` descriptions now state what a search returns instead of how results are retrieved and ranked, and no longer describe a fixed top-200 candidate population. A search with a content criterion returns a limited number of the most relevant matches, not every match in the library; a structured-filter-only search returns every match, newest-first. A text `query` search can return fewer than `limit` results, or none. An empty first page means nothing within the given filters closely matches that wording: rephrase or broaden the `query`, or change the filters, rather than requesting another page. `SearchResponse.has_more` can be `False` after a short or empty page; stop paging when it is `False`. `SearchResultItem.distance` is a similarity distance for attribution only, not the result order, and is `None` when the asset matched without a visual match. ([4a891e5](https://github.com/gumnut-ai/photos-sdk-python/commit/4a891e520906bd4a66f49620424dcd96c7960bd4)), ([c815289](https://github.com/gumnut-ai/photos-sdk-python/commit/c8152892f72230000ebc65e7bd3780cf732f0e1e))
+* **faces:** `faces.update()` documents that sending the face's current `person_id` confirms the assignment as manual without changing the person. ([3359d6a](https://github.com/gumnut-ai/photos-sdk-python/commit/3359d6a0f7743bc265cefc819570cd34ba5d421c))
+* **users:** `UserResponse.face_detection_preference` now documents that faces are currently detected automatically when it is `True` or `None`, not only when it is `True`. ([fc590f3](https://github.com/gumnut-ai/photos-sdk-python/commit/fc590f39fddc080b7a1df23107c40bc0058e9a7a))
 
 ## [0.178.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.177.0...v0.178.0) (2026-10-20)
 
