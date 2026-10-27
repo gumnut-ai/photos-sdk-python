@@ -87,11 +87,10 @@ class SearchResource(SyncAPIResource):
         ratings, `media_type` for images or videos,
         `local_datetime_before`/`local_datetime_after` for date ranges, and `center` +
         `radius` or `bbox` for location. There is no typed camera or place-name filter —
-        pass those terms in the free-text `query`; the metadata full-text stage can
-        match those terms, while dense retrieval adds visual-semantic matches. For
-        example, 'photos of my kids at the beach last summer' becomes
-        `query='kids at the beach'` + `local_datetime_after=2025-06-01` +
-        `local_datetime_before=2025-09-01`.
+        pass those terms in the free-text `query`, which matches metadata text as well
+        as what's visible in the photo. For example, 'photos of my kids at the beach
+        last summer' becomes `query='kids at the beach'` +
+        `local_datetime_after=2025-06-01` + `local_datetime_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain structured browse that album, person,
         rating, media-type, date-range, location, or asset-ID filters can answer with no
@@ -160,20 +159,19 @@ class SearchResource(SyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion ranks a fixed
-              top-200 candidate population by relevance, so pages beyond that population are
-              empty. A structured-filter-only search (no content criterion) returns the full
-              matching set newest-first, paginated without that cap.
+              number rather than by cursor. A search with a content criterion returns only a
+              limited number of the most relevant matches, not every match in the library. A
+              structured-filter-only search (no content criterion) returns every match,
+              newest-first.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text. It runs independently through dense visual
-              retrieval and authoritative-metadata full-text retrieval, then the ranked lists
-              are fused. Concrete visual concepts work well in the dense stage, while exact
-              metadata terms can match through full-text search.
+          query: Natural-language search text. Describe what's visible in the photo — subjects,
+              scenes, objects, activities; metadata text such as captions, camera names,
+              places, and file names also matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -256,13 +254,13 @@ class SearchResource(SyncAPIResource):
 
         Content
         searches are ranked by relevance; filter-only searches return matches
-        newest-first. An uploaded `image` adds visual-similarity search; text and
-        uploaded-image signals stay independent when both are provided.
+        newest-first. An uploaded `image` finds visually similar photos; when `query` is
+        also provided, both count toward relevance.
 
         At least one search criterion, including `ratings` or `media_type`, must be
         provided. Location filtering is by coordinate in two mutually-exclusive modes: a
-        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows candidates
-        and is not a search criterion on its own.
+        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows results and
+        is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -295,8 +293,8 @@ class SearchResource(SyncAPIResource):
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
               Mutually exclusive with `bbox`.
 
-          image: Image file for an independent dense-image retrieval stage. When text is also
-              provided, the stage ranks are fused rather than blending their embeddings.
+          image: Image to search by; finds visually similar photos. When `query` is also
+              provided, both the text and the image count toward relevance.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -323,19 +321,20 @@ class SearchResource(SyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion ranks a fixed
-              top-200 candidate population by relevance, so pages beyond that population are
-              empty. A structured-filter-only search (no content criterion) returns the full
-              matching set newest-first, paginated without that cap.
+              number rather than by cursor. A search with a content criterion returns only a
+              limited number of the most relevant matches, not every match in the library. A
+              structured-filter-only search (no content criterion) returns every match,
+              newest-first.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text, matched against image embeddings and authoritative
-              metadata. Album and people names belong in `album_id` and `person_ids`, and date
-              ranges in `local_datetime_before`/`local_datetime_after`, not here.
+          query: Natural-language search text, matched against what's visible in the photo and
+              metadata text such as captions, camera names, places, and file names. Album and
+              people names belong in `album_id` and `person_ids`, and date ranges in
+              `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.
@@ -454,11 +453,10 @@ class AsyncSearchResource(AsyncAPIResource):
         ratings, `media_type` for images or videos,
         `local_datetime_before`/`local_datetime_after` for date ranges, and `center` +
         `radius` or `bbox` for location. There is no typed camera or place-name filter —
-        pass those terms in the free-text `query`; the metadata full-text stage can
-        match those terms, while dense retrieval adds visual-semantic matches. For
-        example, 'photos of my kids at the beach last summer' becomes
-        `query='kids at the beach'` + `local_datetime_after=2025-06-01` +
-        `local_datetime_before=2025-09-01`.
+        pass those terms in the free-text `query`, which matches metadata text as well
+        as what's visible in the photo. For example, 'photos of my kids at the beach
+        last summer' becomes `query='kids at the beach'` +
+        `local_datetime_after=2025-06-01` + `local_datetime_before=2025-09-01`.
 
         **Use `list_assets` instead** for a plain structured browse that album, person,
         rating, media-type, date-range, location, or asset-ID filters can answer with no
@@ -527,20 +525,19 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion ranks a fixed
-              top-200 candidate population by relevance, so pages beyond that population are
-              empty. A structured-filter-only search (no content criterion) returns the full
-              matching set newest-first, paginated without that cap.
+              number rather than by cursor. A search with a content criterion returns only a
+              limited number of the most relevant matches, not every match in the library. A
+              structured-filter-only search (no content criterion) returns every match,
+              newest-first.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text. It runs independently through dense visual
-              retrieval and authoritative-metadata full-text retrieval, then the ranked lists
-              are fused. Concrete visual concepts work well in the dense stage, while exact
-              metadata terms can match through full-text search.
+          query: Natural-language search text. Describe what's visible in the photo — subjects,
+              scenes, objects, activities; metadata text such as captions, camera names,
+              places, and file names also matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -623,13 +620,13 @@ class AsyncSearchResource(AsyncAPIResource):
 
         Content
         searches are ranked by relevance; filter-only searches return matches
-        newest-first. An uploaded `image` adds visual-similarity search; text and
-        uploaded-image signals stay independent when both are provided.
+        newest-first. An uploaded `image` finds visually similar photos; when `query` is
+        also provided, both count toward relevance.
 
         At least one search criterion, including `ratings` or `media_type`, must be
         provided. Location filtering is by coordinate in two mutually-exclusive modes: a
-        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows candidates
-        and is not a search criterion on its own.
+        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows results and
+        is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -662,8 +659,8 @@ class AsyncSearchResource(AsyncAPIResource):
               numbers `longitude,latitude`, e.g. `-77.05,38.95`. Supply with `radius`.
               Mutually exclusive with `bbox`.
 
-          image: Image file for an independent dense-image retrieval stage. When text is also
-              provided, the stage ranks are fused rather than blending their embeddings.
+          image: Image to search by; finds visually similar photos. When `query` is also
+              provided, both the text and the image count toward relevance.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -690,19 +687,20 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion ranks a fixed
-              top-200 candidate population by relevance, so pages beyond that population are
-              empty. A structured-filter-only search (no content criterion) returns the full
-              matching set newest-first, paginated without that cap.
+              number rather than by cursor. A search with a content criterion returns only a
+              limited number of the most relevant matches, not every match in the library. A
+              structured-filter-only search (no content criterion) returns every match,
+              newest-first.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text, matched against image embeddings and authoritative
-              metadata. Album and people names belong in `album_id` and `person_ids`, and date
-              ranges in `local_datetime_before`/`local_datetime_after`, not here.
+          query: Natural-language search text, matched against what's visible in the photo and
+              metadata text such as captions, camera names, places, and file names. Album and
+              people names belong in `album_id` and `person_ids`, and date ranges in
+              `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.

@@ -92,10 +92,10 @@ class SearchSearchParams(TypedDict, total=False):
     """1-indexed page number; increment it to fetch subsequent pages.
 
     Stop when `has_more` is false, even if the current page is full. `search_assets`
-    pages by number rather than by cursor. A search with a content criterion ranks a
-    fixed top-200 candidate population by relevance, so pages beyond that population
-    are empty. A structured-filter-only search (no content criterion) returns the
-    full matching set newest-first, paginated without that cap.
+    pages by number rather than by cursor. A search with a content criterion returns
+    only a limited number of the most relevant matches, not every match in the
+    library. A structured-filter-only search (no content criterion) returns every
+    match, newest-first.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
@@ -109,10 +109,9 @@ class SearchSearchParams(TypedDict, total=False):
     query: Optional[str]
     """Natural-language search text.
 
-    It runs independently through dense visual retrieval and authoritative-metadata
-    full-text retrieval, then the ranked lists are fused. Concrete visual concepts
-    work well in the dense stage, while exact metadata terms can match through
-    full-text search.
+    Describe what's visible in the photo — subjects, scenes, objects, activities;
+    metadata text such as captions, camera names, places, and file names also
+    matches.
 
     Resolve album and people names to IDs and pass them as `album_id` and
     `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on

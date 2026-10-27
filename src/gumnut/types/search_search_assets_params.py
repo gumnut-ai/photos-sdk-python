@@ -55,10 +55,10 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     image: Optional[FileTypes]
-    """Image file for an independent dense-image retrieval stage.
+    """Image to search by; finds visually similar photos.
 
-    When text is also provided, the stage ranks are fused rather than blending their
-    embeddings.
+    When `query` is also provided, both the text and the image count toward
+    relevance.
     """
 
     library_id: Optional[str]
@@ -101,10 +101,10 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """1-indexed page number; increment it to fetch subsequent pages.
 
     Stop when `has_more` is false, even if the current page is full. `search_assets`
-    pages by number rather than by cursor. A search with a content criterion ranks a
-    fixed top-200 candidate population by relevance, so pages beyond that population
-    are empty. A structured-filter-only search (no content criterion) returns the
-    full matching set newest-first, paginated without that cap.
+    pages by number rather than by cursor. A search with a content criterion returns
+    only a limited number of the most relevant matches, not every match in the
+    library. A structured-filter-only search (no content criterion) returns every
+    match, newest-first.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
@@ -117,9 +117,10 @@ class SearchSearchAssetsParams(TypedDict, total=False):
 
     query: Optional[str]
     """
-    Natural-language search text, matched against image embeddings and authoritative
-    metadata. Album and people names belong in `album_id` and `person_ids`, and date
-    ranges in `local_datetime_before`/`local_datetime_after`, not here.
+    Natural-language search text, matched against what's visible in the photo and
+    metadata text such as captions, camera names, places, and file names. Album and
+    people names belong in `album_id` and `person_ids`, and date ranges in
+    `local_datetime_before`/`local_datetime_after`, not here.
     """
 
     radius: Optional[float]

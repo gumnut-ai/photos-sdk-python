@@ -10,18 +10,21 @@ __all__ = ["SearchResponse"]
 
 class SearchResponse(BaseModel):
     data: List[SearchResultItem]
-    """
-    Text-query matches use the configured reranker over the first 50 Reciprocal Rank
-    Fusion candidates, falling back to a secondary reranker where one is configured
-    and to RRF ordering when none succeeds. Image-only matches use RRF across
-    available stages. Structured-filter-only searches retain newest-first
-    capture-date ordering.
+    """Matching assets for this page.
+
+    Content searches are ordered by relevance; structured-filter-only searches are
+    ordered newest-first by capture date. A text `query` search can return fewer
+    than `limit` results, or none. When the first page of a text `query` search is
+    empty, nothing within the given filters closely matches that wording: rephrase
+    or broaden the `query`, or change the filters, rather than requesting another
+    page.
     """
 
     has_more: bool
-    """Whether another page remains in this search's result population.
+    """Whether another page of results remains for this search.
 
-    For content searches, this refers to the bounded ranked candidate population,
-    not every potentially matching asset in the library. While true, increment
-    `page` and repeat the same search criteria, filters, and `limit`.
+    For a content search, false means this search has no more results to return, not
+    that every matching asset in the library was returned. This can be false after a
+    short or empty page. While true, increment `page` and repeat the same search
+    criteria, filters, and `limit`.
     """
