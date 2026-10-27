@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.179.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.0...v0.179.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* **scripts:** drop generated version from package check (GUM-3479) ([da373a4](https://github.com/gumnut-ai/photos-sdk-python/commit/da373a43c9061b4259323484d2b47eb19563669f))
+
 ## [0.179.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.178.0...v0.179.0) (2026-10-27)
 
 
