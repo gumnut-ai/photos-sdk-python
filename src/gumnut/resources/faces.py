@@ -176,9 +176,9 @@ class FacesResource(SyncAPIResource):
     ) -> FaceResponse:
         """
         Assigns a face to a specific person, or detaches it from its current person (set
-        `person_id` to null). This is the right tool for 'this face is Alice' or 'this
-        face isn't Bob after all'. Sending the current person ID confirms the assignment
-        as manual without changing the person.
+        `person_id` to null). Use this for 'this face is Alice' or to remove an
+        assignment. Sending the current person ID confirms the assignment as manual
+        without changing the person.
 
         Currently only the `person_id` field is mutable. To create a brand-new identity
         first, call `create_person`; to delete the face detection entirely, use
@@ -321,9 +321,9 @@ class FacesResource(SyncAPIResource):
         was assigned to are both preserved.
 
         **Use `update_face` with `person_id=null` instead** when the user wants to
-        disassociate the face from a person without discarding the detection (so
-        re-clustering can try again). Use `delete_person` to remove a person; use
-        `trash_assets` to remove the photo entirely.
+        disassociate the face from a person while retaining the face detection. Use
+        `delete_person` to remove a person; use `trash_assets` to remove the photo
+        entirely.
 
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
@@ -505,9 +505,9 @@ class AsyncFacesResource(AsyncAPIResource):
     ) -> FaceResponse:
         """
         Assigns a face to a specific person, or detaches it from its current person (set
-        `person_id` to null). This is the right tool for 'this face is Alice' or 'this
-        face isn't Bob after all'. Sending the current person ID confirms the assignment
-        as manual without changing the person.
+        `person_id` to null). Use this for 'this face is Alice' or to remove an
+        assignment. Sending the current person ID confirms the assignment as manual
+        without changing the person.
 
         Currently only the `person_id` field is mutable. To create a brand-new identity
         first, call `create_person`; to delete the face detection entirely, use
@@ -650,9 +650,9 @@ class AsyncFacesResource(AsyncAPIResource):
         was assigned to are both preserved.
 
         **Use `update_face` with `person_id=null` instead** when the user wants to
-        disassociate the face from a person without discarding the detection (so
-        re-clustering can try again). Use `delete_person` to remove a person; use
-        `trash_assets` to remove the photo entirely.
+        disassociate the face from a person while retaining the face detection. Use
+        `delete_person` to remove a person; use `trash_assets` to remove the photo
+        entirely.
 
         Args:
           face_id: Face ID (with `face_` prefix) of the face detection to delete.
