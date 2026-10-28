@@ -186,16 +186,21 @@ from gumnut import Gumnut
 
 client = Gumnut()
 
-face_response = client.faces.create(
-    asset_id="asset_id",
-    bounding_box={
-        "h": 1,
-        "w": 1,
-        "x": 0,
-        "y": 0,
+projection_read_response = client.sync.projection_reads.read(
+    keys=[
+        {
+            "id": "x",
+            "kind": "current_user",
+        }
+    ],
+    library_id="x",
+    mode="roots",
+    profile={
+        "name": "gumnut-library",
+        "version": 1,
     },
 )
-print(face_response.bounding_box)
+print(projection_read_response.profile)
 ```
 
 from datetime import datetime

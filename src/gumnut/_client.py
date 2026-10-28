@@ -38,6 +38,7 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import (
         ping as ping_resources,
+        sync as sync_resources,
         faces as faces_resources,
         oauth as oauth_resources,
         tasks as tasks_resources,
@@ -64,6 +65,7 @@ if TYPE_CHECKING:
     from .resources.stacks import StacksResource, AsyncStacksResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.feedback import FeedbackResource, AsyncFeedbackResource
+    from .resources.sync.sync import SyncResource, AsyncSyncResource
     from .resources.album_assets import AlbumAssetsResource, AsyncAlbumAssetsResource
     from .resources.albums.albums import AlbumsResource, AsyncAlbumsResource
     from .resources.assets.assets import AssetsResource, AsyncAssetsResource
@@ -180,6 +182,12 @@ class Gumnut(SyncAPIClient):
         from .resources.events import EventsResource
 
         return EventsResource(self)
+
+    @cached_property
+    def sync(self) -> SyncResource:
+        from .resources.sync import SyncResource
+
+        return SyncResource(self)
 
     @cached_property
     def faces(self) -> FacesResource:
@@ -482,6 +490,12 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncEventsResource(self)
 
     @cached_property
+    def sync(self) -> AsyncSyncResource:
+        from .resources.sync import AsyncSyncResource
+
+        return AsyncSyncResource(self)
+
+    @cached_property
     def faces(self) -> AsyncFacesResource:
         """Detected faces and their assignment to people."""
         from .resources.faces import AsyncFacesResource
@@ -728,6 +742,12 @@ class GumnutWithRawResponse:
         return EventsResourceWithRawResponse(self._client.events)
 
     @cached_property
+    def sync(self) -> sync_resources.SyncResourceWithRawResponse:
+        from .resources.sync import SyncResourceWithRawResponse
+
+        return SyncResourceWithRawResponse(self._client.sync)
+
+    @cached_property
     def faces(self) -> faces_resources.FacesResourceWithRawResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import FacesResourceWithRawResponse
@@ -849,6 +869,12 @@ class AsyncGumnutWithRawResponse:
         from .resources.events import AsyncEventsResourceWithRawResponse
 
         return AsyncEventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def sync(self) -> sync_resources.AsyncSyncResourceWithRawResponse:
+        from .resources.sync import AsyncSyncResourceWithRawResponse
+
+        return AsyncSyncResourceWithRawResponse(self._client.sync)
 
     @cached_property
     def faces(self) -> faces_resources.AsyncFacesResourceWithRawResponse:
@@ -974,6 +1000,12 @@ class GumnutWithStreamedResponse:
         return EventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
+    def sync(self) -> sync_resources.SyncResourceWithStreamingResponse:
+        from .resources.sync import SyncResourceWithStreamingResponse
+
+        return SyncResourceWithStreamingResponse(self._client.sync)
+
+    @cached_property
     def faces(self) -> faces_resources.FacesResourceWithStreamingResponse:
         """Detected faces and their assignment to people."""
         from .resources.faces import FacesResourceWithStreamingResponse
@@ -1095,6 +1127,12 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.events import AsyncEventsResourceWithStreamingResponse
 
         return AsyncEventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def sync(self) -> sync_resources.AsyncSyncResourceWithStreamingResponse:
+        from .resources.sync import AsyncSyncResourceWithStreamingResponse
+
+        return AsyncSyncResourceWithStreamingResponse(self._client.sync)
 
     @cached_property
     def faces(self) -> faces_resources.AsyncFacesResourceWithStreamingResponse:

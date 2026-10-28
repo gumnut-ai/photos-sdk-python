@@ -8,6 +8,14 @@ from .ping import (
     PingResourceWithStreamingResponse,
     AsyncPingResourceWithStreamingResponse,
 )
+from .sync import (
+    SyncResource,
+    AsyncSyncResource,
+    SyncResourceWithRawResponse,
+    AsyncSyncResourceWithRawResponse,
+    SyncResourceWithStreamingResponse,
+    AsyncSyncResourceWithStreamingResponse,
+)
 from .faces import (
     FacesResource,
     AsyncFacesResource,
@@ -158,6 +166,12 @@ __all__ = [
     "AsyncEventsResourceWithRawResponse",
     "EventsResourceWithStreamingResponse",
     "AsyncEventsResourceWithStreamingResponse",
+    "SyncResource",
+    "AsyncSyncResource",
+    "SyncResourceWithRawResponse",
+    "AsyncSyncResourceWithRawResponse",
+    "SyncResourceWithStreamingResponse",
+    "AsyncSyncResourceWithStreamingResponse",
     "FacesResource",
     "AsyncFacesResource",
     "FacesResourceWithRawResponse",
