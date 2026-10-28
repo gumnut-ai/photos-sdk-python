@@ -64,13 +64,13 @@ class AssetResponse(BaseModel):
     asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Named asset variants.
 
-    Images: 'original', 'thumbnail', 'small', 'preview', 'fullsize'. Videos:
-    'original', plus 'thumbnail_image', 'small_image', 'preview_image',
-    'fullsize_image' pointing at the extracted still. 'original' is served with a
-    Content-Disposition attachment header (signed 'dl' filename param) so a
-    top-level navigation saves it to disk, while inline subresource loads (<video>,
-    fetch) still render it. Variant URLs are stable: a derived variant may briefly
-    404 until its artifact is generated, then serve from the same URL.
+    Images: 'original', 'thumbnail', 'small', 'preview', 'large', 'fullsize'.
+    Videos: 'original', plus 'thumbnail_image', 'small_image', 'preview_image',
+    'large_image', 'fullsize_image' pointing at the extracted still. 'original' is
+    served with a Content-Disposition attachment header (signed 'dl' filename param)
+    so a top-level navigation saves it to disk, while inline subresource loads
+    (<video>, fetch) still render it. Variant URLs are stable: a derived variant may
+    briefly 404 until its artifact is generated, then serve from the same URL.
     """
 
     description: Optional[str] = None
