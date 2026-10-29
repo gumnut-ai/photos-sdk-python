@@ -101,10 +101,8 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """1-indexed page number; increment it to fetch subsequent pages.
 
     Stop when `has_more` is false, even if the current page is full. `search_assets`
-    pages by number rather than by cursor. A search with a content criterion returns
-    only a limited number of the most relevant matches, not every match in the
-    library. A structured-filter-only search (no content criterion) returns every
-    match, newest-first.
+    pages by number rather than by cursor. A search returns only a limited number of
+    the most relevant matches, not every match in the library.
     """
 
     person_ids: Optional[SequenceNotStr[str]]
@@ -116,10 +114,11 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     query: Optional[str]
-    """
-    Natural-language search text, matched against what's visible in the photo and
-    metadata text such as captions, camera names, places, and file names. Album and
-    people names belong in `album_id` and `person_ids`, and date ranges in
+    """Natural-language search text; required and nonblank unless `image` is provided.
+
+    Matched against what's visible in the photo and metadata text such as captions,
+    camera names, places, and file names. Album and people names belong in
+    `album_id` and `person_ids`, and date ranges in
     `local_datetime_before`/`local_datetime_after`, not here.
     """
 

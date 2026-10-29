@@ -74,13 +74,13 @@ class SearchResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets by content, by typed structured filters, or both.
-
-        Content
-        searches are ranked by relevance; filter-only searches return matches
-        newest-first. Use this tool when the user describes _what's in_ the photos they
-        want — subjects, scenes, places, activities, moods, objects — optionally
-        narrowed by album, person, rating, media type, date, or location.
+        """
+        Searches for assets by content, ranked by relevance and optionally narrowed by
+        structured filters. Use `list_assets` (GET /api/assets) to browse by structured
+        filters without search text or an image. Use this tool when the user describes
+        _what's in_ the photos they want — subjects, scenes, places, activities, moods,
+        objects — optionally narrowed by album, person, rating, media type, date, or
+        location.
 
         Prefer typed filters for anything the request states exactly: `album_id` for
         album membership, `person_ids` for people, `ratings` for exact effective
@@ -102,9 +102,9 @@ class SearchResource(SyncAPIResource):
         **Location filtering is by coordinate,** in two mutually-exclusive modes: a
         radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        At least one of `query`, `album_id`, `person_ids`, `ratings`, `media_type`,
-        `local_datetime_before`, or `local_datetime_after` must be provided; a location
-        filter only narrows those results and is not a search criterion on its own.
+        Returns 422 if `query` is missing or blank. A nonblank `query` is required.
+        Structured filters only narrow content matches; use `list_assets` (GET
+        /api/assets) for filter-only browsing.
 
         Args:
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
@@ -159,19 +159,17 @@ class SearchResource(SyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion returns only a
-              limited number of the most relevant matches, not every match in the library. A
-              structured-filter-only search (no content criterion) returns every match,
-              newest-first.
+              number rather than by cursor. A search returns only a limited number of the most
+              relevant matches, not every match in the library.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text. Describe what's visible in the photo — subjects,
-              scenes, objects, activities; metadata text such as captions, camera names,
-              places, and file names also matches.
+          query: Required nonblank natural-language search text. Describe what's visible in the
+              photo — subjects, scenes, objects, activities; metadata text such as captions,
+              camera names, places, and file names also matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -250,17 +248,17 @@ class SearchResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets by content, by typed structured filters, or both.
+        """
+        Searches for assets by content, ranked by relevance and optionally narrowed by
+        structured filters. Use `list_assets` (GET /api/assets) to browse by structured
+        filters without search text or an image. An uploaded `image` finds visually
+        similar photos; when `query` is also provided, both count toward relevance.
 
-        Content
-        searches are ranked by relevance; filter-only searches return matches
-        newest-first. An uploaded `image` finds visually similar photos; when `query` is
-        also provided, both count toward relevance.
-
-        At least one search criterion, including `ratings` or `media_type`, must be
-        provided. Location filtering is by coordinate in two mutually-exclusive modes: a
-        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows results and
-        is not a search criterion on its own.
+        Returns 422 unless a nonblank `query`, an uploaded `image`, or both are
+        provided. Structured filters only narrow content matches; use `list_assets` (GET
+        /api/assets) for filter-only browsing. Location filtering is by coordinate in
+        two mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
+        (`bbox`); it narrows results and is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -321,19 +319,18 @@ class SearchResource(SyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion returns only a
-              limited number of the most relevant matches, not every match in the library. A
-              structured-filter-only search (no content criterion) returns every match,
-              newest-first.
+              number rather than by cursor. A search returns only a limited number of the most
+              relevant matches, not every match in the library.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text, matched against what's visible in the photo and
-              metadata text such as captions, camera names, places, and file names. Album and
-              people names belong in `album_id` and `person_ids`, and date ranges in
+          query: Natural-language search text; required and nonblank unless `image` is provided.
+              Matched against what's visible in the photo and metadata text such as captions,
+              camera names, places, and file names. Album and people names belong in
+              `album_id` and `person_ids`, and date ranges in
               `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
@@ -440,13 +437,13 @@ class AsyncSearchResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets by content, by typed structured filters, or both.
-
-        Content
-        searches are ranked by relevance; filter-only searches return matches
-        newest-first. Use this tool when the user describes _what's in_ the photos they
-        want — subjects, scenes, places, activities, moods, objects — optionally
-        narrowed by album, person, rating, media type, date, or location.
+        """
+        Searches for assets by content, ranked by relevance and optionally narrowed by
+        structured filters. Use `list_assets` (GET /api/assets) to browse by structured
+        filters without search text or an image. Use this tool when the user describes
+        _what's in_ the photos they want — subjects, scenes, places, activities, moods,
+        objects — optionally narrowed by album, person, rating, media type, date, or
+        location.
 
         Prefer typed filters for anything the request states exactly: `album_id` for
         album membership, `person_ids` for people, `ratings` for exact effective
@@ -468,9 +465,9 @@ class AsyncSearchResource(AsyncAPIResource):
         **Location filtering is by coordinate,** in two mutually-exclusive modes: a
         radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        At least one of `query`, `album_id`, `person_ids`, `ratings`, `media_type`,
-        `local_datetime_before`, or `local_datetime_after` must be provided; a location
-        filter only narrows those results and is not a search criterion on its own.
+        Returns 422 if `query` is missing or blank. A nonblank `query` is required.
+        Structured filters only narrow content matches; use `list_assets` (GET
+        /api/assets) for filter-only browsing.
 
         Args:
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
@@ -525,19 +522,17 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion returns only a
-              limited number of the most relevant matches, not every match in the library. A
-              structured-filter-only search (no content criterion) returns every match,
-              newest-first.
+              number rather than by cursor. A search returns only a limited number of the most
+              relevant matches, not every match in the library.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` query params or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text. Describe what's visible in the photo — subjects,
-              scenes, objects, activities; metadata text such as captions, camera names,
-              places, and file names also matches.
+          query: Required nonblank natural-language search text. Describe what's visible in the
+              photo — subjects, scenes, objects, activities; metadata text such as captions,
+              camera names, places, and file names also matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -616,17 +611,17 @@ class AsyncSearchResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SearchResponse:
-        """Searches for assets by content, by typed structured filters, or both.
+        """
+        Searches for assets by content, ranked by relevance and optionally narrowed by
+        structured filters. Use `list_assets` (GET /api/assets) to browse by structured
+        filters without search text or an image. An uploaded `image` finds visually
+        similar photos; when `query` is also provided, both count toward relevance.
 
-        Content
-        searches are ranked by relevance; filter-only searches return matches
-        newest-first. An uploaded `image` finds visually similar photos; when `query` is
-        also provided, both count toward relevance.
-
-        At least one search criterion, including `ratings` or `media_type`, must be
-        provided. Location filtering is by coordinate in two mutually-exclusive modes: a
-        radius (`center` + `radius`) or a bounding box (`bbox`); it narrows results and
-        is not a search criterion on its own.
+        Returns 422 unless a nonblank `query`, an uploaded `image`, or both are
+        provided. Structured filters only narrow content matches; use `list_assets` (GET
+        /api/assets) for filter-only browsing. Location filtering is by coordinate in
+        two mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
+        (`bbox`); it narrows results and is not a search criterion on its own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -687,19 +682,18 @@ class AsyncSearchResource(AsyncAPIResource):
 
           page: 1-indexed page number; increment it to fetch subsequent pages. Stop when
               `has_more` is false, even if the current page is full. `search_assets` pages by
-              number rather than by cursor. A search with a content criterion returns only a
-              limited number of the most relevant matches, not every match in the library. A
-              structured-filter-only search (no content criterion) returns every match,
-              newest-first.
+              number rather than by cursor. A search returns only a limited number of the most
+              relevant matches, not every match in the library.
 
           person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
               Accepts multiple `person_ids=` form fields or a single comma-delimited value
               (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
               asset's `people` field (returned with `include=people`).
 
-          query: Natural-language search text, matched against what's visible in the photo and
-              metadata text such as captions, camera names, places, and file names. Album and
-              people names belong in `album_id` and `person_ids`, and date ranges in
+          query: Natural-language search text; required and nonblank unless `image` is provided.
+              Matched against what's visible in the photo and metadata text such as captions,
+              camera names, places, and file names. Album and people names belong in
+              `album_id` and `person_ids`, and date ranges in
               `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
