@@ -38,6 +38,14 @@ class FaceResponse(BaseModel):
     asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Asset variants for this face: 'thumbnail' with face crop"""
 
+    assignment_source: Optional[Literal["assigned", "clustered", "auto_merged", "manual"]] = None
+    """How a face's current person assignment was set.
+
+    Manual records explicit client assignment, confirmation, or manual person merge.
+    It does not establish individual human review. This is independent of how the
+    face box was created.
+    """
+
     cluster_assignment: Optional[ClusterAssignmentResponse] = None
     """
     Per-face cluster-assignment diagnostics: how well the face fits its
