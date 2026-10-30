@@ -10,12 +10,13 @@ __all__ = ["SearchResponse"]
 
 class SearchResponse(BaseModel):
     data: List[SearchResultItem]
-    """Matching assets for this page, ordered by relevance.
-
-    A text `query` search can return fewer than `limit` results, or none. When the
-    first page of a text `query` search is empty, nothing within the given filters
-    closely matches that wording: rephrase or broaden the `query`, or change the
-    filters, rather than requesting another page.
+    """
+    Matching assets for this page, ordered by relevance, with `best` matches before
+    `possible` ones when `match_strength` is set. A text `query` search can return
+    fewer than `limit` results, or none. When the first page of a text `query`
+    search is empty, nothing within the given filters closely matches that wording:
+    rephrase or broaden the `query`, or change the filters, rather than requesting
+    another page.
     """
 
     has_more: bool
