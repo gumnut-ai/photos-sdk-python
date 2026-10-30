@@ -3,17 +3,23 @@
 ## [0.180.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.1...v0.180.0) (2026-10-30)
 
 
+### ⚠ BREAKING CHANGES
+
+* **search:** searches now require content, so a filter-only search returns 422. `search.search()` needs a nonblank `query`, and `search.search_assets()` needs a nonblank `query`, an `image`, or both. Structured filters only narrow content matches; use `assets.list()` to browse by filters alone. The parameter types are unchanged. ([6bedee7](https://github.com/gumnut-ai/photos-sdk-python/commit/6bedee755997e5b856fe02148315d1d84e64517d))
+
 ### Features
 
-* **api:** api update ([b50c69a](https://github.com/gumnut-ai/photos-sdk-python/commit/b50c69a820c80433c32b61e53ff78e97cca10522))
-* **api:** api update ([90a584d](https://github.com/gumnut-ai/photos-sdk-python/commit/90a584d4ac88cd6baa4c9fea947fcd190410a5e8))
-* **api:** api update ([d8e8c19](https://github.com/gumnut-ai/photos-sdk-python/commit/d8e8c19acddcf6dd8171966ed421f870136740e8))
-* **api:** api update ([6bedee7](https://github.com/gumnut-ai/photos-sdk-python/commit/6bedee755997e5b856fe02148315d1d84e64517d))
-* **api:** api update ([9f0d345](https://github.com/gumnut-ai/photos-sdk-python/commit/9f0d34580d6d54e709e78793872c33e4204b3fd8))
-* **api:** api update ([ac45c3b](https://github.com/gumnut-ai/photos-sdk-python/commit/ac45c3b84f0e4629821c8eb6c9ce383e2d03152d))
-* **api:** api update ([9ca7b68](https://github.com/gumnut-ai/photos-sdk-python/commit/9ca7b6835904c0ae2510dacdac3a0a257a9eb56b))
-* **api:** api update ([d2a27e2](https://github.com/gumnut-ai/photos-sdk-python/commit/d2a27e2d9297512e5fab309961374750997a632e))
-* **sync:** add typed projection reads ([d3980f4](https://github.com/gumnut-ai/photos-sdk-python/commit/d3980f4f5ee7ff49502023cf68b1bdc99d125908))
+* **search:** add `SearchResultItem.match_strength`: `best`, `possible` or `None`. `best` results are strong matches and come first; `possible` results follow and are often unrelated. It is `None` when the search did not judge the result, such as an image search. ([b50c69a](https://github.com/gumnut-ai/photos-sdk-python/commit/b50c69a820c80433c32b61e53ff78e97cca10522))
+* **faces:** add `FaceResponse.assignment_source`, which says how a face's current person was assigned: `assigned`, `clustered`, `auto_merged` or `manual`. `manual` records an explicit client assignment, confirmation or manual person merge; it does not establish individual human review, and it is independent of how the face box was created. ([d8e8c19](https://github.com/gumnut-ai/photos-sdk-python/commit/d8e8c19acddcf6dd8171966ed421f870136740e8))
+* **faces:** `ClusterAssignmentResponse.candidates` now contains named people only. ([90a584d](https://github.com/gumnut-ai/photos-sdk-python/commit/90a584d4ac88cd6baa4c9fea947fcd190410a5e8))
+* **sync:** add `client.sync.projection_reads.read()` with typed `roots`, `baseline_begin`, `baseline_page` and `relation_page` requests for the immutable `gumnut-library` version 1 contract. The exported types cover root keys and outcomes, complete projection bundles, current library scope, semantic schema/hash, finite enumeration metadata and structured error details. Face projections include their original coordinate-frame dimensions. ([d3980f4](https://github.com/gumnut-ai/photos-sdk-python/commit/d3980f4f5ee7ff49502023cf68b1bdc99d125908))
+
+### Documentation
+
+* **search:** `SearchResponse.data` documents that `best` matches come before `possible` ones when `match_strength` is set. ([b50c69a](https://github.com/gumnut-ai/photos-sdk-python/commit/b50c69a820c80433c32b61e53ff78e97cca10522))
+* **sync:** explain that each content response comes from one current read-only source snapshot. Enumeration tokens bound a finite selection; they do not retain a snapshot or grant authorization. Consumers must install complete bundles and their progress atomically and reconcile changes through the event feed. The SDK supplies typed requests and responses, rather than implementing local storage or a reconciliation engine. ([d3980f4](https://github.com/gumnut-ai/photos-sdk-python/commit/d3980f4f5ee7ff49502023cf68b1bdc99d125908))
+* **assets:** document `large` image and `large_image` video-still variants in `AssetResponse.asset_urls`; the existing variant dictionary type is unchanged. ([9ca7b68](https://github.com/gumnut-ai/photos-sdk-python/commit/9ca7b6835904c0ae2510dacdac3a0a257a9eb56b))
+* **faces:** clarify assigning/removing a person and retaining versus deleting a face detection. Existing method signatures are unchanged. ([9f0d345](https://github.com/gumnut-ai/photos-sdk-python/commit/9f0d34580d6d54e709e78793872c33e4204b3fd8))
 
 ## [0.179.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.0...v0.179.1) (2026-10-27)
 
