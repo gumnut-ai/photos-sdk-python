@@ -8,7 +8,7 @@ __all__ = ["ClusterAssignmentResponse", "Candidate"]
 
 
 class Candidate(BaseModel):
-    """A nearby Person returned under `ClusterAssignmentResponse.candidates`."""
+    """A nearby named Person returned under `ClusterAssignmentResponse.candidates`."""
 
     distance: float
     """
@@ -20,19 +20,19 @@ class Candidate(BaseModel):
     """Person ID (with 'person\\__' prefix) of the candidate."""
 
     name: Optional[str] = None
-    """Display name of the candidate Person, or null for an unnamed Person."""
+    """Display name of the named candidate Person."""
 
 
 class ClusterAssignmentResponse(BaseModel):
     """
     Per-face cluster-assignment diagnostics: how well the face fits its
-    currently-assigned Person, and which other Persons are nearby in
+    currently-assigned Person, and which other named Persons are nearby in
     embedding space. Surfaced via `include=cluster_assignment` on the
     faces endpoints.
     """
 
     candidates: Optional[List[Candidate]] = None
-    """Eligible nearby Persons in the same library, sorted ascending by distance.
+    """Eligible nearby named Persons in the same library, sorted ascending by distance.
 
     Excludes the face's currently-assigned Person (its distance is in
     `distance_to_person`) and people marked hidden (`is_hidden`). Empty when there

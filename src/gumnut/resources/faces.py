@@ -258,7 +258,7 @@ class FacesResource(SyncAPIResource):
 
           include: Opt-in expansion fields. Supported values: `cluster_assignment` (adds the nested
               `cluster_assignment` object — `distance_to_person` and a top-K `candidates` list
-              of nearby Persons). Accepts multiple `include=` query params or a single
+              of nearby named Persons). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g., `include=cluster_assignment`).
 
           library_id: Library to list from. Optional if the user has a single live (non-trashed)
@@ -587,7 +587,7 @@ class AsyncFacesResource(AsyncAPIResource):
 
           include: Opt-in expansion fields. Supported values: `cluster_assignment` (adds the nested
               `cluster_assignment` object — `distance_to_person` and a top-K `candidates` list
-              of nearby Persons). Accepts multiple `include=` query params or a single
+              of nearby named Persons). Accepts multiple `include=` query params or a single
               comma-delimited value (e.g., `include=cluster_assignment`).
 
           library_id: Library to list from. Optional if the user has a single live (non-trashed)

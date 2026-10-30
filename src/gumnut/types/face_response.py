@@ -49,7 +49,7 @@ class FaceResponse(BaseModel):
     cluster_assignment: Optional[ClusterAssignmentResponse] = None
     """
     Per-face cluster-assignment diagnostics: how well the face fits its
-    currently-assigned Person, and which other Persons are nearby in embedding
+    currently-assigned Person, and which other named Persons are nearby in embedding
     space. Surfaced via `include=cluster_assignment` on the faces endpoints.
     """
 
