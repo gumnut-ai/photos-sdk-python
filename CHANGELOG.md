@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.180.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.1...v0.180.0) (2026-10-30)
+
+
+### Features
+
+* **api:** api update ([b50c69a](https://github.com/gumnut-ai/photos-sdk-python/commit/b50c69a820c80433c32b61e53ff78e97cca10522))
+* **api:** api update ([90a584d](https://github.com/gumnut-ai/photos-sdk-python/commit/90a584d4ac88cd6baa4c9fea947fcd190410a5e8))
+* **api:** api update ([d8e8c19](https://github.com/gumnut-ai/photos-sdk-python/commit/d8e8c19acddcf6dd8171966ed421f870136740e8))
+* **api:** api update ([6bedee7](https://github.com/gumnut-ai/photos-sdk-python/commit/6bedee755997e5b856fe02148315d1d84e64517d))
+* **api:** api update ([9f0d345](https://github.com/gumnut-ai/photos-sdk-python/commit/9f0d34580d6d54e709e78793872c33e4204b3fd8))
+* **api:** api update ([ac45c3b](https://github.com/gumnut-ai/photos-sdk-python/commit/ac45c3b84f0e4629821c8eb6c9ce383e2d03152d))
+* **api:** api update ([9ca7b68](https://github.com/gumnut-ai/photos-sdk-python/commit/9ca7b6835904c0ae2510dacdac3a0a257a9eb56b))
+* **api:** api update ([d2a27e2](https://github.com/gumnut-ai/photos-sdk-python/commit/d2a27e2d9297512e5fab309961374750997a632e))
+* **sync:** add typed projection reads ([d3980f4](https://github.com/gumnut-ai/photos-sdk-python/commit/d3980f4f5ee7ff49502023cf68b1bdc99d125908))
+
 ## [0.179.1](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.0...v0.179.1) (2026-10-27)
 
 
