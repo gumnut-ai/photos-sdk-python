@@ -3,9 +3,9 @@
 ## [0.181.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.180.0...v0.181.0) (2026-10-31)
 
 
-### Features
+### Deprecations
 
-* **api:** api update ([e776bb1](https://github.com/gumnut-ai/photos-sdk-python/commit/e776bb1ce0494d1e89c175222ce173ccfa546aa9))
+* **search:** deprecate `SearchResultItem.distance`; use `match_strength` to judge how closely a text search result matches. The field is still returned with the same type, and reading it raises no warning. ([e776bb1](https://github.com/gumnut-ai/photos-sdk-python/commit/e776bb1ce0494d1e89c175222ce173ccfa546aa9))
 
 ## [0.180.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.179.1...v0.180.0) (2026-10-30)
 
