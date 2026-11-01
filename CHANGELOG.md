@@ -10,7 +10,7 @@
 ### Documentation
 
 * **search:** `search.search()` documents that indexed videos can match visible content in their stored display frame as well as text. Audio, motion and the full clip are not analyzed. ([23e5267](https://github.com/gumnut-ai/photos-sdk-python/commit/23e5267c542ffe5b6e3660bd584575910f122471))
-* **readme:** the nested-parameters example now uses `client.faces.create()`. ([50c87ba](https://github.com/gumnut-ai/photos-sdk-python/commit/50c87bad))
+* **readme:** the nested-parameters example now uses `client.faces.create()`. ([50c87ba](https://github.com/gumnut-ai/photos-sdk-python/commit/50c87bada32ff05c61691d8ded10c04d0c2dd6eb))
 
 ## [0.181.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.180.0...v0.181.0) (2026-10-31)
 
