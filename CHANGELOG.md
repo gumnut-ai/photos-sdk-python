@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.182.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.181.0...v0.182.0) (2026-11-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove catalog projection reads
+
+### Features
+
+* **api:** api update ([0c099fc](https://github.com/gumnut-ai/photos-sdk-python/commit/0c099fc2c2f1fe28c07e006b643646e9517eb96a))
+* **api:** api update ([23e5267](https://github.com/gumnut-ai/photos-sdk-python/commit/23e5267c542ffe5b6e3660bd584575910f122471))
+* **api:** remove catalog projection reads ([7831dfd](https://github.com/gumnut-ai/photos-sdk-python/commit/7831dfd1988c557748918d95a5e0f9f80cb6525a))
+
 ## [0.181.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.180.0...v0.181.0) (2026-10-31)
 
 
