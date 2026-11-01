@@ -150,49 +150,6 @@ Methods:
 
 - <code title="get /api/events">client.events.<a href="./src/gumnut/resources/events.py">get</a>(\*\*<a href="src/gumnut/types/event_get_params.py">params</a>) -> <a href="./src/gumnut/types/events_response.py">EventsResponse</a></code>
 
-# Sync
-
-## ProjectionReads
-
-Types:
-
-```python
-from gumnut.types.sync import (
-    AlbumAssetProjection,
-    AlbumAssetProjectionKey,
-    AlbumProjection,
-    AlbumProjectionKey,
-    AssetProjection,
-    AssetProjectionKey,
-    BaselineFamilyTokens,
-    CurrentUserProjection,
-    CurrentUserProjectionKey,
-    EntityProjectionKey,
-    FaceProjection,
-    FaceProjectionKey,
-    FaceProjectionValue,
-    GumnutProjectionScope,
-    PersonProjection,
-    PersonProjectionKey,
-    ProjectionBaselineStart,
-    ProjectionEnumeration,
-    ProjectionErrorDetail,
-    ProjectionErrorResponse,
-    ProjectionKey,
-    ProjectionProfile,
-    ProjectionReadResponse,
-    ProjectionRootResult,
-    RelationSelector,
-    StackProjection,
-    StackProjectionKey,
-    TypedProjection,
-)
-```
-
-Methods:
-
-- <code title="post /api/sync/projection-reads">client.sync.projection_reads.<a href="./src/gumnut/resources/sync/projection_reads.py">read</a>(\*\*<a href="src/gumnut/types/sync/projection_read_read_params.py">params</a>) -> <a href="./src/gumnut/types/sync/projection_read_response.py">ProjectionReadResponse</a></code>
-
 # Faces
 
 Types:
