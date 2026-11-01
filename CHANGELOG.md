@@ -5,13 +5,12 @@
 
 ### ⚠ BREAKING CHANGES
 
-* **api:** remove catalog projection reads
+* **sync:** remove `client.sync`, including `client.sync.projection_reads.read()` and the types under `gumnut.types.sync`. `POST /api/sync/projection-reads` is now a private first-party route, outside the public API. Earlier SDK versions can still send it, but it can change without notice. ([7831dfd](https://github.com/gumnut-ai/photos-sdk-python/commit/7831dfd1988c557748918d95a5e0f9f80cb6525a))
 
-### Features
+### Documentation
 
-* **api:** api update ([0c099fc](https://github.com/gumnut-ai/photos-sdk-python/commit/0c099fc2c2f1fe28c07e006b643646e9517eb96a))
-* **api:** api update ([23e5267](https://github.com/gumnut-ai/photos-sdk-python/commit/23e5267c542ffe5b6e3660bd584575910f122471))
-* **api:** remove catalog projection reads ([7831dfd](https://github.com/gumnut-ai/photos-sdk-python/commit/7831dfd1988c557748918d95a5e0f9f80cb6525a))
+* **search:** `search.search()` documents that indexed videos can match visible content in their stored display frame as well as text. Audio, motion and the full clip are not analyzed. ([23e5267](https://github.com/gumnut-ai/photos-sdk-python/commit/23e5267c542ffe5b6e3660bd584575910f122471))
+* **readme:** the nested-parameters example now uses `client.faces.create()`. ([50c87ba](https://github.com/gumnut-ai/photos-sdk-python/commit/50c87bad))
 
 ## [0.181.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.180.0...v0.181.0) (2026-10-31)
 
