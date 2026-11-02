@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.183.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.182.0...v0.183.0) (2026-11-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **python:** gumnut-sdk no longer supports Python 3.9.
+
+### Features
+
+* **python:** require Python 3.10 or newer ([9b7fcbd](https://github.com/gumnut-ai/photos-sdk-python/commit/9b7fcbd31d9b9b2ae7cc46f9ba46f07411023679))
+
+
+### Chores
+
+* **deps:** refresh locked aiohttp, certifi and multidict ([2b30754](https://github.com/gumnut-ai/photos-sdk-python/commit/2b30754d35c1b73d6ef1ed3385814ea018795ca3))
+* **deps:** refresh locked aiohttp, certifi and multidict ([218ca89](https://github.com/gumnut-ai/photos-sdk-python/commit/218ca89370bc87d759b0641b1e587bcf3971d097))
+
 ## [0.182.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.181.0...v0.182.0) (2026-11-01)
 
 
