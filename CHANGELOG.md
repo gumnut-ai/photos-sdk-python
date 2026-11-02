@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.183.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.182.0...v0.183.0) (2026-11-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **python:** require Python 3.10 or newer. Python 3.9 reached end of life in October 2025, and patched releases of `anyio` and `aiohttp` no longer support it. On Python 3.9, pip keeps installing 0.182.0, the last release that supports it. ([9b7fcbd](https://github.com/gumnut-ai/photos-sdk-python/commit/9b7fcbd31d9b9b2ae7cc46f9ba46f07411023679))
+
+### Chores
+
+* **deps:** refresh the repository's development lockfile with security fixes: `certifi` 2026.10.18, `aiohttp` 3.14.5 and `multidict` 7.1.0. The lockfile also drops the versions it kept for Python 3.9 (`aiohttp` 3.13.5, `anyio` 4.12.1, `multidict` 6.7.1 and `pytest` 8.4.2), which had no patched releases for 3.9. Installed dependency ranges are unchanged, so a fresh install on Python 3.10 or newer already resolves patched versions. ([218ca89](https://github.com/gumnut-ai/photos-sdk-python/commit/218ca89370bc87d759b0641b1e587bcf3971d097)), ([9b7fcbd](https://github.com/gumnut-ai/photos-sdk-python/commit/9b7fcbd31d9b9b2ae7cc46f9ba46f07411023679))
+
 ## [0.182.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.181.0...v0.182.0) (2026-11-01)
 
 
