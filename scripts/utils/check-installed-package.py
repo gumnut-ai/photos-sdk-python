@@ -23,6 +23,6 @@ distribution = metadata.distribution("gumnut-sdk")
 assert distribution.metadata["Name"] == "gumnut-sdk"
 assert distribution.version == sdk.__version__, "Installed metadata and runtime versions differ"
 module_path = "gumnut".replace(".", "/")
-assert package_file == Path(distribution.locate_file(f"{module_path}/__init__.py")).resolve()
+assert package_file == Path(str(distribution.locate_file(f"{module_path}/__init__.py"))).resolve()
 assert resources.files("gumnut").joinpath("py.typed").is_file(), "Installed SDK lacks py.typed"
 print(f"Installed gumnut-sdk {distribution.version} passed: {package_file}")
