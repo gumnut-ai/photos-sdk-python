@@ -31,6 +31,16 @@ class UpdateChange(  # type: ignore[call-arg]
     Same shape as the body of the single-asset `update_asset` endpoint — same fields, same validation, same null-clears-the-override semantics.
     """
 
+    altitude: Optional[float]
+    """GPS altitude in meters.
+
+    Must be finite; zero and negative values are valid. Independent of
+    latitude/longitude: setting or clearing coordinates leaves omitted altitude
+    unchanged, and altitude edits do not refresh location names. Pass `null` to
+    remove the USER override and reveal a lower-priority value; omit to leave
+    unchanged.
+    """
+
     description: Optional[str]
     """User-set description for the asset.
 

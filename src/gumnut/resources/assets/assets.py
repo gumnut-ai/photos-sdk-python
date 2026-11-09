@@ -1118,6 +1118,7 @@ class AssetsResource(SyncAPIResource):
         self,
         asset_id: str,
         *,
+        altitude: Optional[float] | Omit = omit,
         description: Optional[str] | Omit = omit,
         latitude: Optional[float] | Omit = omit,
         longitude: Optional[float] | Omit = omit,
@@ -1132,9 +1133,9 @@ class AssetsResource(SyncAPIResource):
     ) -> AssetResponse:
         """
         Edits the user-editable metadata for a single asset — description, rating, GPS
-        coordinates, and original capture datetime. Rating accepts 0-5, where 0
-        explicitly marks the asset unrated; passing null clears the USER override. Only
-        fields included in the request body are changed; others are left untouched.
+        coordinates, altitude, and original capture datetime. Rating accepts 0-5, where
+        0 explicitly marks the asset unrated; passing null clears the USER override.
+        Only fields included in the request body are changed; others are left untouched.
         Passing `null` for a field removes a previously-set value; the effective
         response may still contain a value from another metadata source. `latitude` and
         `longitude` must be set together (both written or both cleared).
@@ -1146,6 +1147,12 @@ class AssetsResource(SyncAPIResource):
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.
+
+          altitude: GPS altitude in meters. Must be finite; zero and negative values are valid.
+              Independent of latitude/longitude: setting or clearing coordinates leaves
+              omitted altitude unchanged, and altitude edits do not refresh location names.
+              Pass `null` to remove the USER override and reveal a lower-priority value; omit
+              to leave unchanged.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set
               value; the effective response may still contain a description from another
@@ -1184,6 +1191,7 @@ class AssetsResource(SyncAPIResource):
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             body=maybe_transform(
                 {
+                    "altitude": altitude,
                     "description": description,
                     "latitude": latitude,
                     "longitude": longitude,
@@ -2254,6 +2262,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         self,
         asset_id: str,
         *,
+        altitude: Optional[float] | Omit = omit,
         description: Optional[str] | Omit = omit,
         latitude: Optional[float] | Omit = omit,
         longitude: Optional[float] | Omit = omit,
@@ -2268,9 +2277,9 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AssetResponse:
         """
         Edits the user-editable metadata for a single asset — description, rating, GPS
-        coordinates, and original capture datetime. Rating accepts 0-5, where 0
-        explicitly marks the asset unrated; passing null clears the USER override. Only
-        fields included in the request body are changed; others are left untouched.
+        coordinates, altitude, and original capture datetime. Rating accepts 0-5, where
+        0 explicitly marks the asset unrated; passing null clears the USER override.
+        Only fields included in the request body are changed; others are left untouched.
         Passing `null` for a field removes a previously-set value; the effective
         response may still contain a value from another metadata source. `latitude` and
         `longitude` must be set together (both written or both cleared).
@@ -2282,6 +2291,12 @@ class AsyncAssetsResource(AsyncAPIResource):
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.
+
+          altitude: GPS altitude in meters. Must be finite; zero and negative values are valid.
+              Independent of latitude/longitude: setting or clearing coordinates leaves
+              omitted altitude unchanged, and altitude edits do not refresh location names.
+              Pass `null` to remove the USER override and reveal a lower-priority value; omit
+              to leave unchanged.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set
               value; the effective response may still contain a description from another
@@ -2320,6 +2335,7 @@ class AsyncAssetsResource(AsyncAPIResource):
             path_template("/api/assets/{asset_id}", asset_id=asset_id),
             body=await async_maybe_transform(
                 {
+                    "altitude": altitude,
                     "description": description,
                     "latitude": latitude,
                     "longitude": longitude,

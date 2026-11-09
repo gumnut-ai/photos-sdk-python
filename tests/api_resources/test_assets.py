@@ -597,6 +597,7 @@ class TestAssets:
     def test_method_update_asset_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.update_asset(
             asset_id="asset_id",
+            altitude=0,
             description="description",
             latitude=0,
             longitude=0,
@@ -1208,6 +1209,7 @@ class TestAsyncAssets:
     async def test_method_update_asset_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.update_asset(
             asset_id="asset_id",
+            altitude=0,
             description="description",
             latitude=0,
             longitude=0,
