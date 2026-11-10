@@ -11,18 +11,26 @@ on:
 jobs:
   publish:
     name: publish
+    if: github.repository == 'gumnut-ai/photos-sdk-python'
     runs-on: ubuntu-latest
+    # Publishing waits until a reviewer approves the deployment. The protected
+    # `release` environment is configured in this repository's settings.
+    environment: release
     permissions:
       contents: read
       id-token: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Install uv
         uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
         with:
           version: '0.10.2'
+          # A publish job builds from a clean tree; never restore a cache.
+          enable-cache: false
 
       - name: Publish to PyPI
         run: |
