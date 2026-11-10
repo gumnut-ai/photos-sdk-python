@@ -58,7 +58,7 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Image to search by; finds visually similar photos.
 
     When `query` is also provided, both the text and the image count toward
-    relevance.
+    relevance. At most 25 MiB.
     """
 
     library_id: Optional[str]

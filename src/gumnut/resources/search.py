@@ -293,7 +293,7 @@ class SearchResource(SyncAPIResource):
               Mutually exclusive with `bbox`.
 
           image: Image to search by; finds visually similar photos. When `query` is also
-              provided, both the text and the image count toward relevance.
+              provided, both the text and the image count toward relevance. At most 25 MiB.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -657,7 +657,7 @@ class AsyncSearchResource(AsyncAPIResource):
               Mutually exclusive with `bbox`.
 
           image: Image to search by; finds visually similar photos. When `query` is also
-              provided, both the text and the image count toward relevance.
+              provided, both the text and the image count toward relevance. At most 25 MiB.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
