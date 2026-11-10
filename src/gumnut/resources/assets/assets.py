@@ -1124,6 +1124,7 @@ class AssetsResource(SyncAPIResource):
         longitude: Optional[float] | Omit = omit,
         original_datetime: Union[str, datetime, None] | Omit = omit,
         rating: Optional[int] | Omit = omit,
+        source: Literal["user", "import"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1134,11 +1135,12 @@ class AssetsResource(SyncAPIResource):
         """
         Edits the user-editable metadata for a single asset — description, rating, GPS
         coordinates, altitude, and original capture datetime. Rating accepts 0-5, where
-        0 explicitly marks the asset unrated; passing null clears the USER override.
-        Only fields included in the request body are changed; others are left untouched.
-        Passing `null` for a field removes a previously-set value; the effective
-        response may still contain a value from another metadata source. `latitude` and
-        `longitude` must be set together (both written or both cleared).
+        0 explicitly marks the asset unrated; passing null clears the chosen source
+        contribution. The optional source is user (default) or import; user edits win
+        over imports. Only fields included in the request body are changed; others are
+        left untouched. Passing `null` for a field removes a previously-set value; the
+        effective response may still contain a value from another metadata source.
+        `latitude` and `longitude` must be set together (both written or both cleared).
 
         Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
         location names.
@@ -1151,8 +1153,8 @@ class AssetsResource(SyncAPIResource):
           altitude: GPS altitude in meters. Must be finite; zero and negative values are valid.
               Independent of latitude/longitude: setting or clearing coordinates leaves
               omitted altitude unchanged, and altitude edits do not refresh location names.
-              Pass `null` to remove the USER override and reveal a lower-priority value; omit
-              to leave unchanged.
+              Pass `null` to remove the selected source’s contribution and reveal a
+              lower-priority value; omit to leave unchanged.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set
               value; the effective response may still contain a description from another
@@ -1168,14 +1170,19 @@ class AssetsResource(SyncAPIResource):
               value; omit to leave unchanged.
 
           original_datetime: When the asset was originally captured. Timezone-aware values preserve their UTC
-              offset; timezone-naive values have no offset. Pass `null` to remove a
-              previously-set value; the effective response may still contain a datetime from
-              another metadata source. Omit to leave unchanged.
+              offset for USER. For IMPORT, aware values denote an instant; capture-local time
+              is inferred from file evidence or effective coordinates, otherwise provisionally
+              displayed in UTC without a capture-zone offset. Naive values carry an unknown
+              zone. Pass `null` to remove a previously-set value; the effective response may
+              still contain a datetime from another metadata source. Omit to leave unchanged.
 
           rating: Star rating, `0`-`5`. `5` is the value a favorite carries. `0` explicitly marks
               the asset unrated, masking any rating embedded in the file. Pass `null` to
               remove a previously-set value and let the file's embedded rating (if any) show
               through; omit to leave unchanged. Values outside `0`-`5` are rejected.
+
+          source: Metadata layer to write: user (default) or import. User edits take precedence
+              over imported values.
 
           extra_headers: Send extra headers
 
@@ -1197,6 +1204,7 @@ class AssetsResource(SyncAPIResource):
                     "longitude": longitude,
                     "original_datetime": original_datetime,
                     "rating": rating,
+                    "source": source,
                 },
                 asset_update_asset_params.AssetUpdateAssetParams,
             ),
@@ -2268,6 +2276,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         longitude: Optional[float] | Omit = omit,
         original_datetime: Union[str, datetime, None] | Omit = omit,
         rating: Optional[int] | Omit = omit,
+        source: Literal["user", "import"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2278,11 +2287,12 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Edits the user-editable metadata for a single asset — description, rating, GPS
         coordinates, altitude, and original capture datetime. Rating accepts 0-5, where
-        0 explicitly marks the asset unrated; passing null clears the USER override.
-        Only fields included in the request body are changed; others are left untouched.
-        Passing `null` for a field removes a previously-set value; the effective
-        response may still contain a value from another metadata source. `latitude` and
-        `longitude` must be set together (both written or both cleared).
+        0 explicitly marks the asset unrated; passing null clears the chosen source
+        contribution. The optional source is user (default) or import; user edits win
+        over imports. Only fields included in the request body are changed; others are
+        left untouched. Passing `null` for a field removes a previously-set value; the
+        effective response may still contain a value from another metadata source.
+        `latitude` and `longitude` must be set together (both written or both cleared).
 
         Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
         location names.
@@ -2295,8 +2305,8 @@ class AsyncAssetsResource(AsyncAPIResource):
           altitude: GPS altitude in meters. Must be finite; zero and negative values are valid.
               Independent of latitude/longitude: setting or clearing coordinates leaves
               omitted altitude unchanged, and altitude edits do not refresh location names.
-              Pass `null` to remove the USER override and reveal a lower-priority value; omit
-              to leave unchanged.
+              Pass `null` to remove the selected source’s contribution and reveal a
+              lower-priority value; omit to leave unchanged.
 
           description: User-set description for the asset. Pass `null` to remove a previously-set
               value; the effective response may still contain a description from another
@@ -2312,14 +2322,19 @@ class AsyncAssetsResource(AsyncAPIResource):
               value; omit to leave unchanged.
 
           original_datetime: When the asset was originally captured. Timezone-aware values preserve their UTC
-              offset; timezone-naive values have no offset. Pass `null` to remove a
-              previously-set value; the effective response may still contain a datetime from
-              another metadata source. Omit to leave unchanged.
+              offset for USER. For IMPORT, aware values denote an instant; capture-local time
+              is inferred from file evidence or effective coordinates, otherwise provisionally
+              displayed in UTC without a capture-zone offset. Naive values carry an unknown
+              zone. Pass `null` to remove a previously-set value; the effective response may
+              still contain a datetime from another metadata source. Omit to leave unchanged.
 
           rating: Star rating, `0`-`5`. `5` is the value a favorite carries. `0` explicitly marks
               the asset unrated, masking any rating embedded in the file. Pass `null` to
               remove a previously-set value and let the file's embedded rating (if any) show
               through; omit to leave unchanged. Values outside `0`-`5` are rejected.
+
+          source: Metadata layer to write: user (default) or import. User edits take precedence
+              over imported values.
 
           extra_headers: Send extra headers
 
@@ -2341,6 +2356,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                     "longitude": longitude,
                     "original_datetime": original_datetime,
                     "rating": rating,
+                    "source": source,
                 },
                 asset_update_asset_params.AssetUpdateAssetParams,
             ),

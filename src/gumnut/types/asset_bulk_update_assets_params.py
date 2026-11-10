@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -37,8 +37,8 @@ class UpdateChange(  # type: ignore[call-arg]
     Must be finite; zero and negative values are valid. Independent of
     latitude/longitude: setting or clearing coordinates leaves omitted altitude
     unchanged, and altitude edits do not refresh location names. Pass `null` to
-    remove the USER override and reveal a lower-priority value; omit to leave
-    unchanged.
+    remove the selected source’s contribution and reveal a lower-priority value;
+    omit to leave unchanged.
     """
 
     description: Optional[str]
@@ -67,9 +67,12 @@ class UpdateChange(  # type: ignore[call-arg]
     original_datetime: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """When the asset was originally captured.
 
-    Timezone-aware values preserve their UTC offset; timezone-naive values have no
-    offset. Pass `null` to remove a previously-set value; the effective response may
-    still contain a datetime from another metadata source. Omit to leave unchanged.
+    Timezone-aware values preserve their UTC offset for USER. For IMPORT, aware
+    values denote an instant; capture-local time is inferred from file evidence or
+    effective coordinates, otherwise provisionally displayed in UTC without a
+    capture-zone offset. Naive values carry an unknown zone. Pass `null` to remove a
+    previously-set value; the effective response may still contain a datetime from
+    another metadata source. Omit to leave unchanged.
     """
 
     rating: Optional[int]
@@ -79,6 +82,12 @@ class UpdateChange(  # type: ignore[call-arg]
     masking any rating embedded in the file. Pass `null` to remove a previously-set
     value and let the file's embedded rating (if any) show through; omit to leave
     unchanged. Values outside `0`-`5` are rejected.
+    """
+
+    source: Literal["user", "import"]
+    """Metadata layer to write: user (default) or import.
+
+    User edits take precedence over imported values.
     """
 
 
