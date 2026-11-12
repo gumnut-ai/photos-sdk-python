@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.184.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.183.0...v0.184.0) (2026-11-11)
+
+
+### Features
+
+* **assets:** add `altitude`, the GPS altitude in meters, to `assets.update_asset()` and to each update's `change` in `assets.bulk_update_assets()`. It must be finite; zero and negative values are valid. Altitude is independent of `latitude` and `longitude`: updating coordinates leaves an omitted altitude unchanged, and changing altitude does not refresh location names. Pass `None` to remove the altitude you set and reveal a lower-priority value, such as the one embedded in the file. ([c689864](https://github.com/gumnut-ai/photos-sdk-python/commit/c6898647a79e8e663a9a3679cab90874dc4d54ba))
+* **assets:** add `source` to `assets.update_asset()` and to each update's `change` in `assets.bulk_update_assets()`: `"user"` (the default) or `"import"`. Use `"import"` to record metadata carried over from another photo service as imported values rather than user edits. User edits take precedence over imported values, and imported values over metadata embedded in the file. Passing `None` for a field clears only the chosen source's value, revealing the next one in that order. Omitting `source` keeps the existing behavior. With `"import"`, a timezone-aware `original_datetime` is treated as an instant: its local capture time is inferred from the file or the asset's coordinates, and is otherwise shown provisionally in UTC. ([61e1e5b](https://github.com/gumnut-ai/photos-sdk-python/commit/61e1e5bcd4b3b5c5d13c53200a570bb789702156))
+
+### Documentation
+
+* **search:** `search.search_assets()` documents that `image` can be at most 25 MiB. The API rejects a larger image with 413. ([2701bdc](https://github.com/gumnut-ai/photos-sdk-python/commit/2701bdc6cc29ce265d2faca30bbfc76470fc9a80))
+
 ## [0.183.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.182.0...v0.183.0) (2026-11-02)
 
 
