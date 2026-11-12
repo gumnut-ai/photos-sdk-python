@@ -66,15 +66,18 @@ class UsersResource(SyncAPIResource):
 
         Only the fields
         included in the request body are changed. This endpoint does not accept a user
-        ID; it always updates the authenticated caller. Returns 404, without changing
-        anything, when `immich_library_id` names a library the caller cannot choose; the
-        response is the same whether or not that library exists. `home_country`,
-        `home_subdivision` and `face_detection_preference` can be changed only from a
-        signed-in app session: an API key or OAuth credential that sends any of them
-        gets 403 and nothing changes. Setting `face_detection_preference` to true
-        returns 409, which is not retryable, when automatic face detection is not
-        available for the home region. Declaring such a home region sets the preference
-        to false. Changing these settings keeps face data already stored.
+        ID; it always updates the authenticated caller. When the credential is limited
+        to selected libraries, an `immich_library_id` outside them returns 403 without
+        changing anything, whether or not that library exists. Otherwise it returns 404,
+        without changing anything, when `immich_library_id` names a library the caller
+        cannot choose; the response is the same whether or not that library exists.
+        `home_country`, `home_subdivision` and `face_detection_preference` can be
+        changed only from a signed-in app session: an API key or OAuth credential that
+        sends any of them gets 403 and nothing changes. Setting
+        `face_detection_preference` to true returns 409, which is not retryable, when
+        automatic face detection is not available for the home region. Declaring such a
+        home region sets the preference to false. Changing these settings keeps face
+        data already stored.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
@@ -98,9 +101,10 @@ class UsersResource(SyncAPIResource):
               send `null` to clear it.
 
           immich_library_id: Preferred library. Must be a live library the caller owns or has the
-              collaborator role in, and that the request's credential can access; any other id
-              returns 404. Omit to leave unchanged; send `null` to clear the preference and
-              use the default.
+              collaborator role in, and that the request's credential covers. An id a
+              credential limited to selected libraries doesn't cover returns 403; any other
+              ineligible id returns 404. Omit to leave unchanged; send `null` to clear the
+              preference and use the default.
 
           extra_headers: Send extra headers
 
@@ -197,15 +201,18 @@ class AsyncUsersResource(AsyncAPIResource):
 
         Only the fields
         included in the request body are changed. This endpoint does not accept a user
-        ID; it always updates the authenticated caller. Returns 404, without changing
-        anything, when `immich_library_id` names a library the caller cannot choose; the
-        response is the same whether or not that library exists. `home_country`,
-        `home_subdivision` and `face_detection_preference` can be changed only from a
-        signed-in app session: an API key or OAuth credential that sends any of them
-        gets 403 and nothing changes. Setting `face_detection_preference` to true
-        returns 409, which is not retryable, when automatic face detection is not
-        available for the home region. Declaring such a home region sets the preference
-        to false. Changing these settings keeps face data already stored.
+        ID; it always updates the authenticated caller. When the credential is limited
+        to selected libraries, an `immich_library_id` outside them returns 403 without
+        changing anything, whether or not that library exists. Otherwise it returns 404,
+        without changing anything, when `immich_library_id` names a library the caller
+        cannot choose; the response is the same whether or not that library exists.
+        `home_country`, `home_subdivision` and `face_detection_preference` can be
+        changed only from a signed-in app session: an API key or OAuth credential that
+        sends any of them gets 403 and nothing changes. Setting
+        `face_detection_preference` to true returns 409, which is not retryable, when
+        automatic face detection is not available for the home region. Declaring such a
+        home region sets the preference to false. Changing these settings keeps face
+        data already stored.
 
         Args:
           demo_mode_enabled: Enable demo-mode person-name presentation. Omit to leave unchanged; send false
@@ -229,9 +236,10 @@ class AsyncUsersResource(AsyncAPIResource):
               send `null` to clear it.
 
           immich_library_id: Preferred library. Must be a live library the caller owns or has the
-              collaborator role in, and that the request's credential can access; any other id
-              returns 404. Omit to leave unchanged; send `null` to clear the preference and
-              use the default.
+              collaborator role in, and that the request's credential covers. An id a
+              credential limited to selected libraries doesn't cover returns 403; any other
+              ineligible id returns 404. Omit to leave unchanged; send `null` to clear the
+              preference and use the default.
 
           extra_headers: Send extra headers
 

@@ -47,6 +47,7 @@ class UserUpdateParams(TypedDict, total=False):
     """Preferred library.
 
     Must be a live library the caller owns or has the collaborator role in, and that
-    the request's credential can access; any other id returns 404. Omit to leave
-    unchanged; send `null` to clear the preference and use the default.
+    the request's credential covers. An id a credential limited to selected
+    libraries doesn't cover returns 403; any other ineligible id returns 404. Omit
+    to leave unchanged; send `null` to clear the preference and use the default.
     """
