@@ -385,7 +385,7 @@ class PeopleResource(SyncAPIResource):
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
-        pass.
+        pass. Its bodies stay, with no person.
 
         Use `update_face` with `person_id=null` to detach a specific face without
         deleting the whole person. Use `delete_face` to remove a face detection
@@ -477,12 +477,11 @@ class PeopleResource(SyncAPIResource):
     ) -> PersonResponse:
         """
         Merges one or more source people into the primary person identified by the URL.
-        All faces from source people are reassigned to the primary person. Source people
-        are permanently deleted (this cannot be undone). The primary person's centroid
-        embedding is recalculated.
+        All faces and bodies from source people are reassigned to the primary person.
+        Source people are permanently deleted (this cannot be undone).
 
         In the degenerate case where the primary and all sources are unnamed and have
-        zero faces, the primary is auto-deleted by the post-merge centroid recompute and
+        zero faces, the primary is deleted too, its bodies are left with no person, and
         the response is `204 No Content`.
 
         Args:
@@ -863,7 +862,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
-        pass.
+        pass. Its bodies stay, with no person.
 
         Use `update_face` with `person_id=null` to detach a specific face without
         deleting the whole person. Use `delete_face` to remove a face detection
@@ -957,12 +956,11 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> PersonResponse:
         """
         Merges one or more source people into the primary person identified by the URL.
-        All faces from source people are reassigned to the primary person. Source people
-        are permanently deleted (this cannot be undone). The primary person's centroid
-        embedding is recalculated.
+        All faces and bodies from source people are reassigned to the primary person.
+        Source people are permanently deleted (this cannot be undone).
 
         In the degenerate case where the primary and all sources are unnamed and have
-        zero faces, the primary is auto-deleted by the post-merge centroid recompute and
+        zero faces, the primary is deleted too, its bodies are left with no person, and
         the response is `204 No Content`.
 
         Args:
