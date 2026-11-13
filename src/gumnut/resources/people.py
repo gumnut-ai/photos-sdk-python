@@ -294,11 +294,11 @@ class PeopleResource(SyncAPIResource):
         last person in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Return only people who appear in at least one asset of this album. Useful for
-              'who is in this album?'.
+          album_id: Return only people who appear in at least one asset of this album, by a face or
+              a body linked to them. Useful for 'who is in this album?'.
 
-          asset_id: Return only people who have at least one face in this asset. Useful for 'who is
-              in this photo?'.
+          asset_id: Return only people in this asset, by a face or a body linked to them. Useful for
+              'who is in this photo?'.
 
           ids: Look up specific people by ID (max 200; each ID has the `person_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,
@@ -771,11 +771,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         last person in `data` as `starting_after_id` to fetch the next page.
 
         Args:
-          album_id: Return only people who appear in at least one asset of this album. Useful for
-              'who is in this album?'.
+          album_id: Return only people who appear in at least one asset of this album, by a face or
+              a body linked to them. Useful for 'who is in this album?'.
 
-          asset_id: Return only people who have at least one face in this asset. Useful for 'who is
-              in this photo?'.
+          asset_id: Return only people in this asset, by a face or a body linked to them. Useful for
+              'who is in this photo?'.
 
           ids: Look up specific people by ID (max 200; each ID has the `person_` prefix).
               Accepts multiple `ids=` query params or a single comma-delimited value (e.g.,

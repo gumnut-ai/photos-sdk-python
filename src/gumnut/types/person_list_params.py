@@ -12,13 +12,13 @@ __all__ = ["PersonListParams"]
 
 class PersonListParams(TypedDict, total=False):
     album_id: Optional[str]
-    """Return only people who appear in at least one asset of this album.
-
-    Useful for 'who is in this album?'.
+    """
+    Return only people who appear in at least one asset of this album, by a face or
+    a body linked to them. Useful for 'who is in this album?'.
     """
 
     asset_id: Optional[str]
-    """Return only people who have at least one face in this asset.
+    """Return only people in this asset, by a face or a body linked to them.
 
     Useful for 'who is in this photo?'.
     """

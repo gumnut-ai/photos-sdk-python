@@ -147,7 +147,7 @@ class AssetResponse(BaseModel):
     """Metadata for an asset — camera/EXIF fields, GPS, and location names."""
 
     people: Optional[List[PersonResponse]] = None
-    """All unique people identified in this asset (deduplicated from faces).
+    """Each person in this asset once, linked by a face, a body or both.
 
     `null` when not requested via `include=people`; `[]` when requested but none are
     identified.
