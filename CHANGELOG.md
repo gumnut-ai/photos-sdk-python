@@ -2,15 +2,21 @@
 
 ## [0.185.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.184.0...v0.185.0) (2026-11-13)
 
+### ⚠ BREAKING CHANGES
+
+* **events:** remove `created_at_lt` from `events.get()`. Drop the argument when upgrading. Store `next_cursor` and pass it as `after_cursor` to resume. Use `as_of` to give several reads the same bound. ([195efa3](https://github.com/gumnut-ai/photos-sdk-python/commit/195efa3e959dc6fdc0a570e03b11d5684414169a))
+* **assets:** remove `person_id` from `assets.counts()`. Pass `person_ids` with a one-element list to count assets for one person. ([195efa3](https://github.com/gumnut-ai/photos-sdk-python/commit/195efa3e959dc6fdc0a570e03b11d5684414169a))
+* **people filters:** `person_ids` now matches assets through either a detected face or a linked body by default. Set `person_link` to `face` to keep face-only matching, or `body` for linked-body matches. The option is available on asset listing, counts, geo clusters, and both search methods. Person `asset_count` now includes distinct assets linked by a body. ([dfe802f](https://github.com/gumnut-ai/photos-sdk-python/commit/dfe802fb590e6748282e819d02968ea50e4f47be))
 
 ### Features
 
-* **api:** api update ([195efa3](https://github.com/gumnut-ai/photos-sdk-python/commit/195efa3e959dc6fdc0a570e03b11d5684414169a))
-* **api:** api update ([4033b72](https://github.com/gumnut-ai/photos-sdk-python/commit/4033b7265827b4cd78ad19025838a4af1b64a348))
-* **api:** api update ([dfe802f](https://github.com/gumnut-ai/photos-sdk-python/commit/dfe802fb590e6748282e819d02968ea50e4f47be))
-* **api:** api update ([accba2d](https://github.com/gumnut-ai/photos-sdk-python/commit/accba2d97bef2b7424afd9ef50f48a345d4b06cf))
-* **api:** api update ([148471b](https://github.com/gumnut-ai/photos-sdk-python/commit/148471b7aa92088c11c6b17c9075ff6a3ce7ed0d))
-* **api:** api update ([d83bcec](https://github.com/gumnut-ai/photos-sdk-python/commit/d83bcec3f4bb1d81b551ce1a4ac8ae32980253ee))
+* **assets:** request `include=bodies` when listing, retrieving, or searching assets to get boxes for people detected without a face record, with a person ID when linked. ([148471b](https://github.com/gumnut-ai/photos-sdk-python/commit/148471b7aa92088c11c6b17c9075ff6a3ce7ed0d))
+* **events:** the feed accepts `body` in `entity_types` and can return `body_created`, `body_updated`, and `body_deleted`. ([accba2d](https://github.com/gumnut-ai/photos-sdk-python/commit/accba2d97bef2b7424afd9ef50f48a345d4b06cf))
+
+### Documentation
+
+* **people:** describe how merges reassign bodies and how deleting a person leaves their bodies unassigned. ([4033b72](https://github.com/gumnut-ai/photos-sdk-python/commit/4033b7265827b4cd78ad19025838a4af1b64a348))
+* **users:** document the 403 response when a selected-library credential sets `immich_library_id` outside its grant. ([d83bcec](https://github.com/gumnut-ai/photos-sdk-python/commit/d83bcec3f4bb1d81b551ce1a4ac8ae32980253ee))
 
 ## [0.184.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.183.0...v0.184.0) (2026-11-11)
 
