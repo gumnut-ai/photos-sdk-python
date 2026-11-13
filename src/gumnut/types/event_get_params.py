@@ -35,12 +35,6 @@ class EventGetParams(TypedDict, total=False):
     transaction started, so a later-committing event can carry an earlier timestamp.
     """
 
-    created_at_lt: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Ignored.
-
-    Reads are bounded by `next_cursor`; a timestamp bound could skip events.
-    """
-
     entity_types: Optional[SequenceNotStr[str]]
     """Entity types to include (e.g., `asset`, `album`).
 

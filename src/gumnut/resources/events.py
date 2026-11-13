@@ -54,7 +54,6 @@ class EventsResource(SyncAPIResource):
         after_cursor: Optional[str] | Omit = omit,
         as_of: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
-        created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
@@ -183,9 +182,6 @@ class EventsResource(SyncAPIResource):
               filter, not a sync checkpoint: `created_at` is when the writer's transaction
               started, so a later-committing event can carry an earlier timestamp.
 
-          created_at_lt: Ignored. Reads are bounded by `next_cursor`; a timestamp bound could skip
-              events.
-
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
               `album`, `person`, `face`, `body`, `album_asset`, `metadata`, `stack`. Accepts
               multiple `entity_types=` query params or a single comma-delimited value (e.g.,
@@ -216,7 +212,6 @@ class EventsResource(SyncAPIResource):
                         "after_cursor": after_cursor,
                         "as_of": as_of,
                         "created_at_gte": created_at_gte,
-                        "created_at_lt": created_at_lt,
                         "entity_types": entity_types,
                         "library_id": library_id,
                         "limit": limit,
@@ -258,7 +253,6 @@ class AsyncEventsResource(AsyncAPIResource):
         after_cursor: Optional[str] | Omit = omit,
         as_of: Optional[str] | Omit = omit,
         created_at_gte: Union[str, datetime, None] | Omit = omit,
-        created_at_lt: Union[str, datetime, None] | Omit = omit,
         entity_types: Optional[SequenceNotStr[str]] | Omit = omit,
         library_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
@@ -387,9 +381,6 @@ class AsyncEventsResource(AsyncAPIResource):
               filter, not a sync checkpoint: `created_at` is when the writer's transaction
               started, so a later-committing event can carry an earlier timestamp.
 
-          created_at_lt: Ignored. Reads are bounded by `next_cursor`; a timestamp bound could skip
-              events.
-
           entity_types: Entity types to include (e.g., `asset`, `album`). Valid values: `asset`,
               `album`, `person`, `face`, `body`, `album_asset`, `metadata`, `stack`. Accepts
               multiple `entity_types=` query params or a single comma-delimited value (e.g.,
@@ -420,7 +411,6 @@ class AsyncEventsResource(AsyncAPIResource):
                         "after_cursor": after_cursor,
                         "as_of": as_of,
                         "created_at_gte": created_at_gte,
-                        "created_at_lt": created_at_lt,
                         "entity_types": entity_types,
                         "library_id": library_id,
                         "limit": limit,

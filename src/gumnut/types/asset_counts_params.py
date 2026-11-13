@@ -84,12 +84,6 @@ class AssetCountsParams(TypedDict, total=False):
     `asc` returns oldest buckets first.
     """
 
-    person_id: Optional[str]
-    """Deprecated compatibility alias for one `person_ids` value.
-
-    Do not combine it with `person_ids`.
-    """
-
     person_ids: Optional[SequenceNotStr[str]]
     """
     Filter to assets where ALL of these people appear (intersection, not union), by

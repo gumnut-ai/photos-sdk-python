@@ -749,7 +749,6 @@ class AssetsResource(SyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -824,9 +823,6 @@ class AssetsResource(SyncAPIResource):
           order: Sort direction for capture-date buckets: `desc` returns newest buckets first;
               `asc` returns oldest buckets first.
 
-          person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
-              with `person_ids`.
-
           person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
               a face or a body linked to them unless `person_link` says otherwise. Accepts up
               to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
@@ -881,7 +877,6 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "order": order,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "person_link": person_link,
                         "radius": radius,
@@ -1921,7 +1916,6 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
@@ -1996,9 +1990,6 @@ class AsyncAssetsResource(AsyncAPIResource):
           order: Sort direction for capture-date buckets: `desc` returns newest buckets first;
               `asc` returns oldest buckets first.
 
-          person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
-              with `person_ids`.
-
           person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
               a face or a body linked to them unless `person_link` says otherwise. Accepts up
               to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
@@ -2053,7 +2044,6 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "order": order,
-                        "person_id": person_id,
                         "person_ids": person_ids,
                         "person_link": person_link,
                         "radius": radius,
