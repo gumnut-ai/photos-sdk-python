@@ -44,8 +44,8 @@ class EventGetParams(TypedDict, total=False):
     entity_types: Optional[SequenceNotStr[str]]
     """Entity types to include (e.g., `asset`, `album`).
 
-    Valid values: `asset`, `album`, `person`, `face`, `album_asset`, `metadata`,
-    `stack`. Accepts multiple `entity_types=` query params or a single
+    Valid values: `asset`, `album`, `person`, `face`, `body`, `album_asset`,
+    `metadata`, `stack`. Accepts multiple `entity_types=` query params or a single
     comma-delimited value (e.g., `entity_types=asset,album`). Omit to receive events
     for all types.
     """
