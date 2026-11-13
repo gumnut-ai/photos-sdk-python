@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .face_response import FaceResponse
@@ -10,7 +11,36 @@ from .metadata_response import MetadataResponse
 from .file_data_response import FileDataResponse
 from .shared.asset_variant import AssetVariant
 
-__all__ = ["AssetResponse"]
+__all__ = ["AssetResponse", "Body"]
+
+
+class Body(BaseModel):
+    """A person found in an asset without a face record."""
+
+    id: str
+    """Unique body identifier with 'body\\__' prefix"""
+
+    asset_id: str
+    """ID of the asset containing this body"""
+
+    assignment_source: Optional[Literal["automatic", "manual"]] = None
+    """How a body's person was set: by automatic naming or by a person."""
+
+    bounding_box: Dict[str, int]
+    """
+    Where the person is, as {x, y, w, h} in pixels: (x, y) is the box's top-left
+    corner and w, h its size, on the image as displayed (EXIF orientation applied),
+    so they match the asset's `width` and `height`
+    """
+
+    created_at: datetime
+    """When this body was detected"""
+
+    person_id: Optional[str] = None
+    """ID of the person this body is linked to, or `null` when it has none yet."""
+
+    updated_at: datetime
+    """When this body record was last updated"""
 
 
 class AssetResponse(BaseModel):
@@ -71,6 +101,13 @@ class AssetResponse(BaseModel):
     so a top-level navigation saves it to disk, while inline subresource loads
     (<video>, fetch) still render it. Variant URLs are stable: a derived variant may
     briefly 404 until its artifact is generated, then serve from the same URL.
+    """
+
+    bodies: Optional[List[Body]] = None
+    """
+    People found in this asset without a face record, each a `body`: a box and its
+    person, if linked. `null` when not requested via `include=bodies`; `[]` when
+    requested but the asset has none.
     """
 
     description: Optional[str] = None

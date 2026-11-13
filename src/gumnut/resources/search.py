@@ -125,9 +125,10 @@ class SearchResource(SyncAPIResource):
               Mutually exclusive with `bbox`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `file_data` (a group token populating the
-              nested `file_data` object with the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              location names), `faces`, `bodies` (people found without a face record),
+              `people`, `file_data` (a group token populating the nested `file_data` object
+              with the file/provenance scalars `device_asset_id`, `device_id`,
+              `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`), and `variants` (every `asset_urls` rung beyond the lean one.
               Without it `asset_urls` carries only its lean rung — `thumbnail` for an image,
               or `thumbnail_image` for a video — so callers that render non-thumbnail variants
@@ -263,9 +264,10 @@ class SearchResource(SyncAPIResource):
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `file_data` (a group token populating the
-              nested `file_data` object with the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              location names), `faces`, `bodies` (people found without a face record),
+              `people`, `file_data` (a group token populating the nested `file_data` object
+              with the file/provenance scalars `device_asset_id`, `device_id`,
+              `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`), and `variants` (every `asset_urls` rung beyond the lean one.
               Without it `asset_urls` carries only its lean rung — `thumbnail` for an image,
               or `thumbnail_image` for a video — so callers that render non-thumbnail variants
@@ -489,9 +491,10 @@ class AsyncSearchResource(AsyncAPIResource):
               Mutually exclusive with `bbox`.
 
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `file_data` (a group token populating the
-              nested `file_data` object with the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              location names), `faces`, `bodies` (people found without a face record),
+              `people`, `file_data` (a group token populating the nested `file_data` object
+              with the file/provenance scalars `device_asset_id`, `device_id`,
+              `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`), and `variants` (every `asset_urls` rung beyond the lean one.
               Without it `asset_urls` carries only its lean rung — `thumbnail` for an image,
               or `thumbnail_image` for a video — so callers that render non-thumbnail variants
@@ -627,9 +630,10 @@ class AsyncSearchResource(AsyncAPIResource):
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
-              location names), `faces`, `people`, `file_data` (a group token populating the
-              nested `file_data` object with the file/provenance scalars `device_asset_id`,
-              `device_id`, `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
+              location names), `faces`, `bodies` (people found without a face record),
+              `people`, `file_data` (a group token populating the nested `file_data` object
+              with the file/provenance scalars `device_asset_id`, `device_id`,
+              `file_created_at`, `file_modified_at`, `checksum`, `checksum_sha1`,
               `file_size_bytes`), and `variants` (every `asset_urls` rung beyond the lean one.
               Without it `asset_urls` carries only its lean rung — `thumbnail` for an image,
               or `thumbnail_image` for a video — so callers that render non-thumbnail variants
