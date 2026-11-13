@@ -447,7 +447,7 @@ wheels = [
 
 [[package]]
 name = "gumnut-sdk"
-version = "0.184.0"
+version = "0.185.0"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
