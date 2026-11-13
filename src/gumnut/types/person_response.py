@@ -29,7 +29,10 @@ class PersonResponse(BaseModel):
     """When this person record was last updated"""
 
     asset_count: Optional[int] = None
-    """Number of unique photos this person appears in, or null if not computed"""
+    """
+    Number of unique photos this person appears in, by a face or a body linked to
+    them, or null if not computed
+    """
 
     asset_urls: Optional[Dict[str, AssetVariant]] = None
     """Asset variants from this person's thumbnail face.

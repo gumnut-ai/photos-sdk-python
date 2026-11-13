@@ -118,10 +118,19 @@ class AssetListParams(TypedDict, total=False):
 
     person_ids: Optional[SequenceNotStr[str]]
     """
-    Filter to assets containing faces belonging to ALL of these people
-    (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-    query params or comma-delimited values. Person IDs are carried by the entries of
-    an asset's `people` field (returned with `include=people`).
+    Filter to assets where ALL of these people appear (intersection, not union), by
+    a face or a body linked to them unless `person_link` says otherwise. Accepts up
+    to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+    Person IDs are carried by the entries of an asset's `people` field (returned
+    with `include=people`). A body match may not show their face, so when choosing
+    photos of someone, prefer `person_link=face`.
+    """
+
+    person_link: Literal["any", "face", "body"]
+    """
+    How every person in `person_ids` must appear: `any` (a face or a linked body),
+    `face` (photos where their face was detected), or `body` (a linked body only).
+    Requires `person_ids`. Defaults to `any`.
     """
 
     radius: Optional[float]

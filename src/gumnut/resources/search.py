@@ -64,6 +64,7 @@ class SearchResource(SyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
@@ -164,10 +165,16 @@ class SearchResource(SyncAPIResource):
               number rather than by cursor. A search returns only a limited number of the most
               relevant matches, not every match in the library.
 
-          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
-              Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
-              asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts
+              multiple `person_ids=` query params or a single comma-delimited value (e.g.,
+              `person_123,person_abc`). Person IDs are carried by the entries of an asset's
+              `people` field (returned with `include=people`). A body match may not show their
+              face, so when choosing photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           query: Required nonblank natural-language search text. Describe what's visible in the
               photo — subjects, scenes, objects, activities; metadata text such as captions,
@@ -215,6 +222,7 @@ class SearchResource(SyncAPIResource):
                         "media_type": media_type,
                         "page": page,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "query": query,
                         "radius": radius,
                         "ratings": ratings,
@@ -240,6 +248,7 @@ class SearchResource(SyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
@@ -325,10 +334,16 @@ class SearchResource(SyncAPIResource):
               number rather than by cursor. A search returns only a limited number of the most
               relevant matches, not every match in the library.
 
-          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
-              Accepts multiple `person_ids=` form fields or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
-              asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts
+              multiple `person_ids=` form fields or a single comma-delimited value (e.g.,
+              `person_123,person_abc`). Person IDs are carried by the entries of an asset's
+              `people` field (returned with `include=people`). A body match may not show their
+              face, so when choosing photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           query: Natural-language search text; required and nonblank unless `image` is provided.
               Matched against what's visible in the photo and metadata text such as captions,
@@ -366,6 +381,7 @@ class SearchResource(SyncAPIResource):
                 "media_type": media_type,
                 "page": page,
                 "person_ids": person_ids,
+                "person_link": person_link,
                 "query": query,
                 "radius": radius,
                 "ratings": ratings,
@@ -430,6 +446,7 @@ class AsyncSearchResource(AsyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
@@ -530,10 +547,16 @@ class AsyncSearchResource(AsyncAPIResource):
               number rather than by cursor. A search returns only a limited number of the most
               relevant matches, not every match in the library.
 
-          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
-              Accepts multiple `person_ids=` query params or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
-              asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts
+              multiple `person_ids=` query params or a single comma-delimited value (e.g.,
+              `person_123,person_abc`). Person IDs are carried by the entries of an asset's
+              `people` field (returned with `include=people`). A body match may not show their
+              face, so when choosing photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           query: Required nonblank natural-language search text. Describe what's visible in the
               photo — subjects, scenes, objects, activities; metadata text such as captions,
@@ -581,6 +604,7 @@ class AsyncSearchResource(AsyncAPIResource):
                         "media_type": media_type,
                         "page": page,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "query": query,
                         "radius": radius,
                         "ratings": ratings,
@@ -606,6 +630,7 @@ class AsyncSearchResource(AsyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         page: int | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         query: Optional[str] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
@@ -691,10 +716,16 @@ class AsyncSearchResource(AsyncAPIResource):
               number rather than by cursor. A search returns only a limited number of the most
               relevant matches, not every match in the library.
 
-          person_ids: Filter to assets containing ALL of these person IDs (intersection, not union).
-              Accepts multiple `person_ids=` form fields or a single comma-delimited value
-              (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
-              asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts
+              multiple `person_ids=` form fields or a single comma-delimited value (e.g.,
+              `person_123,person_abc`). Person IDs are carried by the entries of an asset's
+              `people` field (returned with `include=people`). A body match may not show their
+              face, so when choosing photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           query: Natural-language search text; required and nonblank unless `image` is provided.
               Matched against what's visible in the photo and metadata text such as captions,
@@ -732,6 +763,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 "media_type": media_type,
                 "page": page,
                 "person_ids": person_ids,
+                "person_link": person_link,
                 "query": query,
                 "radius": radius,
                 "ratings": ratings,

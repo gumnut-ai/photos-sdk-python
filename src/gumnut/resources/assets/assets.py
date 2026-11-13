@@ -270,6 +270,7 @@ class AssetsResource(SyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
@@ -380,10 +381,16 @@ class AssetsResource(SyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`). A body match may not show their face, so when choosing
+              photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.
@@ -439,6 +446,7 @@ class AssetsResource(SyncAPIResource):
                         "media_type": media_type,
                         "order": order,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "radius": radius,
                         "ratings": ratings,
                         "stack_id": stack_id,
@@ -611,6 +619,7 @@ class AssetsResource(SyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -671,10 +680,15 @@ class AssetsResource(SyncAPIResource):
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`).
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
@@ -711,6 +725,7 @@ class AssetsResource(SyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "ratings": ratings,
                         "state": state,
                     },
@@ -736,6 +751,7 @@ class AssetsResource(SyncAPIResource):
         order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         starting_after_bucket: Union[str, datetime, None] | Omit = omit,
@@ -811,10 +827,15 @@ class AssetsResource(SyncAPIResource):
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`).
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.
@@ -862,6 +883,7 @@ class AssetsResource(SyncAPIResource):
                         "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "radius": radius,
                         "ratings": ratings,
                         "starting_after_bucket": starting_after_bucket,
@@ -1418,6 +1440,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         stack_id: Optional[str] | Omit = omit,
@@ -1528,10 +1551,16 @@ class AsyncAssetsResource(AsyncAPIResource):
               `live`/`all`, or trash time for `trashed`. The asset ID tie-breaker uses the
               same direction.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`). A body match may not show their face, so when choosing
+              photos of someone, prefer `person_link=face`.
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.
@@ -1587,6 +1616,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "media_type": media_type,
                         "order": order,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "radius": radius,
                         "ratings": ratings,
                         "stack_id": stack_id,
@@ -1761,6 +1791,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         local_datetime_before: Union[str, datetime, None] | Omit = omit,
         media_type: Optional[Literal["image", "video"]] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         state: Literal["live", "trashed", "all"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1821,10 +1852,15 @@ class AsyncAssetsResource(AsyncAPIResource):
           media_type: Filter to one media class (`image` or `video`). Omit to include both images and
               videos.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`).
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           ratings: Return assets whose effective rating is one of these exact values. Values must
               be integers from `0` through `5`; `5` is a favorite. `0` matches every unrated
@@ -1861,6 +1897,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "local_datetime_before": local_datetime_before,
                         "media_type": media_type,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "ratings": ratings,
                         "state": state,
                     },
@@ -1886,6 +1923,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         order: Literal["asc", "desc"] | Omit = omit,
         person_id: Optional[str] | Omit = omit,
         person_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        person_link: Literal["any", "face", "body"] | Omit = omit,
         radius: Optional[float] | Omit = omit,
         ratings: Optional[Iterable[int]] | Omit = omit,
         starting_after_bucket: Union[str, datetime, None] | Omit = omit,
@@ -1961,10 +1999,15 @@ class AsyncAssetsResource(AsyncAPIResource):
           person_id: Deprecated compatibility alias for one `person_ids` value. Do not combine it
               with `person_ids`.
 
-          person_ids: Filter to assets containing faces belonging to ALL of these people
-              (intersection, not union). Accepts up to 200 IDs across repeated `person_ids=`
-              query params or comma-delimited values. Person IDs are carried by the entries of
-              an asset's `people` field (returned with `include=people`).
+          person_ids: Filter to assets where ALL of these people appear (intersection, not union), by
+              a face or a body linked to them unless `person_link` says otherwise. Accepts up
+              to 200 IDs across repeated `person_ids=` query params or comma-delimited values.
+              Person IDs are carried by the entries of an asset's `people` field (returned
+              with `include=people`).
+
+          person_link: How every person in `person_ids` must appear: `any` (a face or a linked body),
+              `face` (photos where their face was detected), or `body` (a linked body only).
+              Requires `person_ids`. Defaults to `any`.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
               50,000). Supply with `center`. Mutually exclusive with `bbox`.
@@ -2012,6 +2055,7 @@ class AsyncAssetsResource(AsyncAPIResource):
                         "order": order,
                         "person_id": person_id,
                         "person_ids": person_ids,
+                        "person_link": person_link,
                         "radius": radius,
                         "ratings": ratings,
                         "starting_after_bucket": starting_after_bucket,

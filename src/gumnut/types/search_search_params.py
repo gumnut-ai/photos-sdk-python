@@ -98,11 +98,20 @@ class SearchSearchParams(TypedDict, total=False):
     """
 
     person_ids: Optional[SequenceNotStr[str]]
-    """Filter to assets containing ALL of these person IDs (intersection, not union).
+    """
+    Filter to assets where ALL of these people appear (intersection, not union), by
+    a face or a body linked to them unless `person_link` says otherwise. Accepts
+    multiple `person_ids=` query params or a single comma-delimited value (e.g.,
+    `person_123,person_abc`). Person IDs are carried by the entries of an asset's
+    `people` field (returned with `include=people`). A body match may not show their
+    face, so when choosing photos of someone, prefer `person_link=face`.
+    """
 
-    Accepts multiple `person_ids=` query params or a single comma-delimited value
-    (e.g., `person_123,person_abc`). Person IDs are carried by the entries of an
-    asset's `people` field (returned with `include=people`).
+    person_link: Literal["any", "face", "body"]
+    """
+    How every person in `person_ids` must appear: `any` (a face or a linked body),
+    `face` (photos where their face was detected), or `body` (a linked body only).
+    Requires `person_ids`. Defaults to `any`.
     """
 
     query: Optional[str]

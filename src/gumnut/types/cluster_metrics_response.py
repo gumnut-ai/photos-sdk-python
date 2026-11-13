@@ -16,8 +16,9 @@ class ClusterMetricsResponse(BaseModel):
     """Number of faces that fed into the centroid and pairwise metrics.
 
     This is the cluster-membership count, **not** the same as `asset_count` —
-    `face_count` counts every face row, while `asset_count` counts distinct assets
-    (one asset can contribute multiple faces of the same person).
+    `face_count` counts every face row, while `asset_count` counts distinct assets,
+    including those linked by a body (one asset can contribute multiple faces of the
+    same person).
     """
 
     pairwise_mean: float
