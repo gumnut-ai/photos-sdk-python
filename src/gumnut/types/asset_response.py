@@ -11,7 +11,17 @@ from .metadata_response import MetadataResponse
 from .file_data_response import FileDataResponse
 from .shared.asset_variant import AssetVariant
 
-__all__ = ["AssetResponse", "Body"]
+__all__ = ["AssetResponse", "Body", "BodyCandidate"]
+
+
+class BodyCandidate(BaseModel):
+    """A named person who may be the one in a body."""
+
+    name: str
+    """The person's name."""
+
+    person_id: str
+    """Person ID (with 'person\\__' prefix)."""
 
 
 class Body(BaseModel):
@@ -41,6 +51,15 @@ class Body(BaseModel):
 
     updated_at: datetime
     """When this body record was last updated"""
+
+    candidates: Optional[List[BodyCandidate]] = None
+    """
+    Named people who may be the person in this body, best match first, at most 5;
+    never its current person. Link one with `update_body`. Populated only when
+    `list_bodies` or `get_body` is called with `include=candidates`; `null`
+    otherwise. `[]` when there are none, including while the library owner's
+    settings do not allow automatic face detection.
+    """
 
 
 class AssetResponse(BaseModel):
