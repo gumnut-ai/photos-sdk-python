@@ -2,11 +2,14 @@
 
 ## [0.186.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.185.0...v0.186.0) (2026-11-15)
 
+### ⚠ BREAKING CHANGES
+
+* **assets:** each item of `AssetResponse.bodies` is now a `BodyResponse`, exported from `gumnut.types`. It replaces `gumnut.types.asset_response.Body` and has the same fields; update imports of the old name. ([cbc8993](https://github.com/gumnut-ai/photos-sdk-python/commit/cbc899311b24e079db4e20d32c1e989e080c3e1a))
 
 ### Features
 
-* **api:** api update ([4f755c9](https://github.com/gumnut-ai/photos-sdk-python/commit/4f755c926745915c099dc5d4639c82b46c7aed36))
-* **api:** map the bodies resource ([cbc8993](https://github.com/gumnut-ai/photos-sdk-python/commit/cbc899311b24e079db4e20d32c1e989e080c3e1a))
+* **bodies:** add `client.bodies` with `list()`, `retrieve()`, `update()`, and `delete()`. A body is a person in a photo without a face record, such as someone facing away from the camera. `list()` returns bodies newest first, filtered by `asset_id`, `person_id`, or `ids`. `update()` links a body to a person, or removes its person with `person_id=None`. `delete()` deletes a body that is not a person, keeping the asset and any person it was linked to. ([cbc8993](https://github.com/gumnut-ai/photos-sdk-python/commit/cbc899311b24e079db4e20d32c1e989e080c3e1a))
+* **bodies:** pass `include=["candidates"]` to `bodies.list()` or `bodies.retrieve()` to get each body's `candidates`: up to five named people who may be the person in it, best match first. ([4f755c9](https://github.com/gumnut-ai/photos-sdk-python/commit/4f755c926745915c099dc5d4639c82b46c7aed36)), ([cbc8993](https://github.com/gumnut-ai/photos-sdk-python/commit/cbc899311b24e079db4e20d32c1e989e080c3e1a))
 
 ## [0.185.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.184.0...v0.185.0) (2026-11-13)
 
