@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.186.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.185.0...v0.186.0) (2026-11-15)
+
+
+### Features
+
+* **api:** api update ([4f755c9](https://github.com/gumnut-ai/photos-sdk-python/commit/4f755c926745915c099dc5d4639c82b46c7aed36))
+* **api:** map the bodies resource ([cbc8993](https://github.com/gumnut-ai/photos-sdk-python/commit/cbc899311b24e079db4e20d32c1e989e080c3e1a))
+
 ## [0.185.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.184.0...v0.185.0) (2026-11-13)
 
 ### ⚠ BREAKING CHANGES
