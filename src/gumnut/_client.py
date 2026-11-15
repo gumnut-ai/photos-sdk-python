@@ -44,6 +44,7 @@ if TYPE_CHECKING:
         users as users_resources,
         albums as albums_resources,
         assets as assets_resources,
+        bodies as bodies_resources,
         events as events_resources,
         people as people_resources,
         search as search_resources,
@@ -58,6 +59,7 @@ if TYPE_CHECKING:
     from .resources.oauth import OAuthResource, AsyncOAuthResource
     from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.users import UsersResource, AsyncUsersResource
+    from .resources.bodies import BodiesResource, AsyncBodiesResource
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.search import SearchResource, AsyncSearchResource
@@ -187,6 +189,13 @@ class Gumnut(SyncAPIClient):
         from .resources.faces import FacesResource
 
         return FacesResource(self)
+
+    @cached_property
+    def bodies(self) -> BodiesResource:
+        """People found in photos without a face record."""
+        from .resources.bodies import BodiesResource
+
+        return BodiesResource(self)
 
     @cached_property
     def libraries(self) -> LibrariesResource:
@@ -489,6 +498,13 @@ class AsyncGumnut(AsyncAPIClient):
         return AsyncFacesResource(self)
 
     @cached_property
+    def bodies(self) -> AsyncBodiesResource:
+        """People found in photos without a face record."""
+        from .resources.bodies import AsyncBodiesResource
+
+        return AsyncBodiesResource(self)
+
+    @cached_property
     def libraries(self) -> AsyncLibrariesResource:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import AsyncLibrariesResource
@@ -735,6 +751,13 @@ class GumnutWithRawResponse:
         return FacesResourceWithRawResponse(self._client.faces)
 
     @cached_property
+    def bodies(self) -> bodies_resources.BodiesResourceWithRawResponse:
+        """People found in photos without a face record."""
+        from .resources.bodies import BodiesResourceWithRawResponse
+
+        return BodiesResourceWithRawResponse(self._client.bodies)
+
+    @cached_property
     def libraries(self) -> libraries_resources.LibrariesResourceWithRawResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import LibrariesResourceWithRawResponse
@@ -856,6 +879,13 @@ class AsyncGumnutWithRawResponse:
         from .resources.faces import AsyncFacesResourceWithRawResponse
 
         return AsyncFacesResourceWithRawResponse(self._client.faces)
+
+    @cached_property
+    def bodies(self) -> bodies_resources.AsyncBodiesResourceWithRawResponse:
+        """People found in photos without a face record."""
+        from .resources.bodies import AsyncBodiesResourceWithRawResponse
+
+        return AsyncBodiesResourceWithRawResponse(self._client.bodies)
 
     @cached_property
     def libraries(self) -> libraries_resources.AsyncLibrariesResourceWithRawResponse:
@@ -981,6 +1011,13 @@ class GumnutWithStreamedResponse:
         return FacesResourceWithStreamingResponse(self._client.faces)
 
     @cached_property
+    def bodies(self) -> bodies_resources.BodiesResourceWithStreamingResponse:
+        """People found in photos without a face record."""
+        from .resources.bodies import BodiesResourceWithStreamingResponse
+
+        return BodiesResourceWithStreamingResponse(self._client.bodies)
+
+    @cached_property
     def libraries(self) -> libraries_resources.LibrariesResourceWithStreamingResponse:
         """Top-level containers that own assets, albums, people, and everything else."""
         from .resources.libraries import LibrariesResourceWithStreamingResponse
@@ -1102,6 +1139,13 @@ class AsyncGumnutWithStreamedResponse:
         from .resources.faces import AsyncFacesResourceWithStreamingResponse
 
         return AsyncFacesResourceWithStreamingResponse(self._client.faces)
+
+    @cached_property
+    def bodies(self) -> bodies_resources.AsyncBodiesResourceWithStreamingResponse:
+        """People found in photos without a face record."""
+        from .resources.bodies import AsyncBodiesResourceWithStreamingResponse
+
+        return AsyncBodiesResourceWithStreamingResponse(self._client.bodies)
 
     @cached_property
     def libraries(self) -> libraries_resources.AsyncLibrariesResourceWithStreamingResponse:

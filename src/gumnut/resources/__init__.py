@@ -56,6 +56,14 @@ from .assets import (
     AssetsResourceWithStreamingResponse,
     AsyncAssetsResourceWithStreamingResponse,
 )
+from .bodies import (
+    BodiesResource,
+    AsyncBodiesResource,
+    BodiesResourceWithRawResponse,
+    AsyncBodiesResourceWithRawResponse,
+    BodiesResourceWithStreamingResponse,
+    AsyncBodiesResourceWithStreamingResponse,
+)
 from .events import (
     EventsResource,
     AsyncEventsResource,
@@ -164,6 +172,12 @@ __all__ = [
     "AsyncFacesResourceWithRawResponse",
     "FacesResourceWithStreamingResponse",
     "AsyncFacesResourceWithStreamingResponse",
+    "BodiesResource",
+    "AsyncBodiesResource",
+    "BodiesResourceWithRawResponse",
+    "AsyncBodiesResourceWithRawResponse",
+    "BodiesResourceWithStreamingResponse",
+    "AsyncBodiesResourceWithStreamingResponse",
     "LibrariesResource",
     "AsyncLibrariesResource",
     "LibrariesResourceWithRawResponse",

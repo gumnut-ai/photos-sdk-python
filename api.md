@@ -166,6 +166,21 @@ Methods:
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
 - <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> <a href="./src/gumnut/types/face_delete_response.py">FaceDeleteResponse</a></code>
 
+# Bodies
+
+Types:
+
+```python
+from gumnut.types import BodyResponse, BodyDeleteResponse
+```
+
+Methods:
+
+- <code title="get /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">retrieve</a>(body_id, \*\*<a href="src/gumnut/types/body_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">BodyResponse</a></code>
+- <code title="patch /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">update</a>(body_id, \*\*<a href="src/gumnut/types/body_update_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">BodyResponse</a></code>
+- <code title="get /api/bodies">client.bodies.<a href="./src/gumnut/resources/bodies.py">list</a>(\*\*<a href="src/gumnut/types/body_list_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">SyncCursorPage[BodyResponse]</a></code>
+- <code title="delete /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">delete</a>(body_id, \*\*<a href="src/gumnut/types/body_delete_params.py">params</a>) -> <a href="./src/gumnut/types/body_delete_response.py">BodyDeleteResponse</a></code>
+
 # Libraries
 
 Types:

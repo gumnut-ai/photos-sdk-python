@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .shared import UserSummary as UserSummary, AssetVariant as AssetVariant
+from .body_response import BodyResponse as BodyResponse
 from .face_response import FaceResponse as FaceResponse
 from .task_response import TaskResponse as TaskResponse
 from .user_response import UserResponse as UserResponse
@@ -13,6 +14,7 @@ from .feedback_result import FeedbackResult as FeedbackResult
 from .person_response import PersonResponse as PersonResponse
 from .search_response import SearchResponse as SearchResponse
 from .api_key_response import APIKeyResponse as APIKeyResponse
+from .body_list_params import BodyListParams as BodyListParams
 from .event_get_params import EventGetParams as EventGetParams
 from .face_list_params import FaceListParams as FaceListParams
 from .library_response import LibraryResponse as LibraryResponse
@@ -25,6 +27,8 @@ from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
 from .asset_trash_params import AssetTrashParams as AssetTrashParams
+from .body_delete_params import BodyDeleteParams as BodyDeleteParams
+from .body_update_params import BodyUpdateParams as BodyUpdateParams
 from .face_create_params import FaceCreateParams as FaceCreateParams
 from .face_delete_params import FaceDeleteParams as FaceDeleteParams
 from .face_update_params import FaceUpdateParams as FaceUpdateParams
@@ -45,6 +49,8 @@ from .album_asset_response import AlbumAssetResponse as AlbumAssetResponse
 from .asset_count_response import AssetCountResponse as AssetCountResponse
 from .asset_restore_params import AssetRestoreParams as AssetRestoreParams
 from .asset_trash_response import AssetTrashResponse as AssetTrashResponse
+from .body_delete_response import BodyDeleteResponse as BodyDeleteResponse
+from .body_retrieve_params import BodyRetrieveParams as BodyRetrieveParams
 from .face_delete_response import FaceDeleteResponse as FaceDeleteResponse
 from .face_retrieve_params import FaceRetrieveParams as FaceRetrieveParams
 from .person_create_params import PersonCreateParams as PersonCreateParams
