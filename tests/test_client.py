@@ -581,11 +581,11 @@ class TestGumnut:
 
         assert request.read().split(b"\r\n") == [
             b"--6b7ba517decee4a450543ea6ae821c82",
-            b'Content-Disposition: form-data; name="array[]"',
+            b'Content-Disposition: form-data; name="array"',
             b"",
             b"foo",
             b"--6b7ba517decee4a450543ea6ae821c82",
-            b'Content-Disposition: form-data; name="array[]"',
+            b'Content-Disposition: form-data; name="array"',
             b"",
             b"bar",
             b"--6b7ba517decee4a450543ea6ae821c82",
@@ -1516,11 +1516,11 @@ class TestAsyncGumnut:
 
         assert request.read().split(b"\r\n") == [
             b"--6b7ba517decee4a450543ea6ae821c82",
-            b'Content-Disposition: form-data; name="array[]"',
+            b'Content-Disposition: form-data; name="array"',
             b"",
             b"foo",
             b"--6b7ba517decee4a450543ea6ae821c82",
-            b'Content-Disposition: form-data; name="array[]"',
+            b'Content-Disposition: form-data; name="array"',
             b"",
             b"bar",
             b"--6b7ba517decee4a450543ea6ae821c82",
