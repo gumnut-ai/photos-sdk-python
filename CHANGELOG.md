@@ -2,10 +2,13 @@
 
 ## [0.187.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.186.0...v0.187.0) (2026-11-17)
 
-
 ### Features
 
-* **api:** api update ([421e779](https://github.com/gumnut-ai/photos-sdk-python/commit/421e779b4f4b736397e68c537d40f99ef7705509))
+* **search:** pass `asset_id` to `search.search()` or `search.search_assets()` to find photos that look like one already in the library, as an uploaded `image` would. A `query` is then optional; `search_assets()` accepts `image` or `asset_id`, not both. ([421e779](https://github.com/gumnut-ai/photos-sdk-python/commit/421e779b4f4b736397e68c537d40f99ef7705509))
+
+### Bug Fixes
+
+* **search:** `search_assets()` now sends array fields such as `person_ids` and `ratings` as repeated form fields. They were sent as `person_ids[]` and `ratings[]`, which the API ignored, so those filters were silently dropped. ([b83045d](https://github.com/gumnut-ai/photos-sdk-python/commit/b83045d369fd6c0f2f926e492aff359fd52b7a8b))
 
 ## [0.186.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.185.0...v0.186.0) (2026-11-15)
 
