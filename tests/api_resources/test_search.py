@@ -27,6 +27,7 @@ class TestSearch:
     def test_method_search_with_all_params(self, client: Gumnut) -> None:
         search = client.search.search(
             album_id="album_id",
+            asset_id="asset_id",
             bbox="bbox",
             center="center",
             include=["string", "string"],
@@ -74,6 +75,7 @@ class TestSearch:
         search = client.search.search_assets(
             include=["string", "string"],
             album_id="album_id",
+            asset_id="asset_id",
             bbox="bbox",
             center="center",
             image=b"Example data",
@@ -126,6 +128,7 @@ class TestAsyncSearch:
     async def test_method_search_with_all_params(self, async_client: AsyncGumnut) -> None:
         search = await async_client.search.search(
             album_id="album_id",
+            asset_id="asset_id",
             bbox="bbox",
             center="center",
             include=["string", "string"],
@@ -173,6 +176,7 @@ class TestAsyncSearch:
         search = await async_client.search.search_assets(
             include=["string", "string"],
             album_id="album_id",
+            asset_id="asset_id",
             bbox="bbox",
             center="center",
             image=b"Example data",

@@ -16,6 +16,14 @@ class SearchSearchParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
+    asset_id: Optional[str]
+    """
+    ID of an asset in this library to search by; finds assets that look like it, as
+    an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+    asset is not in the library or is trashed, and 409 if it has not been indexed
+    for search yet. The asset itself is usually the first result.
+    """
+
     bbox: Optional[str]
     """
     Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -115,7 +123,7 @@ class SearchSearchParams(TypedDict, total=False):
     """
 
     query: Optional[str]
-    """Required nonblank natural-language search text.
+    """Nonblank natural-language search text; required unless `asset_id` is provided.
 
     Describe what's visible in the photo — subjects, scenes, objects, activities;
     metadata text such as captions, camera names, places, and file names also

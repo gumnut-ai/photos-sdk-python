@@ -54,6 +54,7 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -104,12 +105,20 @@ class SearchResource(SyncAPIResource):
         **Location filtering is by coordinate,** in two mutually-exclusive modes: a
         radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        Returns 422 if `query` is missing or blank. A nonblank `query` is required.
+        **To find photos that look like one in the library,** pass its ID as `asset_id`
+        instead of a `query`.
+
+        Returns 422 unless a nonblank `query`, an `asset_id`, or both are provided.
         Structured filters only narrow content matches; use `list_assets` (GET
         /api/assets) for filter-only browsing.
 
         Args:
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
+
+          asset_id: ID of an asset in this library to search by; finds assets that look like it, as
+              an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+              asset is not in the library or is trashed, and 409 if it has not been indexed
+              for search yet. The asset itself is usually the first result.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -176,9 +185,10 @@ class SearchResource(SyncAPIResource):
               `face` (photos where their face was detected), or `body` (a linked body only).
               Requires `person_ids`. Defaults to `any`.
 
-          query: Required nonblank natural-language search text. Describe what's visible in the
-              photo — subjects, scenes, objects, activities; metadata text such as captions,
-              camera names, places, and file names also matches.
+          query: Nonblank natural-language search text; required unless `asset_id` is provided.
+              Describe what's visible in the photo — subjects, scenes, objects, activities;
+              metadata text such as captions, camera names, places, and file names also
+              matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -212,6 +222,7 @@ class SearchResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "album_id": album_id,
+                        "asset_id": asset_id,
                         "bbox": bbox,
                         "center": center,
                         "include": include,
@@ -238,6 +249,7 @@ class SearchResource(SyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
@@ -262,14 +274,16 @@ class SearchResource(SyncAPIResource):
         """
         Searches for assets by content, ranked by relevance and optionally narrowed by
         structured filters. Use `list_assets` (GET /api/assets) to browse by structured
-        filters without search text or an image. An uploaded `image` finds visually
-        similar photos; when `query` is also provided, both count toward relevance.
+        filters without search text or an image. An uploaded `image`, or the `asset_id`
+        of an asset in the library, finds visually similar photos; when `query` is also
+        provided, both count toward relevance.
 
-        Returns 422 unless a nonblank `query`, an uploaded `image`, or both are
-        provided. Structured filters only narrow content matches; use `list_assets` (GET
-        /api/assets) for filter-only browsing. Location filtering is by coordinate in
-        two mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
-        (`bbox`); it narrows results and is not a search criterion on its own.
+        Returns 422 unless a nonblank `query`, an image (`image` or `asset_id`, not
+        both), or both are provided. Structured filters only narrow content matches; use
+        `list_assets` (GET /api/assets) for filter-only browsing. Location filtering is
+        by coordinate in two mutually-exclusive modes: a radius (`center` + `radius`) or
+        a bounding box (`bbox`); it narrows results and is not a search criterion on its
+        own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -289,6 +303,11 @@ class SearchResource(SyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
+          asset_id: ID of an asset in this library to search by; finds assets that look like it, as
+              an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+              asset is not in the library or is trashed, and 409 if it has not been indexed
+              for search yet. The asset itself is usually the first result.
+
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
@@ -305,6 +324,7 @@ class SearchResource(SyncAPIResource):
 
           image: Image to search by; finds visually similar photos. When `query` is also
               provided, both the text and the image count toward relevance. At most 25 MiB.
+              Not with `asset_id`.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -345,10 +365,10 @@ class SearchResource(SyncAPIResource):
               `face` (photos where their face was detected), or `body` (a linked body only).
               Requires `person_ids`. Defaults to `any`.
 
-          query: Natural-language search text; required and nonblank unless `image` is provided.
-              Matched against what's visible in the photo and metadata text such as captions,
-              camera names, places, and file names. Album and people names belong in
-              `album_id` and `person_ids`, and date ranges in
+          query: Natural-language search text; required and nonblank unless `image` or `asset_id`
+              is provided. Matched against what's visible in the photo and metadata text such
+              as captions, camera names, places, and file names. Album and people names belong
+              in `album_id` and `person_ids`, and date ranges in
               `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
@@ -371,6 +391,7 @@ class SearchResource(SyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_id": album_id,
+                "asset_id": asset_id,
                 "bbox": bbox,
                 "center": center,
                 "image": image,
@@ -436,6 +457,7 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -486,12 +508,20 @@ class AsyncSearchResource(AsyncAPIResource):
         **Location filtering is by coordinate,** in two mutually-exclusive modes: a
         radius (`center` + `radius`) or a bounding box (`bbox`).
 
-        Returns 422 if `query` is missing or blank. A nonblank `query` is required.
+        **To find photos that look like one in the library,** pass its ID as `asset_id`
+        instead of a `query`.
+
+        Returns 422 unless a nonblank `query`, an `asset_id`, or both are provided.
         Structured filters only narrow content matches; use `list_assets` (GET
         /api/assets) for filter-only browsing.
 
         Args:
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
+
+          asset_id: ID of an asset in this library to search by; finds assets that look like it, as
+              an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+              asset is not in the library or is trashed, and 409 if it has not been indexed
+              for search yet. The asset itself is usually the first result.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -558,9 +588,10 @@ class AsyncSearchResource(AsyncAPIResource):
               `face` (photos where their face was detected), or `body` (a linked body only).
               Requires `person_ids`. Defaults to `any`.
 
-          query: Required nonblank natural-language search text. Describe what's visible in the
-              photo — subjects, scenes, objects, activities; metadata text such as captions,
-              camera names, places, and file names also matches.
+          query: Nonblank natural-language search text; required unless `asset_id` is provided.
+              Describe what's visible in the photo — subjects, scenes, objects, activities;
+              metadata text such as captions, camera names, places, and file names also
+              matches.
 
               Resolve album and people names to IDs and pass them as `album_id` and
               `person_ids`; convert date phrases like 'in 2023' into ISO 8601 bounds on
@@ -594,6 +625,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "album_id": album_id,
+                        "asset_id": asset_id,
                         "bbox": bbox,
                         "center": center,
                         "include": include,
@@ -620,6 +652,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         include: Optional[SequenceNotStr[str]] | Omit = omit,
         album_id: Optional[str] | Omit = omit,
+        asset_id: Optional[str] | Omit = omit,
         bbox: Optional[str] | Omit = omit,
         center: Optional[str] | Omit = omit,
         image: Optional[FileTypes] | Omit = omit,
@@ -644,14 +677,16 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         Searches for assets by content, ranked by relevance and optionally narrowed by
         structured filters. Use `list_assets` (GET /api/assets) to browse by structured
-        filters without search text or an image. An uploaded `image` finds visually
-        similar photos; when `query` is also provided, both count toward relevance.
+        filters without search text or an image. An uploaded `image`, or the `asset_id`
+        of an asset in the library, finds visually similar photos; when `query` is also
+        provided, both count toward relevance.
 
-        Returns 422 unless a nonblank `query`, an uploaded `image`, or both are
-        provided. Structured filters only narrow content matches; use `list_assets` (GET
-        /api/assets) for filter-only browsing. Location filtering is by coordinate in
-        two mutually-exclusive modes: a radius (`center` + `radius`) or a bounding box
-        (`bbox`); it narrows results and is not a search criterion on its own.
+        Returns 422 unless a nonblank `query`, an image (`image` or `asset_id`, not
+        both), or both are provided. Structured filters only narrow content matches; use
+        `list_assets` (GET /api/assets) for filter-only browsing. Location filtering is
+        by coordinate in two mutually-exclusive modes: a radius (`center` + `radius`) or
+        a bounding box (`bbox`); it narrows results and is not a search criterion on its
+        own.
 
         Args:
           include: Opt-in expansion fields. Supported values: `metadata` (camera/EXIF/GPS and
@@ -671,6 +706,11 @@ class AsyncSearchResource(AsyncAPIResource):
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
+          asset_id: ID of an asset in this library to search by; finds assets that look like it, as
+              an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+              asset is not in the library or is trashed, and 409 if it has not been indexed
+              for search yet. The asset itself is usually the first result.
+
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
               (west,south,east,north), e.g. `-77.1,38.9,-77.0,39.0`. A box whose
@@ -687,6 +727,7 @@ class AsyncSearchResource(AsyncAPIResource):
 
           image: Image to search by; finds visually similar photos. When `query` is also
               provided, both the text and the image count toward relevance. At most 25 MiB.
+              Not with `asset_id`.
 
           library_id: Library to search. Optional if the user has a single live (non-trashed) library;
               required when they have multiple.
@@ -727,10 +768,10 @@ class AsyncSearchResource(AsyncAPIResource):
               `face` (photos where their face was detected), or `body` (a linked body only).
               Requires `person_ids`. Defaults to `any`.
 
-          query: Natural-language search text; required and nonblank unless `image` is provided.
-              Matched against what's visible in the photo and metadata text such as captions,
-              camera names, places, and file names. Album and people names belong in
-              `album_id` and `person_ids`, and date ranges in
+          query: Natural-language search text; required and nonblank unless `image` or `asset_id`
+              is provided. Matched against what's visible in the photo and metadata text such
+              as captions, camera names, places, and file names. Album and people names belong
+              in `album_id` and `person_ids`, and date ranges in
               `local_datetime_before`/`local_datetime_after`, not here.
 
           radius: Radius of the `center` location filter, in meters (greater than 0, at most
@@ -753,6 +794,7 @@ class AsyncSearchResource(AsyncAPIResource):
         body = deepcopy_with_paths(
             {
                 "album_id": album_id,
+                "asset_id": asset_id,
                 "bbox": bbox,
                 "center": center,
                 "image": image,

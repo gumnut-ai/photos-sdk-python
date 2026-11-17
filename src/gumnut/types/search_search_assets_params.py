@@ -35,6 +35,14 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name."""
 
+    asset_id: Optional[str]
+    """
+    ID of an asset in this library to search by; finds assets that look like it, as
+    an uploaded image would. Must be a photo: returns 422 for a video, 404 if the
+    asset is not in the library or is trashed, and 409 if it has not been indexed
+    for search yet. The asset itself is usually the first result.
+    """
+
     bbox: Optional[str]
     """
     Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -59,7 +67,7 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """Image to search by; finds visually similar photos.
 
     When `query` is also provided, both the text and the image count toward
-    relevance. At most 25 MiB.
+    relevance. At most 25 MiB. Not with `asset_id`.
     """
 
     library_id: Optional[str]
@@ -124,11 +132,11 @@ class SearchSearchAssetsParams(TypedDict, total=False):
     """
 
     query: Optional[str]
-    """Natural-language search text; required and nonblank unless `image` is provided.
-
-    Matched against what's visible in the photo and metadata text such as captions,
-    camera names, places, and file names. Album and people names belong in
-    `album_id` and `person_ids`, and date ranges in
+    """
+    Natural-language search text; required and nonblank unless `image` or `asset_id`
+    is provided. Matched against what's visible in the photo and metadata text such
+    as captions, camera names, places, and file names. Album and people names belong
+    in `album_id` and `person_ids`, and date ranges in
     `local_datetime_before`/`local_datetime_after`, not here.
     """
 
