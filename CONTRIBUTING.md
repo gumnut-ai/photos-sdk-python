@@ -1,6 +1,6 @@
 ## Setting up the environment
 
-We use [uv](https://docs.astral.sh/uv/) 0.10.2 or newer to manage dependencies because it will automatically provision a Python environment with the expected Python version. To set it up, run:
+We use [uv](https://docs.astral.sh/uv/) 0.13.6 or newer to manage dependencies because it will automatically provision a Python environment with the expected Python version. To set it up, run:
 
 ```sh
 $ ./scripts/bootstrap
@@ -98,7 +98,7 @@ $ ./scripts/test
 
 This repository uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting.
 The lint script checks source, tests, and examples with [ty](https://docs.astral.sh/ty/),
-targeting Python 3.10. ty errors fail the gate, while migration warnings remain visible.
+targeting Python 3.11. ty errors fail the gate, while migration warnings remain visible.
 The ty development dependency is pinned to a release at least 14 days old.
 uv also excludes releases newer than 14 days when resolving dependencies.
 
