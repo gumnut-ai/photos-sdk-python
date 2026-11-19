@@ -293,7 +293,7 @@ class Gumnut(SyncAPIClient):
             return
 
         raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+            "Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"
         )
 
     def copy(
@@ -600,7 +600,7 @@ class AsyncGumnut(AsyncAPIClient):
             return
 
         raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+            "Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"
         )
 
     def copy(

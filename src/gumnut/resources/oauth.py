@@ -82,6 +82,7 @@ class OAuthResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return self._get(
             "/api/oauth/auth-url",
             options=make_request_options(
@@ -142,6 +143,7 @@ class OAuthResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return self._post(
             "/api/oauth/exchange",
             body=maybe_transform(
@@ -175,6 +177,7 @@ class OAuthResource(SyncAPIResource):
         be used to redirect users to logout from the OAuth provider after logging out
         locally.
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return self._get(
             "/api/oauth/logout-endpoint",
             options=make_request_options(
@@ -241,6 +244,7 @@ class AsyncOAuthResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return await self._get(
             "/api/oauth/auth-url",
             options=make_request_options(
@@ -301,6 +305,7 @@ class AsyncOAuthResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return await self._post(
             "/api/oauth/exchange",
             body=await async_maybe_transform(
@@ -334,6 +339,7 @@ class AsyncOAuthResource(AsyncAPIResource):
         be used to redirect users to logout from the OAuth provider after logging out
         locally.
         """
+        extra_headers = {"Authorization": omit, **(extra_headers or {})}
         return await self._get(
             "/api/oauth/logout-endpoint",
             options=make_request_options(

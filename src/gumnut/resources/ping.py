@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Query, Headers, NotGiven, omit, not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -51,7 +51,7 @@ class PingResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """Unauthenticated health-check endpoint for uptime monitoring. Returns 'pong'."""
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        extra_headers = {"Authorization": omit, "Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/api/server/ping",
             options=make_request_options(
@@ -94,7 +94,7 @@ class AsyncPingResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """Unauthenticated health-check endpoint for uptime monitoring. Returns 'pong'."""
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        extra_headers = {"Authorization": omit, "Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/api/server/ping",
             options=make_request_options(

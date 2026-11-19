@@ -95,6 +95,28 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## OAuth tokens
+
+An app can sign people in with OAuth and call the API as them, without
+an API key. `client.oauth.auth_url()`, `client.oauth.exchange()`,
+`client.oauth.logout_endpoint()` and `client.ping.get()` need no
+credentials and send no `Authorization` header. Pass the
+`access_token` that `exchange()` returns as `api_key`:
+
+```python
+from gumnut import Gumnut
+
+
+def sign_in(code: str, state: str, code_verifier: str) -> Gumnut:
+    token = Gumnut().oauth.exchange(code=code, state=state, code_verifier=code_verifier)
+    return Gumnut(api_key=token.access_token)
+```
+
+The token is short-lived. When it nears expiry, a successful response
+carries a replacement in its `x-new-access-token` header, which
+`.with_raw_response` exposes. Once it expires, requests raise
+`gumnut.AuthenticationError` until the person signs in again.
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
