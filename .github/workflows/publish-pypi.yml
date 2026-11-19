@@ -8,17 +8,17 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
-  publish:
-    name: publish
+  # Installing dependencies and build tools runs third-party code, so this
+  # job holds no publishing credentials. The publish job uploads what this
+  # job builds, so this job restores no cache.
+  build:
+    name: build
     if: github.repository == 'gumnut-ai/photos-sdk-python'
     runs-on: ubuntu-latest
-    # Publishing waits until a reviewer approves the deployment. The protected
-    # `release` environment is configured in this repository's settings.
-    environment: release
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -29,9 +29,41 @@ jobs:
         uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
         with:
           version: '0.13.6'
-          # A publish job builds from a clean tree; never restore a cache.
           enable-cache: false
 
-      - name: Publish to PyPI
+      - name: Build distributions
         run: |
-          bash ./bin/publish-pypi
+          uv build
+
+      - name: Upload the package
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: python-dist
+          path: dist/
+          if-no-files-found: error
+
+  # Publishes only the package the build job uploaded.
+  publish:
+    name: publish
+    needs: build
+    if: github.repository == 'gumnut-ai/photos-sdk-python'
+    runs-on: ubuntu-latest
+    # Publishing waits until a reviewer approves the deployment. The protected
+    # `release` environment is configured in this repository's settings.
+    environment: release
+    permissions:
+      contents: read
+      id-token: write # OIDC for trusted publishing
+
+    steps:
+      - name: Download the package
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: python-dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          # PEP 740 attestations; they need trusted publishing.
+          attestations: true
