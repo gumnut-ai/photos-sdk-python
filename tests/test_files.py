@@ -1,10 +1,12 @@
+import io
+import tempfile
 from pathlib import Path
 
 import anyio
 import pytest
 from dirty_equals import IsDict, IsList, IsBytes, IsTuple
 
-from gumnut._files import to_httpx_files, deepcopy_with_paths, async_to_httpx_files
+from gumnut._files import to_httpx_files, upload_timeout, deepcopy_with_paths, async_to_httpx_files
 from gumnut._utils import extract_files
 
 readme_path = Path(__file__).parent.parent.joinpath("README.md")
@@ -146,3 +148,42 @@ class TestDeepcopyWithPaths:
             ],
             "title": "example",
         }
+
+
+class TestUploadTimeout:
+    def test_minimum_without_files(self) -> None:
+        timeout = upload_timeout([], minimum=10, bytes_per_second=100)
+        assert timeout.read == 10
+        assert timeout.connect == 5
+
+    def test_scales_with_known_sizes(self, tmp_path: Path) -> None:
+        path = tmp_path / "file"
+        path.write_bytes(b"x" * 1500)
+        buffer = io.BytesIO(b"x" * 1500)
+        buffer.read(500)
+        with path.open("rb") as file:
+            file.read(500)
+            files = [
+                ("bytes", b"x" * 1000),
+                ("path", path),
+                ("tuple", ("name.txt", b"x" * 1000, "text/plain")),
+                ("buffer", buffer),
+                ("file", file),
+            ]
+            # httpx sends files from the start, so the read position doesn't count.
+            assert upload_timeout(files, minimum=10, bytes_per_second=100).read == 65
+
+    def test_sizes_file_wrappers(self) -> None:
+        with tempfile.NamedTemporaryFile() as file:
+            file.write(b"x" * 1500)
+            file.flush()
+            assert upload_timeout({"file": file}, minimum=10, bytes_per_second=100).read == 15
+
+    def test_unknown_size_counts_as_zero(self) -> None:
+        class Unsized(io.RawIOBase):
+            def readable(self) -> bool:
+                return True
+
+        files = {"file": io.BufferedReader(Unsized()), "missing": Path("does-not-exist")}
+        timeout = upload_timeout(files, minimum=10, bytes_per_second=1)
+        assert timeout.read == 10

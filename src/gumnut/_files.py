@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import io
 import os
+import stat
 import pathlib
 from typing import Sequence, cast, overload
 from typing_extensions import TypeVar, TypeGuard
 
 import anyio
+import httpx
 
 from ._types import (
     FileTypes,
@@ -18,6 +20,7 @@ from ._types import (
     HttpxRequestFiles,
 )
 from ._utils import is_list, is_mapping, is_tuple_t, is_mapping_t, is_sequence_t
+from ._constants import DEFAULT_TIMEOUT
 
 _T = TypeVar("_T")
 
@@ -123,6 +126,37 @@ async def async_read_file_content(file: FileContent) -> HttpxFileContent:
         return await anyio.Path(file).read_bytes()
 
     return file
+
+
+def upload_timeout(files: RequestFiles, *, minimum: float, bytes_per_second: float) -> httpx.Timeout:
+    """Return a timeout of `minimum` seconds, or the time `files` take at `bytes_per_second` if longer.
+
+    As with any httpx timeout, it limits each phase of the request rather than the whole request. Connecting keeps
+    the default connect timeout. A file whose size can't be read without consuming it counts as zero bytes.
+    """
+    entries = files.values() if is_mapping_t(files) else [file for _, file in files]
+    size = sum(_file_size(file) for file in entries)
+    return httpx.Timeout(max(minimum, size / bytes_per_second), connect=DEFAULT_TIMEOUT.connect)
+
+
+def _file_size(file: object) -> int:
+    content: object = file[1] if isinstance(file, tuple) else file
+    try:
+        if isinstance(content, bytes):
+            return len(content)
+        if isinstance(content, os.PathLike):
+            return os.stat(content).st_size
+        if isinstance(content, io.BytesIO):
+            with content.getbuffer() as view:
+                return view.nbytes
+        fileno = getattr(content, "fileno", None)
+        if callable(fileno):
+            info = os.fstat(fileno())
+            if stat.S_ISREG(info.st_mode):
+                return info.st_size
+    except (OSError, ValueError):
+        pass
+    return 0
 
 
 def deepcopy_with_paths(item: _T, paths: Sequence[Sequence[str]]) -> _T:
