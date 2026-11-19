@@ -36,7 +36,7 @@ class TestMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -48,7 +48,7 @@ class TestMembers:
             role="viewer",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])
@@ -95,7 +95,7 @@ class TestMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = response.parse()
         assert_matches_type(SyncCursorPage[MembershipResponse], member, path=["response"])
 
@@ -105,7 +105,7 @@ class TestMembers:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = response.parse()
             assert_matches_type(SyncCursorPage[MembershipResponse], member, path=["response"])
@@ -133,7 +133,7 @@ class TestMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -143,7 +143,7 @@ class TestMembers:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])
@@ -173,7 +173,7 @@ class TestMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -184,7 +184,7 @@ class TestMembers:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])
@@ -229,7 +229,7 @@ class TestAsyncMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -241,7 +241,7 @@ class TestAsyncMembers:
             role="viewer",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = await response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])
@@ -288,7 +288,7 @@ class TestAsyncMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = await response.parse()
         assert_matches_type(AsyncCursorPage[MembershipResponse], member, path=["response"])
 
@@ -298,7 +298,7 @@ class TestAsyncMembers:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = await response.parse()
             assert_matches_type(AsyncCursorPage[MembershipResponse], member, path=["response"])
@@ -326,7 +326,7 @@ class TestAsyncMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -336,7 +336,7 @@ class TestAsyncMembers:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = await response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])
@@ -366,7 +366,7 @@ class TestAsyncMembers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         member = await response.parse()
         assert_matches_type(MembershipResponse, member, path=["response"])
 
@@ -377,7 +377,7 @@ class TestAsyncMembers:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             member = await response.parse()
             assert_matches_type(MembershipResponse, member, path=["response"])

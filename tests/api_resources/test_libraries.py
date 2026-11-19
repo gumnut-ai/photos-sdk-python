@@ -44,7 +44,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -54,7 +54,7 @@ class TestLibraries:
             name="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -75,7 +75,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -85,7 +85,7 @@ class TestLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -122,7 +122,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -132,7 +132,7 @@ class TestLibraries:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -163,7 +163,7 @@ class TestLibraries:
         response = client.libraries.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
@@ -171,7 +171,7 @@ class TestLibraries:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.libraries.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryListResponse, library, path=["response"])
@@ -192,7 +192,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
@@ -202,7 +202,7 @@ class TestLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryDeleteResponse, library, path=["response"])
@@ -230,7 +230,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -240,7 +240,7 @@ class TestLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -268,7 +268,7 @@ class TestLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
         assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
@@ -278,7 +278,7 @@ class TestLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
             assert_matches_type(LibraryTrashResponse, library, path=["response"])
@@ -320,7 +320,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -330,7 +330,7 @@ class TestAsyncLibraries:
             name="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -351,7 +351,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -361,7 +361,7 @@ class TestAsyncLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -398,7 +398,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -408,7 +408,7 @@ class TestAsyncLibraries:
             library_id="library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -439,7 +439,7 @@ class TestAsyncLibraries:
         response = await async_client.libraries.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryListResponse, library, path=["response"])
 
@@ -447,7 +447,7 @@ class TestAsyncLibraries:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryListResponse, library, path=["response"])
@@ -468,7 +468,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryDeleteResponse, library, path=["response"])
 
@@ -478,7 +478,7 @@ class TestAsyncLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryDeleteResponse, library, path=["response"])
@@ -506,7 +506,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryResponse, library, path=["response"])
 
@@ -516,7 +516,7 @@ class TestAsyncLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryResponse, library, path=["response"])
@@ -544,7 +544,7 @@ class TestAsyncLibraries:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
         assert_matches_type(LibraryTrashResponse, library, path=["response"])
 
@@ -554,7 +554,7 @@ class TestAsyncLibraries:
             "library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
             assert_matches_type(LibraryTrashResponse, library, path=["response"])

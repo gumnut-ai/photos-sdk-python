@@ -5,7 +5,7 @@ description = "The official Python library for the Gumnut API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Gumnut", email = "tedmao@gmail.com" },
+{ name = "Gumnut Labs", email = "hello@gumnut.ai" },
 ]
 
 dependencies = [

@@ -379,7 +379,7 @@ class TestGumnut:
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        assert request.headers.get("x-gumnut-lang") == "python"
 
         test_client2 = Gumnut(
             base_url=base_url,
@@ -387,12 +387,12 @@ class TestGumnut:
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
+                "X-Gumnut-Lang": "my-overriding-header",
             },
         )
         request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        assert request.headers.get("x-gumnut-lang") == "my-overriding-header"
 
         test_client.close()
         test_client2.close()
@@ -938,7 +938,7 @@ class TestGumnut:
         response = client.albums.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers.get("x-gumnut-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -959,9 +959,9 @@ class TestGumnut:
 
         respx_mock.post("/api/albums").mock(side_effect=retry_handler)
 
-        response = client.albums.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.albums.with_raw_response.create(extra_headers={"x-gumnut-retry-count": Omit()})
 
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
+        assert len(response.http_request.headers.get_list("x-gumnut-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -982,9 +982,9 @@ class TestGumnut:
 
         respx_mock.post("/api/albums").mock(side_effect=retry_handler)
 
-        response = client.albums.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.albums.with_raw_response.create(extra_headers={"x-gumnut-retry-count": "42"})
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert response.http_request.headers.get("x-gumnut-retry-count") == "42"
 
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
@@ -1314,7 +1314,7 @@ class TestAsyncGumnut:
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        assert request.headers.get("x-gumnut-lang") == "python"
 
         test_client2 = AsyncGumnut(
             base_url=base_url,
@@ -1322,12 +1322,12 @@ class TestAsyncGumnut:
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
+                "X-Gumnut-Lang": "my-overriding-header",
             },
         )
         request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        assert request.headers.get("x-gumnut-lang") == "my-overriding-header"
 
         await test_client.close()
         await test_client2.close()
@@ -1888,7 +1888,7 @@ class TestAsyncGumnut:
         response = await client.albums.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers.get("x-gumnut-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -1909,9 +1909,9 @@ class TestAsyncGumnut:
 
         respx_mock.post("/api/albums").mock(side_effect=retry_handler)
 
-        response = await client.albums.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.albums.with_raw_response.create(extra_headers={"x-gumnut-retry-count": Omit()})
 
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
+        assert len(response.http_request.headers.get_list("x-gumnut-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -1932,9 +1932,9 @@ class TestAsyncGumnut:
 
         respx_mock.post("/api/albums").mock(side_effect=retry_handler)
 
-        response = await client.albums.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.albums.with_raw_response.create(extra_headers={"x-gumnut-retry-count": "42"})
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert response.http_request.headers.get("x-gumnut-retry-count") == "42"
 
     async def test_get_platform(self) -> None:
         platform = await asyncify(get_platform)()

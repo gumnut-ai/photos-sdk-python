@@ -44,7 +44,7 @@ class TestOAuth:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = response.parse()
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
@@ -54,7 +54,7 @@ class TestOAuth:
             redirect_uri="redirect_uri",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = response.parse()
             assert_matches_type(AuthURLResponse, oauth, path=["response"])
@@ -81,7 +81,7 @@ class TestOAuth:
         response = client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = response.parse()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
@@ -89,7 +89,7 @@ class TestOAuth:
     def test_streaming_response_exchange(self, client: Gumnut) -> None:
         with client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = response.parse()
             assert_matches_type(ExchangeResponse, oauth, path=["response"])
@@ -106,7 +106,7 @@ class TestOAuth:
         response = client.oauth.with_raw_response.logout_endpoint()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = response.parse()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
@@ -114,7 +114,7 @@ class TestOAuth:
     def test_streaming_response_logout_endpoint(self, client: Gumnut) -> None:
         with client.oauth.with_streaming_response.logout_endpoint() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = response.parse()
             assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
@@ -150,7 +150,7 @@ class TestAsyncOAuth:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = await response.parse()
         assert_matches_type(AuthURLResponse, oauth, path=["response"])
 
@@ -160,7 +160,7 @@ class TestAsyncOAuth:
             redirect_uri="redirect_uri",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = await response.parse()
             assert_matches_type(AuthURLResponse, oauth, path=["response"])
@@ -187,7 +187,7 @@ class TestAsyncOAuth:
         response = await async_client.oauth.with_raw_response.exchange()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = await response.parse()
         assert_matches_type(ExchangeResponse, oauth, path=["response"])
 
@@ -195,7 +195,7 @@ class TestAsyncOAuth:
     async def test_streaming_response_exchange(self, async_client: AsyncGumnut) -> None:
         async with async_client.oauth.with_streaming_response.exchange() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = await response.parse()
             assert_matches_type(ExchangeResponse, oauth, path=["response"])
@@ -212,7 +212,7 @@ class TestAsyncOAuth:
         response = await async_client.oauth.with_raw_response.logout_endpoint()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         oauth = await response.parse()
         assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])
 
@@ -220,7 +220,7 @@ class TestAsyncOAuth:
     async def test_streaming_response_logout_endpoint(self, async_client: AsyncGumnut) -> None:
         async with async_client.oauth.with_streaming_response.logout_endpoint() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             oauth = await response.parse()
             assert_matches_type(LogoutEndpointResponse, oauth, path=["response"])

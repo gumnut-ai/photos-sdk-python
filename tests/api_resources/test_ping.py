@@ -26,7 +26,7 @@ class TestPing:
         response = client.ping.with_raw_response.get()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         ping = response.parse()
         assert_matches_type(str, ping, path=["response"])
 
@@ -34,7 +34,7 @@ class TestPing:
     def test_streaming_response_get(self, client: Gumnut) -> None:
         with client.ping.with_streaming_response.get() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             ping = response.parse()
             assert_matches_type(str, ping, path=["response"])
@@ -57,7 +57,7 @@ class TestAsyncPing:
         response = await async_client.ping.with_raw_response.get()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         ping = await response.parse()
         assert_matches_type(str, ping, path=["response"])
 
@@ -65,7 +65,7 @@ class TestAsyncPing:
     async def test_streaming_response_get(self, async_client: AsyncGumnut) -> None:
         async with async_client.ping.with_streaming_response.get() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             ping = await response.parse()
             assert_matches_type(str, ping, path=["response"])

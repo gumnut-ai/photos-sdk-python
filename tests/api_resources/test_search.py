@@ -50,7 +50,7 @@ class TestSearch:
         response = client.search.with_raw_response.search()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         search = response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -58,7 +58,7 @@ class TestSearch:
     def test_streaming_response_search(self, client: Gumnut) -> None:
         with client.search.with_streaming_response.search() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             search = response.parse()
             assert_matches_type(SearchResponse, search, path=["response"])
@@ -98,7 +98,7 @@ class TestSearch:
         response = client.search.with_raw_response.search_assets()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         search = response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -106,7 +106,7 @@ class TestSearch:
     def test_streaming_response_search_assets(self, client: Gumnut) -> None:
         with client.search.with_streaming_response.search_assets() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             search = response.parse()
             assert_matches_type(SearchResponse, search, path=["response"])
@@ -151,7 +151,7 @@ class TestAsyncSearch:
         response = await async_client.search.with_raw_response.search()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         search = await response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -159,7 +159,7 @@ class TestAsyncSearch:
     async def test_streaming_response_search(self, async_client: AsyncGumnut) -> None:
         async with async_client.search.with_streaming_response.search() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             search = await response.parse()
             assert_matches_type(SearchResponse, search, path=["response"])
@@ -199,7 +199,7 @@ class TestAsyncSearch:
         response = await async_client.search.with_raw_response.search_assets()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         search = await response.parse()
         assert_matches_type(SearchResponse, search, path=["response"])
 
@@ -207,7 +207,7 @@ class TestAsyncSearch:
     async def test_streaming_response_search_assets(self, async_client: AsyncGumnut) -> None:
         async with async_client.search.with_streaming_response.search_assets() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             search = await response.parse()
             assert_matches_type(SearchResponse, search, path=["response"])

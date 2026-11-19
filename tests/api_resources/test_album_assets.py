@@ -40,7 +40,7 @@ class TestAlbumAssets:
         response = client.album_assets.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album_asset = response.parse()
         assert_matches_type(SyncCursorPage[AlbumAssetResponse], album_asset, path=["response"])
 
@@ -48,7 +48,7 @@ class TestAlbumAssets:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.album_assets.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album_asset = response.parse()
             assert_matches_type(SyncCursorPage[AlbumAssetResponse], album_asset, path=["response"])
@@ -69,7 +69,7 @@ class TestAlbumAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album_asset = response.parse()
         assert_matches_type(AlbumAssetResponse, album_asset, path=["response"])
 
@@ -79,7 +79,7 @@ class TestAlbumAssets:
             "album_asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album_asset = response.parse()
             assert_matches_type(AlbumAssetResponse, album_asset, path=["response"])
@@ -121,7 +121,7 @@ class TestAsyncAlbumAssets:
         response = await async_client.album_assets.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album_asset = await response.parse()
         assert_matches_type(AsyncCursorPage[AlbumAssetResponse], album_asset, path=["response"])
 
@@ -129,7 +129,7 @@ class TestAsyncAlbumAssets:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.album_assets.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album_asset = await response.parse()
             assert_matches_type(AsyncCursorPage[AlbumAssetResponse], album_asset, path=["response"])
@@ -150,7 +150,7 @@ class TestAsyncAlbumAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album_asset = await response.parse()
         assert_matches_type(AlbumAssetResponse, album_asset, path=["response"])
 
@@ -160,7 +160,7 @@ class TestAsyncAlbumAssets:
             "album_asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album_asset = await response.parse()
             assert_matches_type(AlbumAssetResponse, album_asset, path=["response"])

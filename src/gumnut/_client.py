@@ -283,7 +283,7 @@ class Gumnut(SyncAPIClient):
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
-            "X-Stainless-Async": "false",
+            "X-Gumnut-Async": "false",
             **self._custom_headers,
         }
 
@@ -590,7 +590,7 @@ class AsyncGumnut(AsyncAPIClient):
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
-            "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Gumnut-Async": f"async:{get_async_library()}",
             **self._custom_headers,
         }
 

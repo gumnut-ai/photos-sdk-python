@@ -65,7 +65,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -79,7 +79,7 @@ class TestAssets:
             file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])
@@ -108,7 +108,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -118,7 +118,7 @@ class TestAssets:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])
@@ -167,7 +167,7 @@ class TestAssets:
         response = client.assets.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(SyncCursorPage[AssetResponse], asset, path=["response"])
 
@@ -175,7 +175,7 @@ class TestAssets:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(SyncCursorPage[AssetResponse], asset, path=["response"])
@@ -196,7 +196,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
@@ -206,7 +206,7 @@ class TestAssets:
             "asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetDeleteResponse, asset, path=["response"])
@@ -244,7 +244,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
@@ -259,7 +259,7 @@ class TestAssets:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
@@ -287,7 +287,7 @@ class TestAssets:
         response = client.assets.with_raw_response.check_existence()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
@@ -295,7 +295,7 @@ class TestAssets:
     def test_streaming_response_check_existence(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.check_existence() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetExistenceResponse, asset, path=["response"])
@@ -336,7 +336,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
 
@@ -347,7 +347,7 @@ class TestAssets:
             cell_size=0,
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
@@ -387,7 +387,7 @@ class TestAssets:
         response = client.assets.with_raw_response.counts()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetCountResponse, asset, path=["response"])
 
@@ -395,7 +395,7 @@ class TestAssets:
     def test_streaming_response_counts(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.counts() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetCountResponse, asset, path=["response"])
@@ -424,7 +424,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
@@ -434,7 +434,7 @@ class TestAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
@@ -458,7 +458,7 @@ class TestAssets:
         response = client.assets.with_raw_response.empty_trash()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
@@ -466,7 +466,7 @@ class TestAssets:
     def test_streaming_response_empty_trash(self, client: Gumnut) -> None:
         with client.assets.with_streaming_response.empty_trash() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
@@ -491,7 +491,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetMoveResponse, asset, path=["response"])
 
@@ -503,7 +503,7 @@ class TestAssets:
             source_library_id="source_library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetMoveResponse, asset, path=["response"])
@@ -532,7 +532,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
@@ -542,7 +542,7 @@ class TestAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetRestoreResponse, asset, path=["response"])
@@ -571,7 +571,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
@@ -581,7 +581,7 @@ class TestAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetTrashResponse, asset, path=["response"])
@@ -616,7 +616,7 @@ class TestAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -626,7 +626,7 @@ class TestAssets:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])
@@ -680,7 +680,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -694,7 +694,7 @@ class TestAsyncAssets:
             file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])
@@ -723,7 +723,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -733,7 +733,7 @@ class TestAsyncAssets:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])
@@ -782,7 +782,7 @@ class TestAsyncAssets:
         response = await async_client.assets.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AsyncCursorPage[AssetResponse], asset, path=["response"])
 
@@ -790,7 +790,7 @@ class TestAsyncAssets:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AsyncCursorPage[AssetResponse], asset, path=["response"])
@@ -811,7 +811,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetDeleteResponse, asset, path=["response"])
 
@@ -821,7 +821,7 @@ class TestAsyncAssets:
             "asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetDeleteResponse, asset, path=["response"])
@@ -859,7 +859,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
 
@@ -874,7 +874,7 @@ class TestAsyncAssets:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetBulkUpdateAssetsResponse, asset, path=["response"])
@@ -902,7 +902,7 @@ class TestAsyncAssets:
         response = await async_client.assets.with_raw_response.check_existence()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetExistenceResponse, asset, path=["response"])
 
@@ -910,7 +910,7 @@ class TestAsyncAssets:
     async def test_streaming_response_check_existence(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.check_existence() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetExistenceResponse, asset, path=["response"])
@@ -951,7 +951,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
 
@@ -962,7 +962,7 @@ class TestAsyncAssets:
             cell_size=0,
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetClusterByGeoResponse, asset, path=["response"])
@@ -1002,7 +1002,7 @@ class TestAsyncAssets:
         response = await async_client.assets.with_raw_response.counts()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetCountResponse, asset, path=["response"])
 
@@ -1010,7 +1010,7 @@ class TestAsyncAssets:
     async def test_streaming_response_counts(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.counts() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetCountResponse, asset, path=["response"])
@@ -1039,7 +1039,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
 
@@ -1049,7 +1049,7 @@ class TestAsyncAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
@@ -1073,7 +1073,7 @@ class TestAsyncAssets:
         response = await async_client.assets.with_raw_response.empty_trash()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
 
@@ -1081,7 +1081,7 @@ class TestAsyncAssets:
     async def test_streaming_response_empty_trash(self, async_client: AsyncGumnut) -> None:
         async with async_client.assets.with_streaming_response.empty_trash() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
@@ -1106,7 +1106,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetMoveResponse, asset, path=["response"])
 
@@ -1118,7 +1118,7 @@ class TestAsyncAssets:
             source_library_id="source_library_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetMoveResponse, asset, path=["response"])
@@ -1147,7 +1147,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetRestoreResponse, asset, path=["response"])
 
@@ -1157,7 +1157,7 @@ class TestAsyncAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetRestoreResponse, asset, path=["response"])
@@ -1186,7 +1186,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetTrashResponse, asset, path=["response"])
 
@@ -1196,7 +1196,7 @@ class TestAsyncAssets:
             ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetTrashResponse, asset, path=["response"])
@@ -1231,7 +1231,7 @@ class TestAsyncAssets:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
         assert_matches_type(AssetResponse, asset, path=["response"])
 
@@ -1241,7 +1241,7 @@ class TestAsyncAssets:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
             assert_matches_type(AssetResponse, asset, path=["response"])

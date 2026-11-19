@@ -50,7 +50,7 @@ class TestAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = response.parse()
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
@@ -62,7 +62,7 @@ class TestAPIKeys:
             name="name",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = response.parse()
             assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
@@ -85,7 +85,7 @@ class TestAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = response.parse()
         assert_matches_type(APIKeyResponse, api_key, path=["response"])
 
@@ -96,7 +96,7 @@ class TestAPIKeys:
             name="name",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = response.parse()
             assert_matches_type(APIKeyResponse, api_key, path=["response"])
@@ -121,7 +121,7 @@ class TestAPIKeys:
         response = client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = response.parse()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
@@ -129,7 +129,7 @@ class TestAPIKeys:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = response.parse()
             assert_matches_type(APIKeyListResponse, api_key, path=["response"])
@@ -150,7 +150,7 @@ class TestAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = response.parse()
         assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
 
@@ -160,7 +160,7 @@ class TestAPIKeys:
             "key_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = response.parse()
             assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
@@ -208,7 +208,7 @@ class TestAsyncAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = await response.parse()
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
@@ -220,7 +220,7 @@ class TestAsyncAPIKeys:
             name="name",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = await response.parse()
             assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
@@ -243,7 +243,7 @@ class TestAsyncAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = await response.parse()
         assert_matches_type(APIKeyResponse, api_key, path=["response"])
 
@@ -254,7 +254,7 @@ class TestAsyncAPIKeys:
             name="name",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = await response.parse()
             assert_matches_type(APIKeyResponse, api_key, path=["response"])
@@ -279,7 +279,7 @@ class TestAsyncAPIKeys:
         response = await async_client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = await response.parse()
         assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
@@ -287,7 +287,7 @@ class TestAsyncAPIKeys:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.api_keys.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = await response.parse()
             assert_matches_type(APIKeyListResponse, api_key, path=["response"])
@@ -308,7 +308,7 @@ class TestAsyncAPIKeys:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = await response.parse()
         assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
 
@@ -318,7 +318,7 @@ class TestAsyncAPIKeys:
             "key_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = await response.parse()
             assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])

@@ -447,14 +447,14 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         # Don't set these headers if they were already set or removed by the caller. We check
         # `custom_headers`, which can contain `Omit()`, instead of `headers` to account for the removal case.
         lower_custom_headers = [header.lower() for header in custom_headers]
-        if "x-stainless-retry-count" not in lower_custom_headers:
-            headers["x-stainless-retry-count"] = str(retries_taken)
-        if "x-stainless-read-timeout" not in lower_custom_headers:
+        if "x-gumnut-retry-count" not in lower_custom_headers:
+            headers["x-gumnut-retry-count"] = str(retries_taken)
+        if "x-gumnut-read-timeout" not in lower_custom_headers:
             timeout = self.timeout if isinstance(options.timeout, NotGiven) else options.timeout
             if isinstance(timeout, Timeout):
                 timeout = timeout.read
             if timeout is not None:
-                headers["x-stainless-read-timeout"] = str(timeout)
+                headers["x-gumnut-read-timeout"] = str(timeout)
 
         return headers
 
@@ -2062,12 +2062,12 @@ def get_platform() -> Platform:
 @lru_cache(maxsize=None)
 def platform_headers(version: str, *, platform: Platform | None) -> Dict[str, str]:
     return {
-        "X-Stainless-Lang": "python",
-        "X-Stainless-Package-Version": version,
-        "X-Stainless-OS": str(platform or get_platform()),
-        "X-Stainless-Arch": str(get_architecture()),
-        "X-Stainless-Runtime": get_python_runtime(),
-        "X-Stainless-Runtime-Version": get_python_version(),
+        "X-Gumnut-Lang": "python",
+        "X-Gumnut-Package-Version": version,
+        "X-Gumnut-OS": str(platform or get_platform()),
+        "X-Gumnut-Arch": str(get_architecture()),
+        "X-Gumnut-Runtime": get_python_runtime(),
+        "X-Gumnut-Runtime-Version": get_python_version(),
     }
 
 

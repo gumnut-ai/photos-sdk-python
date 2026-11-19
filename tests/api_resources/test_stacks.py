@@ -40,7 +40,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
@@ -50,7 +50,7 @@ class TestStacks:
             "stack_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackDeleteResponse, stack, path=["response"])
@@ -80,7 +80,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
@@ -91,7 +91,7 @@ class TestStacks:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
@@ -129,7 +129,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
@@ -139,7 +139,7 @@ class TestStacks:
             asset_ids=["string", "string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackCreateStackResponse, stack, path=["response"])
@@ -169,7 +169,7 @@ class TestStacks:
         response = client.stacks.with_raw_response.list_stacks()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
@@ -177,7 +177,7 @@ class TestStacks:
     def test_streaming_response_list_stacks(self, client: Gumnut) -> None:
         with client.stacks.with_streaming_response.list_stacks() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
@@ -200,7 +200,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
@@ -211,7 +211,7 @@ class TestStacks:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
@@ -240,7 +240,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
@@ -250,7 +250,7 @@ class TestStacks:
             "stack_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
@@ -280,7 +280,7 @@ class TestStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
@@ -291,7 +291,7 @@ class TestStacks:
             primary_asset_id="primary_asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
             assert_matches_type(StackSetCoverResponse, stack, path=["response"])
@@ -326,7 +326,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackDeleteResponse, stack, path=["response"])
 
@@ -336,7 +336,7 @@ class TestAsyncStacks:
             "stack_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackDeleteResponse, stack, path=["response"])
@@ -366,7 +366,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
 
@@ -377,7 +377,7 @@ class TestAsyncStacks:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
@@ -415,7 +415,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackCreateStackResponse, stack, path=["response"])
 
@@ -425,7 +425,7 @@ class TestAsyncStacks:
             asset_ids=["string", "string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackCreateStackResponse, stack, path=["response"])
@@ -455,7 +455,7 @@ class TestAsyncStacks:
         response = await async_client.stacks.with_raw_response.list_stacks()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
 
@@ -463,7 +463,7 @@ class TestAsyncStacks:
     async def test_streaming_response_list_stacks(self, async_client: AsyncGumnut) -> None:
         async with async_client.stacks.with_streaming_response.list_stacks() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
@@ -486,7 +486,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
 
@@ -497,7 +497,7 @@ class TestAsyncStacks:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
@@ -526,7 +526,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
 
@@ -536,7 +536,7 @@ class TestAsyncStacks:
             "stack_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
@@ -566,7 +566,7 @@ class TestAsyncStacks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
         assert_matches_type(StackSetCoverResponse, stack, path=["response"])
 
@@ -577,7 +577,7 @@ class TestAsyncStacks:
             primary_asset_id="primary_asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
             assert_matches_type(StackSetCoverResponse, stack, path=["response"])

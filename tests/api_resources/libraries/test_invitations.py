@@ -44,7 +44,7 @@ class TestInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
@@ -57,7 +57,7 @@ class TestInvitations:
             role="viewer",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
@@ -84,7 +84,7 @@ class TestInvitations:
         response = client.libraries.invitations.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(SyncCursorPage[InvitationResponse], invitation, path=["response"])
 
@@ -92,7 +92,7 @@ class TestInvitations:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.libraries.invitations.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(SyncCursorPage[InvitationResponse], invitation, path=["response"])
@@ -113,7 +113,7 @@ class TestInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
@@ -123,7 +123,7 @@ class TestInvitations:
             "invitation_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(InvitationResponse, invitation, path=["response"])
@@ -153,7 +153,7 @@ class TestInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
@@ -164,7 +164,7 @@ class TestInvitations:
             secret="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
@@ -193,7 +193,7 @@ class TestInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
@@ -203,7 +203,7 @@ class TestInvitations:
             "invitation_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
@@ -233,7 +233,7 @@ class TestInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = response.parse()
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
@@ -244,7 +244,7 @@ class TestInvitations:
             secret="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = response.parse()
             assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
@@ -285,7 +285,7 @@ class TestAsyncInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
@@ -298,7 +298,7 @@ class TestAsyncInvitations:
             role="viewer",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
@@ -325,7 +325,7 @@ class TestAsyncInvitations:
         response = await async_client.libraries.invitations.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(AsyncCursorPage[InvitationResponse], invitation, path=["response"])
 
@@ -333,7 +333,7 @@ class TestAsyncInvitations:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.libraries.invitations.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(AsyncCursorPage[InvitationResponse], invitation, path=["response"])
@@ -354,7 +354,7 @@ class TestAsyncInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(InvitationResponse, invitation, path=["response"])
 
@@ -364,7 +364,7 @@ class TestAsyncInvitations:
             "invitation_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(InvitationResponse, invitation, path=["response"])
@@ -394,7 +394,7 @@ class TestAsyncInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
 
@@ -405,7 +405,7 @@ class TestAsyncInvitations:
             secret="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(InvitationJoinResponse, invitation, path=["response"])
@@ -434,7 +434,7 @@ class TestAsyncInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
 
@@ -444,7 +444,7 @@ class TestAsyncInvitations:
             "invitation_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(InvitationLinkResponse, invitation, path=["response"])
@@ -474,7 +474,7 @@ class TestAsyncInvitations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         invitation = await response.parse()
         assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])
 
@@ -485,7 +485,7 @@ class TestAsyncInvitations:
             secret="x",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             invitation = await response.parse()
             assert_matches_type(InvitationPreviewResponse, invitation, path=["response"])

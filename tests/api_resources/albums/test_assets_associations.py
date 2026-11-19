@@ -36,7 +36,7 @@ class TestAssetsAssociations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = response.parse()
         assert_matches_type(AssetsAssociationAddResponse, assets_association, path=["response"])
 
@@ -47,7 +47,7 @@ class TestAssetsAssociations:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = response.parse()
             assert_matches_type(AssetsAssociationAddResponse, assets_association, path=["response"])
@@ -78,7 +78,7 @@ class TestAssetsAssociations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = response.parse()
         assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
@@ -89,7 +89,7 @@ class TestAssetsAssociations:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = response.parse()
             assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
@@ -126,7 +126,7 @@ class TestAsyncAssetsAssociations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = await response.parse()
         assert_matches_type(AssetsAssociationAddResponse, assets_association, path=["response"])
 
@@ -137,7 +137,7 @@ class TestAsyncAssetsAssociations:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = await response.parse()
             assert_matches_type(AssetsAssociationAddResponse, assets_association, path=["response"])
@@ -168,7 +168,7 @@ class TestAsyncAssetsAssociations:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = await response.parse()
         assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
 
@@ -179,7 +179,7 @@ class TestAsyncAssetsAssociations:
             asset_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = await response.parse()
             assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])

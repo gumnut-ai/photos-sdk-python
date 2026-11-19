@@ -37,7 +37,7 @@ class TestTasks:
         response = client.tasks.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = response.parse()
         assert_matches_type(TaskListResponse, task, path=["response"])
 
@@ -45,7 +45,7 @@ class TestTasks:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.tasks.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = response.parse()
             assert_matches_type(TaskListResponse, task, path=["response"])
@@ -66,7 +66,7 @@ class TestTasks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = response.parse()
         assert_matches_type(TaskResponse, task, path=["response"])
 
@@ -76,7 +76,7 @@ class TestTasks:
             "task_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = response.parse()
             assert_matches_type(TaskResponse, task, path=["response"])
@@ -104,7 +104,7 @@ class TestTasks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = response.parse()
         assert_matches_type(TaskListForAssetResponse, task, path=["response"])
 
@@ -114,7 +114,7 @@ class TestTasks:
             "asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = response.parse()
             assert_matches_type(TaskListForAssetResponse, task, path=["response"])
@@ -154,7 +154,7 @@ class TestAsyncTasks:
         response = await async_client.tasks.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = await response.parse()
         assert_matches_type(TaskListResponse, task, path=["response"])
 
@@ -162,7 +162,7 @@ class TestAsyncTasks:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.tasks.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = await response.parse()
             assert_matches_type(TaskListResponse, task, path=["response"])
@@ -183,7 +183,7 @@ class TestAsyncTasks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = await response.parse()
         assert_matches_type(TaskResponse, task, path=["response"])
 
@@ -193,7 +193,7 @@ class TestAsyncTasks:
             "task_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = await response.parse()
             assert_matches_type(TaskResponse, task, path=["response"])
@@ -221,7 +221,7 @@ class TestAsyncTasks:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         task = await response.parse()
         assert_matches_type(TaskListForAssetResponse, task, path=["response"])
 
@@ -231,7 +231,7 @@ class TestAsyncTasks:
             "asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             task = await response.parse()
             assert_matches_type(TaskListForAssetResponse, task, path=["response"])

@@ -62,7 +62,7 @@ class TestFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -78,7 +78,7 @@ class TestFaces:
             },
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -108,7 +108,7 @@ class TestFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -118,7 +118,7 @@ class TestFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -155,7 +155,7 @@ class TestFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -165,7 +165,7 @@ class TestFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -202,7 +202,7 @@ class TestFaces:
         response = client.faces.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = response.parse()
         assert_matches_type(SyncCursorPage[FaceResponse], face, path=["response"])
 
@@ -210,7 +210,7 @@ class TestFaces:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.faces.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = response.parse()
             assert_matches_type(SyncCursorPage[FaceResponse], face, path=["response"])
@@ -239,7 +239,7 @@ class TestFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = response.parse()
         assert_matches_type(FaceDeleteResponse, face, path=["response"])
 
@@ -249,7 +249,7 @@ class TestFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = response.parse()
             assert_matches_type(FaceDeleteResponse, face, path=["response"])
@@ -310,7 +310,7 @@ class TestAsyncFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = await response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -326,7 +326,7 @@ class TestAsyncFaces:
             },
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = await response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -356,7 +356,7 @@ class TestAsyncFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = await response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -366,7 +366,7 @@ class TestAsyncFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = await response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -403,7 +403,7 @@ class TestAsyncFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = await response.parse()
         assert_matches_type(FaceResponse, face, path=["response"])
 
@@ -413,7 +413,7 @@ class TestAsyncFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = await response.parse()
             assert_matches_type(FaceResponse, face, path=["response"])
@@ -450,7 +450,7 @@ class TestAsyncFaces:
         response = await async_client.faces.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = await response.parse()
         assert_matches_type(AsyncCursorPage[FaceResponse], face, path=["response"])
 
@@ -458,7 +458,7 @@ class TestAsyncFaces:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.faces.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = await response.parse()
             assert_matches_type(AsyncCursorPage[FaceResponse], face, path=["response"])
@@ -487,7 +487,7 @@ class TestAsyncFaces:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         face = await response.parse()
         assert_matches_type(FaceDeleteResponse, face, path=["response"])
 
@@ -497,7 +497,7 @@ class TestAsyncFaces:
             face_id="face_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             face = await response.parse()
             assert_matches_type(FaceDeleteResponse, face, path=["response"])

@@ -40,7 +40,7 @@ class TestEvents:
         response = client.events.with_raw_response.get()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         event = response.parse()
         assert_matches_type(EventsResponse, event, path=["response"])
 
@@ -48,7 +48,7 @@ class TestEvents:
     def test_streaming_response_get(self, client: Gumnut) -> None:
         with client.events.with_streaming_response.get() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             event = response.parse()
             assert_matches_type(EventsResponse, event, path=["response"])
@@ -83,7 +83,7 @@ class TestAsyncEvents:
         response = await async_client.events.with_raw_response.get()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         event = await response.parse()
         assert_matches_type(EventsResponse, event, path=["response"])
 
@@ -91,7 +91,7 @@ class TestAsyncEvents:
     async def test_streaming_response_get(self, async_client: AsyncGumnut) -> None:
         async with async_client.events.with_streaming_response.get() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             event = await response.parse()
             assert_matches_type(EventsResponse, event, path=["response"])

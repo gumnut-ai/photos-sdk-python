@@ -37,7 +37,7 @@ class TestAlbums:
         response = client.albums.with_raw_response.create()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -45,7 +45,7 @@ class TestAlbums:
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.create() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -66,7 +66,7 @@ class TestAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -76,7 +76,7 @@ class TestAlbums:
             "album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -114,7 +114,7 @@ class TestAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -124,7 +124,7 @@ class TestAlbums:
             album_id="album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -160,7 +160,7 @@ class TestAlbums:
         response = client.albums.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = response.parse()
         assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
 
@@ -168,7 +168,7 @@ class TestAlbums:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.albums.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = response.parse()
             assert_matches_type(SyncCursorPage[AlbumResponse], album, path=["response"])
@@ -189,7 +189,7 @@ class TestAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = response.parse()
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
@@ -199,7 +199,7 @@ class TestAlbums:
             "album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = response.parse()
             assert_matches_type(AlbumDeleteResponse, album, path=["response"])
@@ -238,7 +238,7 @@ class TestAsyncAlbums:
         response = await async_client.albums.with_raw_response.create()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -246,7 +246,7 @@ class TestAsyncAlbums:
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.create() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = await response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -267,7 +267,7 @@ class TestAsyncAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -277,7 +277,7 @@ class TestAsyncAlbums:
             "album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = await response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -315,7 +315,7 @@ class TestAsyncAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = await response.parse()
         assert_matches_type(AlbumResponse, album, path=["response"])
 
@@ -325,7 +325,7 @@ class TestAsyncAlbums:
             album_id="album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = await response.parse()
             assert_matches_type(AlbumResponse, album, path=["response"])
@@ -361,7 +361,7 @@ class TestAsyncAlbums:
         response = await async_client.albums.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = await response.parse()
         assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
 
@@ -369,7 +369,7 @@ class TestAsyncAlbums:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.albums.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = await response.parse()
             assert_matches_type(AsyncCursorPage[AlbumResponse], album, path=["response"])
@@ -390,7 +390,7 @@ class TestAsyncAlbums:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         album = await response.parse()
         assert_matches_type(AlbumDeleteResponse, album, path=["response"])
 
@@ -400,7 +400,7 @@ class TestAsyncAlbums:
             "album_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             album = await response.parse()
             assert_matches_type(AlbumDeleteResponse, album, path=["response"])

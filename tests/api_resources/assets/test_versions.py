@@ -43,7 +43,7 @@ class TestVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = response.parse()
         assert_matches_type(VersionListResponse, version, path=["response"])
 
@@ -53,7 +53,7 @@ class TestVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = response.parse()
             assert_matches_type(VersionListResponse, version, path=["response"])
@@ -83,7 +83,7 @@ class TestVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -94,7 +94,7 @@ class TestVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = response.parse()
             assert_matches_type(AssetResponse, version, path=["response"])
@@ -146,7 +146,7 @@ class TestVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
@@ -159,7 +159,7 @@ class TestVersions:
             params="params",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = response.parse()
             assert_matches_type(AssetVersionResponse, version, path=["response"])
@@ -210,7 +210,7 @@ class TestVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
@@ -224,7 +224,7 @@ class TestVersions:
             params="params",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = response.parse()
             assert_matches_type(AssetVersionResponse, version, path=["response"])
@@ -267,7 +267,7 @@ class TestVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -278,7 +278,7 @@ class TestVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = response.parse()
             assert_matches_type(AssetResponse, version, path=["response"])
@@ -327,7 +327,7 @@ class TestAsyncVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = await response.parse()
         assert_matches_type(VersionListResponse, version, path=["response"])
 
@@ -337,7 +337,7 @@ class TestAsyncVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = await response.parse()
             assert_matches_type(VersionListResponse, version, path=["response"])
@@ -367,7 +367,7 @@ class TestAsyncVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = await response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -378,7 +378,7 @@ class TestAsyncVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = await response.parse()
             assert_matches_type(AssetResponse, version, path=["response"])
@@ -430,7 +430,7 @@ class TestAsyncVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = await response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
@@ -443,7 +443,7 @@ class TestAsyncVersions:
             params="params",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = await response.parse()
             assert_matches_type(AssetVersionResponse, version, path=["response"])
@@ -494,7 +494,7 @@ class TestAsyncVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = await response.parse()
         assert_matches_type(AssetVersionResponse, version, path=["response"])
 
@@ -508,7 +508,7 @@ class TestAsyncVersions:
             params="params",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = await response.parse()
             assert_matches_type(AssetVersionResponse, version, path=["response"])
@@ -551,7 +551,7 @@ class TestAsyncVersions:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         version = await response.parse()
         assert_matches_type(AssetResponse, version, path=["response"])
 
@@ -562,7 +562,7 @@ class TestAsyncVersions:
             asset_id="asset_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             version = await response.parse()
             assert_matches_type(AssetResponse, version, path=["response"])

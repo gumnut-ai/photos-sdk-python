@@ -45,7 +45,7 @@ class TestPeople:
         response = client.people.with_raw_response.create()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -53,7 +53,7 @@ class TestPeople:
     def test_streaming_response_create(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.create() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -82,7 +82,7 @@ class TestPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -92,7 +92,7 @@ class TestPeople:
             person_id="person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -132,7 +132,7 @@ class TestPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -142,7 +142,7 @@ class TestPeople:
             person_id="person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -183,7 +183,7 @@ class TestPeople:
         response = client.people.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
 
@@ -191,7 +191,7 @@ class TestPeople:
     def test_streaming_response_list(self, client: Gumnut) -> None:
         with client.people.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(SyncCursorPage[PersonResponse], person, path=["response"])
@@ -212,7 +212,7 @@ class TestPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
@@ -222,7 +222,7 @@ class TestPeople:
             "person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonDeleteResponse, person, path=["response"])
@@ -260,7 +260,7 @@ class TestPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonBulkUpdatePeopleResponse, person, path=["response"])
 
@@ -275,7 +275,7 @@ class TestPeople:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonBulkUpdatePeopleResponse, person, path=["response"])
@@ -298,7 +298,7 @@ class TestPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -309,7 +309,7 @@ class TestPeople:
             source_person_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -352,7 +352,7 @@ class TestAsyncPeople:
         response = await async_client.people.with_raw_response.create()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -360,7 +360,7 @@ class TestAsyncPeople:
     async def test_streaming_response_create(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.create() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -389,7 +389,7 @@ class TestAsyncPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -399,7 +399,7 @@ class TestAsyncPeople:
             person_id="person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -439,7 +439,7 @@ class TestAsyncPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -449,7 +449,7 @@ class TestAsyncPeople:
             person_id="person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
@@ -490,7 +490,7 @@ class TestAsyncPeople:
         response = await async_client.people.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])
 
@@ -498,7 +498,7 @@ class TestAsyncPeople:
     async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
         async with async_client.people.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(AsyncCursorPage[PersonResponse], person, path=["response"])
@@ -519,7 +519,7 @@ class TestAsyncPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonDeleteResponse, person, path=["response"])
 
@@ -529,7 +529,7 @@ class TestAsyncPeople:
             "person_id",
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonDeleteResponse, person, path=["response"])
@@ -567,7 +567,7 @@ class TestAsyncPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonBulkUpdatePeopleResponse, person, path=["response"])
 
@@ -582,7 +582,7 @@ class TestAsyncPeople:
             ],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonBulkUpdatePeopleResponse, person, path=["response"])
@@ -605,7 +605,7 @@ class TestAsyncPeople:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
         assert_matches_type(PersonResponse, person, path=["response"])
 
@@ -616,7 +616,7 @@ class TestAsyncPeople:
             source_person_ids=["string"],
         ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
             assert_matches_type(PersonResponse, person, path=["response"])
