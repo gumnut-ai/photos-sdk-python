@@ -39,7 +39,6 @@ class TestBodies:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Gumnut) -> None:
-
         response = client.bodies.with_raw_response.retrieve(
             body_id="body_id",
         )
@@ -88,7 +87,6 @@ class TestBodies:
 
     @parametrize
     def test_raw_response_update(self, client: Gumnut) -> None:
-
         response = client.bodies.with_raw_response.update(
             body_id="body_id",
             person_id="person_id",
@@ -141,7 +139,6 @@ class TestBodies:
 
     @parametrize
     def test_raw_response_list(self, client: Gumnut) -> None:
-
         response = client.bodies.with_raw_response.list()
 
         assert response.is_closed is True
@@ -177,7 +174,6 @@ class TestBodies:
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
-
         response = client.bodies.with_raw_response.delete(
             body_id="body_id",
         )
@@ -231,7 +227,6 @@ class TestAsyncBodies:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncGumnut) -> None:
-
         response = await async_client.bodies.with_raw_response.retrieve(
             body_id="body_id",
         )
@@ -280,7 +275,6 @@ class TestAsyncBodies:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncGumnut) -> None:
-
         response = await async_client.bodies.with_raw_response.update(
             body_id="body_id",
             person_id="person_id",
@@ -333,7 +327,6 @@ class TestAsyncBodies:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
-
         response = await async_client.bodies.with_raw_response.list()
 
         assert response.is_closed is True
@@ -369,7 +362,6 @@ class TestAsyncBodies:
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
-
         response = await async_client.bodies.with_raw_response.delete(
             body_id="body_id",
         )
