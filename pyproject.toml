@@ -38,6 +38,8 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/gumnut-ai/photos-sdk-python"
 Repository = "https://github.com/gumnut-ai/photos-sdk-python"
+Changelog = "https://github.com/gumnut-ai/photos-sdk-python/blob/main/CHANGELOG.md"
+Documentation = "https://docs.gumnut.ai"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
