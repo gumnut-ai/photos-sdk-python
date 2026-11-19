@@ -360,6 +360,32 @@ _HttpxClientT = TypeVar("_HttpxClientT", bound=Union[httpx.Client, httpx.AsyncCl
 _DefaultStreamT = TypeVar("_DefaultStreamT", bound=Union[Stream[Any], AsyncStream[Any]])
 
 
+def _error_detail(body: object) -> str | None:
+    """The error body's `detail` as readable text, or None if it has no usable one.
+
+    A string `detail` is returned as is. A list of validation errors, each with a
+    `loc` path and a `msg`, is summarized as `body.name: Field required; ...`.
+    """
+    if not is_dict(body):
+        return None
+    detail = body.get("detail")
+    if isinstance(detail, str):
+        return detail or None
+    if not is_list(detail) or not detail:
+        return None
+    parts: list[str] = []
+    for item in detail:
+        if not is_dict(item):
+            return None
+        msg = item.get("msg")
+        if not isinstance(msg, str):
+            return None
+        loc = item.get("loc")
+        path = ".".join(str(part) for part in loc) if is_list(loc) else ""
+        parts.append(f"{path}: {msg}" if path else msg)
+    return "; ".join(parts)
+
+
 class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
     _client: _HttpxClientT
     _version: str
@@ -417,9 +443,14 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
 
             try:
                 body = json.loads(err_text)
-                err_msg = f"Error code: {response.status_code} - {body}"
             except Exception:
                 err_msg = err_text or f"Error code: {response.status_code}"
+            else:
+                detail = _error_detail(body)
+                if detail is not None:
+                    err_msg = f"{response.status_code} {detail}"
+                else:
+                    err_msg = f"Error code: {response.status_code} - {body}"
 
         return self._make_status_error(err_msg, body=body, response=response)
 
