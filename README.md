@@ -320,10 +320,10 @@ In an API response, a field may be explicitly `null`, or missing entirely; in ei
 
 ```py
 if response.my_field is None:
-  if 'my_field' not in response.model_fields_set:
-    print('Got json like {}, without a "my_field" key present at all.')
-  else:
-    print('Got json like {"my_field": null}.')
+    if "my_field" not in response.model_fields_set:
+        print('Got json like {}, without a "my_field" key present at all.')
+    else:
+        print('Got json like {"my_field": null}.')
 ```
 
 ### Accessing raw response data (e.g. headers)
@@ -335,7 +335,7 @@ from gumnut import Gumnut
 
 client = Gumnut()
 response = client.albums.with_raw_response.create()
-print(response.headers.get('X-My-Header'))
+print(response.headers.get("X-My-Header"))
 
 album = response.parse()  # get the object that `albums.create()` would have returned
 print(album.id)
@@ -433,8 +433,8 @@ By default the library closes underlying HTTP connections whenever the client is
 from gumnut import Gumnut
 
 with Gumnut() as client:
-  # make requests here
-  ...
+    # make requests here
+    ...
 
 # HTTP client is now closed
 ```
@@ -459,6 +459,7 @@ You can determine the version that is being used at runtime with:
 
 ```py
 import gumnut
+
 print(gumnut.__version__)
 ```
 
