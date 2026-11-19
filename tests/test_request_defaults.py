@@ -49,6 +49,21 @@ class _UnsizedStream(io.RawIOBase):
         return size
 
 
+class TestFeedbackSubmitRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_max_retries(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/feedback").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            client.feedback.with_raw_response.submit(feedback_type="bug", message="x")
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            client.with_options(max_retries=1).feedback.with_raw_response.submit(feedback_type="bug", message="x")
+        assert route.call_count == 1 + 2
+
+
 class TestAssetsCreateRequestDefaults:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -253,6 +268,37 @@ class TestAssetsVersionsReplaceRequestDefaults:
         assert _sent_timeout(route)["read"] == 600
 
 
+class TestFacesCreateRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_max_retries(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/faces").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            client.faces.with_raw_response.create(
+                asset_id="asset_id",
+                bounding_box={
+                    "h": 1,
+                    "w": 1,
+                    "x": 0,
+                    "y": 0,
+                },
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            client.with_options(max_retries=1).faces.with_raw_response.create(
+                asset_id="asset_id",
+                bounding_box={
+                    "h": 1,
+                    "w": 1,
+                    "x": 0,
+                    "y": 0,
+                },
+            )
+        assert route.call_count == 1 + 2
+
+
 class TestOtherMethodsRequestDefaults:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -263,6 +309,23 @@ class TestOtherMethodsRequestDefaults:
             client.users.with_raw_response.me()
         assert route.call_count == DEFAULT_MAX_RETRIES + 1
         assert _sent_timeout(route) == DEFAULT_TIMEOUT.as_dict()
+
+
+class TestAsyncFeedbackSubmitRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    async def test_max_retries(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/feedback").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            await async_client.feedback.with_raw_response.submit(feedback_type="bug", message="x")
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            await async_client.with_options(max_retries=1).feedback.with_raw_response.submit(
+                feedback_type="bug", message="x"
+            )
+        assert route.call_count == 1 + 2
 
 
 class TestAsyncAssetsCreateRequestDefaults:
@@ -473,6 +536,37 @@ class TestAsyncAssetsVersionsReplaceRequestDefaults:
             params="params",
         )
         assert _sent_timeout(route)["read"] == 600
+
+
+class TestAsyncFacesCreateRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    async def test_max_retries(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/faces").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            await async_client.faces.with_raw_response.create(
+                asset_id="asset_id",
+                bounding_box={
+                    "h": 1,
+                    "w": 1,
+                    "x": 0,
+                    "y": 0,
+                },
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            await async_client.with_options(max_retries=1).faces.with_raw_response.create(
+                asset_id="asset_id",
+                bounding_box={
+                    "h": 1,
+                    "w": 1,
+                    "x": 0,
+                    "y": 0,
+                },
+            )
+        assert route.call_count == 1 + 2
 
 
 class TestAsyncOtherMethodsRequestDefaults:

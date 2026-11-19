@@ -18,6 +18,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .._constants import DEFAULT_MAX_RETRIES
 from .._base_client import make_request_options
 from ..types.feedback_result import FeedbackResult
 
@@ -109,7 +110,11 @@ class FeedbackResource(SyncAPIResource):
                 feedback_submit_params.FeedbackSubmitParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
             ),
             cast_to=FeedbackResult,
         )
@@ -200,7 +205,11 @@ class AsyncFeedbackResource(AsyncAPIResource):
                 feedback_submit_params.FeedbackSubmitParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
             ),
             cast_to=FeedbackResult,
         )
