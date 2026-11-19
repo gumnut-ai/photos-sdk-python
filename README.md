@@ -224,7 +224,7 @@ from gumnut import Gumnut
 client = Gumnut()
 
 try:
-    client.albums.create()
+    client.users.me()
 except gumnut.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -267,7 +267,7 @@ client = Gumnut(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).albums.create()
+client.with_options(max_retries=5).users.me()
 ```
 
 ### Timeouts
@@ -291,7 +291,7 @@ client = Gumnut(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).albums.create()
+client.with_options(timeout=5.0).users.me()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -334,11 +334,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from gumnut import Gumnut
 
 client = Gumnut()
-response = client.albums.with_raw_response.create()
+response = client.users.with_raw_response.me()
 print(response.headers.get("X-My-Header"))
 
-album = response.parse()  # get the object that `albums.create()` would have returned
-print(album.id)
+user = response.parse()  # get the object that `users.me()` would have returned
+print(user.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/gumnut-ai/photos-sdk-python/tree/main/src/gumnut/_response.py) object.
@@ -352,7 +352,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.albums.with_streaming_response.create() as response:
+with client.users.with_streaming_response.me() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
