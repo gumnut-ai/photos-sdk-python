@@ -14,8 +14,9 @@ class FaceRetrieveParams(TypedDict, total=False):
     include: Optional[SequenceNotStr[str]]
     """Opt-in expansion fields.
 
-    See `list_faces` for supported values. Accepts multiple `include=` query params
-    or a single comma-delimited value.
+    Supported values: `cluster_assignment` (adds the nested `cluster_assignment`
+    object). Accepts multiple `include=` query params or a single comma-delimited
+    value.
     """
 
     library_id: Optional[str]

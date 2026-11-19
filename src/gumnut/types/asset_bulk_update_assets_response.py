@@ -6,6 +6,6 @@ __all__ = ["AssetBulkUpdateAssetsResponse"]
 
 
 class AssetBulkUpdateAssetsResponse(BaseModel):
-    """Empty acknowledgment returned by `bulk_update_assets`."""
+    """Empty acknowledgment returned by a bulk asset update."""
 
     pass

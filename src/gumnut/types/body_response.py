@@ -50,8 +50,8 @@ class BodyResponse(BaseModel):
     candidates: Optional[List[Candidate]] = None
     """
     Named people who may be the person in this body, best match first, at most 5;
-    never its current person. Link one with `update_body`. Populated only when
-    `list_bodies` or `get_body` is called with `include=candidates`; `null`
-    otherwise. `[]` when there are none, including while the library owner's
-    settings do not allow automatic face detection.
+    never its current person. Link one by updating the body. Populated only when
+    bodies are listed or fetched with `include=candidates`; `null` otherwise. `[]`
+    when there are none, including while the library owner's settings do not allow
+    automatic face detection.
     """

@@ -31,8 +31,8 @@ class PersonCreateParams(TypedDict, total=False):
     name: Optional[str]
     """Display name for the new person (e.g., 'Alice').
 
-    Optional — unnamed people can be named later via `update_person`. If supplied,
-    it must not be blank; surrounding whitespace is trimmed.
+    Optional — unnamed people can be named later by updating the person. If
+    supplied, it must not be blank; surrounding whitespace is trimmed.
     """
 
     thumbnail_face_id: Optional[str]

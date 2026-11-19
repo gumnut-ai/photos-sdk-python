@@ -214,12 +214,9 @@ class AssetsResource(SyncAPIResource):
     ) -> AssetResponse:
         """Fetches one asset and its associated metadata by ID.
 
-        Use this when you already
-        have a specific asset ID (e.g., from `list_assets`, `search_assets`, or
-        `list_album_assets`) and need its full details. For bulk fetch of multiple known
-        IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
-        `asset_urls` are signed URLs for client rendering only; to visually inspect the
-        image pixels, call `view_asset` instead.
+        To fetch several known
+        assets in one request, list assets with `ids`. `asset_urls` are signed URLs for
+        client rendering.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) to fetch.
@@ -293,29 +290,17 @@ class AssetsResource(SyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, rating, media type, date range, geographic area, or asset ID. Use this
-        tool for structured browsing and filtering — when the request can be expressed
-        as exact filters on album membership, people, rating, media type, date range,
-        geographic coordinates, or specific asset IDs.
+        person, rating, media type, date range, geographic area, or asset ID.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
-        are mutually exclusive. To count or cluster geotagged assets across a map
-        viewport (how many photos fall in each area) rather than list them, use
-        `get_geo_clusters`.
+        are mutually exclusive. To count geotagged assets in each area of a map viewport
+        rather than list them, cluster assets by map location instead.
 
         Album and person filters compose using AND.
 
-        **Use `search_assets` instead** when the request involves natural-language image
-        content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
-        from Japan'), or any concept requiring semantic understanding of what's in the
-        image. `list_assets` filters by coordinate but not by image content, place name,
-        or caption text.
-
-        **To present a curated set of specific assets to the user** (e.g., a hand-picked
-        subset of `search_assets` results), call this tool with `ids=[...]` rather than
-        building a custom gallery — the asset IDs you already have are enough to
-        re-render them through the interactive widget.
+        Does not filter by image content, place name, or caption text; search assets for
+        those. To fetch specific known assets, pass their IDs as `ids`.
 
         **Pagination** is cursor-based: while `has_more` is true, keep fetching with
         `starting_after_id`.
@@ -325,9 +310,8 @@ class AssetsResource(SyncAPIResource):
               album. This filter is independent of `album_id`, but combining `not_in_album`
               with `album_id` is contradictory and returns 422. Defaults to `all`.
 
-          album_id: Return only assets in this album — the album's `album_` ID, not its name. To
-              browse one album's full asset metadata, prefer this filter over
-              `list_album_assets`, which returns link records.
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
+              Returns the album's full asset metadata, not album-asset link records.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -413,9 +397,9 @@ class AssetsResource(SyncAPIResource):
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
-              `order` on every page. Omit for the first page. `list_assets` cursors because it
-              walks a stable capture-time ordering; the sibling `search_assets` ranks by
-              relevance and so pages by number instead.
+              `order` on every page. Omit for the first page. Asset listing pages by cursor
+              because it walks a stable capture-time ordering; search ranks by relevance and
+              so pages by number instead.
 
           state: Which set of assets to read from: `live` (default — only assets that are not
               trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
@@ -479,13 +463,11 @@ class AssetsResource(SyncAPIResource):
     ) -> DeletionResponse:
         """
         Deletes the asset entirely — the database record, the stored file, and all
-        associated data (faces, album links, etc.). **Irreversible.** Prefer
-        `trash_assets` for the user's standard delete action so accidents can be
-        recovered.
+        associated data (faces, album links, etc.). **Irreversible.** Moving the asset
+        to trash is the recoverable alternative.
 
-        **Use `remove_assets_from_album` instead** when the user only wants to remove an
-        asset from a specific album but keep the file in their library. Use
-        `delete_album` to remove an album without deleting its assets.
+        To take an asset out of one album but keep it in the library, remove it from the
+        album instead. Deleting an album does not delete its assets.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to permanently delete.
@@ -526,8 +508,7 @@ class AssetsResource(SyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        For a single-asset edit, prefer `update_asset` — semantically identical but
-        slightly more concise at the call site.
+        Each change has the same fields and semantics as a single-asset update.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
@@ -644,9 +625,9 @@ class AssetsResource(SyncAPIResource):
 
         The result is a single un-paginated list capped at 1000 cells; a viewport that
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
-        in). To list the individual assets behind a cell, call `list_assets` with a
-        tighter bounding box over the same filters. Album and person filters compose
-        using AND. Rating and media type can further restrict the cluster.
+        in). To list the individual assets behind a cell, list assets with a tighter
+        bounding box and the same filters. Album and person filters compose using AND.
+        Rating and media type can further restrict the cluster.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -770,16 +751,15 @@ class AssetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetCountResponse:
         """
-        Counts assets bucketed by time period — use this to summarize a library (or a
-        filtered slice) without paging through the full timeline. Returns one row per
-        bucket, newest-first by default or oldest-first when `order=asc`, with optional
+        Counts assets bucketed by time period, to summarize a library (or a filtered
+        slice) without paging through the full timeline. Returns one row per bucket,
+        newest-first by default or oldest-first when `order=asc`, with optional
         filtering by album, album membership, people, rating, media type, date range,
         location, or trash state.
 
-        To list the actual assets within a bucket, call `list_assets` with the same
-        filters and a `local_datetime_after` / `local_datetime_before` window matching
-        the bucket. Does not filter by image content; for content-based search use
-        `search_assets`.
+        To list the assets within a bucket, list assets with the same filters and a
+        `local_datetime_after` / `local_datetime_before` window matching the bucket.
+        Does not filter by image content; search assets for that.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` from `data`
         as `starting_after_bucket`. Repeat the same `group_by`, `order`, date bounds,
@@ -911,9 +891,8 @@ class AssetsResource(SyncAPIResource):
     ) -> DeletionResponse:
         """
         Hard-deletes each specified asset — the database record, the stored file, and
-        all associated data (faces, album links, etc.). **Irreversible.** Prefer
-        `trash_assets` for the user's standard delete action so accidents can be
-        recovered.
+        all associated data (faces, album links, etc.). **Irreversible.** Moving assets
+        to trash is the recoverable alternative.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -1059,9 +1038,8 @@ class AssetsResource(SyncAPIResource):
         Restores trashed assets so they reappear in default list/search results.
         Idempotent — assets that are already live are silently skipped.
 
-        Pairs with `trash_assets`: assets soft-deleted there can be brought back here
-        within the retention window. To restore a whole trashed library, use
-        `restore_library`.
+        Assets moved to trash can be restored here within the retention window. To
+        restore a whole trashed library, restore the library instead.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -1107,10 +1085,10 @@ class AssetsResource(SyncAPIResource):
 
         Trashed assets are excluded from default
         list/search results and are purged after the configured retention window.
-        **Reversible** via `restore_assets` until purge.
+        **Reversible** by restoring the assets until purge.
 
-        To trash an entire library at once instead of enumerating asset IDs, use
-        `trash_library`.
+        To trash an entire library at once instead of enumerating asset IDs, move the
+        library to trash.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -1171,7 +1149,8 @@ class AssetsResource(SyncAPIResource):
         Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
         location names.
 
-        For editing multiple assets in one round trip, prefer `bulk_update_assets`.
+        To edit several assets in one request, update metadata on multiple assets
+        instead.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.
@@ -1389,12 +1368,9 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> AssetResponse:
         """Fetches one asset and its associated metadata by ID.
 
-        Use this when you already
-        have a specific asset ID (e.g., from `list_assets`, `search_assets`, or
-        `list_album_assets`) and need its full details. For bulk fetch of multiple known
-        IDs, prefer `list_assets` with the `ids` parameter to avoid N round trips.
-        `asset_urls` are signed URLs for client rendering only; to visually inspect the
-        image pixels, call `view_asset` instead.
+        To fetch several known
+        assets in one request, list assets with `ids`. `asset_urls` are signed URLs for
+        client rendering.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) to fetch.
@@ -1468,29 +1444,17 @@ class AsyncAssetsResource(AsyncAPIResource):
         """
         Returns a paginated list of assets ordered by local capture time (or trash time
         for trashed assets), newest first by default, optionally filtered by album,
-        person, rating, media type, date range, geographic area, or asset ID. Use this
-        tool for structured browsing and filtering — when the request can be expressed
-        as exact filters on album membership, people, rating, media type, date range,
-        geographic coordinates, or specific asset IDs.
+        person, rating, media type, date range, geographic area, or asset ID.
 
         **Location filtering is by coordinate:** pass a radius (`center` + `radius`) or
         a bounding box (`bbox`) to restrict results to a geographic area. The two modes
-        are mutually exclusive. To count or cluster geotagged assets across a map
-        viewport (how many photos fall in each area) rather than list them, use
-        `get_geo_clusters`.
+        are mutually exclusive. To count geotagged assets in each area of a map viewport
+        rather than list them, cluster assets by map location instead.
 
         Album and person filters compose using AND.
 
-        **Use `search_assets` instead** when the request involves natural-language image
-        content ('photos of sunsets', 'pictures with my dog'), a place _name_ ('photos
-        from Japan'), or any concept requiring semantic understanding of what's in the
-        image. `list_assets` filters by coordinate but not by image content, place name,
-        or caption text.
-
-        **To present a curated set of specific assets to the user** (e.g., a hand-picked
-        subset of `search_assets` results), call this tool with `ids=[...]` rather than
-        building a custom gallery — the asset IDs you already have are enough to
-        re-render them through the interactive widget.
+        Does not filter by image content, place name, or caption text; search assets for
+        those. To fetch specific known assets, pass their IDs as `ids`.
 
         **Pagination** is cursor-based: while `has_more` is true, keep fetching with
         `starting_after_id`.
@@ -1500,9 +1464,8 @@ class AsyncAssetsResource(AsyncAPIResource):
               album. This filter is independent of `album_id`, but combining `not_in_album`
               with `album_id` is contradictory and returns 422. Defaults to `all`.
 
-          album_id: Return only assets in this album — the album's `album_` ID, not its name. To
-              browse one album's full asset metadata, prefer this filter over
-              `list_album_assets`, which returns link records.
+          album_id: Return only assets in this album — the album's `album_` ID, not its name.
+              Returns the album's full asset metadata, not album-asset link records.
 
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
               numbers `min_longitude,min_latitude,max_longitude,max_latitude`
@@ -1588,9 +1551,9 @@ class AsyncAssetsResource(AsyncAPIResource):
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last asset in the previous
               response's `data` to fetch the next page. Repeat the same filters, `state`, and
-              `order` on every page. Omit for the first page. `list_assets` cursors because it
-              walks a stable capture-time ordering; the sibling `search_assets` ranks by
-              relevance and so pages by number instead.
+              `order` on every page. Omit for the first page. Asset listing pages by cursor
+              because it walks a stable capture-time ordering; search ranks by relevance and
+              so pages by number instead.
 
           state: Which set of assets to read from: `live` (default — only assets that are not
               trashed), `trashed` (only trashed assets, ordered by trash time), or `all` (both
@@ -1654,13 +1617,11 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> DeletionResponse:
         """
         Deletes the asset entirely — the database record, the stored file, and all
-        associated data (faces, album links, etc.). **Irreversible.** Prefer
-        `trash_assets` for the user's standard delete action so accidents can be
-        recovered.
+        associated data (faces, album links, etc.). **Irreversible.** Moving the asset
+        to trash is the recoverable alternative.
 
-        **Use `remove_assets_from_album` instead** when the user only wants to remove an
-        asset from a specific album but keep the file in their library. Use
-        `delete_album` to remove an album without deleting its assets.
+        To take an asset out of one album but keep it in the library, remove it from the
+        album instead. Deleting an album does not delete its assets.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to permanently delete.
@@ -1701,8 +1662,7 @@ class AsyncAssetsResource(AsyncAPIResource):
         on different assets in the same request. Atomic: any per-item validation failure
         or unknown / cross-user id rejects the whole batch and writes nothing.
 
-        For a single-asset edit, prefer `update_asset` — semantically identical but
-        slightly more concise at the call site.
+        Each change has the same fields and semantics as a single-asset update.
 
         Args:
           updates: List of per-asset updates. Each item carries the target asset id and the change
@@ -1821,9 +1781,9 @@ class AsyncAssetsResource(AsyncAPIResource):
 
         The result is a single un-paginated list capped at 1000 cells; a viewport that
         is too dense at the given `cell_size` returns 422 (coarsen `cell_size` or zoom
-        in). To list the individual assets behind a cell, call `list_assets` with a
-        tighter bounding box over the same filters. Album and person filters compose
-        using AND. Rating and media type can further restrict the cluster.
+        in). To list the individual assets behind a cell, list assets with a tighter
+        bounding box and the same filters. Album and person filters compose using AND.
+        Rating and media type can further restrict the cluster.
 
         Args:
           bbox: Bounding-box (map viewport) location filter: four comma-separated decimal-degree
@@ -1947,16 +1907,15 @@ class AsyncAssetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AssetCountResponse:
         """
-        Counts assets bucketed by time period — use this to summarize a library (or a
-        filtered slice) without paging through the full timeline. Returns one row per
-        bucket, newest-first by default or oldest-first when `order=asc`, with optional
+        Counts assets bucketed by time period, to summarize a library (or a filtered
+        slice) without paging through the full timeline. Returns one row per bucket,
+        newest-first by default or oldest-first when `order=asc`, with optional
         filtering by album, album membership, people, rating, media type, date range,
         location, or trash state.
 
-        To list the actual assets within a bucket, call `list_assets` with the same
-        filters and a `local_datetime_after` / `local_datetime_before` window matching
-        the bucket. Does not filter by image content; for content-based search use
-        `search_assets`.
+        To list the assets within a bucket, list assets with the same filters and a
+        `local_datetime_after` / `local_datetime_before` window matching the bucket.
+        Does not filter by image content; search assets for that.
 
         **Pagination:** When `has_more` is true, pass the last `time_bucket` from `data`
         as `starting_after_bucket`. Repeat the same `group_by`, `order`, date bounds,
@@ -2088,9 +2047,8 @@ class AsyncAssetsResource(AsyncAPIResource):
     ) -> DeletionResponse:
         """
         Hard-deletes each specified asset — the database record, the stored file, and
-        all associated data (faces, album links, etc.). **Irreversible.** Prefer
-        `trash_assets` for the user's standard delete action so accidents can be
-        recovered.
+        all associated data (faces, album links, etc.). **Irreversible.** Moving assets
+        to trash is the recoverable alternative.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -2240,9 +2198,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         Restores trashed assets so they reappear in default list/search results.
         Idempotent — assets that are already live are silently skipped.
 
-        Pairs with `trash_assets`: assets soft-deleted there can be brought back here
-        within the retention window. To restore a whole trashed library, use
-        `restore_library`.
+        Assets moved to trash can be restored here within the retention window. To
+        restore a whole trashed library, restore the library instead.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -2288,10 +2245,10 @@ class AsyncAssetsResource(AsyncAPIResource):
 
         Trashed assets are excluded from default
         list/search results and are purged after the configured retention window.
-        **Reversible** via `restore_assets` until purge.
+        **Reversible** by restoring the assets until purge.
 
-        To trash an entire library at once instead of enumerating asset IDs, use
-        `trash_library`.
+        To trash an entire library at once instead of enumerating asset IDs, move the
+        library to trash.
 
         Args:
           ids: Asset IDs (each with the `asset_` prefix) to operate on. Up to 200 ids per
@@ -2352,7 +2309,8 @@ class AsyncAssetsResource(AsyncAPIResource):
         Setting or clearing GPS coordinates schedules an asynchronous refresh of derived
         location names.
 
-        For editing multiple assets in one round trip, prefer `bulk_update_assets`.
+        To edit several assets in one request, update metadata on multiple assets
+        instead.
 
         Args:
           asset_id: Asset ID (with `asset_` prefix) of the asset to update.

@@ -239,10 +239,8 @@ class LibrariesResource(SyncAPIResource):
     ) -> LibraryListResponse:
         """
         Returns owned and joined libraries accessible to the authenticated user (no
-        pagination — users typically have one or a handful). Call this when another
-        tool's `library_id` parameter is required but you don't yet know which libraries
-        exist. A single-library user can usually omit `library_id` on other tools
-        entirely.
+        pagination — users typically have one or a handful). A single-library user can
+        usually omit `library_id` on other operations.
 
         By default trashed libraries are excluded. Pass `state=trashed` to list the
         trash drawer (ordered by most recently trashed) or `state=all` for both.
@@ -286,10 +284,10 @@ class LibrariesResource(SyncAPIResource):
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
         Returns immediately; the drain proceeds asynchronously in bounded batches and
-        does not block on completion. `restore_library` still works until the drain
-        finishes purging all assets, but past this point it will recover only the assets
-        the drain hasn't gotten to yet. Returns 409 if the library has not been trashed
-        yet — call `trash_library` first.
+        does not block on completion. Restoring the library still works until the drain
+        finishes purging all assets, but past this point it recovers only the assets the
+        drain hasn't gotten to yet. Returns 409 if the library has not been trashed yet
+        — move it to trash first.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the trashed library to expedite.
@@ -325,13 +323,13 @@ class LibrariesResource(SyncAPIResource):
     ) -> LibraryResponse:
         """
         Restores a previously-trashed library so it reappears in default list/search
-        results. Works as long as the library row still exists — once `get_library`
-        returns 404 the row is gone and restore is no longer possible. If the background
-        drain has already started purging assets, restore succeeds but recovers only the
-        assets the drain hasn't gotten to yet.
+        results. Works as long as the library row still exists — once fetching the
+        library returns 404 the row is gone and restore is no longer possible. If the
+        background drain has already started purging assets, restore succeeds but
+        recovers only the assets the drain hasn't gotten to yet.
 
-        Pairs with `trash_library`. To restore individual trashed assets within an
-        untrashed library, use `restore_assets` instead.
+        Reverses moving a library to trash. To restore individual trashed assets within
+        an untrashed library, restore the assets instead.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the trashed library to restore.
@@ -368,13 +366,13 @@ class LibrariesResource(SyncAPIResource):
         """Moves the library and all its contents into the trash.
 
         The library becomes
-        inaccessible by default and can be fully restored within 90 days by calling
-        `restore_library`. After 90 days the library's assets are gradually purged in
-        the background; until the library row itself is removed, restore still works but
+        inaccessible by default and can be fully restored within 90 days by restoring
+        the library. After 90 days the library's assets are gradually purged in the
+        background; until the library row itself is removed, restore still works but
         recovers only the assets not yet purged.
 
         Idempotent — a second call on an already-trashed library no-ops. To trash
-        individual assets without trashing the whole library, use `trash_assets`
+        individual assets without trashing the whole library, move the assets to trash
         instead.
 
         Returns 409 if this is the user's last live library — every user keeps at least
@@ -599,10 +597,8 @@ class AsyncLibrariesResource(AsyncAPIResource):
     ) -> LibraryListResponse:
         """
         Returns owned and joined libraries accessible to the authenticated user (no
-        pagination — users typically have one or a handful). Call this when another
-        tool's `library_id` parameter is required but you don't yet know which libraries
-        exist. A single-library user can usually omit `library_id` on other tools
-        entirely.
+        pagination — users typically have one or a handful). A single-library user can
+        usually omit `library_id` on other operations.
 
         By default trashed libraries are excluded. Pass `state=trashed` to list the
         trash drawer (ordered by most recently trashed) or `state=all` for both.
@@ -646,10 +642,10 @@ class AsyncLibrariesResource(AsyncAPIResource):
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
         Returns immediately; the drain proceeds asynchronously in bounded batches and
-        does not block on completion. `restore_library` still works until the drain
-        finishes purging all assets, but past this point it will recover only the assets
-        the drain hasn't gotten to yet. Returns 409 if the library has not been trashed
-        yet — call `trash_library` first.
+        does not block on completion. Restoring the library still works until the drain
+        finishes purging all assets, but past this point it recovers only the assets the
+        drain hasn't gotten to yet. Returns 409 if the library has not been trashed yet
+        — move it to trash first.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the trashed library to expedite.
@@ -685,13 +681,13 @@ class AsyncLibrariesResource(AsyncAPIResource):
     ) -> LibraryResponse:
         """
         Restores a previously-trashed library so it reappears in default list/search
-        results. Works as long as the library row still exists — once `get_library`
-        returns 404 the row is gone and restore is no longer possible. If the background
-        drain has already started purging assets, restore succeeds but recovers only the
-        assets the drain hasn't gotten to yet.
+        results. Works as long as the library row still exists — once fetching the
+        library returns 404 the row is gone and restore is no longer possible. If the
+        background drain has already started purging assets, restore succeeds but
+        recovers only the assets the drain hasn't gotten to yet.
 
-        Pairs with `trash_library`. To restore individual trashed assets within an
-        untrashed library, use `restore_assets` instead.
+        Reverses moving a library to trash. To restore individual trashed assets within
+        an untrashed library, restore the assets instead.
 
         Args:
           library_id: Library ID (with `lib_` prefix) of the trashed library to restore.
@@ -728,13 +724,13 @@ class AsyncLibrariesResource(AsyncAPIResource):
         """Moves the library and all its contents into the trash.
 
         The library becomes
-        inaccessible by default and can be fully restored within 90 days by calling
-        `restore_library`. After 90 days the library's assets are gradually purged in
-        the background; until the library row itself is removed, restore still works but
+        inaccessible by default and can be fully restored within 90 days by restoring
+        the library. After 90 days the library's assets are gradually purged in the
+        background; until the library row itself is removed, restore still works but
         recovers only the assets not yet purged.
 
         Idempotent — a second call on an already-trashed library no-ops. To trash
-        individual assets without trashing the whole library, use `trash_assets`
+        individual assets without trashing the whole library, move the assets to trash
         instead.
 
         Returns 409 if this is the user's last live library — every user keeps at least

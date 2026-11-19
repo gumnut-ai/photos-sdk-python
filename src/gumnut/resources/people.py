@@ -84,8 +84,7 @@ class PeopleResource(SyncAPIResource):
         creates always make a new person. A new person record groups faces. The record
         may initially have no name and no faces.
 
-        To assign an existing face to an existing person, use `update_face` with the
-        target `person_id`.
+        To assign an existing face to an existing person, update the face's `person_id`.
 
         Args:
           birth_date: Optional birth date (ISO 8601 date, YYYY-MM-DD) for this person.
@@ -98,7 +97,7 @@ class PeopleResource(SyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
-              be named later via `update_person`. If supplied, it must not be blank;
+              be named later by updating the person. If supplied, it must not be blank;
               surrounding whitespace is trimmed.
 
           thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
@@ -146,17 +145,17 @@ class PeopleResource(SyncAPIResource):
     ) -> PersonResponse:
         """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
-        Use
-        this when you already have a `person_id`. The JSON response is metadata only; to
-        get the photos that contain this person, use `search_assets` with `person_ids`
-        or `list_assets` with `person_ids`.
+        The
+        response is metadata only; to get the photos that contain this person, list or
+        search assets with `person_ids`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Carried by the `person_id` field on
               a face and by the entries of an asset's `people` field (returned with
               `include=people`).
 
-          include: Opt-in expansion fields. See `list_people` for supported values. Accepts
+          include: Opt-in expansion fields. Supported values: `cluster_metrics` (adds the nested
+              `cluster_metrics` object when the person has a populated centroid). Accepts
               multiple `include=` query params or a single comma-delimited value.
 
           extra_headers: Send extra headers
@@ -206,10 +205,8 @@ class PeopleResource(SyncAPIResource):
         not resolve it. Typical use: assigning a name ('name this face cluster "Alice"')
         or choosing a better thumbnail.
 
-        This tool does not move faces between people — use `update_face` with a new
-        `person_id` for that.
-
-        `bulk_update_people` applies changes to multiple people in one call.
+        Does not move faces between people; update a face's `person_id` for that. To
+        change several people in one request, update multiple people instead.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the person to update.
@@ -223,8 +220,8 @@ class PeopleResource(SyncAPIResource):
           name: New display name; must not be blank. Surrounding whitespace is trimmed. Omit to
               leave unchanged; pass `null` to clear the name.
 
-          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
-              person's faces with `list_faces` and `person_id`.
+          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. List faces with
+              `person_id` to enumerate a person's faces.
 
           extra_headers: Send extra headers
 
@@ -287,8 +284,7 @@ class PeopleResource(SyncAPIResource):
         `name_filter=all` to include unnamed people (or `name_filter=unnamed` for only
         those), and `include_hidden=true` to include hidden people.
 
-        To list the underlying faces for a specific person, use `list_faces` with
-        `person_id`.
+        To list the faces of a specific person, list faces with `person_id`.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last person in `data` as `starting_after_id` to fetch the next page.
@@ -320,8 +316,8 @@ class PeopleResource(SyncAPIResource):
           limit: Maximum number of people to return per page (1–200). Defaults to 20.
 
           name: Filter by name using case-insensitive substring matching. Use this to resolve a
-              user-supplied name like 'Alice' into a `person_id`, then pass that ID into
-              `search_assets.person_ids` or `list_assets.person_ids`.
+              user-supplied name like 'Alice' into a `person_id` for the `person_ids` filter
+              of an asset list or search.
 
           name_filter: Filter by name nullness. Defaults to `named` (non-null names), or `all` when
               `ids` is provided.
@@ -387,9 +383,8 @@ class PeopleResource(SyncAPIResource):
         deleted — they become unassigned and will be re-clustered on the next clustering
         pass. Its bodies stay, with no person.
 
-        Use `update_face` with `person_id=null` to detach a specific face without
-        deleting the whole person. Use `delete_face` to remove a face detection
-        entirely.
+        To detach a specific face without deleting the whole person, update the face
+        with `person_id=null`. To remove a face detection entirely, delete the face.
 
         If a concurrent change to the person's faces collides with the deletion, it
         returns 409 and nothing is deleted; retry the request unchanged.
@@ -439,7 +434,7 @@ class PeopleResource(SyncAPIResource):
         including hidden people, also returns 409. Names ignore case and surrounding
         whitespace; retrying the same collision does not resolve it.
 
-        `update_person` edits a single person.
+        Each change has the same fields and semantics as a single-person update.
 
         Args:
           updates: List of per-person updates. Each item carries the target person id and the
@@ -486,8 +481,8 @@ class PeopleResource(SyncAPIResource):
 
         Args:
           person_id: Person ID (with `person_` prefix) of the primary person that absorbs the source
-              people. Person IDs are carried by the `id` field of person responses (e.g.
-              `list_people`, `get_person`) and by person references on faces and assets.
+              people. Person IDs are carried by the `id` field of person responses and by
+              person references on faces and assets.
 
           source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
               after their faces are moved.
@@ -561,8 +556,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         creates always make a new person. A new person record groups faces. The record
         may initially have no name and no faces.
 
-        To assign an existing face to an existing person, use `update_face` with the
-        target `person_id`.
+        To assign an existing face to an existing person, update the face's `person_id`.
 
         Args:
           birth_date: Optional birth date (ISO 8601 date, YYYY-MM-DD) for this person.
@@ -575,7 +569,7 @@ class AsyncPeopleResource(AsyncAPIResource):
               (non-trashed) library; required when they have multiple.
 
           name: Display name for the new person (e.g., 'Alice'). Optional — unnamed people can
-              be named later via `update_person`. If supplied, it must not be blank;
+              be named later by updating the person. If supplied, it must not be blank;
               surrounding whitespace is trimmed.
 
           thumbnail_face_id: ID of the face to use as this person's thumbnail (with `face_` prefix). Carried
@@ -623,17 +617,17 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> PersonResponse:
         """Fetches one person's metadata by ID (name, asset count, thumbnail, etc.).
 
-        Use
-        this when you already have a `person_id`. The JSON response is metadata only; to
-        get the photos that contain this person, use `search_assets` with `person_ids`
-        or `list_assets` with `person_ids`.
+        The
+        response is metadata only; to get the photos that contain this person, list or
+        search assets with `person_ids`.
 
         Args:
           person_id: Person ID (with `person_` prefix) to fetch. Carried by the `person_id` field on
               a face and by the entries of an asset's `people` field (returned with
               `include=people`).
 
-          include: Opt-in expansion fields. See `list_people` for supported values. Accepts
+          include: Opt-in expansion fields. Supported values: `cluster_metrics` (adds the nested
+              `cluster_metrics` object when the person has a populated centroid). Accepts
               multiple `include=` query params or a single comma-delimited value.
 
           extra_headers: Send extra headers
@@ -683,10 +677,8 @@ class AsyncPeopleResource(AsyncAPIResource):
         not resolve it. Typical use: assigning a name ('name this face cluster "Alice"')
         or choosing a better thumbnail.
 
-        This tool does not move faces between people — use `update_face` with a new
-        `person_id` for that.
-
-        `bulk_update_people` applies changes to multiple people in one call.
+        Does not move faces between people; update a face's `person_id` for that. To
+        change several people in one request, update multiple people instead.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the person to update.
@@ -700,8 +692,8 @@ class AsyncPeopleResource(AsyncAPIResource):
           name: New display name; must not be blank. Surrounding whitespace is trimmed. Omit to
               leave unchanged; pass `null` to clear the name.
 
-          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. Enumerate a
-              person's faces with `list_faces` and `person_id`.
+          thumbnail_face_id: New thumbnail face ID for this person. Omit to leave unchanged. List faces with
+              `person_id` to enumerate a person's faces.
 
           extra_headers: Send extra headers
 
@@ -764,8 +756,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         `name_filter=all` to include unnamed people (or `name_filter=unnamed` for only
         those), and `include_hidden=true` to include hidden people.
 
-        To list the underlying faces for a specific person, use `list_faces` with
-        `person_id`.
+        To list the faces of a specific person, list faces with `person_id`.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last person in `data` as `starting_after_id` to fetch the next page.
@@ -797,8 +788,8 @@ class AsyncPeopleResource(AsyncAPIResource):
           limit: Maximum number of people to return per page (1–200). Defaults to 20.
 
           name: Filter by name using case-insensitive substring matching. Use this to resolve a
-              user-supplied name like 'Alice' into a `person_id`, then pass that ID into
-              `search_assets.person_ids` or `list_assets.person_ids`.
+              user-supplied name like 'Alice' into a `person_id` for the `person_ids` filter
+              of an asset list or search.
 
           name_filter: Filter by name nullness. Defaults to `named` (non-null names), or `all` when
               `ids` is provided.
@@ -864,9 +855,8 @@ class AsyncPeopleResource(AsyncAPIResource):
         deleted — they become unassigned and will be re-clustered on the next clustering
         pass. Its bodies stay, with no person.
 
-        Use `update_face` with `person_id=null` to detach a specific face without
-        deleting the whole person. Use `delete_face` to remove a face detection
-        entirely.
+        To detach a specific face without deleting the whole person, update the face
+        with `person_id=null`. To remove a face detection entirely, delete the face.
 
         If a concurrent change to the person's faces collides with the deletion, it
         returns 409 and nothing is deleted; retry the request unchanged.
@@ -916,7 +906,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         including hidden people, also returns 409. Names ignore case and surrounding
         whitespace; retrying the same collision does not resolve it.
 
-        `update_person` edits a single person.
+        Each change has the same fields and semantics as a single-person update.
 
         Args:
           updates: List of per-person updates. Each item carries the target person id and the
@@ -965,8 +955,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
         Args:
           person_id: Person ID (with `person_` prefix) of the primary person that absorbs the source
-              people. Person IDs are carried by the `id` field of person responses (e.g.
-              `list_people`, `get_person`) and by person references on faces and assets.
+              people. Person IDs are carried by the `id` field of person responses and by
+              person references on faces and assets.
 
           source_person_ids: IDs of the people to merge into the primary person. These people will be deleted
               after their faces are moved.

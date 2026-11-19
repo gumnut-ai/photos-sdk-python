@@ -14,8 +14,7 @@ class AlbumListParams(TypedDict, total=False):
     asset_id: Optional[str]
     """Return only albums that contain this asset.
 
-    Useful for answering 'which albums is this photo in?' without calling
-    `list_album_assets`.
+    Useful for answering 'which albums is this photo in?'.
     """
 
     ids: Optional[SequenceNotStr[str]]

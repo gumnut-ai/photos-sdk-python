@@ -14,16 +14,15 @@ class AlbumAssetListParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only link records for this album ID.
 
-    Equivalent to 'list the assets in this album' — in most cases prefer
-    `list_assets` with `album_id` to get the asset metadata directly instead of the
-    lightweight link records.
+    Equivalent to 'list the assets in this album', but returns lightweight link
+    records; listing assets with `album_id` returns the asset metadata directly.
     """
 
     asset_id: Optional[str]
     """Return only link records for this asset ID.
 
-    Equivalent to 'which albums contain this asset' — in most cases prefer
-    `list_albums` with `asset_id` to get the album metadata directly.
+    Equivalent to 'which albums contain this asset', but returns link records;
+    listing albums with `asset_id` returns the album metadata directly.
     """
 
     ids: Optional[SequenceNotStr[str]]

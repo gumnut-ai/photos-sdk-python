@@ -31,8 +31,8 @@ class FaceCreateParams(TypedDict, total=False):
     person_id: Optional[str]
     """Optional person ID (with `person_` prefix) to assign this face to at creation.
 
-    Omit to leave it unassigned; assign it later via `update_face`. Use
-    `create_person` first if the identity doesn't exist yet.
+    Omit to leave it unassigned; assign it later by updating the face. Create the
+    person first if the identity doesn't exist yet.
     """
 
 

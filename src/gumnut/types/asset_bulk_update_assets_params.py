@@ -28,7 +28,7 @@ class UpdateChange(  # type: ignore[call-arg]
 ):
     """The change to apply to this asset.
 
-    Same shape as the body of the single-asset `update_asset` endpoint — same fields, same validation, same null-clears-the-override semantics.
+    Same shape as the body of a single-asset update — same fields, same validation, same null-clears-the-override semantics.
     """
 
     altitude: Optional[float]
@@ -100,6 +100,6 @@ class Update(TypedDict, total=False):
     change: Required[UpdateChange]
     """The change to apply to this asset.
 
-    Same shape as the body of the single-asset `update_asset` endpoint — same
-    fields, same validation, same null-clears-the-override semantics.
+    Same shape as the body of a single-asset update — same fields, same validation,
+    same null-clears-the-override semantics.
     """

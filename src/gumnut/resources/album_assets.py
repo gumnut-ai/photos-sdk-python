@@ -69,21 +69,20 @@ class AlbumAssetsResource(SyncAPIResource):
         Use this when you specifically need the junction records (for sync or change
         tracking).
 
-        **For most use cases you want a different tool:** use `list_assets` with
-        `album_id` to get the full asset metadata for a specific album; use
-        `list_albums` with `asset_id` to find which albums contain an asset.
+        For the full metadata of an album's assets, list assets with `album_id`; to find
+        which albums contain an asset, list albums with `asset_id`.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last album-asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
           album_id: Return only link records for this album ID. Equivalent to 'list the assets in
-              this album' — in most cases prefer `list_assets` with `album_id` to get the
-              asset metadata directly instead of the lightweight link records.
+              this album', but returns lightweight link records; listing assets with
+              `album_id` returns the asset metadata directly.
 
           asset_id: Return only link records for this asset ID. Equivalent to 'which albums contain
-              this asset' — in most cases prefer `list_albums` with `asset_id` to get the
-              album metadata directly.
+              this asset', but returns link records; listing albums with `asset_id` returns
+              the album metadata directly.
 
           ids: Look up specific album-asset link records by ID (max 200). The ID has the
               `album_asset_` prefix. Accepts multiple `ids=` query params or a single
@@ -141,8 +140,7 @@ class AlbumAssetsResource(SyncAPIResource):
     ) -> AlbumAssetResponse:
         """
         Fetches one album-asset link record by ID (the junction row between an album and
-        an asset). Rarely needed directly; most callers want `get_asset` or `get_album`
-        instead.
+        an asset). To get the asset or the album itself, fetch it by its own ID.
 
         Args:
           album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Carried by the `id`
@@ -212,21 +210,20 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
         Use this when you specifically need the junction records (for sync or change
         tracking).
 
-        **For most use cases you want a different tool:** use `list_assets` with
-        `album_id` to get the full asset metadata for a specific album; use
-        `list_albums` with `asset_id` to find which albums contain an asset.
+        For the full metadata of an album's assets, list assets with `album_id`; to find
+        which albums contain an asset, list albums with `asset_id`.
 
         **Pagination** is cursor-based: when `has_more` is true, pass the `id` of the
         last album-asset in `data` as `starting_after_id` to fetch the next page.
 
         Args:
           album_id: Return only link records for this album ID. Equivalent to 'list the assets in
-              this album' — in most cases prefer `list_assets` with `album_id` to get the
-              asset metadata directly instead of the lightweight link records.
+              this album', but returns lightweight link records; listing assets with
+              `album_id` returns the asset metadata directly.
 
           asset_id: Return only link records for this asset ID. Equivalent to 'which albums contain
-              this asset' — in most cases prefer `list_albums` with `asset_id` to get the
-              album metadata directly.
+              this asset', but returns link records; listing albums with `asset_id` returns
+              the album metadata directly.
 
           ids: Look up specific album-asset link records by ID (max 200). The ID has the
               `album_asset_` prefix. Accepts multiple `ids=` query params or a single
@@ -284,8 +281,7 @@ class AsyncAlbumAssetsResource(AsyncAPIResource):
     ) -> AlbumAssetResponse:
         """
         Fetches one album-asset link record by ID (the junction row between an album and
-        an asset). Rarely needed directly; most callers want `get_asset` or `get_album`
-        instead.
+        an asset). To get the asset or the album itself, fetch it by its own ID.
 
         Args:
           album_asset_id: Album-asset junction row ID (with `album_asset_` prefix). Carried by the `id`

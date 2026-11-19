@@ -6,6 +6,6 @@ __all__ = ["PersonBulkUpdatePeopleResponse"]
 
 
 class PersonBulkUpdatePeopleResponse(BaseModel):
-    """Empty acknowledgment returned by `bulk_update_people`."""
+    """Empty acknowledgment returned by a bulk people update."""
 
     pass

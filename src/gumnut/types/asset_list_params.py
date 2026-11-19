@@ -23,8 +23,7 @@ class AssetListParams(TypedDict, total=False):
     album_id: Optional[str]
     """Return only assets in this album — the album's `album_` ID, not its name.
 
-    To browse one album's full asset metadata, prefer this filter over
-    `list_album_assets`, which returns link records.
+    Returns the album's full asset metadata, not album-asset link records.
     """
 
     bbox: Optional[str]
@@ -159,9 +158,8 @@ class AssetListParams(TypedDict, total=False):
 
     Pass the `id` of the last asset in the previous response's `data` to fetch the
     next page. Repeat the same filters, `state`, and `order` on every page. Omit for
-    the first page. `list_assets` cursors because it walks a stable capture-time
-    ordering; the sibling `search_assets` ranks by relevance and so pages by number
-    instead.
+    the first page. Asset listing pages by cursor because it walks a stable
+    capture-time ordering; search ranks by relevance and so pages by number instead.
     """
 
     state: Literal["live", "trashed", "all"]

@@ -147,8 +147,8 @@ class UsersResource(SyncAPIResource):
 
         Use this at the
         start of a session to ground subsequent calls (e.g., to confirm the caller's
-        identity before making destructive changes). This tool does not accept a user
-        ID; it always returns the authenticated caller.
+        identity before making destructive changes). It does not accept a user ID; it
+        always returns the authenticated caller.
         """
         return self._get(
             "/api/users/me",
@@ -282,8 +282,8 @@ class AsyncUsersResource(AsyncAPIResource):
 
         Use this at the
         start of a session to ground subsequent calls (e.g., to confirm the caller's
-        identity before making destructive changes). This tool does not accept a user
-        ID; it always returns the authenticated caller.
+        identity before making destructive changes). It does not accept a user ID; it
+        always returns the authenticated caller.
         """
         return await self._get(
             "/api/users/me",

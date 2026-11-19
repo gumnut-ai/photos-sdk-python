@@ -40,9 +40,9 @@ class StackResponse(BaseModel):
 
     asset_ids: Optional[List[str]] = None
     """
-    IDs of the stack's live members, earliest capture time first — the order
-    `list_assets` returns for this `stack_id` with `order=asc`. Excludes trashed
-    members, like `asset_count`. Only populated by `list_stacks` with
+    IDs of the stack's live members, earliest capture time first — the order an
+    asset list returns for this `stack_id` with `order=asc`. Excludes trashed
+    members, like `asset_count`. Only populated when stacks are listed with
     `include=asset_ids`; null otherwise.
     """
 

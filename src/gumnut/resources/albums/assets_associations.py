@@ -59,7 +59,7 @@ class AssetsAssociationsResource(SyncAPIResource):
         """Adds one or more existing assets to the specified album.
 
         Assets must already be
-        in the same library as the album (this tool does not upload new assets). Assets
+        in the same library as the album (this does not upload new assets). Assets
         already in the album are silently skipped and returned separately as
         `duplicate_assets`; missing or different-library IDs are skipped and returned as
         `not_found_assets`. Idempotent: calling with the same IDs twice leaves the album
@@ -105,10 +105,9 @@ class AssetsAssociationsResource(SyncAPIResource):
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
-        in the library and in any other albums they belong to. Use `trash_assets` to
-        soft-delete the asset entirely. To empty an album completely, call
-        `list_album_assets` to get the links and then remove them, or delete the album
-        itself with `delete_album`.
+        in the library and in any other albums they belong to. Move assets to trash to
+        soft-delete them entirely. To empty an album completely, list its album-asset
+        links and remove those assets, or delete the album itself.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.
@@ -175,7 +174,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         """Adds one or more existing assets to the specified album.
 
         Assets must already be
-        in the same library as the album (this tool does not upload new assets). Assets
+        in the same library as the album (this does not upload new assets). Assets
         already in the album are silently skipped and returned separately as
         `duplicate_assets`; missing or different-library IDs are skipped and returned as
         `not_found_assets`. Idempotent: calling with the same IDs twice leaves the album
@@ -223,10 +222,9 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
-        in the library and in any other albums they belong to. Use `trash_assets` to
-        soft-delete the asset entirely. To empty an album completely, call
-        `list_album_assets` to get the links and then remove them, or delete the album
-        itself with `delete_album`.
+        in the library and in any other albums they belong to. Move assets to trash to
+        soft-delete them entirely. To empty an album completely, list its album-asset
+        links and remove those assets, or delete the album itself.
 
         Args:
           album_id: Album ID (with `album_` prefix) of the album to detach assets from.

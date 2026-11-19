@@ -61,8 +61,8 @@ class PersonListParams(TypedDict, total=False):
     name: Optional[str]
     """Filter by name using case-insensitive substring matching.
 
-    Use this to resolve a user-supplied name like 'Alice' into a `person_id`, then
-    pass that ID into `search_assets.person_ids` or `list_assets.person_ids`.
+    Use this to resolve a user-supplied name like 'Alice' into a `person_id` for the
+    `person_ids` filter of an asset list or search.
     """
 
     name_filter: Optional[Literal["named", "unnamed", "all"]]

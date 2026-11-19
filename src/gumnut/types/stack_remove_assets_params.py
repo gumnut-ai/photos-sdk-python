@@ -13,5 +13,5 @@ class StackRemoveAssetsParams(TypedDict, total=False):
     asset_ids: Required[SequenceNotStr[str]]
     """Asset IDs (with `asset_` prefix) to pull out of the stack.
 
-    Get member IDs from `list_assets` with `stack_id`. Up to 200 ids per request.
+    List assets with `stack_id` to get member IDs. Up to 200 ids per request.
     """

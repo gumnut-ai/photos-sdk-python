@@ -24,7 +24,7 @@ class PersonBulkUpdatePeopleParams(TypedDict, total=False):
 class UpdateChange(TypedDict, total=False):
     """The change to apply to this person.
 
-    Same shape as the body of the single-person `update_person` endpoint — same fields, same validation; omitted fields are unchanged.
+    Same shape as the body of a single-person update — same fields, same validation; omitted fields are unchanged.
     """
 
     birth_date: Annotated[Union[str, date, None], PropertyInfo(format="iso8601")]
@@ -46,8 +46,8 @@ class UpdateChange(TypedDict, total=False):
     thumbnail_face_id: Optional[str]
     """New thumbnail face ID for this person.
 
-    Omit to leave unchanged. Enumerate a person's faces with `list_faces` and
-    `person_id`.
+    Omit to leave unchanged. List faces with `person_id` to enumerate a person's
+    faces.
     """
 
 
@@ -60,6 +60,6 @@ class Update(TypedDict, total=False):
     change: Required[UpdateChange]
     """The change to apply to this person.
 
-    Same shape as the body of the single-person `update_person` endpoint — same
-    fields, same validation; omitted fields are unchanged.
+    Same shape as the body of a single-person update — same fields, same validation;
+    omitted fields are unchanged.
     """

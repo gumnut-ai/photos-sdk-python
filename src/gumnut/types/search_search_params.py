@@ -100,9 +100,9 @@ class SearchSearchParams(TypedDict, total=False):
     page: int
     """1-indexed page number; increment it to fetch subsequent pages.
 
-    Stop when `has_more` is false, even if the current page is full. `search_assets`
-    pages by number rather than by cursor. A search returns only a limited number of
-    the most relevant matches, not every match in the library.
+    Stop when `has_more` is false, even if the current page is full. Search pages by
+    number rather than by cursor. A search returns only a limited number of the most
+    relevant matches, not every match in the library.
     """
 
     person_ids: Optional[SequenceNotStr[str]]

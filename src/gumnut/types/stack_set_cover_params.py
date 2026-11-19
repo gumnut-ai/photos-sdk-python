@@ -11,6 +11,6 @@ class StackSetCoverParams(TypedDict, total=False):
     primary_asset_id: Required[str]
     """Asset ID (with `asset_` prefix) to pin as the stack's cover.
 
-    Must be a live, current member of this stack — get member IDs from `list_assets`
-    with `stack_id`.
+    Must be a live, current member of this stack — list assets with `stack_id` to
+    get member IDs.
     """
