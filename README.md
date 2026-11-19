@@ -30,8 +30,8 @@ client = Gumnut(
     api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
 )
 
-album_response = client.albums.create()
-print(album_response.id)
+user_response = client.users.me()
+print(user_response.email)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -54,8 +54,8 @@ client = AsyncGumnut(
 
 
 async def main() -> None:
-    album_response = await client.albums.create()
-    print(album_response.id)
+    user_response = await client.users.me()
+    print(user_response.email)
 
 
 asyncio.run(main())
@@ -88,8 +88,8 @@ async def main() -> None:
         api_key=os.environ.get("GUMNUT_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        album_response = await client.albums.create()
-        print(album_response.id)
+        user_response = await client.users.me()
+        print(user_response.email)
 
 
 asyncio.run(main())
@@ -117,9 +117,7 @@ client = Gumnut()
 
 all_assets = []
 # Automatically fetches more pages as needed.
-for asset in client.assets.list(
-    starting_after_id="asset_abc123",
-):
+for asset in client.assets.list():
     # Do something with asset here
     all_assets.append(asset)
 print(all_assets)
@@ -137,9 +135,7 @@ client = AsyncGumnut()
 async def main() -> None:
     all_assets = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for asset in client.assets.list(
-        starting_after_id="asset_abc123",
-    ):
+    async for asset in client.assets.list():
         all_assets.append(asset)
     print(all_assets)
 
@@ -150,29 +146,23 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.assets.list(
-    starting_after_id="asset_abc123",
-)
+first_page = client.assets.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
-    next_page = await first_page.get_next_page()
+    next_page = first_page.get_next_page()
     print(f"number of items we just fetched: {len(next_page.data)}")
 
-# Remove `await` for non-async usage.
+# With `AsyncGumnut`, `await` the list call and `get_next_page()`.
 ```
 
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.assets.list(
-    starting_after_id="asset_abc123",
-)
-
-print(f"next page cursor: {first_page.starting_after_id}")  # => "next page cursor: ..."
+first_page = client.assets.list()
 for asset in first_page.data:
     print(asset.id)
 
-# Remove `await` for non-async usage.
+# With `AsyncGumnut`, `await` the list call.
 ```
 
 ## Nested params
@@ -196,13 +186,12 @@ face_response = client.faces.create(
 print(face_response.bounding_box)
 ```
 
-from datetime import datetime
-
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
 
 ```python
+from datetime import datetime
 from pathlib import Path
 from gumnut import Gumnut
 
@@ -287,6 +276,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
+import httpx
 from gumnut import Gumnut
 
 # Configure the default for all requests:
@@ -325,6 +315,8 @@ Or to `debug` for more verbose logging.
 ### How to tell whether `None` means `null` or missing
 
 In an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:
+
+<!-- readme-snippet-check: skip -->
 
 ```py
 if response.my_field is None:
@@ -426,6 +418,8 @@ client = Gumnut(
 ```
 
 You can also customize the client on a per-request basis by using `with_options()`:
+
+<!-- readme-snippet-check: skip -->
 
 ```python
 client.with_options(http_client=DefaultHttpxClient(...))

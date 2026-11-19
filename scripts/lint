@@ -15,5 +15,8 @@ fi
 echo "==> Running ty"
 uv run --locked ty check --exit-zero-on-warning
 
+echo "==> Checking README examples"
+uv run --locked python scripts/utils/check-readme-snippets.py
+
 echo "==> Making sure it imports"
 uv run --locked python -c 'import gumnut'
