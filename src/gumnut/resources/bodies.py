@@ -20,7 +20,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.body_response import BodyResponse
-from ..types.body_delete_response import BodyDeleteResponse
+from ..types.shared.deletion_response import DeletionResponse
 
 __all__ = ["BodiesResource", "AsyncBodiesResource"]
 
@@ -256,7 +256,7 @@ class BodiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BodyDeleteResponse:
+    ) -> DeletionResponse:
         """
         Deletes a body that is not a person; the asset and any person it was linked to
         are both preserved. **Use `update_body` with `person_id=null` instead** when it
@@ -287,7 +287,7 @@ class BodiesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"library_id": library_id}, body_delete_params.BodyDeleteParams),
             ),
-            cast_to=BodyDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 
@@ -522,7 +522,7 @@ class AsyncBodiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BodyDeleteResponse:
+    ) -> DeletionResponse:
         """
         Deletes a body that is not a person; the asset and any person it was linked to
         are both preserved. **Use `update_body` with `person_id=null` instead** when it
@@ -553,7 +553,7 @@ class AsyncBodiesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"library_id": library_id}, body_delete_params.BodyDeleteParams),
             ),
-            cast_to=BodyDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 

@@ -28,7 +28,7 @@ from .assets_associations import (
     AsyncAssetsAssociationsResourceWithStreamingResponse,
 )
 from ...types.album_response import AlbumResponse
-from ...types.album_delete_response import AlbumDeleteResponse
+from ...types.shared.deletion_response import DeletionResponse
 
 __all__ = ["AlbumsResource", "AsyncAlbumsResource"]
 
@@ -311,7 +311,7 @@ class AlbumsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlbumDeleteResponse:
+    ) -> DeletionResponse:
         """Deletes the album itself.
 
         Assets that were in the album remain in the library —
@@ -337,7 +337,7 @@ class AlbumsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AlbumDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 
@@ -619,7 +619,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlbumDeleteResponse:
+    ) -> DeletionResponse:
         """Deletes the album itself.
 
         Assets that were in the album remain in the library —
@@ -645,7 +645,7 @@ class AsyncAlbumsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AlbumDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 

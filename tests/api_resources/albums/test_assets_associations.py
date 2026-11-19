@@ -11,8 +11,8 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types.albums import (
     AssetsAssociationAddResponse,
-    AssetsAssociationRemoveResponse,
 )
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -68,7 +68,7 @@ class TestAssetsAssociations:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+        assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
     @parametrize
     def test_raw_response_remove(self, client: Gumnut) -> None:
@@ -80,7 +80,7 @@ class TestAssetsAssociations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = response.parse()
-        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+        assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
     @parametrize
     def test_streaming_response_remove(self, client: Gumnut) -> None:
@@ -92,7 +92,7 @@ class TestAssetsAssociations:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = response.parse()
-            assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+            assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -158,7 +158,7 @@ class TestAsyncAssetsAssociations:
             album_id="album_id",
             asset_ids=["string"],
         )
-        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+        assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
     @parametrize
     async def test_raw_response_remove(self, async_client: AsyncGumnut) -> None:
@@ -170,7 +170,7 @@ class TestAsyncAssetsAssociations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         assets_association = await response.parse()
-        assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+        assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
     @parametrize
     async def test_streaming_response_remove(self, async_client: AsyncGumnut) -> None:
@@ -182,7 +182,7 @@ class TestAsyncAssetsAssociations:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             assets_association = await response.parse()
-            assert_matches_type(AssetsAssociationRemoveResponse, assets_association, path=["response"])
+            assert_matches_type(DeletionResponse, assets_association, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

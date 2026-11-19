@@ -1,11 +1,7 @@
 # File generated from our OpenAPI spec. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
+from .shared.deletion_response import DeletionResponse
 
 __all__ = ["PersonDeleteResponse"]
 
-
-class PersonDeleteResponse(BaseModel):
-    """Empty acknowledgment returned when an operation succeeds."""
-
-    pass
+PersonDeleteResponse = DeletionResponse

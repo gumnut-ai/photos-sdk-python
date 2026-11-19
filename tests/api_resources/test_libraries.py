@@ -12,9 +12,8 @@ from tests.utils import assert_matches_type
 from gumnut.types import (
     LibraryResponse,
     LibraryListResponse,
-    LibraryTrashResponse,
-    LibraryDeleteResponse,
 )
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -183,7 +182,7 @@ class TestLibraries:
         library = client.libraries.delete(
             "library_id",
         )
-        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -194,7 +193,7 @@ class TestLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
-        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -205,7 +204,7 @@ class TestLibraries:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
-            assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+            assert_matches_type(DeletionResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -259,7 +258,7 @@ class TestLibraries:
         library = client.libraries.trash(
             "library_id",
         )
-        assert_matches_type(LibraryTrashResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     def test_raw_response_trash(self, client: Gumnut) -> None:
@@ -270,7 +269,7 @@ class TestLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = response.parse()
-        assert_matches_type(LibraryTrashResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     def test_streaming_response_trash(self, client: Gumnut) -> None:
@@ -281,7 +280,7 @@ class TestLibraries:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = response.parse()
-            assert_matches_type(LibraryTrashResponse, library, path=["response"])
+            assert_matches_type(DeletionResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -459,7 +458,7 @@ class TestAsyncLibraries:
         library = await async_client.libraries.delete(
             "library_id",
         )
-        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -470,7 +469,7 @@ class TestAsyncLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
-        assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -481,7 +480,7 @@ class TestAsyncLibraries:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
-            assert_matches_type(LibraryDeleteResponse, library, path=["response"])
+            assert_matches_type(DeletionResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -535,7 +534,7 @@ class TestAsyncLibraries:
         library = await async_client.libraries.trash(
             "library_id",
         )
-        assert_matches_type(LibraryTrashResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     async def test_raw_response_trash(self, async_client: AsyncGumnut) -> None:
@@ -546,7 +545,7 @@ class TestAsyncLibraries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         library = await response.parse()
-        assert_matches_type(LibraryTrashResponse, library, path=["response"])
+        assert_matches_type(DeletionResponse, library, path=["response"])
 
     @parametrize
     async def test_streaming_response_trash(self, async_client: AsyncGumnut) -> None:
@@ -557,7 +556,7 @@ class TestAsyncLibraries:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             library = await response.parse()
-            assert_matches_type(LibraryTrashResponse, library, path=["response"])
+            assert_matches_type(DeletionResponse, library, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

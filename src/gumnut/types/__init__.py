@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from .shared import UserSummary as UserSummary, AssetVariant as AssetVariant
+from .shared import UserSummary as UserSummary, AssetVariant as AssetVariant, DeletionResponse as DeletionResponse
 from .body_response import BodyResponse as BodyResponse
 from .face_response import FaceResponse as FaceResponse
 from .task_response import TaskResponse as TaskResponse
 from .user_response import UserResponse as UserResponse
 from .album_response import AlbumResponse as AlbumResponse
 from .asset_response import AssetResponse as AssetResponse
+from .stack_response import StackResponse as StackResponse
 from .events_response import EventsResponse as EventsResponse
 from .feedback_result import FeedbackResult as FeedbackResult
 from .person_response import PersonResponse as PersonResponse

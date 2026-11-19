@@ -29,7 +29,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.person_response import PersonResponse
-from ..types.person_delete_response import PersonDeleteResponse
+from ..types.shared.deletion_response import DeletionResponse
 from ..types.person_bulk_update_people_response import PersonBulkUpdatePeopleResponse
 
 __all__ = ["PeopleResource", "AsyncPeopleResource"]
@@ -381,7 +381,7 @@ class PeopleResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PersonDeleteResponse:
+    ) -> DeletionResponse:
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
@@ -412,7 +412,7 @@ class PeopleResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PersonDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     def bulk_update_people(
@@ -858,7 +858,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PersonDeleteResponse:
+    ) -> DeletionResponse:
         """
         Deletes the person record; the faces that were attached to this person are not
         deleted — they become unassigned and will be re-clustered on the next clustering
@@ -889,7 +889,7 @@ class AsyncPeopleResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PersonDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     async def bulk_update_people(

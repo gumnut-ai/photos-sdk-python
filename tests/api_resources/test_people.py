@@ -11,11 +11,11 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import (
     PersonResponse,
-    PersonDeleteResponse,
     PersonBulkUpdatePeopleResponse,
 )
 from gumnut._utils import parse_date
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -203,7 +203,7 @@ class TestPeople:
         person = client.people.delete(
             "person_id",
         )
-        assert_matches_type(PersonDeleteResponse, person, path=["response"])
+        assert_matches_type(DeletionResponse, person, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -214,7 +214,7 @@ class TestPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = response.parse()
-        assert_matches_type(PersonDeleteResponse, person, path=["response"])
+        assert_matches_type(DeletionResponse, person, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -225,7 +225,7 @@ class TestPeople:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = response.parse()
-            assert_matches_type(PersonDeleteResponse, person, path=["response"])
+            assert_matches_type(DeletionResponse, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -510,7 +510,7 @@ class TestAsyncPeople:
         person = await async_client.people.delete(
             "person_id",
         )
-        assert_matches_type(PersonDeleteResponse, person, path=["response"])
+        assert_matches_type(DeletionResponse, person, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -521,7 +521,7 @@ class TestAsyncPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         person = await response.parse()
-        assert_matches_type(PersonDeleteResponse, person, path=["response"])
+        assert_matches_type(DeletionResponse, person, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -532,7 +532,7 @@ class TestAsyncPeople:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             person = await response.parse()
-            assert_matches_type(PersonDeleteResponse, person, path=["response"])
+            assert_matches_type(DeletionResponse, person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

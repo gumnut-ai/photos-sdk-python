@@ -16,8 +16,8 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.albums import assets_association_add_params, assets_association_remove_params
+from ...types.shared.deletion_response import DeletionResponse
 from ...types.albums.assets_association_add_response import AssetsAssociationAddResponse
-from ...types.albums.assets_association_remove_response import AssetsAssociationRemoveResponse
 
 __all__ = ["AssetsAssociationsResource", "AsyncAssetsAssociationsResource"]
 
@@ -101,7 +101,7 @@ class AssetsAssociationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetsAssociationRemoveResponse:
+    ) -> DeletionResponse:
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
@@ -134,7 +134,7 @@ class AssetsAssociationsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetsAssociationRemoveResponse,
+            cast_to=DeletionResponse,
         )
 
 
@@ -219,7 +219,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AssetsAssociationRemoveResponse:
+    ) -> DeletionResponse:
         """Detaches one or more assets from the given album.
 
         The assets themselves remain
@@ -252,7 +252,7 @@ class AsyncAssetsAssociationsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AssetsAssociationRemoveResponse,
+            cast_to=DeletionResponse,
         )
 
 

@@ -1,7 +1,7 @@
 # Shared Types
 
 ```python
-from gumnut.types import AssetVariant, UserSummary
+from gumnut.types import AssetVariant, DeletionResponse, UserSummary
 ```
 
 # Feedback
@@ -34,7 +34,7 @@ Methods:
 - <code title="post /api/api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">create</a>(\*\*<a href="src/gumnut/types/api_key_create_params.py">params</a>) -> <a href="./src/gumnut/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
 - <code title="patch /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">update</a>(key_id, \*\*<a href="src/gumnut/types/api_key_update_params.py">params</a>) -> <a href="./src/gumnut/types/api_key_response.py">APIKeyResponse</a></code>
 - <code title="get /api/api-keys/">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">list</a>() -> <a href="./src/gumnut/types/api_key_list_response.py">APIKeyListResponse</a></code>
-- <code title="delete /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">delete</a>(key_id) -> <a href="./src/gumnut/types/api_key_delete_response.py">APIKeyDeleteResponse</a></code>
+- <code title="delete /api/api-keys/{key_id}">client.api_keys.<a href="./src/gumnut/resources/api_keys.py">delete</a>(key_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 # Assets
 
@@ -48,14 +48,14 @@ from gumnut.types import (
     AssetResponse,
     FileDataResponse,
     MetadataResponse,
-    AssetDeleteResponse,
     AssetBulkUpdateAssetsResponse,
     AssetClusterByGeoResponse,
-    AssetDeleteListResponse,
-    AssetEmptyTrashResponse,
     AssetMoveResponse,
-    AssetRestoreResponse,
+    AssetDeleteResponse,
+    AssetDeleteListResponse,
     AssetTrashResponse,
+    AssetRestoreResponse,
+    AssetEmptyTrashResponse,
 )
 ```
 
@@ -64,16 +64,16 @@ Methods:
 - <code title="post /api/assets">client.assets.<a href="./src/gumnut/resources/assets/assets.py">create</a>(\*\*<a href="src/gumnut/types/asset_create_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets/assets.py">retrieve</a>(asset_id, \*\*<a href="src/gumnut/types/asset_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 - <code title="get /api/assets">client.assets.<a href="./src/gumnut/resources/assets/assets.py">list</a>(\*\*<a href="src/gumnut/types/asset_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">SyncCursorPage[AssetResponse]</a></code>
-- <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets/assets.py">delete</a>(asset_id) -> <a href="./src/gumnut/types/asset_delete_response.py">AssetDeleteResponse</a></code>
+- <code title="delete /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets/assets.py">delete</a>(asset_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 - <code title="post /api/assets/bulk-update">client.assets.<a href="./src/gumnut/resources/assets/assets.py">bulk_update_assets</a>(\*\*<a href="src/gumnut/types/asset_bulk_update_assets_params.py">params</a>) -> <a href="./src/gumnut/types/asset_bulk_update_assets_response.py">AssetBulkUpdateAssetsResponse</a></code>
 - <code title="post /api/assets/exist">client.assets.<a href="./src/gumnut/resources/assets/assets.py">check_existence</a>(\*\*<a href="src/gumnut/types/asset_check_existence_params.py">params</a>) -> <a href="./src/gumnut/types/asset_existence_response.py">AssetExistenceResponse</a></code>
 - <code title="get /api/assets/geo-clusters">client.assets.<a href="./src/gumnut/resources/assets/assets.py">cluster_by_geo</a>(\*\*<a href="src/gumnut/types/asset_cluster_by_geo_params.py">params</a>) -> <a href="./src/gumnut/types/asset_cluster_by_geo_response.py">AssetClusterByGeoResponse</a></code>
 - <code title="get /api/assets/counts">client.assets.<a href="./src/gumnut/resources/assets/assets.py">counts</a>(\*\*<a href="src/gumnut/types/asset_counts_params.py">params</a>) -> <a href="./src/gumnut/types/asset_count_response.py">AssetCountResponse</a></code>
-- <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> <a href="./src/gumnut/types/asset_delete_list_response.py">AssetDeleteListResponse</a></code>
-- <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> <a href="./src/gumnut/types/asset_empty_trash_response.py">AssetEmptyTrashResponse</a></code>
+- <code title="delete /api/assets">client.assets.<a href="./src/gumnut/resources/assets/assets.py">delete_list</a>(\*\*<a href="src/gumnut/types/asset_delete_list_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
+- <code title="post /api/assets/empty-trash">client.assets.<a href="./src/gumnut/resources/assets/assets.py">empty_trash</a>(\*\*<a href="src/gumnut/types/asset_empty_trash_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 - <code title="post /api/assets/move">client.assets.<a href="./src/gumnut/resources/assets/assets.py">move</a>(\*\*<a href="src/gumnut/types/asset_move_params.py">params</a>) -> <a href="./src/gumnut/types/asset_move_response.py">AssetMoveResponse</a></code>
-- <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> <a href="./src/gumnut/types/asset_restore_response.py">AssetRestoreResponse</a></code>
-- <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> <a href="./src/gumnut/types/asset_trash_response.py">AssetTrashResponse</a></code>
+- <code title="post /api/assets/restore">client.assets.<a href="./src/gumnut/resources/assets/assets.py">restore</a>(\*\*<a href="src/gumnut/types/asset_restore_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
+- <code title="post /api/assets/trash">client.assets.<a href="./src/gumnut/resources/assets/assets.py">trash</a>(\*\*<a href="src/gumnut/types/asset_trash_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 - <code title="patch /api/assets/{asset_id}">client.assets.<a href="./src/gumnut/resources/assets/assets.py">update_asset</a>(asset_id, \*\*<a href="src/gumnut/types/asset_update_asset_params.py">params</a>) -> <a href="./src/gumnut/types/asset_response.py">AssetResponse</a></code>
 
 ## Versions
@@ -106,7 +106,7 @@ Methods:
 - <code title="get /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">retrieve</a>(album_id) -> <a href="./src/gumnut/types/album_response.py">AlbumResponse</a></code>
 - <code title="patch /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">update</a>(album_id, \*\*<a href="src/gumnut/types/album_update_params.py">params</a>) -> <a href="./src/gumnut/types/album_response.py">AlbumResponse</a></code>
 - <code title="get /api/albums">client.albums.<a href="./src/gumnut/resources/albums/albums.py">list</a>(\*\*<a href="src/gumnut/types/album_list_params.py">params</a>) -> <a href="./src/gumnut/types/album_response.py">SyncCursorPage[AlbumResponse]</a></code>
-- <code title="delete /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">delete</a>(album_id) -> <a href="./src/gumnut/types/album_delete_response.py">AlbumDeleteResponse</a></code>
+- <code title="delete /api/albums/{album_id}">client.albums.<a href="./src/gumnut/resources/albums/albums.py">delete</a>(album_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 ## AssetsAssociations
 
@@ -123,7 +123,7 @@ from gumnut.types.albums import (
 Methods:
 
 - <code title="post /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">add</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_add_params.py">params</a>) -> <a href="./src/gumnut/types/albums/assets_association_add_response.py">AssetsAssociationAddResponse</a></code>
-- <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> <a href="./src/gumnut/types/albums/assets_association_remove_response.py">AssetsAssociationRemoveResponse</a></code>
+- <code title="delete /api/albums/{album_id}/assets">client.albums.assets_associations.<a href="./src/gumnut/resources/albums/assets_associations.py">remove</a>(album_id, \*\*<a href="src/gumnut/types/albums/assets_association_remove_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 # AlbumAssets
 
@@ -164,7 +164,7 @@ Methods:
 - <code title="get /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">retrieve</a>(face_id, \*\*<a href="src/gumnut/types/face_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="patch /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">update</a>(face_id, \*\*<a href="src/gumnut/types/face_update_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">FaceResponse</a></code>
 - <code title="get /api/faces">client.faces.<a href="./src/gumnut/resources/faces.py">list</a>(\*\*<a href="src/gumnut/types/face_list_params.py">params</a>) -> <a href="./src/gumnut/types/face_response.py">SyncCursorPage[FaceResponse]</a></code>
-- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> <a href="./src/gumnut/types/face_delete_response.py">FaceDeleteResponse</a></code>
+- <code title="delete /api/faces/{face_id}">client.faces.<a href="./src/gumnut/resources/faces.py">delete</a>(face_id, \*\*<a href="src/gumnut/types/face_delete_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 # Bodies
 
@@ -179,7 +179,7 @@ Methods:
 - <code title="get /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">retrieve</a>(body_id, \*\*<a href="src/gumnut/types/body_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">BodyResponse</a></code>
 - <code title="patch /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">update</a>(body_id, \*\*<a href="src/gumnut/types/body_update_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">BodyResponse</a></code>
 - <code title="get /api/bodies">client.bodies.<a href="./src/gumnut/resources/bodies.py">list</a>(\*\*<a href="src/gumnut/types/body_list_params.py">params</a>) -> <a href="./src/gumnut/types/body_response.py">SyncCursorPage[BodyResponse]</a></code>
-- <code title="delete /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">delete</a>(body_id, \*\*<a href="src/gumnut/types/body_delete_params.py">params</a>) -> <a href="./src/gumnut/types/body_delete_response.py">BodyDeleteResponse</a></code>
+- <code title="delete /api/bodies/{body_id}">client.bodies.<a href="./src/gumnut/resources/bodies.py">delete</a>(body_id, \*\*<a href="src/gumnut/types/body_delete_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 # Libraries
 
@@ -200,9 +200,9 @@ Methods:
 - <code title="get /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">retrieve</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
 - <code title="patch /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">update</a>(library_id, \*\*<a href="src/gumnut/types/library_update_params.py">params</a>) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
 - <code title="get /api/libraries">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">list</a>(\*\*<a href="src/gumnut/types/library_list_params.py">params</a>) -> <a href="./src/gumnut/types/library_list_response.py">LibraryListResponse</a></code>
-- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">delete</a>(library_id) -> <a href="./src/gumnut/types/library_delete_response.py">LibraryDeleteResponse</a></code>
+- <code title="delete /api/libraries/{library_id}">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">delete</a>(library_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 - <code title="post /api/libraries/{library_id}/restore">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">restore</a>(library_id) -> <a href="./src/gumnut/types/library_response.py">LibraryResponse</a></code>
-- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">trash</a>(library_id) -> <a href="./src/gumnut/types/library_trash_response.py">LibraryTrashResponse</a></code>
+- <code title="post /api/libraries/{library_id}/trash">client.libraries.<a href="./src/gumnut/resources/libraries/libraries.py">trash</a>(library_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 
 ## Members
 
@@ -264,8 +264,8 @@ Types:
 from gumnut.types import (
     ClusterMetricsResponse,
     PersonResponse,
-    PersonDeleteResponse,
     PersonBulkUpdatePeopleResponse,
+    PersonDeleteResponse,
 )
 ```
 
@@ -275,7 +275,7 @@ Methods:
 - <code title="get /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">retrieve</a>(person_id, \*\*<a href="src/gumnut/types/person_retrieve_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="patch /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">update</a>(person_id, \*\*<a href="src/gumnut/types/person_update_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 - <code title="get /api/people">client.people.<a href="./src/gumnut/resources/people.py">list</a>(\*\*<a href="src/gumnut/types/person_list_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">SyncCursorPage[PersonResponse]</a></code>
-- <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> <a href="./src/gumnut/types/person_delete_response.py">PersonDeleteResponse</a></code>
+- <code title="delete /api/people/{person_id}">client.people.<a href="./src/gumnut/resources/people.py">delete</a>(person_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
 - <code title="post /api/people/bulk-update">client.people.<a href="./src/gumnut/resources/people.py">bulk_update_people</a>(\*\*<a href="src/gumnut/types/person_bulk_update_people_params.py">params</a>) -> <a href="./src/gumnut/types/person_bulk_update_people_response.py">PersonBulkUpdatePeopleResponse</a></code>
 - <code title="post /api/people/{person_id}/merge">client.people.<a href="./src/gumnut/resources/people.py">merge</a>(person_id, \*\*<a href="src/gumnut/types/person_merge_params.py">params</a>) -> <a href="./src/gumnut/types/person_response.py">PersonResponse</a></code>
 
@@ -310,25 +310,26 @@ Types:
 
 ```python
 from gumnut.types import (
-    StackDeleteResponse,
-    StackAddAssetsToStackResponse,
+    StackResponse,
     StackCreateStackResponse,
     StackListStacksResponse,
-    StackRemoveAssetsResponse,
     StackRetrieveStackResponse,
     StackSetCoverResponse,
+    StackAddAssetsToStackResponse,
+    StackDeleteResponse,
+    StackRemoveAssetsResponse,
 )
 ```
 
 Methods:
 
-- <code title="delete /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">delete</a>(stack_id) -> <a href="./src/gumnut/types/stack_delete_response.py">StackDeleteResponse</a></code>
-- <code title="post /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">add_assets_to_stack</a>(stack_id, \*\*<a href="src/gumnut/types/stack_add_assets_to_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_add_assets_to_stack_response.py">StackAddAssetsToStackResponse</a></code>
-- <code title="post /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">create_stack</a>(\*\*<a href="src/gumnut/types/stack_create_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_create_stack_response.py">StackCreateStackResponse</a></code>
-- <code title="get /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">list_stacks</a>(\*\*<a href="src/gumnut/types/stack_list_stacks_params.py">params</a>) -> <a href="./src/gumnut/types/stack_list_stacks_response.py">SyncCursorPage[StackListStacksResponse]</a></code>
-- <code title="delete /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">remove_assets</a>(stack_id, \*\*<a href="src/gumnut/types/stack_remove_assets_params.py">params</a>) -> <a href="./src/gumnut/types/stack_remove_assets_response.py">StackRemoveAssetsResponse</a></code>
-- <code title="get /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">retrieve_stack</a>(stack_id) -> <a href="./src/gumnut/types/stack_retrieve_stack_response.py">StackRetrieveStackResponse</a></code>
-- <code title="patch /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">set_cover</a>(stack_id, \*\*<a href="src/gumnut/types/stack_set_cover_params.py">params</a>) -> <a href="./src/gumnut/types/stack_set_cover_response.py">StackSetCoverResponse</a></code>
+- <code title="delete /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">delete</a>(stack_id) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
+- <code title="post /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">add_assets_to_stack</a>(stack_id, \*\*<a href="src/gumnut/types/stack_add_assets_to_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_response.py">StackResponse</a></code>
+- <code title="post /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">create_stack</a>(\*\*<a href="src/gumnut/types/stack_create_stack_params.py">params</a>) -> <a href="./src/gumnut/types/stack_response.py">StackResponse</a></code>
+- <code title="get /api/stacks">client.stacks.<a href="./src/gumnut/resources/stacks.py">list_stacks</a>(\*\*<a href="src/gumnut/types/stack_list_stacks_params.py">params</a>) -> <a href="./src/gumnut/types/stack_response.py">SyncCursorPage[StackResponse]</a></code>
+- <code title="delete /api/stacks/{stack_id}/assets">client.stacks.<a href="./src/gumnut/resources/stacks.py">remove_assets</a>(stack_id, \*\*<a href="src/gumnut/types/stack_remove_assets_params.py">params</a>) -> <a href="./src/gumnut/types/shared/deletion_response.py">DeletionResponse</a></code>
+- <code title="get /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">retrieve_stack</a>(stack_id) -> <a href="./src/gumnut/types/stack_response.py">StackResponse</a></code>
+- <code title="patch /api/stacks/{stack_id}">client.stacks.<a href="./src/gumnut/resources/stacks.py">set_cover</a>(stack_id, \*\*<a href="src/gumnut/types/stack_set_cover_params.py">params</a>) -> <a href="./src/gumnut/types/stack_response.py">StackResponse</a></code>
 
 # Tasks
 

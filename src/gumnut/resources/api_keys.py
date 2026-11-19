@@ -22,7 +22,7 @@ from .._base_client import make_request_options
 from ..types.api_key_response import APIKeyResponse
 from ..types.api_key_list_response import APIKeyListResponse
 from ..types.api_key_create_response import APIKeyCreateResponse
-from ..types.api_key_delete_response import APIKeyDeleteResponse
+from ..types.shared.deletion_response import DeletionResponse
 
 __all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
 
@@ -174,7 +174,7 @@ class APIKeysResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> APIKeyDeleteResponse:
+    ) -> DeletionResponse:
         """Revokes an API key so it can no longer authenticate.
 
         The key remains visible as
@@ -198,7 +198,7 @@ class APIKeysResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIKeyDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 
@@ -349,7 +349,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> APIKeyDeleteResponse:
+    ) -> DeletionResponse:
         """Revokes an API key so it can no longer authenticate.
 
         The key remains visible as
@@ -373,7 +373,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIKeyDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
 

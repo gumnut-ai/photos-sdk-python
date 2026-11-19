@@ -10,15 +10,10 @@ import pytest
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import (
-    StackDeleteResponse,
-    StackSetCoverResponse,
-    StackListStacksResponse,
-    StackCreateStackResponse,
-    StackRemoveAssetsResponse,
-    StackRetrieveStackResponse,
-    StackAddAssetsToStackResponse,
+    StackResponse,
 )
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -31,7 +26,7 @@ class TestStacks:
         stack = client.stacks.delete(
             "stack_id",
         )
-        assert_matches_type(StackDeleteResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -42,7 +37,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackDeleteResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -53,7 +48,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackDeleteResponse, stack, path=["response"])
+            assert_matches_type(DeletionResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -70,7 +65,7 @@ class TestStacks:
             stack_id="stack_id",
             asset_ids=["string"],
         )
-        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_add_assets_to_stack(self, client: Gumnut) -> None:
@@ -82,7 +77,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_add_assets_to_stack(self, client: Gumnut) -> None:
@@ -94,7 +89,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -111,7 +106,7 @@ class TestStacks:
         stack = client.stacks.create_stack(
             asset_ids=["string", "string"],
         )
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_method_create_stack_with_all_params(self, client: Gumnut) -> None:
@@ -120,7 +115,7 @@ class TestStacks:
             library_id="library_id",
             primary_asset_id="primary_asset_id",
         )
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_create_stack(self, client: Gumnut) -> None:
@@ -131,7 +126,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_create_stack(self, client: Gumnut) -> None:
@@ -142,14 +137,14 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_list_stacks(self, client: Gumnut) -> None:
         stack = client.stacks.list_stacks()
-        assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(SyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     def test_method_list_stacks_with_all_params(self, client: Gumnut) -> None:
@@ -162,7 +157,7 @@ class TestStacks:
             primary_asset_id="primary_asset_id",
             starting_after_id="starting_after_id",
         )
-        assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(SyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     def test_raw_response_list_stacks(self, client: Gumnut) -> None:
@@ -171,7 +166,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(SyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     def test_streaming_response_list_stacks(self, client: Gumnut) -> None:
@@ -180,7 +175,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(SyncCursorPage[StackListStacksResponse], stack, path=["response"])
+            assert_matches_type(SyncCursorPage[StackResponse], stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -190,7 +185,7 @@ class TestStacks:
             stack_id="stack_id",
             asset_ids=["string"],
         )
-        assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_remove_assets(self, client: Gumnut) -> None:
@@ -202,7 +197,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_remove_assets(self, client: Gumnut) -> None:
@@ -214,7 +209,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+            assert_matches_type(DeletionResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -231,7 +226,7 @@ class TestStacks:
         stack = client.stacks.retrieve_stack(
             "stack_id",
         )
-        assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve_stack(self, client: Gumnut) -> None:
@@ -242,7 +237,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve_stack(self, client: Gumnut) -> None:
@@ -253,7 +248,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -270,7 +265,7 @@ class TestStacks:
             stack_id="stack_id",
             primary_asset_id="primary_asset_id",
         )
-        assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_raw_response_set_cover(self, client: Gumnut) -> None:
@@ -282,7 +277,7 @@ class TestStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = response.parse()
-        assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     def test_streaming_response_set_cover(self, client: Gumnut) -> None:
@@ -294,7 +289,7 @@ class TestStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = response.parse()
-            assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -317,7 +312,7 @@ class TestAsyncStacks:
         stack = await async_client.stacks.delete(
             "stack_id",
         )
-        assert_matches_type(StackDeleteResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -328,7 +323,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackDeleteResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -339,7 +334,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackDeleteResponse, stack, path=["response"])
+            assert_matches_type(DeletionResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -356,7 +351,7 @@ class TestAsyncStacks:
             stack_id="stack_id",
             asset_ids=["string"],
         )
-        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
@@ -368,7 +363,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_add_assets_to_stack(self, async_client: AsyncGumnut) -> None:
@@ -380,7 +375,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackAddAssetsToStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -397,7 +392,7 @@ class TestAsyncStacks:
         stack = await async_client.stacks.create_stack(
             asset_ids=["string", "string"],
         )
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_method_create_stack_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -406,7 +401,7 @@ class TestAsyncStacks:
             library_id="library_id",
             primary_asset_id="primary_asset_id",
         )
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_create_stack(self, async_client: AsyncGumnut) -> None:
@@ -417,7 +412,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_stack(self, async_client: AsyncGumnut) -> None:
@@ -428,14 +423,14 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackCreateStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_list_stacks(self, async_client: AsyncGumnut) -> None:
         stack = await async_client.stacks.list_stacks()
-        assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(AsyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     async def test_method_list_stacks_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -448,7 +443,7 @@ class TestAsyncStacks:
             primary_asset_id="primary_asset_id",
             starting_after_id="starting_after_id",
         )
-        assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(AsyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     async def test_raw_response_list_stacks(self, async_client: AsyncGumnut) -> None:
@@ -457,7 +452,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
+        assert_matches_type(AsyncCursorPage[StackResponse], stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_stacks(self, async_client: AsyncGumnut) -> None:
@@ -466,7 +461,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(AsyncCursorPage[StackListStacksResponse], stack, path=["response"])
+            assert_matches_type(AsyncCursorPage[StackResponse], stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -476,7 +471,7 @@ class TestAsyncStacks:
             stack_id="stack_id",
             asset_ids=["string"],
         )
-        assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_remove_assets(self, async_client: AsyncGumnut) -> None:
@@ -488,7 +483,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+        assert_matches_type(DeletionResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_remove_assets(self, async_client: AsyncGumnut) -> None:
@@ -500,7 +495,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackRemoveAssetsResponse, stack, path=["response"])
+            assert_matches_type(DeletionResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -517,7 +512,7 @@ class TestAsyncStacks:
         stack = await async_client.stacks.retrieve_stack(
             "stack_id",
         )
-        assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve_stack(self, async_client: AsyncGumnut) -> None:
@@ -528,7 +523,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve_stack(self, async_client: AsyncGumnut) -> None:
@@ -539,7 +534,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackRetrieveStackResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -556,7 +551,7 @@ class TestAsyncStacks:
             stack_id="stack_id",
             primary_asset_id="primary_asset_id",
         )
-        assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_raw_response_set_cover(self, async_client: AsyncGumnut) -> None:
@@ -568,7 +563,7 @@ class TestAsyncStacks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         stack = await response.parse()
-        assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+        assert_matches_type(StackResponse, stack, path=["response"])
 
     @parametrize
     async def test_streaming_response_set_cover(self, async_client: AsyncGumnut) -> None:
@@ -580,7 +575,7 @@ class TestAsyncStacks:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             stack = await response.parse()
-            assert_matches_type(StackSetCoverResponse, stack, path=["response"])
+            assert_matches_type(StackResponse, stack, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

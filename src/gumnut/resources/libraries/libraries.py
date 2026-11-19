@@ -37,8 +37,7 @@ from .invitations import (
 from ..._base_client import make_request_options
 from ...types.library_response import LibraryResponse
 from ...types.library_list_response import LibraryListResponse
-from ...types.library_trash_response import LibraryTrashResponse
-from ...types.library_delete_response import LibraryDeleteResponse
+from ...types.shared.deletion_response import DeletionResponse
 
 __all__ = ["LibrariesResource", "AsyncLibrariesResource"]
 
@@ -282,7 +281,7 @@ class LibrariesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LibraryDeleteResponse:
+    ) -> DeletionResponse:
         """
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
@@ -310,7 +309,7 @@ class LibrariesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LibraryDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     def restore(
@@ -365,7 +364,7 @@ class LibrariesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LibraryTrashResponse:
+    ) -> DeletionResponse:
         """Moves the library and all its contents into the trash.
 
         The library becomes
@@ -399,7 +398,7 @@ class LibrariesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LibraryTrashResponse,
+            cast_to=DeletionResponse,
         )
 
 
@@ -642,7 +641,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LibraryDeleteResponse:
+    ) -> DeletionResponse:
         """
         Expedites the background purge on a **trashed** library: the 90-day undo window
         is waived and the drain begins claiming this library on the next scheduled tick.
@@ -670,7 +669,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LibraryDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     async def restore(
@@ -725,7 +724,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LibraryTrashResponse:
+    ) -> DeletionResponse:
         """Moves the library and all its contents into the trash.
 
         The library becomes
@@ -759,7 +758,7 @@ class AsyncLibrariesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LibraryTrashResponse,
+            cast_to=DeletionResponse,
         )
 
 

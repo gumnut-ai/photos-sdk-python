@@ -26,13 +26,8 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.stack_delete_response import StackDeleteResponse
-from ..types.stack_set_cover_response import StackSetCoverResponse
-from ..types.stack_list_stacks_response import StackListStacksResponse
-from ..types.stack_create_stack_response import StackCreateStackResponse
-from ..types.stack_remove_assets_response import StackRemoveAssetsResponse
-from ..types.stack_retrieve_stack_response import StackRetrieveStackResponse
-from ..types.stack_add_assets_to_stack_response import StackAddAssetsToStackResponse
+from ..types.stack_response import StackResponse
+from ..types.shared.deletion_response import DeletionResponse
 
 __all__ = ["StacksResource", "AsyncStacksResource"]
 
@@ -71,7 +66,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackDeleteResponse:
+    ) -> DeletionResponse:
         """
         Dissolves the stack: the grouping is removed and every member frame returns to
         loose, individual display. The photos themselves are untouched — nothing is
@@ -98,7 +93,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     def add_assets_to_stack(
@@ -112,7 +107,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackAddAssetsToStackResponse:
+    ) -> StackResponse:
         """Adds one or more existing assets to the stack.
 
         An asset already in another stack
@@ -151,7 +146,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackAddAssetsToStackResponse,
+            cast_to=StackResponse,
         )
 
     def create_stack(
@@ -166,7 +161,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackCreateStackResponse:
+    ) -> StackResponse:
         """
         Groups two or more existing assets into a new user-owned stack (`origin = user`)
         for collapsed display. A user-owned stack is never re-segmented by burst
@@ -211,7 +206,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackCreateStackResponse,
+            cast_to=StackResponse,
         )
 
     def list_stacks(
@@ -230,7 +225,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[StackListStacksResponse]:
+    ) -> SyncCursorPage[StackResponse]:
         """
         Returns a paginated list of stacks — assets grouped for collapsed display,
         whether detected automatically or grouped by the user — ordered by `id`: stable,
@@ -273,7 +268,7 @@ class StacksResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/api/stacks",
-            page=SyncCursorPage[StackListStacksResponse],
+            page=SyncCursorPage[StackResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -292,7 +287,7 @@ class StacksResource(SyncAPIResource):
                     stack_list_stacks_params.StackListStacksParams,
                 ),
             ),
-            model=StackListStacksResponse,
+            model=StackResponse,
         )
 
     def remove_assets(
@@ -306,7 +301,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackRemoveAssetsResponse:
+    ) -> DeletionResponse:
         """Pulls one or more frames out of the stack.
 
         The assets themselves are untouched —
@@ -344,7 +339,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackRemoveAssetsResponse,
+            cast_to=DeletionResponse,
         )
 
     def retrieve_stack(
@@ -357,7 +352,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackRetrieveStackResponse:
+    ) -> StackResponse:
         """Fetches one stack's metadata by ID (pinned cover, live member count,
         provenance).
 
@@ -383,7 +378,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackRetrieveStackResponse,
+            cast_to=StackResponse,
         )
 
     def set_cover(
@@ -397,7 +392,7 @@ class StacksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackSetCoverResponse:
+    ) -> StackResponse:
         """
         Pins one of the stack's own live members as its cover (`primary_asset_id`).
         Setting a cover marks the stack as user-owned (`origin = user`), which freezes
@@ -432,7 +427,7 @@ class StacksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackSetCoverResponse,
+            cast_to=StackResponse,
         )
 
 
@@ -470,7 +465,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackDeleteResponse:
+    ) -> DeletionResponse:
         """
         Dissolves the stack: the grouping is removed and every member frame returns to
         loose, individual display. The photos themselves are untouched — nothing is
@@ -497,7 +492,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackDeleteResponse,
+            cast_to=DeletionResponse,
         )
 
     async def add_assets_to_stack(
@@ -511,7 +506,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackAddAssetsToStackResponse:
+    ) -> StackResponse:
         """Adds one or more existing assets to the stack.
 
         An asset already in another stack
@@ -550,7 +545,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackAddAssetsToStackResponse,
+            cast_to=StackResponse,
         )
 
     async def create_stack(
@@ -565,7 +560,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackCreateStackResponse:
+    ) -> StackResponse:
         """
         Groups two or more existing assets into a new user-owned stack (`origin = user`)
         for collapsed display. A user-owned stack is never re-segmented by burst
@@ -610,7 +605,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackCreateStackResponse,
+            cast_to=StackResponse,
         )
 
     def list_stacks(
@@ -629,7 +624,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[StackListStacksResponse, AsyncCursorPage[StackListStacksResponse]]:
+    ) -> AsyncPaginator[StackResponse, AsyncCursorPage[StackResponse]]:
         """
         Returns a paginated list of stacks — assets grouped for collapsed display,
         whether detected automatically or grouped by the user — ordered by `id`: stable,
@@ -672,7 +667,7 @@ class AsyncStacksResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/api/stacks",
-            page=AsyncCursorPage[StackListStacksResponse],
+            page=AsyncCursorPage[StackResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -691,7 +686,7 @@ class AsyncStacksResource(AsyncAPIResource):
                     stack_list_stacks_params.StackListStacksParams,
                 ),
             ),
-            model=StackListStacksResponse,
+            model=StackResponse,
         )
 
     async def remove_assets(
@@ -705,7 +700,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackRemoveAssetsResponse:
+    ) -> DeletionResponse:
         """Pulls one or more frames out of the stack.
 
         The assets themselves are untouched —
@@ -745,7 +740,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackRemoveAssetsResponse,
+            cast_to=DeletionResponse,
         )
 
     async def retrieve_stack(
@@ -758,7 +753,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackRetrieveStackResponse:
+    ) -> StackResponse:
         """Fetches one stack's metadata by ID (pinned cover, live member count,
         provenance).
 
@@ -784,7 +779,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackRetrieveStackResponse,
+            cast_to=StackResponse,
         )
 
     async def set_cover(
@@ -798,7 +793,7 @@ class AsyncStacksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StackSetCoverResponse:
+    ) -> StackResponse:
         """
         Pins one of the stack's own live members as its cover (`primary_asset_id`).
         Setting a cover marks the stack as user-owned (`origin = user`), which freezes
@@ -835,7 +830,7 @@ class AsyncStacksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StackSetCoverResponse,
+            cast_to=StackResponse,
         )
 
 

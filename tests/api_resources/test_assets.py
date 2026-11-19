@@ -13,17 +13,13 @@ from gumnut.types import (
     AssetResponse,
     AssetMoveResponse,
     AssetCountResponse,
-    AssetTrashResponse,
-    AssetDeleteResponse,
-    AssetRestoreResponse,
     AssetExistenceResponse,
-    AssetDeleteListResponse,
-    AssetEmptyTrashResponse,
     AssetClusterByGeoResponse,
     AssetBulkUpdateAssetsResponse,
 )
 from gumnut._utils import parse_datetime
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -187,7 +183,7 @@ class TestAssets:
         asset = client.assets.delete(
             "asset_id",
         )
-        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -198,7 +194,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -209,7 +205,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -407,7 +403,7 @@ class TestAssets:
         asset = client.assets.delete_list(
             ids=["string"],
         )
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_method_delete_list_with_all_params(self, client: Gumnut) -> None:
@@ -415,7 +411,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_raw_response_delete_list(self, client: Gumnut) -> None:
@@ -426,7 +422,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_streaming_response_delete_list(self, client: Gumnut) -> None:
@@ -437,21 +433,21 @@ class TestAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_empty_trash(self, client: Gumnut) -> None:
         asset = client.assets.empty_trash()
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_method_empty_trash_with_all_params(self, client: Gumnut) -> None:
         asset = client.assets.empty_trash(
             library_id="library_id",
         )
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_raw_response_empty_trash(self, client: Gumnut) -> None:
@@ -460,7 +456,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_streaming_response_empty_trash(self, client: Gumnut) -> None:
@@ -469,7 +465,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -515,7 +511,7 @@ class TestAssets:
         asset = client.assets.restore(
             ids=["string"],
         )
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_method_restore_with_all_params(self, client: Gumnut) -> None:
@@ -523,7 +519,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_raw_response_restore(self, client: Gumnut) -> None:
@@ -534,7 +530,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_streaming_response_restore(self, client: Gumnut) -> None:
@@ -545,7 +541,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -554,7 +550,7 @@ class TestAssets:
         asset = client.assets.trash(
             ids=["string"],
         )
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_method_trash_with_all_params(self, client: Gumnut) -> None:
@@ -562,7 +558,7 @@ class TestAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_raw_response_trash(self, client: Gumnut) -> None:
@@ -573,7 +569,7 @@ class TestAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = response.parse()
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     def test_streaming_response_trash(self, client: Gumnut) -> None:
@@ -584,7 +580,7 @@ class TestAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = response.parse()
-            assert_matches_type(AssetTrashResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -802,7 +798,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.delete(
             "asset_id",
         )
-        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -813,7 +809,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -824,7 +820,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(AssetDeleteResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1022,7 +1018,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.delete_list(
             ids=["string"],
         )
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_method_delete_list_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -1030,7 +1026,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_raw_response_delete_list(self, async_client: AsyncGumnut) -> None:
@@ -1041,7 +1037,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete_list(self, async_client: AsyncGumnut) -> None:
@@ -1052,21 +1048,21 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(AssetDeleteListResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_empty_trash(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.empty_trash()
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_method_empty_trash_with_all_params(self, async_client: AsyncGumnut) -> None:
         asset = await async_client.assets.empty_trash(
             library_id="library_id",
         )
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_raw_response_empty_trash(self, async_client: AsyncGumnut) -> None:
@@ -1075,7 +1071,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_streaming_response_empty_trash(self, async_client: AsyncGumnut) -> None:
@@ -1084,7 +1080,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(AssetEmptyTrashResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1130,7 +1126,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.restore(
             ids=["string"],
         )
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_method_restore_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -1138,7 +1134,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_raw_response_restore(self, async_client: AsyncGumnut) -> None:
@@ -1149,7 +1145,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_streaming_response_restore(self, async_client: AsyncGumnut) -> None:
@@ -1160,7 +1156,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(AssetRestoreResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1169,7 +1165,7 @@ class TestAsyncAssets:
         asset = await async_client.assets.trash(
             ids=["string"],
         )
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_method_trash_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -1177,7 +1173,7 @@ class TestAsyncAssets:
             ids=["string"],
             library_id="library_id",
         )
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_raw_response_trash(self, async_client: AsyncGumnut) -> None:
@@ -1188,7 +1184,7 @@ class TestAsyncAssets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         asset = await response.parse()
-        assert_matches_type(AssetTrashResponse, asset, path=["response"])
+        assert_matches_type(DeletionResponse, asset, path=["response"])
 
     @parametrize
     async def test_streaming_response_trash(self, async_client: AsyncGumnut) -> None:
@@ -1199,7 +1195,7 @@ class TestAsyncAssets:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             asset = await response.parse()
-            assert_matches_type(AssetTrashResponse, asset, path=["response"])
+            assert_matches_type(DeletionResponse, asset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

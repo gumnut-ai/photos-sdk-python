@@ -13,8 +13,8 @@ from gumnut.types import (
     APIKeyResponse,
     APIKeyListResponse,
     APIKeyCreateResponse,
-    APIKeyDeleteResponse,
 )
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -141,7 +141,7 @@ class TestAPIKeys:
         api_key = client.api_keys.delete(
             "key_id",
         )
-        assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+        assert_matches_type(DeletionResponse, api_key, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -152,7 +152,7 @@ class TestAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = response.parse()
-        assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+        assert_matches_type(DeletionResponse, api_key, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -163,7 +163,7 @@ class TestAPIKeys:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = response.parse()
-            assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+            assert_matches_type(DeletionResponse, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -299,7 +299,7 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.delete(
             "key_id",
         )
-        assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+        assert_matches_type(DeletionResponse, api_key, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -310,7 +310,7 @@ class TestAsyncAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         api_key = await response.parse()
-        assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+        assert_matches_type(DeletionResponse, api_key, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -321,7 +321,7 @@ class TestAsyncAPIKeys:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             api_key = await response.parse()
-            assert_matches_type(APIKeyDeleteResponse, api_key, path=["response"])
+            assert_matches_type(DeletionResponse, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

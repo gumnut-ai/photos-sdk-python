@@ -9,11 +9,9 @@ import pytest
 
 from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
-from gumnut.types import (
-    BodyResponse,
-    BodyDeleteResponse,
-)
+from gumnut.types import BodyResponse
 from gumnut.pagination import SyncCursorPage, AsyncCursorPage
+from gumnut.types.shared import DeletionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -162,7 +160,7 @@ class TestBodies:
         body = client.bodies.delete(
             body_id="body_id",
         )
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     def test_method_delete_with_all_params(self, client: Gumnut) -> None:
@@ -170,7 +168,7 @@ class TestBodies:
             body_id="body_id",
             library_id="library_id",
         )
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Gumnut) -> None:
@@ -181,7 +179,7 @@ class TestBodies:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         body = response.parse()
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Gumnut) -> None:
@@ -192,7 +190,7 @@ class TestBodies:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             body = response.parse()
-            assert_matches_type(BodyDeleteResponse, body, path=["response"])
+            assert_matches_type(DeletionResponse, body, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -350,7 +348,7 @@ class TestAsyncBodies:
         body = await async_client.bodies.delete(
             body_id="body_id",
         )
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncGumnut) -> None:
@@ -358,7 +356,7 @@ class TestAsyncBodies:
             body_id="body_id",
             library_id="library_id",
         )
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -369,7 +367,7 @@ class TestAsyncBodies:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
         body = await response.parse()
-        assert_matches_type(BodyDeleteResponse, body, path=["response"])
+        assert_matches_type(DeletionResponse, body, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncGumnut) -> None:
@@ -380,7 +378,7 @@ class TestAsyncBodies:
             assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
 
             body = await response.parse()
-            assert_matches_type(BodyDeleteResponse, body, path=["response"])
+            assert_matches_type(DeletionResponse, body, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
