@@ -2,50 +2,27 @@
 
 ## [0.188.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.187.0...v0.188.0) (2026-11-19)
 
-
 ### ⚠ BREAKING CHANGES
 
-* **python:** drop Python 3.10, add Python 3.15
-* **python:** drop support for Python 3.10 and add Python 3.15
+* **python:** the SDK now requires Python 3.11 or later. Python 3.10 reached end of life in October 2026. Python 3.15 is now supported. ([f4a7f7a](https://github.com/gumnut-ai/photos-sdk-python/commit/f4a7f7a357ea12942ebb6f2c6c45cfa95fd2d49d)), ([ac6ecc6](https://github.com/gumnut-ai/photos-sdk-python/commit/ac6ecc6c24cfd56df14f4f7b607a2512931aa1c1))
 
 ### Features
 
-* apply the upload defaults to asset version uploads ([6ffe635](https://github.com/gumnut-ai/photos-sdk-python/commit/6ffe63549e422c727cf9fdb22a400e2c601be55a))
-* default SDK uploads to no retries, size-scaled timeout ([19d212c](https://github.com/gumnut-ai/photos-sdk-python/commit/19d212c10436eb3ad0776108e959b6440703d897))
-* **python:** drop Python 3.10, add Python 3.15 ([f4a7f7a](https://github.com/gumnut-ai/photos-sdk-python/commit/f4a7f7a357ea12942ebb6f2c6c45cfa95fd2d49d))
-* **python:** drop support for Python 3.10 and add Python 3.15 ([ac6ecc6](https://github.com/gumnut-ai/photos-sdk-python/commit/ac6ecc6c24cfd56df14f4f7b607a2512931aa1c1))
-
+* **uploads:** `assets.create()`, `assets.versions.append()`, and `assets.versions.replace()` no longer retry by default. They time out after 10 minutes, or after the file's upload time at 125,000 bytes per second if that is longer. Before, a large upload could hit the 60-second default timeout and then be uploaded again from the start. To override this, set `max_retries` or `timeout` on the client, or pass `timeout` to the method. See "Method defaults" in the README. ([19d212c](https://github.com/gumnut-ai/photos-sdk-python/commit/19d212c10436eb3ad0776108e959b6440703d897)), ([6ffe635](https://github.com/gumnut-ai/photos-sdk-python/commit/6ffe63549e422c727cf9fdb22a400e2c601be55a))
 
 ### Bug Fixes
 
-* **deps:** update dependency ajv to v8.18.0 [security] ([19d212c](https://github.com/gumnut-ai/photos-sdk-python/commit/19d212c10436eb3ad0776108e959b6440703d897))
-* send X-Gumnut-* headers, list Gumnut Labs as author ([b67bd30](https://github.com/gumnut-ai/photos-sdk-python/commit/b67bd30918ace33e7de935e92f292f45638be641))
-* **stlc:** keep config defaults non-optional under zod 4.6 ([d8543c3](https://github.com/gumnut-ai/photos-sdk-python/commit/d8543c39d1960a2c06ea93d23a1f3a901adfa108))
-
-
-### Chores
-
-* **deps:** update dependency js-yaml to v4.3.2 [security] ([19d212c](https://github.com/gumnut-ai/photos-sdk-python/commit/19d212c10436eb3ad0776108e959b6440703d897))
-* **deps:** update dependency turbo to v2.9.14 [security] ([d8543c3](https://github.com/gumnut-ai/photos-sdk-python/commit/d8543c39d1960a2c06ea93d23a1f3a901adfa108))
-* **deps:** update dependency vitest to v4.1.11 [security] ([19d212c](https://github.com/gumnut-ai/photos-sdk-python/commit/19d212c10436eb3ad0776108e959b6440703d897))
-* drop Stainless from Python banners and README icons ([fb00891](https://github.com/gumnut-ai/photos-sdk-python/commit/fb008918babfb7f8547b68fb9e317a50bc19a9fa))
-* **stlc:** drop Stainless install hints and Claude plugin ([8bf3482](https://github.com/gumnut-ai/photos-sdk-python/commit/8bf34824fef52eea74d28c5035187f5d9dc2f939))
-* **stlc:** remove unread conflict dump and skills module ([db825ae](https://github.com/gumnut-ai/photos-sdk-python/commit/db825ae2fa54035165012f143b596234d71a7ae6))
-* tidy the SDK package metadata ([43c9d68](https://github.com/gumnut-ai/photos-sdk-python/commit/43c9d68dd82b3925d456a6e413bf47b12aaeadad))
-
+* The SDK now identifies itself with `X-Gumnut-*` request headers, such as `X-Gumnut-Lang`, `X-Gumnut-Package-Version` and `X-Gumnut-Retry-Count`. These replace the `X-Stainless-*` headers. If your code sets or reads one of them, switch to the new name. ([b67bd30](https://github.com/gumnut-ai/photos-sdk-python/commit/b67bd30918ace33e7de935e92f292f45638be641))
+* The package metadata now lists Gumnut Labs as the author and links the changelog and docs.gumnut.ai. ([b67bd30](https://github.com/gumnut-ai/photos-sdk-python/commit/b67bd30918ace33e7de935e92f292f45638be641)), ([43c9d68](https://github.com/gumnut-ai/photos-sdk-python/commit/43c9d68dd82b3925d456a6e413bf47b12aaeadad))
 
 ### Documentation
 
-* drop Stainless links from AGENTS.md ([#16](https://github.com/gumnut-ai/photos-sdk-python/issues/16)) ([a0688d6](https://github.com/gumnut-ai/photos-sdk-python/commit/a0688d6574c217e5523e6cb505927403504d0da8))
-* fix README examples and type-check them in CI ([db825ae](https://github.com/gumnut-ai/photos-sdk-python/commit/db825ae2fa54035165012f143b596234d71a7ae6))
-* match generated formatting in four README examples ([f6a39b0](https://github.com/gumnut-ai/photos-sdk-python/commit/f6a39b0929b091f32add1f398ddcb0ab5f10421a))
-* match generated formatting in four README examples ([60de229](https://github.com/gumnut-ai/photos-sdk-python/commit/60de229ebd8cfdd86c6ca687048cd5f154ad975f))
-* use users.me for the default README example ([d8543c3](https://github.com/gumnut-ai/photos-sdk-python/commit/d8543c39d1960a2c06ea93d23a1f3a901adfa108))
+* The README examples now run as written, and CI checks them. The first example now calls `users.me()`. ([db825ae](https://github.com/gumnut-ai/photos-sdk-python/commit/db825ae2fa54035165012f143b596234d71a7ae6)), ([d8543c3](https://github.com/gumnut-ai/photos-sdk-python/commit/d8543c39d1960a2c06ea93d23a1f3a901adfa108))
+* The README, SECURITY.md and file headers no longer mention Stainless. ([fb00891](https://github.com/gumnut-ai/photos-sdk-python/commit/fb008918babfb7f8547b68fb9e317a50bc19a9fa)), ([f4a7f7a](https://github.com/gumnut-ai/photos-sdk-python/commit/f4a7f7a357ea12942ebb6f2c6c45cfa95fd2d49d))
 
+### Chores
 
-### Build System
-
-* vendor tsc-multi in the TypeScript SDK ([8bf3482](https://github.com/gumnut-ai/photos-sdk-python/commit/8bf34824fef52eea74d28c5035187f5d9dc2f939))
+* Releases are now built in a separate job without publish credentials, and PyPI uploads carry build attestations. ([2a8b377](https://github.com/gumnut-ai/photos-sdk-python/commit/2a8b377a47b4b51a1c221943aadc209f02e5afc2))
 
 ## [0.187.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.186.0...v0.187.0) (2026-11-17)
 
