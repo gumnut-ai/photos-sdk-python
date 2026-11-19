@@ -133,6 +133,126 @@ class TestAssetsCreateRequestDefaults:
         assert _sent_timeout(route)["read"] == 600
 
 
+class TestAssetsVersionsAppendRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_max_retries(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            client.assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            client.with_options(max_retries=1).assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1 + 2
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_timeout(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(200, json={}))
+
+        client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+        assert _sent_timeout(route)["connect"] == DEFAULT_TIMEOUT.connect
+
+        client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params", timeout=5
+        )
+        assert _sent_timeout(route)["read"] == 5
+
+        client.with_options(timeout=30).assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 30
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_timeout_scales_with_file_size(self, client: Gumnut, respx_mock: MockRouter, tmp_path: Path) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(200, json={}))
+
+        with _sparse_file(tmp_path / "large", 82500000).open("rb") as file:
+            client.assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=file, kind="kind", params="params"
+            )
+        assert _sent_timeout(route)["read"] == 82500000 / 125000
+
+        # A stream of unknown size gets the minimum.
+        client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=io.BufferedReader(_UnsizedStream()), kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+
+
+class TestAssetsVersionsReplaceRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_max_retries(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(500)
+        )
+
+        with pytest.raises(APIStatusError):
+            client.assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            client.with_options(max_retries=1).assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1 + 2
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_timeout(self, client: Gumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(200, json={})
+        )
+
+        client.assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+        assert _sent_timeout(route)["connect"] == DEFAULT_TIMEOUT.connect
+
+        client.assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params", timeout=5
+        )
+        assert _sent_timeout(route)["read"] == 5
+
+        client.with_options(timeout=30).assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 30
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_timeout_scales_with_file_size(self, client: Gumnut, respx_mock: MockRouter, tmp_path: Path) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(200, json={})
+        )
+
+        with _sparse_file(tmp_path / "large", 82500000).open("rb") as file:
+            client.assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=file, kind="kind", params="params"
+            )
+        assert _sent_timeout(route)["read"] == 82500000 / 125000
+
+        # A stream of unknown size gets the minimum.
+        client.assets.versions.with_raw_response.replace(
+            version_id="version_id",
+            asset_id="asset_id",
+            file=io.BufferedReader(_UnsizedStream()),
+            kind="kind",
+            params="params",
+        )
+        assert _sent_timeout(route)["read"] == 600
+
+
 class TestOtherMethodsRequestDefaults:
     @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -227,6 +347,130 @@ class TestAsyncAssetsCreateRequestDefaults:
             device_id="teds-iphone",
             file_created_at=parse_datetime("2026-05-04T10:30:00+10:00"),
             file_modified_at=parse_datetime("2026-05-04T10:30:00+10:00"),
+        )
+        assert _sent_timeout(route)["read"] == 600
+
+
+class TestAsyncAssetsVersionsAppendRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    async def test_max_retries(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(500))
+
+        with pytest.raises(APIStatusError):
+            await async_client.assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            await async_client.with_options(max_retries=1).assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1 + 2
+
+    @pytest.mark.respx(base_url=base_url)
+    async def test_timeout(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(200, json={}))
+
+        await async_client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+        assert _sent_timeout(route)["connect"] == DEFAULT_TIMEOUT.connect
+
+        await async_client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params", timeout=5
+        )
+        assert _sent_timeout(route)["read"] == 5
+
+        await async_client.with_options(timeout=30).assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 30
+
+    @pytest.mark.respx(base_url=base_url)
+    async def test_timeout_scales_with_file_size(
+        self, async_client: AsyncGumnut, respx_mock: MockRouter, tmp_path: Path
+    ) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions").mock(return_value=httpx.Response(200, json={}))
+
+        with _sparse_file(tmp_path / "large", 82500000).open("rb") as file:
+            await async_client.assets.versions.with_raw_response.append(
+                asset_id="asset_id", file=file, kind="kind", params="params"
+            )
+        assert _sent_timeout(route)["read"] == 82500000 / 125000
+
+        # A stream of unknown size gets the minimum.
+        await async_client.assets.versions.with_raw_response.append(
+            asset_id="asset_id", file=io.BufferedReader(_UnsizedStream()), kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+
+
+class TestAsyncAssetsVersionsReplaceRequestDefaults:
+    @mock.patch("gumnut._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    async def test_max_retries(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(500)
+        )
+
+        with pytest.raises(APIStatusError):
+            await async_client.assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1
+
+        with pytest.raises(APIStatusError):
+            await async_client.with_options(max_retries=1).assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+            )
+        assert route.call_count == 1 + 2
+
+    @pytest.mark.respx(base_url=base_url)
+    async def test_timeout(self, async_client: AsyncGumnut, respx_mock: MockRouter) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(200, json={})
+        )
+
+        await async_client.assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 600
+        assert _sent_timeout(route)["connect"] == DEFAULT_TIMEOUT.connect
+
+        await async_client.assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params", timeout=5
+        )
+        assert _sent_timeout(route)["read"] == 5
+
+        await async_client.with_options(timeout=30).assets.versions.with_raw_response.replace(
+            version_id="version_id", asset_id="asset_id", file=b"Example data", kind="kind", params="params"
+        )
+        assert _sent_timeout(route)["read"] == 30
+
+    @pytest.mark.respx(base_url=base_url)
+    async def test_timeout_scales_with_file_size(
+        self, async_client: AsyncGumnut, respx_mock: MockRouter, tmp_path: Path
+    ) -> None:
+        route = respx_mock.post("/api/assets/asset_id/versions/version_id/replace").mock(
+            return_value=httpx.Response(200, json={})
+        )
+
+        with _sparse_file(tmp_path / "large", 82500000).open("rb") as file:
+            await async_client.assets.versions.with_raw_response.replace(
+                version_id="version_id", asset_id="asset_id", file=file, kind="kind", params="params"
+            )
+        assert _sent_timeout(route)["read"] == 82500000 / 125000
+
+        # A stream of unknown size gets the minimum.
+        await async_client.assets.versions.with_raw_response.replace(
+            version_id="version_id",
+            asset_id="asset_id",
+            file=io.BufferedReader(_UnsizedStream()),
+            kind="kind",
+            params="params",
         )
         assert _sent_timeout(route)["read"] == 600
 

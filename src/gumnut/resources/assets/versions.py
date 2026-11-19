@@ -6,7 +6,7 @@ from typing import Mapping, Optional, cast
 
 import httpx
 
-from ..._files import deepcopy_with_paths
+from ..._files import upload_timeout, deepcopy_with_paths
 from ..._types import (
     Body,
     Omit,
@@ -18,7 +18,7 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
+from ..._utils import is_given, extract_files, path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -27,6 +27,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES
 from ..._base_client import make_request_options
 from ...types.assets import version_list_params, version_append_params, version_replace_params
 from ...types.asset_response import AssetResponse
@@ -215,6 +216,12 @@ class VersionsResource(SyncAPIResource):
             [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        if not is_given(timeout) and self._client.timeout == DEFAULT_TIMEOUT:
+            timeout = upload_timeout(
+                files,
+                minimum=600,
+                bytes_per_second=125000,
+            )
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -228,6 +235,7 @@ class VersionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
                 query=maybe_transform({"include": include}, version_append_params.VersionAppendParams),
             ),
             cast_to=AssetVersionResponse,
@@ -303,6 +311,12 @@ class VersionsResource(SyncAPIResource):
             [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        if not is_given(timeout) and self._client.timeout == DEFAULT_TIMEOUT:
+            timeout = upload_timeout(
+                files,
+                minimum=600,
+                bytes_per_second=125000,
+            )
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -318,6 +332,7 @@ class VersionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
                 query=maybe_transform({"include": include}, version_replace_params.VersionReplaceParams),
             ),
             cast_to=AssetVersionResponse,
@@ -547,6 +562,12 @@ class AsyncVersionsResource(AsyncAPIResource):
             [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        if not is_given(timeout) and self._client.timeout == DEFAULT_TIMEOUT:
+            timeout = upload_timeout(
+                files,
+                minimum=600,
+                bytes_per_second=125000,
+            )
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -560,6 +581,7 @@ class AsyncVersionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
                 query=await async_maybe_transform({"include": include}, version_append_params.VersionAppendParams),
             ),
             cast_to=AssetVersionResponse,
@@ -635,6 +657,12 @@ class AsyncVersionsResource(AsyncAPIResource):
             [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        if not is_given(timeout) and self._client.timeout == DEFAULT_TIMEOUT:
+            timeout = upload_timeout(
+                files,
+                minimum=600,
+                bytes_per_second=125000,
+            )
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -650,6 +678,7 @@ class AsyncVersionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                max_retries=0 if self._client.max_retries == DEFAULT_MAX_RETRIES else not_given,
                 query=await async_maybe_transform({"include": include}, version_replace_params.VersionReplaceParams),
             ),
             cast_to=AssetVersionResponse,
