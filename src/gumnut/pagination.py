@@ -5,7 +5,7 @@ from typing_extensions import Protocol, override, runtime_checkable
 
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["SyncCursorPage", "AsyncCursorPage"]
+__all__ = ["SyncCursorPage", "AsyncCursorPage", "SyncEventsPage", "AsyncEventsPage"]
 
 _T = TypeVar("_T")
 
@@ -79,3 +79,53 @@ class AsyncCursorPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
             return None
 
         return PageInfo(params={"starting_after_id": item.id})
+
+
+class SyncEventsPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    data: List[_T]
+    has_more: bool
+    next_cursor: Optional[str] = None
+    as_of: str
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        return data
+
+    @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        return has_more and super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        next_cursor = self.next_cursor
+        if not next_cursor:
+            return None
+
+        return PageInfo(params={"after_cursor": next_cursor})
+
+
+class AsyncEventsPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    data: List[_T]
+    has_more: bool
+    next_cursor: Optional[str] = None
+    as_of: str
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        return data
+
+    @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        return has_more and super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        next_cursor = self.next_cursor
+        if not next_cursor:
+            return None
+
+        return PageInfo(params={"after_cursor": next_cursor})

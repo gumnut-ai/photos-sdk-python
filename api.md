@@ -148,6 +148,7 @@ from gumnut.types import EventsResponse
 
 Methods:
 
+- <code title="get /api/events">client.events.<a href="./src/gumnut/resources/events.py">list</a>(\*\*<a href="src/gumnut/types/event_list_params.py">params</a>) -> SyncEventsPage[Data]</code>
 - <code title="get /api/events">client.events.<a href="./src/gumnut/resources/events.py">get</a>(\*\*<a href="src/gumnut/types/event_get_params.py">params</a>) -> <a href="./src/gumnut/types/events_response.py">EventsResponse</a></code>
 
 # Faces

@@ -11,12 +11,51 @@ from gumnut import Gumnut, AsyncGumnut
 from tests.utils import assert_matches_type
 from gumnut.types import EventsResponse
 from gumnut._utils import parse_datetime
+from gumnut.pagination import SyncEventsPage, AsyncEventsPage
+from gumnut.types.events_response import Data
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestEvents:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    def test_method_list(self, client: Gumnut) -> None:
+        event = client.events.list()
+        assert_matches_type(SyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    def test_method_list_with_all_params(self, client: Gumnut) -> None:
+        event = client.events.list(
+            after_cursor="after_cursor",
+            as_of="as_of",
+            created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
+            entity_types=["string", "string"],
+            library_id="library_id",
+            limit=1,
+        )
+        assert_matches_type(SyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    def test_raw_response_list(self, client: Gumnut) -> None:
+        response = client.events.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
+        event = response.parse()
+        assert_matches_type(SyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list(self, client: Gumnut) -> None:
+        with client.events.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
+
+            event = response.parse()
+            assert_matches_type(SyncEventsPage[Data], event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_get(self, client: Gumnut) -> None:
@@ -60,6 +99,43 @@ class TestAsyncEvents:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @parametrize
+    async def test_method_list(self, async_client: AsyncGumnut) -> None:
+        event = await async_client.events.list()
+        assert_matches_type(AsyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncGumnut) -> None:
+        event = await async_client.events.list(
+            after_cursor="after_cursor",
+            as_of="as_of",
+            created_at_gte=parse_datetime("2019-12-27T18:11:19.117Z"),
+            entity_types=["string", "string"],
+            library_id="library_id",
+            limit=1,
+        )
+        assert_matches_type(AsyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncGumnut) -> None:
+        response = await async_client.events.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
+        event = await response.parse()
+        assert_matches_type(AsyncEventsPage[Data], event, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncGumnut) -> None:
+        async with async_client.events.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Gumnut-Lang") == "python"
+
+            event = await response.parse()
+            assert_matches_type(AsyncEventsPage[Data], event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_get(self, async_client: AsyncGumnut) -> None:

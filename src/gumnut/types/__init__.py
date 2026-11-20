@@ -24,6 +24,7 @@ from .album_list_params import AlbumListParams as AlbumListParams
 from .asset_list_params import AssetListParams as AssetListParams
 from .asset_move_params import AssetMoveParams as AssetMoveParams
 from .auth_url_response import AuthURLResponse as AuthURLResponse
+from .event_list_params import EventListParams as EventListParams
 from .exchange_response import ExchangeResponse as ExchangeResponse
 from .metadata_response import MetadataResponse as MetadataResponse
 from .ping_get_response import PingGetResponse as PingGetResponse
