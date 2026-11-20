@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 import httpx
+
+from ._utils import is_dict
+from ._models import construct_type
 
 __all__ = [
     "BadRequestError",
@@ -37,11 +41,22 @@ class APIError(GumnutError):
     If there was no response associated with this error then it will be `None`.
     """
 
-    def __init__(self, message: str, request: httpx.Request, *, body: object | None) -> None:  # noqa: ARG002
+    code: Optional[str] = None
+    """Machine-readable failure code.
+
+    Library-sharing errors set it; other errors leave it unset.
+    """
+
+    def __init__(self, message: str, request: httpx.Request, *, body: object | None) -> None:
         super().__init__(message)
         self.request = request
         self.message = message
         self.body = body
+
+        if is_dict(body):
+            self.code = cast(Any, construct_type(type_=Optional[str], value=body.get("code")))
+        else:
+            self.code = None
 
 
 class APIResponseValidationError(APIError):
