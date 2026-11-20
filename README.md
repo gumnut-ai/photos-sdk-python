@@ -266,6 +266,7 @@ Error codes are as follows:
 | 401         | `AuthenticationError`      |
 | 403         | `PermissionDeniedError`    |
 | 404         | `NotFoundError`            |
+| 409         | `ConflictError`            |
 | 422         | `UnprocessableEntityError` |
 | 429         | `RateLimitError`           |
 | >=500       | `InternalServerError`      |
@@ -275,7 +276,7 @@ Error codes are as follows:
 
 Certain errors are automatically retried 2 times by default, with a short exponential backoff.
 Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors are all retried by default.
+429 Rate Limit, and >=500 Internal errors are all retried by default. Some methods use their own defaults; see [Method defaults](#method-defaults).
 
 You can use the `max_retries` option to configure or disable retry settings:
 
@@ -477,13 +478,15 @@ with Gumnut() as client:
 
 ## Versioning
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package is pre-1.0, so any minor release (0.x.0) may include backwards-incompatible changes, such as
+renamed or removed methods and changed types. Patch releases (0.x.y) carry fixes and aren't meant to break callers.
 
-1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
-3. Changes that we do not expect to impact the vast majority of users in practice.
+Pin to a minor version, and read the [changelog](./CHANGELOG.md) before moving to the next one. For example,
+`gumnut-sdk~=0.188.0` accepts later patch releases but not 0.189.0:
 
-We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+```sh
+pip install 'gumnut-sdk~=0.188.0'
+```
 
 We are keen for your feedback; please open an [issue](https://www.github.com/gumnut-ai/photos-sdk-python/issues) with questions, bugs, or suggestions.
 

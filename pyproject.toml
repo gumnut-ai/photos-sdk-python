@@ -91,17 +91,15 @@ include = [
 packages = ["src/gumnut"]
 
 [tool.hatch.build.targets.sdist]
-# Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
+# The package source and its user-facing docs. Hatchling adds pyproject.toml
+# itself. The tests need the repo's scripts and mock server, so they stay out.
 include = [
-  "/*.toml",
-  "/*.json",
-  "/*.lock",
-  "/*.md",
-  "/noxfile.py",
-  "bin/*",
-  "examples/*",
-  "src/*",
-  "tests/*",
+  "/src",
+  "/README.md",
+  "/CHANGELOG.md",
+  "/LICENSE",
+  "/api.md",
+  "/SECURITY.md",
 ]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
