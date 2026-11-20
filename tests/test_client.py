@@ -202,6 +202,29 @@ class TestGumnut:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
         client.close()
 
+    def test_copy_keeps_headers(self) -> None:
+        with update_env(**{"GUMNUT_CUSTOM_HEADERS": "X-Env: original"}):
+            client = Gumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        assert client.default_headers["X-Env"] == "original"
+
+        with update_env(**{"GUMNUT_CUSTOM_HEADERS": "X-Env: changed\nX-New: new"}):
+            # a copy keeps its headers instead of reading the environment again
+            for copied in (client.copy(), client.with_options(max_retries=1)):
+                assert copied.default_headers["X-Env"] == "original"
+                assert "X-New" not in copied.default_headers
+
+            copied = client.copy(default_headers={"X-Bar": "bar"})
+            assert copied.default_headers["X-Env"] == "original"
+            assert copied.default_headers["X-Bar"] == "bar"
+            assert "X-New" not in copied.default_headers
+
+            # set_default_headers replaces the environment's headers too
+            copied = client.copy(set_default_headers={"X-Bar": "bar"})
+            assert copied.default_headers["X-Bar"] == "bar"
+            assert "X-Env" not in copied.default_headers
+            assert "X-New" not in copied.default_headers
+        client.close()
+
     def test_copy_default_query(self) -> None:
         client = Gumnut(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
@@ -1142,6 +1165,29 @@ class TestAsyncGumnut:
             match="`default_headers` and `set_default_headers` arguments are mutually exclusive",
         ):
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
+        await client.close()
+
+    async def test_copy_keeps_headers(self) -> None:
+        with update_env(**{"GUMNUT_CUSTOM_HEADERS": "X-Env: original"}):
+            client = AsyncGumnut(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        assert client.default_headers["X-Env"] == "original"
+
+        with update_env(**{"GUMNUT_CUSTOM_HEADERS": "X-Env: changed\nX-New: new"}):
+            # a copy keeps its headers instead of reading the environment again
+            for copied in (client.copy(), client.with_options(max_retries=1)):
+                assert copied.default_headers["X-Env"] == "original"
+                assert "X-New" not in copied.default_headers
+
+            copied = client.copy(default_headers={"X-Bar": "bar"})
+            assert copied.default_headers["X-Env"] == "original"
+            assert copied.default_headers["X-Bar"] == "bar"
+            assert "X-New" not in copied.default_headers
+
+            # set_default_headers replaces the environment's headers too
+            copied = client.copy(set_default_headers={"X-Bar": "bar"})
+            assert copied.default_headers["X-Bar"] == "bar"
+            assert "X-Env" not in copied.default_headers
+            assert "X-New" not in copied.default_headers
         await client.close()
 
     async def test_copy_default_query(self) -> None:

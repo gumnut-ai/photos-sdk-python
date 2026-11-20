@@ -342,8 +342,10 @@ class Gumnut(SyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
-        # The constructor falls back to the environment for unset options; keep them unset.
+        # The constructor reads the environment for unset options and merges GUMNUT_CUSTOM_HEADERS
+        # into the headers; keep the copy's own values instead.
         client.api_key = api_key or self.api_key
+        client._custom_headers = headers
         return client
 
     # Alias for `copy` for nicer inline usage, e.g.
@@ -652,8 +654,10 @@ class AsyncGumnut(AsyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
-        # The constructor falls back to the environment for unset options; keep them unset.
+        # The constructor reads the environment for unset options and merges GUMNUT_CUSTOM_HEADERS
+        # into the headers; keep the copy's own values instead.
         client.api_key = api_key or self.api_key
+        client._custom_headers = headers
         return client
 
     # Alias for `copy` for nicer inline usage, e.g.
