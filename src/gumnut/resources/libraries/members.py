@@ -69,6 +69,9 @@ class MembersResource(SyncAPIResource):
         An inactive membership or attempt to change the owner returns 409; retrying
         unchanged will not clear it.
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           library_id: Library identifier.
 
@@ -114,6 +117,9 @@ class MembersResource(SyncAPIResource):
         """
         List non-owner membership records for a library owned by the caller, newest
         first. Inactive records remain available through the state filter.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           library_id: Library identifier.
@@ -171,6 +177,9 @@ class MembersResource(SyncAPIResource):
         changing an owner-removal cutoff. An owner cannot leave; retrying unchanged
         returns 409.
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           library_id: Library identifier.
 
@@ -209,6 +218,9 @@ class MembersResource(SyncAPIResource):
         Repeating
         removal returns the same record without advancing the cutoff. The owner cannot
         be removed; retrying that request unchanged returns 409.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           library_id: Library identifier.
@@ -280,6 +292,9 @@ class AsyncMembersResource(AsyncAPIResource):
         An inactive membership or attempt to change the owner returns 409; retrying
         unchanged will not clear it.
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           library_id: Library identifier.
 
@@ -325,6 +340,9 @@ class AsyncMembersResource(AsyncAPIResource):
         """
         List non-owner membership records for a library owned by the caller, newest
         first. Inactive records remain available through the state filter.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           library_id: Library identifier.
@@ -382,6 +400,9 @@ class AsyncMembersResource(AsyncAPIResource):
         changing an owner-removal cutoff. An owner cannot leave; retrying unchanged
         returns 409.
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           library_id: Library identifier.
 
@@ -420,6 +441,9 @@ class AsyncMembersResource(AsyncAPIResource):
         Repeating
         removal returns the same record without advancing the cutoff. The owner cannot
         be removed; retrying that request unchanged returns 409.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           library_id: Library identifier.

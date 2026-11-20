@@ -479,6 +479,9 @@ class PeopleResource(SyncAPIResource):
         zero faces, the primary is deleted too, its bodies are left with no person, and
         the response is `204 No Content`.
 
+        If a concurrent change to the people's faces collides with the merge, it returns
+        409 and nothing is merged; retry the request unchanged.
+
         Args:
           person_id: Person ID (with `person_` prefix) of the primary person that absorbs the source
               people. Person IDs are carried by the `id` field of person responses and by
@@ -952,6 +955,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         In the degenerate case where the primary and all sources are unnamed and have
         zero faces, the primary is deleted too, its bodies are left with no person, and
         the response is `204 No Content`.
+
+        If a concurrent change to the people's faces collides with the merge, it returns
+        409 and nothing is merged; retry the request unchanged.
 
         Args:
           person_id: Person ID (with `person_` prefix) of the primary person that absorbs the source

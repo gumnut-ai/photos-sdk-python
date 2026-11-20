@@ -69,6 +69,9 @@ class APIKeysResource(SyncAPIResource):
         """
         Creates a new API key for the current user
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           actions: Action verbs the key may perform (at least one). `read` is required whenever any
               broader action is selected. Pass all four actions for a full-access key.
@@ -121,6 +124,9 @@ class APIKeysResource(SyncAPIResource):
         """
         Updates the name of a specific API key
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           key_id: ID of the API key to update
 
@@ -155,7 +161,12 @@ class APIKeysResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKeyListResponse:
-        """Retrieves a list of all API keys for the current user"""
+        """
+        Retrieves a list of all API keys for the current user
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+        """
         return self._get(
             "/api/api-keys/",
             options=make_request_options(
@@ -179,6 +190,9 @@ class APIKeysResource(SyncAPIResource):
 
         The key remains visible as
         inactive.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           key_id: ID of the API key to revoke
@@ -244,6 +258,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         """
         Creates a new API key for the current user
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           actions: Action verbs the key may perform (at least one). `read` is required whenever any
               broader action is selected. Pass all four actions for a full-access key.
@@ -296,6 +313,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         """
         Updates the name of a specific API key
 
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+
         Args:
           key_id: ID of the API key to update
 
@@ -330,7 +350,12 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKeyListResponse:
-        """Retrieves a list of all API keys for the current user"""
+        """
+        Retrieves a list of all API keys for the current user
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
+        """
         return await self._get(
             "/api/api-keys/",
             options=make_request_options(
@@ -354,6 +379,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
         The key remains visible as
         inactive.
+
+        Requires a first-party Gumnut app session: API keys and OAuth access tokens are
+        rejected with 403.
 
         Args:
           key_id: ID of the API key to revoke
