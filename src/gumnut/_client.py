@@ -332,7 +332,7 @@ class Gumnut(SyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(
+        client = self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -342,6 +342,9 @@ class Gumnut(SyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
+        # The constructor falls back to the environment for unset options; keep them unset.
+        client.api_key = api_key or self.api_key
+        return client
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
@@ -639,7 +642,7 @@ class AsyncGumnut(AsyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(
+        client = self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -649,6 +652,9 @@ class AsyncGumnut(AsyncAPIClient):
             default_query=params,
             **_extra_kwargs,
         )
+        # The constructor falls back to the environment for unset options; keep them unset.
+        client.api_key = api_key or self.api_key
+        return client
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)

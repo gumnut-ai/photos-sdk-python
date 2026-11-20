@@ -140,6 +140,17 @@ class TestGumnut:
         assert copied.api_key == "another My API Key"
         assert client.api_key == "My API Key"
 
+    def test_copy_keeps_unset_env_options(self) -> None:
+        with update_env(**{"GUMNUT_API_KEY": Omit()}):
+            client = Gumnut(base_url=base_url, api_key=None, _strict_response_validation=True)
+        keyed_client = Gumnut(base_url=base_url, api_key="another My API Key", _strict_response_validation=True)
+
+        with update_env(**{"GUMNUT_API_KEY": "My API Key"}):
+            assert client.copy().api_key is None
+            assert client.with_options(max_retries=1).api_key is None
+            assert client.copy(api_key="another My API Key").api_key == "another My API Key"
+            assert keyed_client.copy().api_key == "another My API Key"
+
     def test_copy_default_options(self, client: Gumnut) -> None:
         # options that have a default are overridden correctly
         copied = client.copy(max_retries=7)
@@ -1070,6 +1081,17 @@ class TestAsyncGumnut:
         copied = async_client.copy(api_key="another My API Key")
         assert copied.api_key == "another My API Key"
         assert async_client.api_key == "My API Key"
+
+    def test_copy_keeps_unset_env_options(self) -> None:
+        with update_env(**{"GUMNUT_API_KEY": Omit()}):
+            client = AsyncGumnut(base_url=base_url, api_key=None, _strict_response_validation=True)
+        keyed_client = AsyncGumnut(base_url=base_url, api_key="another My API Key", _strict_response_validation=True)
+
+        with update_env(**{"GUMNUT_API_KEY": "My API Key"}):
+            assert client.copy().api_key is None
+            assert client.with_options(max_retries=1).api_key is None
+            assert client.copy(api_key="another My API Key").api_key == "another My API Key"
+            assert keyed_client.copy().api_key == "another My API Key"
 
     def test_copy_default_options(self, async_client: AsyncGumnut) -> None:
         # options that have a default are overridden correctly
