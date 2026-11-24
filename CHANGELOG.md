@@ -1,5 +1,43 @@
 # Changelog
 
+## [0.189.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.188.0...v0.189.0) (2026-11-24)
+
+
+### Features
+
+* add events.list to auto-page the events feed ([053ac5c](https://github.com/gumnut-ai/photos-sdk-python/commit/053ac5ca32e3a030f3666afe247d95659b8a3733))
+* **api:** api update ([1b61780](https://github.com/gumnut-ai/photos-sdk-python/commit/1b6178090c6420b35dd3dc33e0c311b80590c20f))
+* **api:** api update ([ed9a0c9](https://github.com/gumnut-ai/photos-sdk-python/commit/ed9a0c9c22ff78ac1658266f5a4fd0dc6c71eac5))
+* **api:** api update ([456e5fe](https://github.com/gumnut-ai/photos-sdk-python/commit/456e5fea16bbeadc0860e48bd4905578cb6f7077))
+* expose the sharing error code on SDK errors ([f3be342](https://github.com/gumnut-ai/photos-sdk-python/commit/f3be3429da0386f096108417c6fba585297e6bf5))
+* show the API's error detail in error messages ([5e677af](https://github.com/gumnut-ai/photos-sdk-python/commit/5e677af722261c2f6912ee1e741faece01041c4d))
+
+
+### Bug Fixes
+
+* don't auto-retry faces.create or feedback.submit ([390dff1](https://github.com/gumnut-ai/photos-sdk-python/commit/390dff13486a69bf27cfda90e675c2634df4760d))
+* let the SDKs call no-auth operations without a key ([a171a60](https://github.com/gumnut-ai/photos-sdk-python/commit/a171a60f8409370640d9a3c714057ec41600dd96))
+* **python:** keep a copied client's custom headers ([12bc39c](https://github.com/gumnut-ai/photos-sdk-python/commit/12bc39c3f7e25e7e47cf1c0ebafb92431efc3c24))
+* **python:** keep a keyless client keyless when copied ([4158fd3](https://github.com/gumnut-ai/photos-sdk-python/commit/4158fd31b037594867ad6a4a81211236f9141bb7))
+
+
+### Chores
+
+* tidy the SDK packages, READMEs, CONTRIBUTING and LICENSE ([69c278d](https://github.com/gumnut-ai/photos-sdk-python/commit/69c278dbbf5afa80678a67b04d2aeee2533abc3d))
+* **types:** share duplicate response models ([6c6b3a1](https://github.com/gumnut-ai/photos-sdk-python/commit/6c6b3a13a235f2697214f648cc31c450d5018a58))
+
+
+### Documentation
+
+* describe events.list auto-paging and checkpoints ([5e6a0b0](https://github.com/gumnut-ai/photos-sdk-python/commit/5e6a0b0dc6b5b07ee8c42f1c1b46f74714aa09ad))
+* fix changelog links and stale generator notes ([19a2669](https://github.com/gumnut-ai/photos-sdk-python/commit/19a2669b35ce2309b9bb717d6361cac3ab42254c))
+* fix changelog links and stale generator notes ([2ec5872](https://github.com/gumnut-ai/photos-sdk-python/commit/2ec5872a2f83859a58f05f48e6af739eb1740253))
+
+
+### Refactors
+
+* **stlc:** remove dead sealing code ([d8828bb](https://github.com/gumnut-ai/photos-sdk-python/commit/d8828bb79bea657cc8c1c00146a54ea1afb6761d))
+
 ## [0.188.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.187.0...v0.188.0) (2026-11-19)
 
 ### ⚠ BREAKING CHANGES
