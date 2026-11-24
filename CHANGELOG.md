@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.189.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.188.0...v0.189.0) (2026-11-24)
+
+### Features
+
+* **events:** add `events.list()`, which takes the same parameters as `events.get()` and fetches later pages as you iterate. Each page is a `SyncEventsPage` (`AsyncEventsPage` on `AsyncGumnut`) with `data`, `has_more`, `next_cursor` and `as_of`. To sync a local copy, iterate with `iter_pages()`: apply each page, then store its `next_cursor` to pass as `after_cursor` next time. ([053ac5c](https://github.com/gumnut-ai/photos-sdk-python/commit/053ac5ca32e3a030f3666afe247d95659b8a3733)), ([5e6a0b0](https://github.com/gumnut-ai/photos-sdk-python/commit/5e6a0b0dc6b5b07ee8c42f1c1b46f74714aa09ad))
+* **errors:** API errors have a `code` attribute with the machine-readable code that the library sharing methods (`libraries.members` and `libraries.invitations`) return beside `detail`. It is `None` for other errors. ([f3be342](https://github.com/gumnut-ai/photos-sdk-python/commit/f3be3429da0386f096108417c6fba585297e6bf5))
+* **errors:** error messages now show the API's `detail`, such as `404 Asset not found`, instead of `Error code: 404 - {'detail': 'Asset not found'}`. A list of validation errors is summarized as `body.name: Field required; ...`. A body without a usable `detail` keeps the old format. This changes `str(error)` and `error.message`; if your code matches on that text, check the exception class, `status_code`, `body` or the new `code` instead. ([5e677af](https://github.com/gumnut-ai/photos-sdk-python/commit/5e677af722261c2f6912ee1e741faece01041c4d))
+
+### Bug Fixes
+
+* **oauth:** `oauth.auth_url()`, `oauth.exchange()`, `oauth.logout_endpoint()` and `ping.get()` now work on a client created without an API key, and never send an `Authorization` header. Before, they raised `TypeError` on a keyless client. A new "OAuth tokens" section in the README shows how to sign a person in and pass the `access_token` from `exchange()` as `api_key`. ([a171a60](https://github.com/gumnut-ai/photos-sdk-python/commit/a171a60f8409370640d9a3c714057ec41600dd96))
+* **retries:** `faces.create()` and `feedback.submit()` no longer retry by default, because a retry after a lost response could create a duplicate face or send a duplicate report. To retry them, set the client's `max_retries` to a value other than the default, 2. See "Method defaults" in the README. ([390dff1](https://github.com/gumnut-ai/photos-sdk-python/commit/390dff13486a69bf27cfda90e675c2634df4760d))
+* **client:** `copy()` and `with_options()` keep the original client's settings instead of reading the environment again. A copy of a client without an API key no longer picks up `GUMNUT_API_KEY`, a copy keeps its headers rather than re-reading `GUMNUT_CUSTOM_HEADERS`, and `set_default_headers` now also replaces the headers from that variable. ([4158fd3](https://github.com/gumnut-ai/photos-sdk-python/commit/4158fd31b037594867ad6a4a81211236f9141bb7)), ([12bc39c](https://github.com/gumnut-ai/photos-sdk-python/commit/12bc39c3f7e25e7e47cf1c0ebafb92431efc3c24))
+* **assets:** the type of each update's `change` in `assets.bulk_update_assets()` no longer accepts keys other than its documented fields, so type checkers flag a misspelled field. The API already rejected unknown fields with 422. ([1b61780](https://github.com/gumnut-ai/photos-sdk-python/commit/1b6178090c6420b35dd3dc33e0c311b80590c20f))
+
+### Documentation
+
+* Method docstrings no longer name MCP tools, such as `list_assets` or `trash_assets`, that are not SDK methods. They describe the related operation instead. ([ed9a0c9](https://github.com/gumnut-ai/photos-sdk-python/commit/ed9a0c9c22ff78ac1658266f5a4fd0dc6c71eac5))
+* **api keys, libraries:** the `api_keys`, `libraries.members` and `libraries.invitations` methods document that they need a first-party Gumnut app session, and that API keys and OAuth access tokens get 403. ([1b61780](https://github.com/gumnut-ai/photos-sdk-python/commit/1b6178090c6420b35dd3dc33e0c311b80590c20f))
+* **people:** `people.merge()` documents that it returns 409 and merges nothing when a concurrent change to the people's faces collides with it; retry the request unchanged. ([1b61780](https://github.com/gumnut-ai/photos-sdk-python/commit/1b6178090c6420b35dd3dc33e0c311b80590c20f))
+* The README's versioning section now says any minor release (0.x.0) may include breaking changes, and suggests pinning to a minor version with `~=`. ([69c278d](https://github.com/gumnut-ai/photos-sdk-python/commit/69c278dbbf5afa80678a67b04d2aeee2533abc3d))
+
+### Chores
+
+* **types:** add `DeletionResponse` and `StackResponse` to `gumnut.types`. Methods that return an empty acknowledgment, such as `assets.delete()`, `assets.trash()` and `albums.delete()`, are now typed to return `DeletionResponse`, and `stacks.create_stack()`, `retrieve_stack()`, `add_assets_to_stack()` and `set_cover()` return `StackResponse`, and `list_stacks()` returns a page of them. The old names, such as `AssetTrashResponse` and `StackCreateStackResponse`, stay importable as aliases of these classes, so existing imports, annotations and `isinstance()` checks keep working. ([6c6b3a1](https://github.com/gumnut-ai/photos-sdk-python/commit/6c6b3a13a235f2697214f648cc31c450d5018a58))
+* The source distribution now contains only the package source and its docs; tests and repository scripts are no longer included. The license names Gumnut Labs LLC. ([69c278d](https://github.com/gumnut-ai/photos-sdk-python/commit/69c278dbbf5afa80678a67b04d2aeee2533abc3d))
+
 ## [0.188.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.187.0...v0.188.0) (2026-11-19)
 
 ### ⚠ BREAKING CHANGES
