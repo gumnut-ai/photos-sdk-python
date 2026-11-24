@@ -2,14 +2,11 @@
 
 ## [0.189.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.188.0...v0.189.0) (2026-11-24)
 
-### ⚠ BREAKING CHANGES
-
-* **errors:** error messages now show the API's `detail`, such as `404 Asset not found`, instead of `Error code: 404 - {'detail': 'Asset not found'}`. A list of validation errors is summarized as `body.name: Field required; ...`. A body without a usable `detail` keeps the old format. This changes `str(error)` and `error.message`; if your code matches on that text, check the exception class, `status_code`, `body` or the new `code` instead. ([5e677af](https://github.com/gumnut-ai/photos-sdk-python/commit/5e677af722261c2f6912ee1e741faece01041c4d))
-
 ### Features
 
 * **events:** add `events.list()`, which takes the same parameters as `events.get()` and fetches later pages as you iterate. Each page is a `SyncEventsPage` (`AsyncEventsPage` on `AsyncGumnut`) with `data`, `has_more`, `next_cursor` and `as_of`. To sync a local copy, iterate with `iter_pages()`: apply each page, then store its `next_cursor` to pass as `after_cursor` next time. ([053ac5c](https://github.com/gumnut-ai/photos-sdk-python/commit/053ac5ca32e3a030f3666afe247d95659b8a3733)), ([5e6a0b0](https://github.com/gumnut-ai/photos-sdk-python/commit/5e6a0b0dc6b5b07ee8c42f1c1b46f74714aa09ad))
 * **errors:** API errors have a `code` attribute with the machine-readable code that the library sharing methods (`libraries.members` and `libraries.invitations`) return beside `detail`. It is `None` for other errors. ([f3be342](https://github.com/gumnut-ai/photos-sdk-python/commit/f3be3429da0386f096108417c6fba585297e6bf5))
+* **errors:** error messages now show the API's `detail`, such as `404 Asset not found`, instead of `Error code: 404 - {'detail': 'Asset not found'}`. A list of validation errors is summarized as `body.name: Field required; ...`. A body without a usable `detail` keeps the old format. This changes `str(error)` and `error.message`; if your code matches on that text, check the exception class, `status_code`, `body` or the new `code` instead. ([5e677af](https://github.com/gumnut-ai/photos-sdk-python/commit/5e677af722261c2f6912ee1e741faece01041c4d))
 
 ### Bug Fixes
 
@@ -27,7 +24,7 @@
 
 ### Chores
 
-* **types:** add `DeletionResponse` and `StackResponse` to `gumnut.types`. Methods that return an empty acknowledgment, such as `assets.delete()`, `assets.trash()` and `albums.delete()`, are now typed to return `DeletionResponse`, and `stacks.create_stack()`, `retrieve_stack()`, `list_stacks()`, `add_assets_to_stack()` and `set_cover()` return `StackResponse`. The old names, such as `AssetTrashResponse` and `StackCreateStackResponse`, stay importable as aliases of these classes, so existing imports, annotations and `isinstance()` checks keep working. ([6c6b3a1](https://github.com/gumnut-ai/photos-sdk-python/commit/6c6b3a13a235f2697214f648cc31c450d5018a58))
+* **types:** add `DeletionResponse` and `StackResponse` to `gumnut.types`. Methods that return an empty acknowledgment, such as `assets.delete()`, `assets.trash()` and `albums.delete()`, are now typed to return `DeletionResponse`, and `stacks.create_stack()`, `retrieve_stack()`, `add_assets_to_stack()` and `set_cover()` return `StackResponse`, and `list_stacks()` returns a page of them. The old names, such as `AssetTrashResponse` and `StackCreateStackResponse`, stay importable as aliases of these classes, so existing imports, annotations and `isinstance()` checks keep working. ([6c6b3a1](https://github.com/gumnut-ai/photos-sdk-python/commit/6c6b3a13a235f2697214f648cc31c450d5018a58))
 * The source distribution now contains only the package source and its docs; tests and repository scripts are no longer included. The license names Gumnut Labs LLC. ([69c278d](https://github.com/gumnut-ai/photos-sdk-python/commit/69c278dbbf5afa80678a67b04d2aeee2533abc3d))
 
 ## [0.188.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.187.0...v0.188.0) (2026-11-19)
