@@ -6,9 +6,9 @@ We use [uv](https://docs.astral.sh/uv/) 0.13.6 or newer to manage dependencies b
 $ ./scripts/bootstrap
 ```
 
-Bootstrap creates `uv.lock` only for a fresh SDK. Commit that lockfile; subsequent installs enforce it with `--locked`. Dependencies must satisfy the project's 14-day release cutoff.
+Bootstrap installs the committed `uv.lock` with `--locked` and never changes it. The lockfile is updated where the SDK is generated, so dependency changes made directly here are not kept. Dependencies must satisfy the project's 14-day release cutoff.
 
-With a committed lockfile, [install uv manually](https://docs.astral.sh/uv/getting-started/installation/) and run:
+Or [install uv manually](https://docs.astral.sh/uv/getting-started/installation/) and run:
 
 ```sh
 $ uv sync --locked --all-extras
