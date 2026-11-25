@@ -306,10 +306,9 @@ class AssetsResource(SyncAPIResource):
         `starting_after_id`.
 
         Args:
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
               Returns the album's full asset metadata, not album-asset link records.
@@ -645,10 +644,9 @@ class AssetsResource(SyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
@@ -769,10 +767,9 @@ class AssetsResource(SyncAPIResource):
         timezone-naive local-calendar values.
 
         Args:
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
@@ -1463,10 +1460,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         `starting_after_id`.
 
         Args:
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
               Returns the album's full asset metadata, not album-asset link records.
@@ -1804,10 +1800,9 @@ class AsyncAssetsResource(AsyncAPIResource):
               give coarser clusters; the client maps map-zoom to `cell_size`. Must be at least
               0.0001 (~11 m).
 
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 
@@ -1928,10 +1923,9 @@ class AsyncAssetsResource(AsyncAPIResource):
         timezone-naive local-calendar values.
 
         Args:
-          album_filter: Filter assets by album membership. Use `in_album` for assets in at least one
-              album or `not_in_album` for assets outside every album. `all` (default) applies
-              no membership filter. Omit `album_id` when using `not_in_album`. Combining them
-              returns 422.
+          album_filter: Filter by album membership in general, rather than by membership of one specific
+              album. This filter is independent of `album_id`, but combining `not_in_album`
+              with `album_id` is contradictory and returns 422. Defaults to `all`.
 
           album_id: Return only assets in this album — the album's `album_` ID, not its name.
 

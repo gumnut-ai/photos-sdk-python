@@ -322,12 +322,11 @@ class PeopleResource(SyncAPIResource):
           name_filter: Filter by name nullness. Defaults to `named` (non-null names), or `all` when
               `ids` is provided.
 
-          sort: Sort by when the person was added, their name, or how many assets they appear
-              in. Use `created_at_desc` (default) for newest people first or `created_at_asc`
-              for oldest first. Use `name_asc` for A–Z or `name_desc` for Z–A. Name sorting is
-              locale-aware and places unnamed people last. With either name sort, omit
-              `name_filter` or use `named` or `all`. Use `asset_count_desc` for the most
-              photos and videos first or `asset_count_asc` for the fewest.
+          sort: Sort order for results: `created_at_desc` (newest people first; default) /
+              `created_at_asc`, `name_asc` / `name_desc` (alphabetical by name, locale-aware;
+              unnamed people always sort last), or `asset_count_desc` / `asset_count_asc` (by
+              number of photos the person appears in). Name sorts cannot be combined with
+              `name_filter=unnamed`.
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last person in the previous
               response's `data` to fetch the next page. Omit for the first page.
@@ -798,12 +797,11 @@ class AsyncPeopleResource(AsyncAPIResource):
           name_filter: Filter by name nullness. Defaults to `named` (non-null names), or `all` when
               `ids` is provided.
 
-          sort: Sort by when the person was added, their name, or how many assets they appear
-              in. Use `created_at_desc` (default) for newest people first or `created_at_asc`
-              for oldest first. Use `name_asc` for A–Z or `name_desc` for Z–A. Name sorting is
-              locale-aware and places unnamed people last. With either name sort, omit
-              `name_filter` or use `named` or `all`. Use `asset_count_desc` for the most
-              photos and videos first or `asset_count_asc` for the fewest.
+          sort: Sort order for results: `created_at_desc` (newest people first; default) /
+              `created_at_asc`, `name_asc` / `name_desc` (alphabetical by name, locale-aware;
+              unnamed people always sort last), or `asset_count_desc` / `asset_count_asc` (by
+              number of photos the person appears in). Name sorts cannot be combined with
+              `name_filter=unnamed`.
 
           starting_after_id: Cursor for pagination. Pass the `id` of the last person in the previous
               response's `data` to fetch the next page. Omit for the first page.
