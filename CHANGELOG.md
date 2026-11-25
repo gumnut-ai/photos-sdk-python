@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.190.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.189.0...v0.190.0) (2026-11-25)
+
+
+### Features
+
+* **api:** api update ([584a129](https://github.com/gumnut-ai/photos-sdk-python/commit/584a1293a2751025fd7929847e24519bbc13ec47))
+* **api:** api update ([cf98abb](https://github.com/gumnut-ai/photos-sdk-python/commit/cf98abb2327c5f5d6ff2a280170a6c02a63e1ad5))
+
+
+### Bug Fixes
+
+* **typescript:** don't drop Headers-form defaultHeaders ([ad33060](https://github.com/gumnut-ai/photos-sdk-python/commit/ad330607b3767628481c54d3ced73c61f0c52f21))
+
 ## [0.189.0](https://github.com/gumnut-ai/photos-sdk-python/compare/v0.188.0...v0.189.0) (2026-11-24)
 
 ### Features
