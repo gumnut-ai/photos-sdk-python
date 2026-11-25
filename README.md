@@ -482,10 +482,10 @@ This package is pre-1.0, so any minor release (0.x.0) may include backwards-inco
 renamed or removed methods and changed types. Patch releases (0.x.y) carry fixes and aren't meant to break callers.
 
 Pin to a minor version, and read the [changelog](./CHANGELOG.md) before moving to the next one. For example,
-`gumnut-sdk~=0.188.0` accepts later patch releases but not 0.189.0:
+`gumnut-sdk~=0.189.0` accepts later patch releases but not 0.190.0:
 
 ```sh
-pip install 'gumnut-sdk~=0.188.0'
+pip install 'gumnut-sdk~=0.189.0'
 ```
 
 We are keen for your feedback; please open an [issue](https://www.github.com/gumnut-ai/photos-sdk-python/issues) with questions, bugs, or suggestions.
